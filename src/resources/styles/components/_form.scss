@@ -1,0 +1,6 @@
+.form {
+  &__lock {
+    background: url("../svg/lock.svg") no-repeat 0.75rem center;
+    input-security: none;
+  }
+}

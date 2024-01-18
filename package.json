@@ -1,0 +1,36 @@
+{
+  "name": "fundermaps-maps",
+  "version": "1.0.0",
+  "author": "Lemone B.V.",
+  "license": "MIT",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@parcel/config-default": "^2.8.0",
+    "@parcel/transformer-sass": "^2.8.0",
+    "@parcel/validator-eslint": "^2.8.0",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "parcel": "^2.10.3",
+    "postcss": "^8.4.19",
+    "posthtml-expressions": "^1.10.0",
+    "posthtml-include": "^1.7.4",
+    "posthtml-inline-svg": "^0.2.0",
+    "rimraf": "^3.0.2",
+    "stylelint": "^14.15.0",
+    "stylelint-config-prettier-scss": "^0.0.1",
+    "stylelint-config-sass-guidelines": "^9.0.1",
+    "tailwindcss": "^3.3.6"
+  },
+  "scripts": {
+    "clean:output": "rimraf dist",
+    "start": "yarn run clean:output && parcel src/*.html",
+    "build": "yarn run clean:output && parcel build src/index.html --no-optimize --public-url ./"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.3"
+  }
+}
