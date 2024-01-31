@@ -1,0 +1,11 @@
+.input__message {
+  @apply text-sm leading-normal text-grey-700;
+
+  &[data-variant="success"] {
+    @apply text-green-700;
+  }
+
+  &[data-variant="error"] {
+    @apply text-red-500;
+  }
+}

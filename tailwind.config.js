@@ -92,10 +92,10 @@ export default {
         500: "#ffcc69",
       },
     },
+    fontFamily: {
+      sans: "'Greycliff CF', Arial, sans-serif",
+    },
     extend: {
-      fontFamily: {
-        sans: "'Greycliff CF', Arial, sans-serif",
-      },
       boxShadow: {
         hover:
           "0 10px 20px 0px rgb(0 0 0 / 0.1), 0 4px 4px 0px rgb(0 0 0 / 0.1)",
@@ -104,10 +104,6 @@ export default {
       },
     },
   },
-  variants: {
-    extend: {
-      animation: ["hover"],
-    },
-  },
+  variants: {},
   plugins: [],
 };

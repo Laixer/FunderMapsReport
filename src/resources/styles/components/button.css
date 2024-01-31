@@ -1,0 +1,19 @@
+.button {
+  @apply inline-flex cursor-pointer items-center gap-2 rounded-full border-2 border-solid border-transparent px-5 py-2.5 font-extrabold leading-none disabled:pointer-events-none disabled:cursor-default;
+}
+
+.button--solid {
+  @apply hover:shadow-hover bg-green-500 text-white hover:bg-green-700 disabled:bg-grey-400;
+}
+
+.button--outline {
+  @apply hover:shadow-hover border-current text-green-500 hover:border-transparent hover:bg-green-700 hover:text-white disabled:text-grey-400;
+}
+
+.button--link {
+  @apply rounded-md px-0 text-green-500 outline-offset-2 hover:text-green-700 disabled:text-grey-400;
+}
+
+.button--icon {
+  @apply rounded-full p-2;
+}

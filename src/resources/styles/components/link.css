@@ -1,0 +1,7 @@
+.link {
+  @apply inline-flex cursor-pointer items-center gap-2.5 disabled:pointer-events-none disabled:cursor-default;
+}
+
+.link--outline {
+  @apply rounded border border-grey-200 bg-white px-2.5 py-1 hover:border-transparent hover:shadow-lg;
+}

@@ -1,0 +1,64 @@
+.input--select {
+  @apply space-y-1;
+
+  .input-field {
+    &[data-validation="success"],
+    &:has(:user-invalid) {
+      select {
+        @apply border-green-500 pr-20;
+
+        background-image: url("../svg/icons/select-marker.svg"),
+          url("../svg/icons/validation-success.svg"),
+          linear-gradient(theme(colors.white), theme(colors.grey.100));
+        background-repeat: no-repeat, no-repeat, repeat;
+        background-size: theme(spacing.3), theme(spacing.[2.5]), contain;
+        background-position:
+          center right 1rem,
+          center right 3rem,
+          left;
+      }
+    }
+  }
+
+  .input-field {
+    &[data-validation="error"],
+    &:has(:user-invalid) {
+      select {
+        @apply border-red-500 pr-20 text-red-500;
+
+        background-image: url("../svg/icons/select-marker.svg"),
+          url("../svg/icons/validation-error.svg"),
+          linear-gradient(theme(colors.white), theme(colors.grey.100));
+        background-repeat: no-repeat, no-repeat, repeat;
+        background-size: theme(spacing.3), theme(spacing.[2.5]), contain;
+        background-position:
+          center right 1rem,
+          center right 3rem,
+          left;
+      }
+    }
+  }
+
+  select {
+    all: unset;
+
+    @apply box-border w-full rounded border border-solid
+      border-grey-400 bg-white bg-gradient-to-b from-white to-grey-100 py-2.5
+      pl-4 pr-10 text-base leading-none text-blue-900 placeholder-grey-400;
+
+    background-image: url("../svg/icons/select-marker.svg"),
+      linear-gradient(theme(colors.white), theme(colors.grey.100));
+    background-repeat: no-repeat, repeat;
+    background-size: theme(spacing.3), contain;
+    background-position:
+      center right 1rem,
+      left;
+
+    &:disabled {
+      @apply text-grey-700/70;
+
+      background-image: url("../svg/icons/select-marker-disabled.svg"),
+        linear-gradient(theme(colors.grey.100), theme(colors.grey.100));
+    }
+  }
+}

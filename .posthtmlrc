@@ -4,7 +4,7 @@
       "root": "./src/"
     },
     "posthtml-inline-svg": {
-      "cwd": "./src/resources/svg/",
+      "cwd": "./src/resources/icons/",
       "svgo": {
         "params": {
           "overrides": {
