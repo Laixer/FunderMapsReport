@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fundermaps - Login</title>
+    <link href="./resources/styles/app.scss" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="relative contents h-full min-h-full">
+      <header>
+        <img
+          src="./resources/svg/fundermaps-logo-srgb.svg"
+          alt="logo"
+          class="absolute p-12"
+        />
+      </header>
+      <!-- Background image -->
+      <img
+        src="./resources/images/background.jpg"
+        alt="background"
+        class="absolute -z-10 h-full w-full object-cover"
+      />
+
+      <!-- Modal -->
+      <div
+        class="grid h-screen min-h-full grid-cols-3 content-center justify-center"
+      >
+        <div class="col-start-2 grid w-full rounded-lg bg-white px-10 py-12">
+          <h1 class="heading-3">Login</h1>
+          <form action="#" class="space-y-6 pt-7 text-grey-700">
+            <fieldset class="flex flex-col space-y-2">
+              <label>Gebruikersnaam (e-mail)</label>
+              <input
+                type="email"
+                placeholder="Voer hier je gebruikersnaam in"
+                class="w-full rounded-lg border border-grey-400 px-3 py-2"
+              />
+            </fieldset>
+
+            <fieldset class="flex flex-col space-y-2">
+              <label>Wachtwoord</label>
+              <input
+                type="password"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                class="form__lock | w-full rounded-lg border border-grey-400 py-2 pl-10 pr-3"
+              />
+            </fieldset>
+
+            <button
+              type="submit"
+              class="group flex items-center gap-1 rounded-full bg-green-500 px-4 py-2 font-bold text-white transition-all duration-300 ease-in-out hover:bg-green-700 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-grey-400 disabled:opacity-60"
+            >
+              Log in
+              <i
+                class="icon icon-arrow-right | transition-all duration-300 ease-in-out group-hover:rotate-45"
+              ></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

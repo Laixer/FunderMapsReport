@@ -1,0 +1,7 @@
+{
+  "extends": "@parcel/config-default",
+  "validators": {
+    "*.{js,mjs,jsm,jsx,es6,cjs,ts,tsx}": ["@parcel/validator-eslint"],
+    "*.{css,scss}": ["parcel-validator-stylelint"]
+  }
+}
