@@ -1,0 +1,29 @@
+<div x-data x-menu class="relative">
+  <button x-menu:button class="button">
+    <div class="avatar | bg-blue-900 text-white">
+      <strong aria-hidden="true">K</strong>
+      <span class="sr-only">Kris van der Ven</span>
+    </div>
+    <icon src="chevron-down.svg" class="h-2.5 w-2.5" aria-hidden="true"></icon>
+  </button>
+
+  <div
+    x-menu:items
+    x-transition.origin.top.right
+    class="divide-gray-100 absolute right-0 z-20 mt-2 w-48 origin-top-right divide-y rounded-md bg-white py-1 shadow-md outline-none"
+    x-cloak
+  >
+    <a
+      x-menu:item
+      href="#"
+      class="block w-full px-4 py-2 text-sm transition-colors"
+      >Instellingen</a
+    >
+    <a
+      x-menu:item
+      href="#"
+      class="block w-full px-4 py-2 text-sm transition-colors"
+      >Uitloggen</a
+    >
+  </div>
+</div>

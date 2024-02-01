@@ -1,0 +1,19 @@
+.sidebar {
+  @apply z-10 grid bg-white/70 px-7 py-4 backdrop-blur-md;
+
+  grid-template-rows: [sidebar-header] auto [sidebar-content] 1fr [sidebar-footer] auto;
+
+  &__header {
+    @apply flex justify-between;
+
+    grid-row: sidebar-header;
+  }
+
+  &__content {
+    grid-row: sidebar-content;
+  }
+
+  &__footer {
+    grid-row: sidebar-footer;
+  }
+}

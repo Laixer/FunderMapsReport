@@ -12,6 +12,24 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
+"@alpinejs/collapse@^3.13.5":
+  version "3.13.5"
+  resolved "https://registry.yarnpkg.com/@alpinejs/collapse/-/collapse-3.13.5.tgz#25e0d9122944996b49516d842f1000a2c7db0723"
+  integrity sha512-LHtSF/T3Zrhr0WOeVm4ebdXNH6ftqoZMbmkBTU1n/j8r0joV3oLUsPCyn5qOU8+27d2P/N2a057etOm0MH60oQ==
+
+"@alpinejs/focus@^3.13.5":
+  version "3.13.5"
+  resolved "https://registry.yarnpkg.com/@alpinejs/focus/-/focus-3.13.5.tgz#024cffefbdff7214c4f18f81dde9b09dca8b9407"
+  integrity sha512-ViZ1W9M3/leZKNdsMyTZvGCu2DPMyUSbRwrbGNOnCkzHMHOIP6zdGpzPkD+1HyhQ2SuG7wRgf7YlrPnlE6tMqA==
+  dependencies:
+    focus-trap "^6.9.4"
+    tabbable "^5.3.3"
+
+"@alpinejs/ui@^3.13.5-beta.0":
+  version "3.13.5-beta.0"
+  resolved "https://registry.yarnpkg.com/@alpinejs/ui/-/ui-3.13.5-beta.0.tgz#2c8b46ef0d6d9ac39f59032792d1e3cfe1fbaea8"
+  integrity sha512-1YpvQowxDVaVZXFf92uRfgRa/vvAqKH7b1k8R45tbquWI3ZeECgiEYokATsR60o7YDFnQwlg3xgoAiSkTlISVA==
+
 "@babel/code-frame@^7.0.0":
   version "7.23.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.23.5.tgz#9009b69a8c602293476ad598ff53e4562e15c244"
@@ -1071,10 +1089,10 @@ ajv@^8.0.1:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-alpinejs@^3.13.3:
-  version "3.13.3"
-  resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-3.13.3.tgz#92eb7e869b99ff548e7a55044e45660597cf530b"
-  integrity sha512-WZ6WQjkAOl+WdW/jukzNHq9zHFDNKmkk/x6WF7WdyNDD6woinrfXCVsZXm0galjbco+pEpYmJLtwlZwcOfIVdg==
+alpinejs@^3.13.5:
+  version "3.13.5"
+  resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-3.13.5.tgz#c06f067e847a295085b4c6f76c42a6a35499d953"
+  integrity sha512-1d2XeNGN+Zn7j4mUAKXtAgdc4/rLeadyTMWeJGXF5DzwawPBxwTiBhFFm6w/Ei8eJxUZeyNWWSD9zknfdz1kEw==
   dependencies:
     "@vue/reactivity" "~3.1.1"
 
@@ -2048,6 +2066,13 @@ flatted@^3.2.9:
   version "3.2.9"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.9.tgz#7eb4c67ca1ba34232ca9d2d93e9886e611ad7daf"
   integrity sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==
+
+focus-trap@^6.9.4:
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-6.9.4.tgz#436da1a1d935c48b97da63cd8f361c6f3aa16444"
+  integrity sha512-v2NTsZe2FF59Y+sDykKY+XjqZ0cPfhq/hikWVL88BqLivnNiEffAsac6rP6H45ff9wG9LL5ToiDqrLEP9GX9mw==
+  dependencies:
+    tabbable "^5.3.3"
 
 for-each@^0.3.3:
   version "0.3.3"
@@ -3751,6 +3776,11 @@ svgo@^2.4.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
+
+tabbable@^5.3.3:
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.3.3.tgz#aac0ff88c73b22d6c3c5a50b1586310006b47fbf"
+  integrity sha512-QD9qKY3StfbZqWOPLp0++pOrAVb/HbUi5xCc8cUo4XjP19808oaMiDzn0leBY5mCespIBM0CIZePzZjgzR83kA==
 
 table@^6.8.1:
   version "6.8.1"

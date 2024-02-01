@@ -1,1 +1,110 @@
-<h1>Dashboard</h1>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fundermaps - Dashboard</title>
+    <link href="./resources/styles/app.css" rel="stylesheet" />
+    <script type="module" src="./resources/scripts/app.js"></script>
+  </head>
+
+  <body class="page-dashboard">
+    <include src="app/header.html"></include>
+    <div
+      class="app-view | relative bg-grey-200"
+      style="
+        background-image: url(&quot;./resources/images/map.png&quot;);
+        background-repeat: no-repeat;
+        background-size: cover;
+      "
+    >
+      <div class="map__actions | absolute left-8 top-12">
+        <button class="button button--solid">
+          <icon src="filter.svg" class="w-3" aria-hidden="true"></icon>
+          Open filter
+        </button>
+      </div>
+      <!-- Start content for DEMO -->
+      <div class="map__navigation | absolute bottom-5 right-5">A</div>
+      <!-- End content for DEMO -->
+    </div>
+    <div class="app-sidebar--left sidebar">
+      <div class="sidebar__header">
+        <button
+          class="button button--link | group ml-auto text-blue-900 hover:text-red-500"
+        >
+          <span>
+            <div class="button__label">Sluit</div>
+          </span>
+          <icon
+            src="close.svg"
+            class="aspect-square h-3.5 text-red-500"
+            aria-hidden="true"
+          ></icon>
+        </button>
+      </div>
+      <div class="sidebar__content">
+        <h4 class="heading-4">Kaart filter</h4>
+        <div class="grid space-y-2">
+          <a href="" class="link link--outline | group px-4 py-3">
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Rapportage</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+          <a href="" class="link link--outline | group px-4 py-3">
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Risico</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+          <a href="" class="link link--outline | group px-4 py-3">
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Fundering</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+        </div>
+      </div>
+      <div class="sidebar__footer">footer</div>
+    </div>
+    <div class="app-sidebar--right sidebar">
+      <div class="sidebar__header">
+        <button
+          class="button button--link | group ml-auto text-blue-900 hover:text-red-500"
+        >
+          <span>
+            <div class="button__label">Sluit</div>
+          </span>
+          <icon
+            src="close.svg"
+            class="aspect-square h-3.5 text-red-500"
+            aria-hidden="true"
+          ></icon>
+        </button>
+      </div>
+      <div class="sidebar__content">hoofd</div>
+    </div>
+  </body>
+</html>

@@ -3,5 +3,5 @@
 }
 
 .link--outline {
-  @apply rounded border border-grey-200 bg-white px-2.5 py-1 hover:border-transparent hover:shadow-lg;
+  @apply rounded border border-grey-200 px-2.5 py-1 hover:border-transparent hover:shadow-lg;
 }

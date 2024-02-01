@@ -1,10 +1,10 @@
 {
   "plugins": {
     "posthtml-include": {
-      "root": "./src/"
+      "root": "./src/components/"
     },
     "posthtml-inline-svg": {
-      "cwd": "./src/resources/icons/",
+      "cwd": "./src/resources/svg/icons/",
       "svgo": {
         "params": {
           "overrides": {
