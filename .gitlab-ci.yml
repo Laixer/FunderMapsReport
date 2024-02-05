@@ -14,13 +14,13 @@ yarn build:
   artifacts:
     name: "build-$CI_PIPELINE_ID"
     paths:
-      - build
+      - dist
 
 pages:
   stage: deploy
   script:
     - mkdir public
-    - mv build/* public/
+    - mv dist/* public/
   artifacts:
     name: "$CI_PIPELINE_ID"
     paths:
