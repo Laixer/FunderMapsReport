@@ -1,7 +1,7 @@
 .page-dashboard {
   @apply grid;
 
-  grid-template-columns: [sidebar-left full-start] 21rem [main] auto [sidebar-right] 21rem [full-end];
+  grid-template-columns: [panel-left full-start] 21rem [main] auto [panel-right] 21rem [full-end];
   grid-template-rows: [header] theme(spacing.20) [main] auto;
 
   .app-header {
@@ -14,13 +14,13 @@
     grid-row: main;
   }
 
-  .app-sidebar--left {
+  .app-panel--left {
     grid-row: main;
-    grid-column: sidebar-left;
+    grid-column: panel-left;
   }
 
-  .app-sidebar--right {
+  .app-panel--right {
     grid-row: main;
-    grid-column: sidebar-right;
+    grid-column: panel-right;
   }
 }

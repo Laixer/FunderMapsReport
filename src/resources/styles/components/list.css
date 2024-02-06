@@ -1,0 +1,17 @@
+.list {
+  &--legenda {
+    @apply space-y-2;
+
+    li {
+      @apply flex items-baseline gap-2.5;
+
+      &::before {
+        content: "";
+
+        @apply h-2.5 w-2.5 rounded-full;
+
+        background-color: var(--marker-color, theme(colors.grey.700));
+      }
+    }
+  }
+}

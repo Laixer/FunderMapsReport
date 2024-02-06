@@ -29,7 +29,7 @@
   "scripts": {
     "clean:output": "rimraf dist",
     "start": "yarn run clean:output && parcel src/*.html",
-    "build": "yarn run clean:output && parcel build src/index.html --no-optimize --public-url ./"
+    "build": "yarn run clean:output && parcel build src/*.html --no-optimize --public-url ./"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.13.5",

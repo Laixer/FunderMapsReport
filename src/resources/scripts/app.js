@@ -1,7 +1,7 @@
 import Alpine from "alpinejs";
 import ui from "@alpinejs/ui";
 import focus from "@alpinejs/focus";
-// import dropdown from "./components/dropdown";
+import panels from "./components/panels";
 
 window.Alpine = Alpine;
 
@@ -12,6 +12,6 @@ Alpine.plugin(ui);
 // AlpineJS PLugin: Collapse for smooth animations
 Alpine.plugin(focus);
 
-// Alpine.data("dropdown", dropdown);
+Alpine.data("panels", panels);
 
 Alpine.start();

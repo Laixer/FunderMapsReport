@@ -8,19 +8,8 @@ body {
 }
 
 .content {
-  @apply space-y-4;
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-extrabold;
-  }
-
-  h1 {
-    @apply text-4xl;
+  > * + * {
+    margin-top: var(--flow-margin-top, theme(spacing.4));
   }
 
   h2 {
@@ -47,7 +36,15 @@ body {
     @apply ml-6 list-decimal;
   }
 
-  ul {
+  h6 + * {
+    --flow-margin-top: theme(spacing.2);
+  }
+
+  ol:not([class*="list--"]) {
+    @apply ml-6 list-decimal;
+  }
+
+  ul:not([class*="list--"]) {
     @apply ml-6 list-disc;
   }
 }
