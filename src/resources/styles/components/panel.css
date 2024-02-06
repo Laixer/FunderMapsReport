@@ -1,5 +1,5 @@
 .panel {
-  @apply z-10 grid h-full gap-2 overflow-hidden bg-white/80 py-4 backdrop-blur-md;
+  @apply relative z-10 grid h-full w-full flex-shrink-0 gap-2 overflow-hidden bg-white/80 py-4 backdrop-blur-md;
 
   grid-template-rows: [panel-header] auto [panel-content] 1fr [panel-footer] auto;
 
@@ -27,5 +27,9 @@
 }
 
 [class*="app-panel--"] {
-  @apply overflow-hidden;
+  @apply block overflow-hidden;
+}
+
+.panels {
+  @apply flex h-full;
 }
