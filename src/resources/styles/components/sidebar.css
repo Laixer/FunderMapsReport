@@ -1,0 +1,25 @@
+.sidebar {
+  @apply z-10 grid gap-2 overflow-hidden bg-white/80 py-4 backdrop-blur-md;
+
+  grid-template-rows: [sidebar-header] auto [sidebar-content] 1fr [sidebar-footer] auto;
+
+  > * {
+    @apply px-7;
+  }
+
+  &__header {
+    @apply flex items-baseline justify-between;
+
+    grid-row: sidebar-header;
+  }
+
+  &__content {
+    @apply space-y-8 overflow-scroll;
+
+    grid-row: sidebar-content;
+  }
+
+  &__footer {
+    grid-row: sidebar-footer;
+  }
+}

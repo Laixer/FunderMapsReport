@@ -32,6 +32,9 @@
     "build": "yarn run clean:output && parcel build src/index.html --no-optimize --public-url ./"
   },
   "dependencies": {
-    "alpinejs": "^3.13.3"
+    "@alpinejs/collapse": "^3.13.5",
+    "@alpinejs/focus": "^3.13.5",
+    "@alpinejs/ui": "^3.13.5-beta.0",
+    "alpinejs": "^3.13.5"
   }
 }

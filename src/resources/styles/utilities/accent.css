@@ -1,0 +1,16 @@
+.stroke-accent,
+.fill-accent {
+  --_accent-color: var(--accent-color, currentColor);
+}
+
+.stroke-accent {
+  stroke: var(--_accent-color);
+}
+
+.fill-accent {
+  fill: var(--_accent-color);
+}
+
+.accent-color-blue {
+  --accent-color: theme(colors.blue.500);
+}

@@ -3,45 +3,53 @@ body {
   @apply h-full w-full;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-extrabold;
+[x-cloak] {
+  @apply hidden;
 }
 
-h1 {
-  @apply text-4xl;
-}
+.content {
+  @apply space-y-4;
 
-h2 {
-  @apply text-3xl;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-extrabold;
+  }
 
-h3 {
-  @apply text-2xl;
-}
+  h1 {
+    @apply text-4xl;
+  }
 
-h4 {
-  @apply text-xl;
-}
+  h2 {
+    @apply text-3xl;
+  }
 
-h5 {
-  @apply text-lg;
-}
+  h3 {
+    @apply text-2xl;
+  }
 
-a {
-  @apply text-green-500 hover:text-green-700 hover:underline;
-}
+  h4 {
+    @apply text-xl;
+  }
 
-ol {
-  @apply ml-6 list-decimal;
-}
+  h5 {
+    @apply text-lg;
+  }
 
-ul {
-  @apply ml-6 list-disc;
+  a {
+    @apply text-green-500 hover:text-green-700 hover:underline;
+  }
+
+  ol {
+    @apply ml-6 list-decimal;
+  }
+
+  ul {
+    @apply ml-6 list-disc;
+  }
 }
 
 .heading-1,

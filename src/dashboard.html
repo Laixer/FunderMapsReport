@@ -1,1 +1,252 @@
-<h1>Dashboard</h1>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fundermaps - Dashboard</title>
+    <link href="./resources/styles/app.css" rel="stylesheet" />
+    <script type="module" src="./resources/scripts/app.js"></script>
+  </head>
+
+  <body class="page-dashboard">
+    <include src="app/header.html"></include>
+    <div
+      class="app-view | relative bg-grey-200"
+      style="
+        background-image: url(&quot;./resources/images/map.png&quot;);
+        background-repeat: no-repeat;
+        background-size: cover;
+      "
+    >
+      <div class="map__actions | absolute left-8 top-12">
+        <button class="button button--solid">
+          <icon src="filter.svg" class="w-3" aria-hidden="true"></icon>
+          Open filter
+        </button>
+      </div>
+      <!-- Start content for DEMO -->
+      <div class="map__navigation | absolute bottom-5 right-5">A</div>
+      <!-- End content for DEMO -->
+    </div>
+    <div class="app-sidebar--left sidebar">
+      <div class="sidebar__header">
+        <button
+          class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
+        >
+          <span>
+            <div class="button__label">Sluit</div>
+          </span>
+          <icon
+            src="close.svg"
+            class="aspect-square h-3.5 text-red-500"
+            aria-hidden="true"
+          ></icon>
+        </button>
+      </div>
+      <div class="sidebar__content">
+        <div>
+          <h4 class="heading-4">Kaart filter</h4>
+        </div>
+        <section class="grid space-y-2">
+          <a href="" class="link link--outline | group px-4 py-3">
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Rapportage</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+          <a href="" class="link link--outline | group px-4 py-3">
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Risico</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+          <a href="" class="link link--outline | group px-4 py-3">
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Fundering</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+        </section>
+      </div>
+    </div>
+    <div class="app-sidebar--right sidebar">
+      <div class="sidebar__header">
+        <h6 class="heading-6">Pand informatie</h6>
+        <button
+          class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
+        >
+          <span>
+            <div class="button__label">Sluit</div>
+          </span>
+          <icon
+            src="close.svg"
+            class="aspect-square h-3.5 text-red-500"
+            aria-hidden="true"
+          ></icon>
+        </button>
+      </div>
+      <div class="sidebar__content">
+        <h4 class="heading-4">Villastraat 118, 3112 TG Schiedam</h4>
+        <a
+          href=""
+          class="link link--outline | group flex-1 justify-center px-2 py-0.5"
+        >
+          <icon
+            src="arrow-left.svg"
+            class="aspect-square w-3 rotate-45 transition-transform group-hover:rotate-0"
+            aria-hidden="true"
+          ></icon>
+          <strong>Terug naar terug</strong>
+        </a>
+        <section class="space-y-2 rounded-lg border border-grey-400 p-4">
+          <h6 class="heading-6">Rapportage informatie</h6>
+          <ul class="space-y-1 text-grey-700">
+            <li>Gebouwhoogte: 7,68 meter</li>
+            <li>Rapportage: archieve_research</li>
+            <li>Handhavingstermijn: -23 jaar</li>
+            <li>Funderingskwaliteit: good</li>
+            <li>Inquiry: 120324</li>
+          </ul>
+        </section>
+        <section class="space-y-2">
+          <div class="flex justify-between">
+            <h5 class="heading-5">Tussen titel</h5>
+            <a href="" class="link first-letter | group">
+              Alle informatie
+              <icon
+                src="arrow-right.svg"
+                class="aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0"
+                aria-hidden="true"
+              ></icon>
+            </a>
+          </div>
+          <div class="accordion divide-y divide-grey-200">
+            <details>
+              <summary class="list-none">
+                <div class="flex justify-between py-4">
+                  <h6 class="font-bold leading-none">Handhavingstermijn</h6>
+                  <span data-show-open="false"
+                    ><icon
+                      src="plus.svg"
+                      class="aspect-square w-4"
+                      aria-hidden="true"
+                    ></icon
+                  ></span>
+                  <span data-show-open="true">
+                    <icon
+                      src="minus.svg"
+                      class="aspect-square w-4"
+                      aria-hidden="true"
+                    ></icon>
+                  </span>
+                </div>
+              </summary>
+              <div class="content">
+                <ol class="list-disc">
+                  <li>> 25</li>
+                  <li>20 t/m 25</li>
+                  <li>15 t/m 20</li>
+                  <li>10 t/m 15</li>
+                  <li>5 t/m 10</li>
+                  <li>0 t/m 5</li>
+                </ol>
+              </div>
+            </details>
+            <details>
+              <summary class="list-none">
+                <div class="flex justify-between py-4">
+                  <h6 class="font-bold leading-none">System Requirements</h6>
+                  <span data-show-open="false"
+                    ><icon
+                      src="plus.svg"
+                      class="aspect-square w-4"
+                      aria-hidden="true"
+                    ></icon
+                  ></span>
+                  <span data-show-open="true">
+                    <icon
+                      src="minus.svg"
+                      class="aspect-square w-4"
+                      aria-hidden="true"
+                    ></icon>
+                  </span>
+                </div>
+              </summary>
+              <div class="content">
+                <p>
+                  Requires a computer running an operating system. The computer
+                  must have some memory and ideally some kind of long-term
+                  storage. An input device as well as some form of output device
+                  is recommended.
+                </p>
+                <p>
+                  Requires a computer running an operating system. The computer
+                  must have some memory and ideally some kind of long-term
+                  storage. An input device as well as some form of output device
+                  is recommended.
+                </p>
+              </div>
+            </details>
+          </div>
+        </section>
+        <section>
+          <a href="" class="button button--outline | group w-full">
+            <span class="button__label | font-normal">
+              Bekijk onderzoeks informatie
+            </span>
+            <icon
+              src="arrow-right.svg"
+              class="aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0"
+              aria-hidden="true"
+            ></icon>
+          </a>
+        </section>
+      </div>
+      <div class="sidebar__footer | flex gap-2">
+        <a
+          href=""
+          class="link link--outline | group flex-1 justify-center px-2 py-0.5"
+        >
+          <icon
+            src="fun/file-report.svg"
+            class="aspect-square w-3"
+            aria-hidden="true"
+          ></icon>
+          <strong>Incidenten</strong>
+        </a>
+        <a
+          href=""
+          class="link link--outline | group flex-1 justify-center px-2 py-0.5"
+        >
+          <icon
+            src="fun/file-report.svg"
+            class="aspect-square w-3"
+            aria-hidden="true"
+          ></icon>
+          <strong>Feedback</strong>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
