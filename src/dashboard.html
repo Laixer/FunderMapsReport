@@ -8,7 +8,7 @@
     <script type="module" src="./resources/scripts/app.js"></script>
   </head>
 
-  <body class="page-dashboard">
+  <body class="page-dashboard" x-data="panels">
     <include src="app/header.html"></include>
     <div
       class="app-view | relative bg-grey-200"
@@ -18,20 +18,45 @@
         background-size: cover;
       "
     >
-      <div class="map__actions | absolute left-8 top-12">
-        <button class="button button--solid">
+      <div
+        class="map__actions | absolute left-8 top-12"
+        x-show="!leftPanelOpen"
+      >
+        <button class="button button--solid" x-on:click="leftPanelOpen = true">
           <icon src="filter.svg" class="w-3" aria-hidden="true"></icon>
           Open filter
         </button>
       </div>
       <!-- Start content for DEMO -->
       <div class="map__navigation | absolute bottom-5 right-5">A</div>
+      <button
+        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        x-on:click="toggleRightPanel"
+      >
+        <icon
+          src="classification/a.svg"
+          class="ml-auto aspect-square h-8 transition-transform"
+          aria-hidden="true"
+        ></icon>
+      </button>
       <!-- End content for DEMO -->
     </div>
-    <div class="app-panel--left">
+    <div
+      class="app-panel--left"
+      role="dialog"
+      aria-modal="true"
+      x-show="leftPanelOpen"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="-translate-x-full"
+      x-transition:enter-end="translate-x-0"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="translate-x-0"
+      x-transition:leave-end="-translate-x-full"
+    >
       <div class="panel">
         <div class="panel__header">
           <button
+            x-on:click="leftPanelOpen = false"
             class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
           >
             <span>
@@ -131,7 +156,7 @@
               </div>
             </a>
           </section>
-          <section class="content -mx-4 rounded-t-lg bg-white p-4">
+          <section class="content -mx-4 rounded-t-lg bg-white px-4 py-6">
             <h5>Onderzoek 12345</h5>
             <h6>Onderzoeksbestand</h6>
             <p>
@@ -154,11 +179,23 @@
         </div>
       </div>
     </div>
-    <div class="app-panel--right">
+    <div
+      class="app-panel--right"
+      role="dialog"
+      aria-modal="true"
+      x-show="rightPanelOpen"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="translate-x-full"
+      x-transition:enter-end="translate-x-0"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="translate-x-0"
+      x-transition:leave-end="translate-x-full"
+    >
       <div class="panel">
         <div class="panel__header">
           <h6 class="heading-6">Pand informatie</h6>
           <button
+            x-on:click="rightPanelOpen = false"
             class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
           >
             <span>

@@ -2,7 +2,10 @@ export default () => ({
   leftPanelOpen: false,
   rightPanelOpen: false,
 
-  toggle() {
-    this.open = !this.open;
+  toggleLeftPanel() {
+    this.leftPanelOpen = !this.leftPanelOpen;
+  },
+  toggleRightPanel() {
+    this.rightPanelOpen = !this.rightPanelOpen;
   },
 });
