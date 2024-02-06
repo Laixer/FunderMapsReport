@@ -4,11 +4,11 @@
 }
 
 .stroke-accent {
-  stroke: var(--accent-color);
+  stroke: var(--_accent-color);
 }
 
 .fill-accent {
-  fill: var(--accent-color);
+  fill: var(--_accent-color);
 }
 
 .accent-color-blue {

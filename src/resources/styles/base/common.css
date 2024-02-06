@@ -8,6 +8,8 @@ body {
 }
 
 .content {
+  @apply space-y-4;
+
   h1,
   h2,
   h3,
