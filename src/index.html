@@ -64,7 +64,11 @@
           </div>
         </div>
 
-        <button type="submit" class="button button--solid | group">
+        <button
+          type="submit"
+          class="button button--solid | group"
+          onClick="event.preventDefault(); window.location.href = 'dashboard.html';"
+        >
           <span class="button__label">Log in</span>
           <svg
             viewbox="0 0 16 16"
@@ -82,7 +86,6 @@
 
       <p>
         <a href="forgot-password.html">Help, ik ben mijn wachtwoord vergeten</a>
-        <a href="dashboard.html">Dashboard</a>
       </p>
     </div>
   </body>
