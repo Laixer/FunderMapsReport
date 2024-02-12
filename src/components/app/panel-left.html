@@ -1,0 +1,244 @@
+<div
+  class="sidebar app-sidebar--left"
+  role="dialog"
+  aria-modal="true"
+  x-show="leftPanelOpen"
+  x-transition:enter="transition ease-out duration-300"
+  x-transition:enter-start="-translate-x-full"
+  x-transition:enter-end="translate-x-0"
+  x-transition:leave="transition ease-in duration-200"
+  x-transition:leave-start="translate-x-0"
+  x-transition:leave-end="-translate-x-full"
+>
+  <div
+    class="panels transition-transform duration-300"
+    :class="{'-translate-x-full': leftPanelSlide}"
+  >
+    <div class="panel">
+      <div class="panel__header">
+        <button
+          x-on:click="setLeftPanel(false)"
+          class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
+        >
+          <span class="button__label">Sluit</span>
+          <icon
+            src="close.svg"
+            class="aspect-square h-3.5 text-red-500"
+            aria-hidden="true"
+          ></icon>
+        </button>
+      </div>
+      <div class="panel__content">
+        <div class="flex items-center gap-3">
+          <h4 class="heading-4">Kaart filter</h4>
+        </div>
+
+        <!-- Example: Linked list -->
+        <section class="grid space-y-2">
+          <a
+            href=""
+            class="link link--outline | group px-4 py-3"
+            x-on:click.prevent="leftPanelSlide = true"
+          >
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Rapportage</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+          <a href="" class="link link--outline | group px-4 py-3">
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Risico</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+          <a href="" class="link link--outline | group px-4 py-3">
+            <icon
+              src="fun/file-report.svg"
+              class="accent-color-blue aspect-square w-6"
+              aria-hidden="true"
+            ></icon>
+            <span>Fundering</span>
+            <icon
+              src="arrow-right.svg"
+              class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+              aria-hidden="true"
+            ></icon>
+          </a>
+        </section>
+
+        <!-- Example: Link Bloks -->
+        <section class="grid space-y-2">
+          <a
+            href=""
+            class="link link--outline | group px-4 py-3"
+            x-on:click.prevent="setStatisticsModal()"
+          >
+            <div>
+              <h6 class="heading-6">Verhouding aantal fundering in de buurt</h6>
+              <div class="link">
+                <span class="font-semibold">Bekijk grafiek</span>
+                <icon
+                  src="arrow-right.svg"
+                  class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0"
+                  aria-hidden="true"
+                ></icon>
+              </div>
+            </div>
+          </a>
+          <a href="" class="link link--outline | group px-4 py-3">
+            <div>
+              <h6 class="heading-6">
+                Verhouding aantal soorten risico’s in de buurt
+              </h6>
+              <div class="link">
+                <span class="font-semibold">Bekijk grafiek</span>
+                <icon
+                  src="arrow-right.svg"
+                  class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0"
+                  aria-hidden="true"
+                ></icon>
+              </div>
+            </div>
+          </a>
+        </section>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel__header">
+        <button
+          x-on:click="setLeftPanel(false)"
+          class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
+        >
+          <span>
+            <div class="button__label">Sluit</div>
+          </span>
+          <icon
+            src="close.svg"
+            class="aspect-square h-3.5 text-red-500"
+            aria-hidden="true"
+          ></icon>
+        </button>
+      </div>
+      <div class="panel__content">
+        <div class="flex items-center gap-3">
+          <icon
+            src="fun/file-report.svg"
+            class="accent-color-blue aspect-square w-6"
+            aria-hidden="true"
+          ></icon>
+          <h4 class="heading-4">
+            Rapportage
+            <button
+              class="-ml-1 p-2 text-green-500 hover:text-green-700"
+              x-on:click="setPopupRapportage()"
+              type="button"
+            >
+              <icon
+                src="info.svg"
+                class="aspect-square w-4"
+                aria-hidden="true"
+              ></icon>
+            </button>
+          </h4>
+        </div>
+        <a
+          href=""
+          class="link link--outline | group self-start"
+          x-on:click.prevent="leftPanelSlide = false"
+        >
+          <icon
+            src="arrow-left.svg"
+            class="aspect-square w-3 rotate-45 transition-transform group-hover:rotate-0"
+            aria-hidden="true"
+          ></icon>
+          <strong>Terug naar kaart filter</strong>
+        </a>
+
+        <section class="space-y-2">
+          <div class="accordion divide-y divide-grey-200">
+            <details>
+              <summary class="list-none">
+                <div class="flex justify-between py-4">
+                  <h6 class="font-bold leading-none">Handhavingstermijn</h6>
+                  <span data-show-open="false">
+                    <icon
+                      src="plus.svg"
+                      class="aspect-square w-4"
+                      aria-hidden="true"
+                    ></icon>
+                  </span>
+                  <span data-show-open="true">
+                    <icon
+                      src="minus.svg"
+                      class="aspect-square w-4"
+                      aria-hidden="true"
+                    ></icon>
+                  </span>
+                </div>
+              </summary>
+              <div class="content">
+                <ol class="list--legenda">
+                  <li style="--marker-color: orange">> 25</li>
+                  <li>20 t/m 25</li>
+                  <li>15 t/m 20</li>
+                  <li style="--marker-color: purple">10 t/m 15</li>
+                  <li>5 t/m 10</li>
+                  <li>0 t/m 5</li>
+                </ol>
+              </div>
+            </details>
+            <details>
+              <summary class="list-none">
+                <div class="flex justify-between py-4">
+                  <h6 class="font-bold leading-none">Rapportage type</h6>
+                  <span data-show-open="false">
+                    <icon
+                      src="plus.svg"
+                      class="aspect-square w-4"
+                      aria-hidden="true"
+                    ></icon>
+                  </span>
+                  <span data-show-open="true">
+                    <icon
+                      src="minus.svg"
+                      class="aspect-square w-4"
+                      aria-hidden="true"
+                    ></icon>
+                  </span>
+                </div>
+              </summary>
+              <div class="content">
+                <p>
+                  Requires a computer running an operating system. The computer
+                  must have some memory and ideally some kind of long-term
+                  storage. An input device as well as some form of output device
+                  is recommended.
+                </p>
+                <p>
+                  Requires a computer running an operating system. The computer
+                  must have some memory and ideally some kind of long-term
+                  storage. An input device as well as some form of output device
+                  is recommended.
+                </p>
+              </div>
+            </details>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

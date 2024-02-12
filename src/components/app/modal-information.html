@@ -1,0 +1,122 @@
+<div
+  x-dialog
+  x-model="informationModalOpen"
+  style="display: none"
+  class="app-modal modal | z-20 grid place-items-center overflow-y-auto bg-blue-900/90 p-4 xl:pointer-events-none xl:bg-transparent"
+>
+  <div
+    class="panel pointer-events-auto"
+    aria-role="dialog"
+    aria-describedby="dialog-label"
+    aria-modal="true"
+  >
+    <header class="panel__header">
+      <h4 id="dialog-label" class="heading-4">Alle informatie</h4>
+      <button
+        class="button button--link | group absolute right-8 top-3 text-blue-900 hover:text-red-500"
+        x-on:click="setInformationModal(false)"
+      >
+        <span>
+          <div class="button__label">Sluit</div>
+        </span>
+        <icon
+          src="close.svg"
+          class="aspect-square h-3.5 text-red-500"
+          aria-hidden="true"
+        ></icon>
+      </button>
+    </header>
+    <div class="panel__content content | -mx-6 space-y-4 px-6">
+      <section class="space-y-4">
+        <h6>Pand</h6>
+        <dl role="list" class="list--definition">
+          <div class="item">
+            <dt>Adres</dt>
+            <dd>Willemsplein 492, 3016 DR Rotterdam</dd>
+          </div>
+          <div class="item">
+            <dt>Oppervlakte</dt>
+            <dd>1.000 m²</dd>
+          </div>
+          <div class="item">
+            <dt>Gebruik</dt>
+            <dd>Wonen</dd>
+          </div>
+          <div class="item">
+            <dt>Bestemming</dt>
+            <dd>Wonen</dd>
+          </div>
+          <div class="item">
+            <dt>Waarde</dt>
+            <dd>€ 1.000.000</dd>
+          </div>
+          <div class="item">
+            <dt>Laatste transactie</dt>
+            <dd>€ 1.000.000</dd>
+          </div>
+          <div class="item">
+            <dt>Laatste transactie</dt>
+            <dd>€ 1.000.000</dd>
+          </div>
+          <div class="item">
+            <dt>Adres</dt>
+            <dd>Willemsplein 492, 3016 DR Rotterdam</dd>
+          </div>
+          <div class="item">
+            <dt>Oppervlakte</dt>
+            <dd>1.000 m²</dd>
+          </div>
+          <div class="item">
+            <dt>Gebruik</dt>
+            <dd>Wonen</dd>
+          </div>
+          <div class="item">
+            <dt>Bestemming</dt>
+            <dd>Wonen</dd>
+          </div>
+          <div class="item">
+            <dt>Waarde</dt>
+            <dd>€ 1.000.000</dd>
+          </div>
+          <div class="item">
+            <dt>Laatste transactie</dt>
+            <dd>€ 1.000.000</dd>
+          </div>
+          <div class="item">
+            <dt>Laatste transactie</dt>
+            <dd>€ 1.000.000</dd>
+          </div>
+        </dl>
+      </section>
+      <hr class="border-grey-200" />
+      <section class="space-y-4">
+        <h6>Pand</h6>
+        <dl role="list" class="list--definition">
+          <div class="item">
+            <dt>Adres</dt>
+            <dd>
+              Willemsplein 492<br />
+              3016 DR Rotterdam
+            </dd>
+          </div>
+          <div class="item">
+            <dt>Oppervlakte</dt>
+            <dd>1.000 m²</dd>
+          </div>
+          <div class="item">
+            <dt>Gebruik</dt>
+            <dd>Wonen</dd>
+          </div>
+          <div class="item">
+            <dt>Bestemming</dt>
+            <dd>Wonen</dd>
+          </div>
+          <div class="item">
+            <dt>Waarde</dt>
+            <dd>€ 1.000.000</dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  </div>
+</div>

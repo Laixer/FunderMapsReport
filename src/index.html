@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fundermaps - Inloggen</title>
     <link href="./resources/styles/app.css" rel="stylesheet" />
+    <script type="module" src="./resources/scripts/app.js"></script>
   </head>
   <body class="page-no-session | grid place-content-center">
     <div class="logo | absolute left-12 top-12">
@@ -34,32 +35,41 @@
               id="input-default"
               name="input-default"
               placeholder="Voer je gebruikersnaam in"
+              autocomplete="username"
             />
           </div>
         </div>
-        <div class="input--text">
+        <div class="input--text" x-data="{passwordHidden: true}">
           <label for="login-form-password" class="input__label"
             >Wachtwoord</label
           >
           <div class="input-field">
-            <div class="input-field__before">
-              <svg
-                viewbox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg"
+            <button
+              class="input-field__before"
+              type="button"
+              @click="passwordHidden = !passwordHidden"
+            >
+              <icon
+                src="locked.svg"
                 class="aspect-square w-4 text-grey-700"
-              >
-                <path
-                  d="M12 6.184V4c0-2.206-1.794-4-4-4S4 1.794 4 4v2.184A2.996 2.996 0 0 0 2 9v4c0 1.654 1.346 3 3 3h6c1.654 0 3-1.346 3-3V9a2.996 2.996 0 0 0-2-2.816ZM8 12a1.333 1.333 0 1 1 0-2.667A1.333 1.333 0 0 1 8 12ZM4.667 6h6.666V4A3.337 3.337 0 0 0 8 .667 3.337 3.337 0 0 0 4.667 4v2Z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                ></path>
-              </svg>
-            </div>
+                aria-hidden="true"
+                x-show="passwordHidden"
+              ></icon>
+              <icon
+                src="unlocked.svg"
+                class="aspect-square w-4 text-grey-700"
+                aria-hidden="true"
+                x-show="!passwordHidden"
+              ></icon>
+              <span class="sr-only"> Toggle wachtwoord zichtbaarheid </span>
+            </button>
             <input
               type="password"
+              :type="passwordHidden ? 'password' : 'text'"
               id="login-form-password"
               name="login-form-password"
               placeholder="Voer je wachtwoord in"
+              autocomplete="current-password"
             />
           </div>
         </div>

@@ -14,12 +14,32 @@
     grid-row: main;
   }
 
-  .app-panel--left {
+  .app-modal {
+    grid-column: full;
+    grid-row: main;
+
+    @screen xl {
+      grid-column: main;
+      grid-row: main;
+    }
+
+    &[data-variant="full"] {
+      grid-column: full;
+      grid-row: main;
+    }
+
+    &[data-variant="main"] {
+      grid-column: main;
+      grid-row: main;
+    }
+  }
+
+  .app-sidebar--left {
     grid-row: main;
     grid-column: panel-left;
   }
 
-  .app-panel--right {
+  .app-sidebar--right {
     grid-row: main;
     grid-column: panel-right;
   }

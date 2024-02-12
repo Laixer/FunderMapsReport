@@ -1,0 +1,21 @@
+.panel {
+  @apply grid overflow-hidden;
+
+  grid-template-rows: [panel-header] auto [panel-content] 1fr [panel-footer] auto;
+
+  &__header {
+    @apply flex items-baseline justify-between;
+
+    grid-row: panel-header;
+  }
+
+  &__content {
+    @apply space-y-8 overflow-x-visible overflow-y-scroll;
+
+    grid-row: panel-content;
+  }
+
+  &__footer {
+    grid-row: panel-footer;
+  }
+}

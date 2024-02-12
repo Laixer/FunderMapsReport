@@ -1,0 +1,23 @@
+.sidebar {
+  @apply overflow-hidden;
+
+  .panels {
+    @apply flex h-full;
+  }
+
+  .panel {
+    @apply z-10 h-full w-full flex-shrink-0 space-y-2 bg-white/80 py-4 backdrop-blur-md;
+
+    > * {
+      @apply px-7;
+    }
+
+    &__content {
+      @apply flex flex-col;
+    }
+
+    &__footer {
+      @apply mt-2;
+    }
+  }
+}

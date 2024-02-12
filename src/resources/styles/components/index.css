@@ -1,8 +1,9 @@
 @import url("./accordion.css");
 @import url("./avatar.css");
 @import url("./button.css");
-@import url("./card/index.css");
-@import url("./form/index.css");
+@import url("./card");
+@import url("./form");
 @import url("./link.css");
-@import url("./list.css");
-@import url("./panel.css");
+@import url("./list");
+@import url("./panel");
+@import url("./searchbar.css");
