@@ -1,0 +1,11 @@
+<svg viewBox="0 0 73 90" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" fill-rule="evenodd">
+    <path class="accent-fill-light" fill="#CED0DA" d="M52.488 1.915 34.126 21.11v26.685l36.725 21.24V42.352z"/>
+    <path class="accent-stroke-dark" stroke="#7F8FA4" stroke-width="3.66685267" stroke-linecap="round" stroke-linejoin="round" d="M20.277 20.963 1.915 40.159v26.686l36.724 21.24V61.4zM70.85 69.037V42.352L52.489 1.915M20.277 20.963l32.21-19.048M38.639 61.57 70.85 42.523M38.639 88.085 70.85 69.41"/>
+    <path class="accent-stroke-dark" stroke="#7F8FA4" stroke-width="1.83342634" stroke-linejoin="round" d="m52.488 1.915-1.266 1.324"/>
+    <path d="M48.586 5.994 34.126 21.11v22.945" class="accent-stroke-dark" stroke="#7F8FA4" stroke-width="1.83342634" stroke-linejoin="round" stroke-dasharray="3.814"/>
+    <path class="accent-stroke-dark" stroke="#7F8FA4" stroke-width="1.83342634" stroke-linejoin="round" d="M34.125 45.964v1.833l1.585.917"/>
+    <path class="accent-stroke-dark" stroke="#7F8FA4" stroke-width="1.83342634" stroke-linejoin="round" stroke-dasharray="3.529" d="m38.76 50.478 28.98 16.76"/>
+    <path class="accent-stroke-dark" stroke="#7F8FA4" stroke-width="1.83342634" stroke-linejoin="round" d="m69.266 68.12 1.585.917"/>
+  </g>
+</svg>
