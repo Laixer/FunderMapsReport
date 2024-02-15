@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>fun/file-report</title>
+    <g id="fun/file-report" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group" transform="translate(3.5, 2)">
+            <polyline id="Path" stroke="#17A4EA" stroke-width="2.53627098" points="4.40911334 8.88458064 6.86371486 6.46149677 9.31818182 8.88458064 12.5909539 5.65379838"></polyline>
+            <line x1="4.40911334" y1="12.923129" x2="12.5909539" y2="12.923129" id="Path" stroke="#191E3C" stroke-width="2.53627098"></line>
+            <line x1="4.40911334" y1="16.9615645" x2="12.5909539" y2="16.9615645" id="Path" stroke="#191E3C" stroke-width="2.53627098"></line>
+            <path d="M17,18.4616129 C17,18.8696269 16.8371065,19.260972 16.5473298,19.5493994 C16.2575531,19.8379343 15.8644058,20 15.4546302,20 L1.54545455,20 C1.13557303,20 0.742478652,19.8379343 0.452648997,19.5493994 C0.162829933,19.260972 0,18.8696269 0,18.4616129 L0,1.53846237 C0,1.13042683 0.162829933,0.739124824 0.452648997,0.450600622 C0.742478652,0.162087173 1.13557303,0 1.54545455,0 L11.5909409,0 L17,5.38462366 L17,18.4616129 Z" id="Path" stroke="#191E3C" stroke-width="2.41549618"></path>
+        </g>
+    </g>
+</svg>

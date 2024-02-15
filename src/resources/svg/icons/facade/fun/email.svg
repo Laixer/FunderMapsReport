@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>fun/email</title>
+    <g id="fun/email" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group" transform="translate(2, 4)" stroke-width="2.54372907">
+            <path d="M0,1.90481129 L9.01541487,9.52380404 C9.29185768,9.75195735 9.64020886,9.87684358 10.0000831,9.87684358 C10.3598465,9.87684358 10.7081977,9.75195735 10.9846405,9.52380404 L20,1.90481129" id="Path" stroke="#17A4EA"></path>
+            <path d="M18.4615598,0 L1.53847347,0 C0.688802404,0 0,0.682243151 0,1.52380952 L0,14.4761246 C0,15.3177349 0.688802404,16 1.53847347,16 L18.4615598,16 C19.3112752,16 20,15.3177349 20,14.4761246 L20,1.52380952 C20,0.682243151 19.3112752,0 18.4615598,0 Z" id="Path" stroke="#191E3C"></path>
+        </g>
+    </g>
+</svg>

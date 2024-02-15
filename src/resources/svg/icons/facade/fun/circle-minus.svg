@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>fun/circle-minus</title>
+    <g id="fun/circle-minus" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group" transform="translate(2, 2)" stroke-width="2.54372893">
+            <path d="M9.99997784,20 C15.5229586,20 20,15.5229024 20,9.99998892 C20,4.47715304 15.5229586,0 9.99997784,0 C4.47715221,0 0,4.47715304 0,9.99998892 C0,15.5229024 4.47715221,20 9.99997784,20 Z" id="Path" stroke="#191E3C"></path>
+            <line x1="5.3846597" y1="9.99998892" x2="14.6154068" y2="9.99998892" id="Path" stroke="#17A4EA"></line>
+        </g>
+    </g>
+</svg>

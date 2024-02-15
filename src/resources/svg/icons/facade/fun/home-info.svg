@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>fun/home-info</title>
+    <g id="fun/home-info" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group" transform="translate(2, 3.5)" stroke-width="2.5437278">
+            <polyline id="Path" stroke="#191E3C" points="0 10.0453812 10.0000222 0 20 10.0453812"></polyline>
+            <polyline id="Path" stroke="#191E3C" points="3.07671 6.95451864 3.07671 17 16.9228025 17 16.9228025 6.95451864"></polyline>
+            <line x1="8.2692883" y1="13.5373266" x2="11.9615929" y2="13.5373266" id="Path" stroke="#17A4EA"></line>
+            <polyline id="Path" stroke="#17A4EA" points="10.1156954 13.5368814 10.1156954 9.20962488 8.8849494 9.20962488"></polyline>
+            <path d="M10.1153631,6.4283116 C9.94539866,6.4283116 9.80767654,6.28992042 9.80767654,6.11921867 C9.80767654,5.94851692 9.94539866,5.81012574 10.1153631,5.81012574" id="Path" stroke="#17A4EA"></path>
+            <path d="M10.1154739,6.4283116 C10.2854382,6.4283116 10.4231604,6.28992042 10.4231604,6.11921867 C10.4231604,5.94851692 10.2854382,5.81012574 10.1154739,5.81012574" id="Path" stroke="#17A4EA"></path>
+        </g>
+    </g>
+</svg>

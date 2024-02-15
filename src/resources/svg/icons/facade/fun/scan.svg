@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>fun/scan</title>
+    <g id="fun/scan" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group" transform="translate(2, 2)" stroke-width="2.41089628">
+            <path d="M5,20 L1.42856164,20 C0.639586956,20 0,19.360443 0,18.5713819 L0,15.0000474" id="Path" stroke="#191E3C"></path>
+            <path d="M20,15.0000474 L20,18.5713819 C20,19.360443 19.3604447,20 18.5713856,20 L14.9999552,20" id="Path" stroke="#191E3C"></path>
+            <path d="M14.9999552,0 L18.5713856,0 C19.3604447,0 20,0.639599186 20,1.42857595 L20,5" id="Path" stroke="#191E3C"></path>
+            <path d="M0,5 L0,1.42857595 C0,0.639599186 0.639586956,0 1.42856164,0 L5,0" id="Path" stroke="#191E3C"></path>
+            <line x1="0" y1="10.0000949" x2="20" y2="10.0000949" id="Path" stroke="#17A4EA"></line>
+        </g>
+    </g>
+</svg>

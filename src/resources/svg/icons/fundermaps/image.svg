@@ -1,7 +1,7 @@
-<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
   <g stroke-width="2.29" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21.142 13.957a2.648 2.648 0 1 0 0-5.296 2.648 2.648 0 0 0 0 5.296ZM20.25 26.264A15.092 15.092 0 0 0 5.076 13.961 16.156 16.156 0 0 0 2 14.248" class="stroke-accent" stroke="currentColor"/>
-    <path d="M29.644 19.759a16.221 16.221 0 0 0-5.2-.853 16.41 16.41 0 0 0-6.508 1.331" class="stroke-accent" stroke="currentColor"/>
-    <path d="M4.126 26.264h23.391a2.126 2.126 0 0 0 2.127-2.126V7.126A2.126 2.126 0 0 0 27.517 5H4.127A2.126 2.126 0 0 0 2 7.126v17.012c0 1.174.952 2.126 2.126 2.126Z" stroke="currentColor"/>
+    <path d="M15.5 10.849a1.729 1.729 0 1 0 0-3.458 1.729 1.729 0 0 0 0 3.458ZM14.917 18.885a9.855 9.855 0 0 0-9.908-8.034A10.55 10.55 0 0 0 3 11.04" stroke="currentColor" class="stroke-accent"/>
+    <path d="M21.05 14.637a10.591 10.591 0 0 0-3.394-.556 10.715 10.715 0 0 0-4.25.869" stroke="currentColor" class="stroke-accent"/>
+    <path d="M4.389 18.885h15.273c.767 0 1.389-.621 1.389-1.388V6.389c0-.767-.622-1.389-1.389-1.389H4.39C3.622 5 3 5.622 3 6.389v11.108c0 .767.622 1.388 1.389 1.388Z" stroke="currentColor"/>
   </g>
 </svg>

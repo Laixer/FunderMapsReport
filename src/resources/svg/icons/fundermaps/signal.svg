@@ -1,6 +1,6 @@
-<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-  <g stroke-width="2.29" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-    <path class="stroke-accent" stroke="currentColor" d="M2 15.864h8.506l3.189-5.337 3.19 11.695 4.253-6.358h8.506"/>
-    <path d="M23.264 2H8.38A6.38 6.38 0 0 0 2 8.38v14.884a6.38 6.38 0 0 0 6.38 6.38h14.884a6.38 6.38 0 0 0 6.38-6.38V8.38A6.38 6.38 0 0 0 23.264 2Z" stroke="currentColor"/>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <g stroke-width="2.54372893" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="currentColor" class="stroke-accent" d="M2 12.031h6.154l2.308-3.862 2.307 8.462 3.077-4.6H22"/>
+    <path d="M17.385 2H6.615A4.615 4.615 0 0 0 2 6.615v10.77A4.615 4.615 0 0 0 6.615 22h10.77A4.615 4.615 0 0 0 22 17.385V6.615A4.615 4.615 0 0 0 17.385 2Z" stroke="currentColor"/>
   </g>
 </svg>
