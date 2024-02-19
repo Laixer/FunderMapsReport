@@ -35,6 +35,8 @@
     "@alpinejs/collapse": "^3.13.5",
     "@alpinejs/focus": "^3.13.5",
     "@alpinejs/ui": "^3.13.5-beta.0",
-    "alpinejs": "^3.13.5"
+    "@kurkle/color": "^0.3.2",
+    "alpinejs": "^3.13.5",
+    "chart.js": "^4.4.1"
   }
 }
