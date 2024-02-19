@@ -31,10 +31,7 @@
     <div class="panel__content content | -mx-6 space-y-4 px-6">
       <template x-if="statisticsModalOpen">
         <div x-data="chartLine()" class="w-full">
-          <canvas
-            x-ref="canvas"
-            class="!h-auto !min-w-full rounded-lg bg-white p-8"
-          ></canvas>
+          <canvas x-ref="canvas" class="!h-auto !min-w-full"></canvas>
         </div>
       </template>
     </div>
