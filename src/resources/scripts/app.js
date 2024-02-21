@@ -20,7 +20,4 @@ document.addEventListener("DOMContentLoaded", () => {
   Alpine.data("chartLine", chartLine);
 
   Alpine.start();
-
-  // eslint-disable-next-line no-console
-  console.log("hello from app.js");
 });

@@ -29,11 +29,9 @@
       </button>
     </header>
     <div class="panel__content content | -mx-6 space-y-4 px-6">
-      <template x-if="statisticsModalOpen">
-        <div x-data="chartLine()" class="w-full">
-          <canvas x-ref="canvas" class="chart"></canvas>
-        </div>
-      </template>
+      <div x-data="chartLine" class="w-full">
+        <canvas x-ref="canvas" class="chart"></canvas>
+      </div>
     </div>
   </div>
 </div>

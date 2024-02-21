@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Chart } from "chart.js/auto";
+import Chart from "chart.js/auto";
 import * as Utils from "../utils/utils";
 
 const DATA = [
@@ -44,8 +44,6 @@ export default () => ({
     // Disable animation in the popup, it is too much
     chart.options.animations = false;
 
-    // eslint-disable-next-line no-console
-    console.log("hello from chartLine.js");
     // eslint-disable-next-line no-console
     console.log(chart);
   },
