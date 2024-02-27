@@ -15,3 +15,51 @@
     }
   }
 }
+
+.legenda-marker--10 {
+  --marker-color: theme(colors.legenda.10);
+}
+
+.legenda-marker--20 {
+  --marker-color: theme(colors.legenda.20);
+}
+
+.legenda-marker--30 {
+  --marker-color: theme(colors.legenda.30);
+}
+
+.legenda-marker--40 {
+  --marker-color: theme(colors.legenda.40);
+}
+
+.legenda-marker--50 {
+  --marker-color: theme(colors.legenda.50);
+}
+
+.legenda-marker--60 {
+  --marker-color: theme(colors.legenda.60);
+}
+
+.legenda-marker--70 {
+  --marker-color: theme(colors.legenda.70);
+}
+
+.legenda-marker--80 {
+  --marker-color: theme(colors.legenda.80);
+}
+
+.legenda-marker--90 {
+  --marker-color: theme(colors.legenda.90);
+}
+
+.legenda-marker--100 {
+  --marker-color: theme(colors.legenda.100);
+}
+
+.legenda-marker--110 {
+  --marker-color: theme(colors.legenda.110);
+}
+
+.legenda-marker--120 {
+  --marker-color: theme(colors.legenda.120);
+}
