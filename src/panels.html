@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fundermaps - Inloggen</title>
+    <link href="./resources/styles/app.css" rel="stylesheet" />
+    <script type="module" src="./resources/scripts/app.js"></script>
+  </head>
+  <body
+    class="page-nosession | grid place-content-center"
+    style="
+      background-image: url(&quot;./resources/images/map.png&quot;);
+      background-repeat: no-repeat;
+      background-size: cover;
+    "
+  >
+    <div class="flex gap-10">
+      <!-- Example: MAIN -->
+      <div
+        class="sidebar | h-[80dvh] w-[21rem] overflow-clip rounded-sm shadow-float"
+      >
+        <div class="panels">
+          <div class="panel">
+            <div class="panel__header">
+              <button
+                class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
+              >
+                <span class="button__label">Sluit</span>
+                <icon
+                  src="close.svg"
+                  class="aspect-square h-3.5 text-red-500"
+                  aria-hidden="true"
+                ></icon>
+              </button>
+            </div>
+            <div class="panel__content">
+              <div class="flex items-center gap-3">
+                <h4 class="heading-4">Kaart filter</h4>
+              </div>
+              <!-- Example: Linked list -->
+              <section class="grid space-y-2">
+                <a href="" class="link link--outline | group px-4 py-3">
+                  <icon
+                    src="fundermaps/file-report.svg"
+                    class="accent-color-blue aspect-square w-6"
+                    aria-hidden="true"
+                  ></icon>
+                  <span>Rapportage</span>
+                  <icon
+                    src="arrow-right.svg"
+                    class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+                    aria-hidden="true"
+                  ></icon>
+                </a>
+                <a href="" class="link link--outline | group px-4 py-3">
+                  <icon
+                    src="fundermaps/report.svg"
+                    class="accent-color-blue aspect-square w-6"
+                    aria-hidden="true"
+                  ></icon>
+                  <span>Risico</span>
+                  <icon
+                    src="arrow-right.svg"
+                    class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+                    aria-hidden="true"
+                  ></icon>
+                </a>
+                <a href="" class="link link--outline | group px-4 py-3">
+                  <icon
+                    src="fundermaps/foundation.svg"
+                    class="accent-color-blue aspect-square w-6"
+                    aria-hidden="true"
+                  ></icon>
+                  <span>Fundering</span>
+                  <icon
+                    src="arrow-right.svg"
+                    class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+                    aria-hidden="true"
+                  ></icon>
+                </a>
+                <a href="" class="link link--outline | group px-4 py-3">
+                  <icon
+                    src="fundermaps/building.svg"
+                    class="accent-color-blue aspect-square w-6"
+                    aria-hidden="true"
+                  ></icon>
+                  <span>Gebouw</span>
+                  <icon
+                    src="arrow-right.svg"
+                    class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+                    aria-hidden="true"
+                  ></icon>
+                </a>
+                <a href="" class="link link--outline | group px-4 py-3">
+                  <icon
+                    src="fundermaps/scan.svg"
+                    class="accent-color-blue aspect-square w-6"
+                    aria-hidden="true"
+                  ></icon>
+                  <span>Gevelscan</span>
+                  <icon
+                    src="arrow-right.svg"
+                    class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+                    aria-hidden="true"
+                  ></icon>
+                </a>
+                <a href="" class="link link--outline | group px-4 py-3">
+                  <icon
+                    src="fundermaps/alert.svg"
+                    class="accent-color-blue aspect-square w-6"
+                    aria-hidden="true"
+                  ></icon>
+                  <span>Incidenten</span>
+                  <icon
+                    src="arrow-right.svg"
+                    class="ml-auto aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0 group-hover:text-green-500"
+                    aria-hidden="true"
+                  ></icon>
+                </a>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example: Facade -->
+      <div
+        class="sidebar | h-[80dvh] w-[21rem] overflow-clip rounded-sm shadow-float"
+      >
+        <div class="panels">
+          <div class="panel">
+            <div class="panel__header">
+              <h6 class="heading-6">Fundering</h6>
+              <button
+                class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
+              >
+                <span>
+                  <div class="button__label">Sluit</div>
+                </span>
+                <icon
+                  src="close.svg"
+                  class="aspect-square h-3.5 text-red-500"
+                  aria-hidden="true"
+                ></icon>
+              </button>
+            </div>
+            <div class="panel__content">
+              <div class="flex items-center gap-3">
+                <h4 class="heading-4">Villastraat 118, 3112 TG Schiedam</h4>
+              </div>
+              <button class="link link--outline | group self-start">
+                <icon
+                  src="arrow-left.svg"
+                  class="aspect-square w-3 rotate-45 transition-transform group-hover:rotate-0"
+                  aria-hidden="true"
+                ></icon>
+                <strong>Terug naar Pand informatie</strong>
+              </button>
+
+              <!-- Example: Foundation report -->
+              <section
+                class="content -mx-4 flex-auto space-y-10 rounded-t-lg bg-white px-4 py-6"
+              >
+                <div class="space-y-3">
+                  <h6 class="font-bold leading-none">Fundering</h6>
+                  <div class="foundation | accent-color-green">
+                    <div class="foundation__mark">
+                      <icon
+                        src="check.svg"
+                        class="aspect-square w-2.5"
+                        aria-hidden="true"
+                      ></icon>
+                    </div>
+                    <icon
+                      src="foundation/betonnen-palen.svg"
+                      class="aspect-square w-20"
+                      aria-hidden="true"
+                    ></icon>
+                    <div class="foundation__label">Betonnen palen</div>
+                  </div>
+                  <dl class="space-y-3">
+                    <div>
+                      <dt>Handhavingstermijn</dt>
+                      <dd class="text-grey-700">25 jaar</dd>
+                    </div>
+                    <div>
+                      <dt>Geconstateerde schade</dt>
+                      <dd class="text-grey-700">Geen data</dd>
+                    </div>
+                    <div>
+                      <dt>Algehele funderingskwaliteit</dt>
+                      <dd class="text-grey-700">Goed</dd>
+                    </div>
+                    <div>
+                      <dt>Oorzaak funderingsschade</dt>
+                      <dd class="text-grey-700">Onbekend</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="space-y-3">
+                  <div class="foundation">
+                    <icon
+                      src="foundation/houten-palen.svg"
+                      class="aspect-square w-20"
+                      aria-hidden="true"
+                    ></icon>
+                    <div class="foundation__label">Houten palen</div>
+                  </div>
+                  <dl class="space-y-2">
+                    <div>
+                      <dt>Handhavingstermijn</dt>
+                      <dd class="text-grey-700">25 jaar</dd>
+                    </div>
+                    <div>
+                      <dt>Geconstateerde schade</dt>
+                      <dd class="text-grey-700">Geen data</dd>
+                    </div>
+                    <div>
+                      <dt>Algehele funderingskwaliteit</dt>
+                      <dd class="text-grey-700">Goed</dd>
+                    </div>
+                    <div>
+                      <dt>Oorzaak funderingsschade</dt>
+                      <dd class="text-grey-700">Onbekend</dd>
+                    </div>
+                  </dl>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example: Facade repair -->
+      <div
+        class="sidebar | h-[80dvh] w-[21rem] overflow-clip rounded-sm shadow-float"
+      >
+        <div class="panels">
+          <div class="panel">
+            <div class="panel__header">
+              <h6 class="heading-6">Funderingsherstel</h6>
+              <button
+                class="button button--link | group ml-auto text-sm text-blue-900 hover:text-red-500"
+              >
+                <span>
+                  <div class="button__label">Sluit</div>
+                </span>
+                <icon
+                  src="close.svg"
+                  class="aspect-square h-3.5 text-red-500"
+                  aria-hidden="true"
+                ></icon>
+              </button>
+            </div>
+            <div class="panel__content">
+              <div class="flex items-center gap-3">
+                <h4 class="heading-4">Villastraat 118, 3112 TG Schiedam</h4>
+              </div>
+              <button class="link link--outline | group self-start">
+                <icon
+                  src="arrow-left.svg"
+                  class="aspect-square w-3 rotate-45 transition-transform group-hover:rotate-0"
+                  aria-hidden="true"
+                ></icon>
+                <strong>Terug naar Pand informatie</strong>
+              </button>
+
+              <!-- Example: Foundation report -->
+              <section
+                class="content -mx-4 flex-auto space-y-10 rounded-t-lg bg-white px-4 py-6"
+              >
+                <div class="space-y-3">
+                  <h6 class="font-bold leading-none">Scheuren</h6>
+                  <div class="foundation | accent-color-green">
+                    <div class="foundation__mark">
+                      <icon
+                        src="check.svg"
+                        class="aspect-square w-2.5"
+                        aria-hidden="true"
+                      ></icon>
+                    </div>
+                    <icon
+                      src="facade/inpandig.svg"
+                      class="aspect-square w-20"
+                      aria-hidden="true"
+                    ></icon>
+                    <div class="foundation__label">Inpandige scheur</div>
+                  </div>
+                  <dl class="space-y-3">
+                    <div>
+                      <dt>Hersteld</dt>
+                      <dd class="text-grey-700">Geen data</dd>
+                    </div>
+                    <div>
+                      <dt>Scheur (mm)</dt>
+                      <dd class="text-grey-700">Geen data</dd>
+                    </div>
+                    <div>
+                      <dt>Type</dt>
+                      <dd class="text-grey-700">Geen</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="space-y-3">
+                  <div class="foundation">
+                    <icon
+                      src="facade/voor.svg"
+                      class="aspect-square w-20"
+                      aria-hidden="true"
+                    ></icon>
+                    <div class="foundation__label">Voorgevel scheur</div>
+                  </div>
+                  <dl class="space-y-2">
+                    <div>
+                      <dt>Hersteld</dt>
+                      <dd class="text-grey-700">Geen data</dd>
+                    </div>
+                    <div>
+                      <dt>Scheur (mm)</dt>
+                      <dd class="text-grey-700">Geen data</dd>
+                    </div>
+                    <div>
+                      <dt>Type</dt>
+                      <dd class="text-grey-700">Geen</dd>
+                    </div>
+                  </dl>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
