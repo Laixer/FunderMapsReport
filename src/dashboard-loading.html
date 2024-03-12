@@ -8,7 +8,7 @@
     <script type="module" src="./resources/scripts/app.js"></script>
   </head>
 
-  <body class="page-dashboard">
+  <body class="page-dashboard" x-data="panels">
     <include src="app/header.html"></include>
     <div
       class="app-view | relative grid place-items-center bg-grey-200"
@@ -57,5 +57,8 @@
 
       <!-- End content for DEMO -->
     </div>
+
+    <include src="app/modal-settings.html"></include>
+    <include src="app/modal-statistics.html"></include>
   </body>
 </html>

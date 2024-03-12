@@ -15,7 +15,7 @@
   <div
     x-menu:items
     x-transition.origin.top.right
-    class="dropdown arrow arrow--top-right | absolute right-0 top-full z-20 w-48 origin-top-right outline-none"
+    class="dropdown arrow arrow--top-right | absolute right-0 top-full z-20 min-w-48 origin-top-right outline-none"
     x-cloak
   >
     <div
@@ -23,11 +23,53 @@
     >
       <a
         x-menu:item
-        class="group flex w-full cursor-pointer items-center gap-2 px-8 py-4 transition-colors hover:text-green-500"
+        class="group flex w-full cursor-pointer items-center justify-between gap-2 px-8 py-4 transition-colors hover:text-green-500"
         :class="{'text-green-500': $menuItem.isActive}"
         x-on:click="setSettingsModal()"
       >
-        <span>Ga naar profiel</span>
+        <span class="whitespace-nowrap">Ga naar profiel</span>
+        <icon
+          src="arrow-right.svg"
+          class="aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0"
+          :class="{'rotate-0': $menuItem.isActive}"
+          aria-hidden="true"
+        ></icon>
+      </a>
+      <a
+        x-menu:item
+        class="group flex w-full cursor-pointer items-center justify-between gap-2 px-8 py-4 transition-colors hover:text-green-500"
+        :class="{'text-green-500': $menuItem.isActive}"
+        href="dashboard.html"
+      >
+        <span class="whitespace-nowrap">Dashboard</span>
+        <icon
+          src="arrow-right.svg"
+          class="aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0"
+          :class="{'rotate-0': $menuItem.isActive}"
+          aria-hidden="true"
+        ></icon>
+      </a>
+      <a
+        x-menu:item
+        class="group flex w-full cursor-pointer items-center justify-between gap-2 px-8 py-4 transition-colors hover:text-green-500"
+        :class="{'text-green-500': $menuItem.isActive}"
+        href="panels.html"
+      >
+        <span class="whitespace-nowrap">Panel examples</span>
+        <icon
+          src="arrow-right.svg"
+          class="aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0"
+          :class="{'rotate-0': $menuItem.isActive}"
+          aria-hidden="true"
+        ></icon>
+      </a>
+      <a
+        x-menu:item
+        class="group flex w-full cursor-pointer items-center justify-between gap-2 px-8 py-4 transition-colors hover:text-green-500"
+        :class="{'text-green-500': $menuItem.isActive}"
+        href="dashboard-loading.html"
+      >
+        <span class="whitespace-nowrap">Loading example</span>
         <icon
           src="arrow-right.svg"
           class="aspect-square h-3.5 -rotate-45 transition-transform group-hover:rotate-0"
