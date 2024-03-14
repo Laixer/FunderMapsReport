@@ -1,5 +1,5 @@
 .list--legenda {
-  @apply space-y-2;
+  @apply ml-0 space-y-2;
 
   li {
     @apply flex items-baseline gap-2.5;
@@ -14,50 +14,110 @@
   }
 }
 
-.legenda-marker--10 {
-  --marker-color: theme(colors.legenda.10);
+.legenda--10 {
+  --marker-color: theme(colors.legenda.default.10);
 }
 
-.legenda-marker--20 {
-  --marker-color: theme(colors.legenda.20);
+.legenda--20 {
+  --marker-color: theme(colors.legenda.default.20);
 }
 
-.legenda-marker--30 {
-  --marker-color: theme(colors.legenda.30);
+.legenda--30 {
+  --marker-color: theme(colors.legenda.default.30);
 }
 
-.legenda-marker--40 {
-  --marker-color: theme(colors.legenda.40);
+.legenda--40 {
+  --marker-color: theme(colors.legenda.default.40);
 }
 
-.legenda-marker--50 {
-  --marker-color: theme(colors.legenda.50);
+.legenda--50 {
+  --marker-color: theme(colors.legenda.default.50);
 }
 
-.legenda-marker--60 {
-  --marker-color: theme(colors.legenda.60);
+.legenda--60 {
+  --marker-color: theme(colors.legenda.default.60);
 }
 
-.legenda-marker--70 {
-  --marker-color: theme(colors.legenda.70);
+.legenda--70 {
+  --marker-color: theme(colors.legenda.default.70);
 }
 
-.legenda-marker--80 {
-  --marker-color: theme(colors.legenda.80);
+.legenda--80 {
+  --marker-color: theme(colors.legenda.default.80);
 }
 
-.legenda-marker--90 {
-  --marker-color: theme(colors.legenda.90);
+.legenda--90 {
+  --marker-color: theme(colors.legenda.default.90);
 }
 
-.legenda-marker--100 {
-  --marker-color: theme(colors.legenda.100);
+.legenda--100 {
+  --marker-color: theme(colors.legenda.default.100);
 }
 
-.legenda-marker--110 {
-  --marker-color: theme(colors.legenda.110);
+.legenda--110 {
+  --marker-color: theme(colors.legenda.default.110);
 }
 
-.legenda-marker--120 {
-  --marker-color: theme(colors.legenda.120);
+.legenda--120 {
+  --marker-color: theme(colors.legenda.default.120);
+}
+
+.legenda-risk--10 {
+  --marker-color: theme(colors.legenda.risk.10);
+}
+
+.legenda-risk--20 {
+  --marker-color: theme(colors.legenda.risk.20);
+}
+
+.legenda-risk--30 {
+  --marker-color: theme(colors.legenda.risk.30);
+}
+
+.legenda-risk--40 {
+  --marker-color: theme(colors.legenda.risk.40);
+}
+
+.legenda-risk--50 {
+  --marker-color: theme(colors.legenda.risk.50);
+}
+
+.legenda-blue--10 {
+  --marker-color: theme(colors.legenda.blue.10);
+}
+
+.legenda-blue--20 {
+  --marker-color: theme(colors.legenda.blue.20);
+}
+
+.legenda-blue--30 {
+  --marker-color: theme(colors.legenda.blue.30);
+}
+
+.legenda-blue--40 {
+  --marker-color: theme(colors.legenda.blue.40);
+}
+
+.legenda-blue--50 {
+  --marker-color: theme(colors.legenda.blue.50);
+}
+
+.legenda-blue--60 {
+  --marker-color: theme(colors.legenda.blue.60);
+}
+
+.legenda-blue--70 {
+  --marker-color: theme(colors.legenda.blue.70);
+}
+
+.legenda-blue--80 {
+  --marker-color: theme(colors.legenda.blue.80);
+}
+
+.legenda-blue--90 {
+  --marker-color: theme(colors.legenda.blue.90);
+}
+
+.legenda-blue--100 {
+  --marker-color: theme(colors.legenda.blue.100);
 }

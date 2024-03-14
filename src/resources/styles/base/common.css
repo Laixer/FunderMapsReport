@@ -7,8 +7,8 @@ body {
   @apply hidden;
 }
 
-.content {
-  > * + * {
+:where(.content) {
+  > :not([hidden]) ~ :not([hidden]) {
     margin-top: var(--flow-margin-top, theme(spacing.4));
   }
 
@@ -39,6 +39,10 @@ body {
 
   h5 {
     @apply text-lg;
+  }
+
+  h6 {
+    @apply text-base;
   }
 
   a {
@@ -89,4 +93,8 @@ body {
 
 .heading-5 {
   @apply text-lg;
+}
+
+.heading-6 {
+  @apply text-base;
 }
