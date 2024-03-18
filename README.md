@@ -72,6 +72,8 @@ yarn build
 - Naar kaart groep (opent een dropdown)
 - Gebruikers menu (opent een dropdown)
   - Ga naar profiel (opent een profiel modal)
+  - Ga naar panels page
+  - Ga naar loading screen
   - Uitloggen (gaat naar login)
 - Open filter (opent de linker sidebar)
   - Sluit (sluit sidebar)
@@ -85,3 +87,7 @@ yarn build
   - Alle informatie link (opent informatie modal)
   - Bekijk onderzoeks informatie (opent sidebar level 2)
     - Terug naar pand informatie (opent pand informatie)
+- Loading screen 
+  - Gebruik het Gebruikers menu om te navigeren
+- Panels page
+  - Klik op 1 van de sluit knoppen om terug te gaan naar het dashboard
