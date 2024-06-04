@@ -9,8 +9,9 @@
     <script type="module" src="./resources/scripts/app.js"></script>
   </head>
   <body class="page-print-preview | content | space-y-12">
-    <!-- CHAPTER: HEADER -->
     <div class="a4">
+      <!-- CHAPTER: HEADER -->
+
       <header
         class="header--print | relative isolate overflow-hidden rounded-md"
       >
@@ -39,10 +40,10 @@
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
             src="fundermaps/building.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Pand</h2>
+          <h2 class="h-4">Pand</h2>
         </header>
         <section class="space-y-7">
           <dl role="list" class="list--definition">
@@ -76,13 +77,13 @@
 
       <!-- CHAPTER: LOCATION -->
       <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
+        <header class="flex items-center gap-2.5">
           <icon
             src="fundermaps/pin.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Locatie</h2>
+          <h2 class="h-4">Locatie</h2>
         </header>
         <section class="space-y-7">
           <figure class="aspect-map w-full overflow-clip">
@@ -92,53 +93,63 @@
               class="asp w-full object-cover"
             />
           </figure>
-          <div class="space-y-3 bg-grey-100 p-8">
-            <h3>Omgeving</h3>
-            <dl role="list" class="list--definition">
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <div class="item--grid">
-                    <dt>Sondering</dt>
-                    <dd>Geen data</dd>
+          <div class="highlight">
+            <img
+              src="./resources/images/highlight-bg.png"
+              alt=""
+              class="inset absolute -z-10 w-full"
+            />
+            <div class="highlight__content space-y-3">
+              <h3>Omgeving</h3>
+              <dl role="list" class="list--definition">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <div class="item--grid">
+                      <dt>Sondering</dt>
+                      <dd>Geen data</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Maaiveldniveau</dt>
+                      <dd>Geen data</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Grondwaterniveau</dt>
+                      <dd>Geen data</dd>
+                    </div>
                   </div>
-                  <div class="item--grid">
-                    <dt>Maaiveldniveau</dt>
-                    <dd>Geen data</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Grondwaterniveau</dt>
-                    <dd>Geen data</dd>
+                  <div>
+                    <div class="item--grid">
+                      <dt>Ondergrond type</dt>
+                      <dd>Zand</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Maaiveld hoogte</dt>
+                      <dd>Geen data</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Grondwater</dt>
+                      <dd>3,54</dd>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <div class="item--grid">
-                    <dt>Ondergrond type</dt>
-                    <dd>Zand</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Maaiveld hoogte</dt>
-                    <dd>Geen data</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Grondwater</dt>
-                    <dd>3,54</dd>
-                  </div>
-                </div>
-              </div>
-            </dl>
+              </dl>
+            </div>
           </div>
         </section>
       </article>
 
+      <!-- PAGE BREAK -->
+      <div class="page-break break-after-page"></div>
+
       <!-- CHAPTER: FOUNDATION -->
-      <article class="break-before-page space-y-5">
+      <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
             src="fundermaps/file-foundation.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Fundering</h2>
+          <h2 class="h-4">Fundering</h2>
         </header>
         <section class="space-y-7">
           <div class="grid grid-cols-12 gap-4">
@@ -151,12 +162,12 @@
                 aria-hidden="true"
               ></icon>
               <figcaption
-                class="is-12 flex-initial text-center font-bold text-grey-700"
+                class="is-12 leadding-none flex-initial text-center font-bold text-grey-700"
               >
                 Inpandige scheur
               </figcaption>
             </figure>
-            <dl role="list" class="list--definition col-span-9 space-y-1.5">
+            <dl role="list" class="list--definition col-span-9">
               <div class="item">
                 <dt>Handhavingstermijn</dt>
                 <dd>Geen data</dd>
@@ -197,116 +208,130 @@
           </div>
 
           <div class="space-y-5">
-            <div class="space-y-3 bg-grey-100 p-8">
-              <h3>Palen & Hout</h3>
-              <dl role="list" class="list--definition">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <div class="item--grid">
-                      <dt>Paalkop niveau</dt>
-                      <dd>Geen data</dd>
+            <div class="highlight">
+              <img
+                src="./resources/images/highlight-bg.png"
+                alt=""
+                class="inset absolute -z-10 w-full"
+              />
+              <div class="highlight__content space-y-3">
+                <h3>Palen & Hout</h3>
+                <dl role="list" class="list--definition">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <div class="item--grid">
+                        <dt>Paalkop niveau</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Paalkop diameter</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Hart-op-hart afstand</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Houtsoort</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Inslagdiepte</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Houtkwaliteit paal</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Resterende draagkracht paal</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Houtonderzoek</dt>
+                        <dd>Geen data</dd>
+                      </div>
                     </div>
-                    <div class="item--grid">
-                      <dt>Paalkop diameter</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Hart-op-hart afstand</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Houtsoort</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Inslagdiepte</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Houtkwaliteit paal</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Resterende draagkracht paal</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Houtonderzoek</dt>
-                      <dd>Geen data</dd>
+                    <div>
+                      <div class="item--grid">
+                        <dt>Paalkop niveau</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Paalkop diameter</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Hart-op-hart afstand</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Houtsoort</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Houtkwaliteit paal</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Resterende draagkracht paal</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Houtonderzoek</dt>
+                        <dd>Geen data</dd>
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <div class="item--grid">
-                      <dt>Paalkop niveau</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Paalkop diameter</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Hart-op-hart afstand</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Houtsoort</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Houtkwaliteit paal</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Resterende draagkracht paal</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Houtonderzoek</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
+                </dl>
+              </div>
             </div>
 
-            <div class="space-y-3 bg-grey-100 p-8">
-              <h3>Niveau & Kwaliteit</h3>
-              <dl role="list" class="list--definition">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <div class="item--grid">
-                      <dt>Kwaliteit metselwerk</dt>
-                      <dd>Geen data</dd>
+            <div class="highlight">
+              <img
+                src="./resources/images/highlight-bg.png"
+                alt=""
+                class="inset absolute -z-10 w-full"
+              />
+              <div class="highlight__content space-y-3">
+                <h3>Niveau & Kwaliteit</h3>
+                <dl role="list" class="list--definition">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <div class="item--grid">
+                        <dt>Kwaliteit metselwerk</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Funderingsbalk</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Niveau onderkant funderingsbalk</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Handhavingstermijn</dt>
+                        <dd>xx jaar</dd>
+                      </div>
                     </div>
-                    <div class="item--grid">
-                      <dt>Funderingsbalk</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Niveau onderkant funderingsbalk</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Handhavingstermijn</dt>
-                      <dd>xx jaar</dd>
+                    <div>
+                      <div class="item--grid">
+                        <dt>Niveau onderkant funderingsbalk</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Kwaliteit funderingsbalk</dt>
+                        <dd>Geen data</dd>
+                      </div>
+                      <div class="item--grid">
+                        <dt>Funderingskwaliteit</dt>
+                        <dd>Goed/Slecht/Matig/Voldoende</dd>
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <div class="item--grid">
-                      <dt>Niveau onderkant funderingsbalk</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Kwaliteit funderingsbalk</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Funderingskwaliteit</dt>
-                      <dd>Goed/Slecht/Matig/Voldoende</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
+                </dl>
+              </div>
             </div>
           </div>
 
@@ -356,10 +381,10 @@
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
             src="fundermaps/wrench.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Funderingsherstel</h2>
+          <h2 class="h-4">Funderingsherstel</h2>
         </header>
 
         <section class="space-y-7">
@@ -391,10 +416,10 @@
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
             src="fundermaps/alert.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Funderingsrisico</h2>
+          <h2 class="h-4">Funderingsrisico</h2>
         </header>
 
         <section class="space-y-7">
@@ -402,21 +427,21 @@
           <div class="risk break-inside-avoid space-y-5">
             <div class="space-y-2">
               <dl role="list" class="list--definition">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <div class="item--grid">
+                <div class="grid grid-cols-12 items-start gap-4">
+                  <div class="col-span-5">
+                    <div class="item">
                       <dt>Droogstand</dt>
                       <dd>
                         <icon
                           src="classification/c.svg"
-                          class="aspect-square w-5"
+                          class="aspect-square w-4"
                           aria-hidden="true"
                         />
                       </dd>
                     </div>
                   </div>
-                  <div>
-                    <div class="item--grid">
+                  <div class="col-span-7">
+                    <div class="item">
                       <dt>Type herstel</dt>
                       <dd>Partieeel/Volledig/Verlaging</dd>
                     </div>
@@ -456,21 +481,21 @@
           <div class="risk break-inside-avoid space-y-5">
             <div class="space-y-2">
               <dl role="list" class="list--definition">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <div class="item--grid">
+                <div class="grid grid-cols-12 gap-4">
+                  <div class="col-span-5">
+                    <div class="item">
                       <dt>Ontwateringsdiepte</dt>
                       <dd>
                         <icon
                           src="classification/a.svg"
-                          class="aspect-square w-5"
+                          class="aspect-square w-4"
                           aria-hidden="true"
                         />
                       </dd>
                     </div>
                   </div>
-                  <div>
-                    <div class="item--grid">
+                  <div class="col-span-7">
+                    <div class="item">
                       <dt>Betrouwbaarheid</dt>
                       <dd>Vastgesteld/Afgeleid/Indicatief</dd>
                     </div>
@@ -510,21 +535,21 @@
           <div class="risk break-inside-avoid space-y-5">
             <div class="space-y-2">
               <dl role="list" class="list--definition">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <div class="item--grid">
+                <div class="grid grid-cols-12 gap-4">
+                  <div class="col-span-5">
+                    <div class="item">
                       <dt>Verschilzakking</dt>
                       <dd>
                         <icon
                           src="classification/E.svg"
-                          class="aspect-square w-5"
+                          class="aspect-square w-4"
                           aria-hidden="true"
                         />
                       </dd>
                     </div>
                   </div>
-                  <div>
-                    <div class="item--grid">
+                  <div class="col-span-7">
+                    <div class="item">
                       <dt>Betrouwbaarheid</dt>
                       <dd>Vastgesteld/Afgeleid/Indicatief</dd>
                     </div>
@@ -564,21 +589,21 @@
           <div class="risk break-inside-avoid space-y-5">
             <div class="space-y-2">
               <dl role="list" class="list--definition">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <div class="item--grid">
+                <div class="grid grid-cols-12 gap-4">
+                  <div class="col-span-5">
+                    <div class="item">
                       <dt>Droogstand</dt>
-                      <dd>
+                      <dd class="flex justify-end">
                         <icon
                           src="classification/b.svg"
-                          class="aspect-square w-5"
+                          class="aspect-square w-4"
                           aria-hidden="true"
                         />
                       </dd>
                     </div>
                   </div>
-                  <div>
-                    <div class="item--grid">
+                  <div class="col-span-7">
+                    <div class="item">
                       <dt>Betrouwbaarheid</dt>
                       <dd>Partieeel/Volledig/Verlaging</dd>
                     </div>
@@ -621,10 +646,10 @@
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
             src="fundermaps/file-report.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Rapportage</h2>
+          <h2 class="h-4">Rapportage</h2>
         </header>
         <section class="break-before-avoid-page break-inside-avoid space-y-7">
           <table class="w-full">
@@ -674,15 +699,15 @@
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
             src="fundermaps/scan.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Gevelscan</h2>
+          <h2 class="h-4">Gevelscan</h2>
         </header>
 
         <section class="space-y-7">
           <div class="grid grid-cols-2 gap-4">
-            <div class="gap4 grid grid-cols-6 items-center gap-4">
+            <div class="grid grid-cols-6 items-center gap-4">
               <figure
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
@@ -692,7 +717,7 @@
                   aria-hidden="true"
                 ></icon>
                 <figcaption
-                  class="flex-initial text-center font-bold text-grey-700"
+                  class="flex-initial text-center font-bold leading-4 text-grey-700"
                 >
                   Inpandige scheur
                 </figcaption>
@@ -712,7 +737,7 @@
                 </div>
               </dl>
             </div>
-            <div class="gap4 grid grid-cols-6 items-center gap-4">
+            <div class="grid grid-cols-6 items-center gap-4">
               <figure
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
@@ -722,7 +747,7 @@
                   aria-hidden="true"
                 ></icon>
                 <figcaption
-                  class="flex-initial text-center font-bold text-grey-700"
+                  class="flex-initial text-center font-bold leading-4 text-grey-700"
                 >
                   Inpandige scheur
                 </figcaption>
@@ -742,7 +767,7 @@
                 </div>
               </dl>
             </div>
-            <div class="gap4 grid grid-cols-6 items-center gap-4">
+            <div class="grid grid-cols-6 items-center gap-4">
               <figure
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
@@ -752,7 +777,7 @@
                   aria-hidden="true"
                 ></icon>
                 <figcaption
-                  class="flex-initial text-center font-bold text-grey-700"
+                  class="flex-initial text-center font-bold leading-4 text-grey-700"
                 >
                   Inpandige scheur
                 </figcaption>
@@ -772,7 +797,7 @@
                 </div>
               </dl>
             </div>
-            <div class="gap4 grid grid-cols-6 items-center gap-4">
+            <div class="grid grid-cols-6 items-center gap-4">
               <figure
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
@@ -782,7 +807,7 @@
                   aria-hidden="true"
                 ></icon>
                 <figcaption
-                  class="flex-initial text-center font-bold text-grey-700"
+                  class="flex-initial text-center font-bold leading-4 text-grey-700"
                 >
                   Inpandige scheur
                 </figcaption>
@@ -802,7 +827,7 @@
                 </div>
               </dl>
             </div>
-            <div class="gap4 grid grid-cols-6 items-center gap-4">
+            <div class="grid grid-cols-6 items-center gap-4">
               <figure
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
@@ -812,7 +837,7 @@
                   aria-hidden="true"
                 ></icon>
                 <figcaption
-                  class="flex-initial text-center font-bold text-grey-700"
+                  class="flex-initial text-center font-bold leading-4 text-grey-700"
                 >
                   Inpandige scheur
                 </figcaption>
@@ -833,95 +858,113 @@
               </dl>
             </div>
           </div>
-          <div class="space-y-3 bg-grey-100 p-8">
-            <h3>Vervorming</h3>
-            <dl role="list" class="list--definition">
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <div class="item--grid">
-                    <dt>Gevel vervormd</dt>
-                    <dd>Geen data</dd>
+
+          <div class="highlight">
+            <img
+              src="./resources/images/highlight-bg.png"
+              alt=""
+              class="inset absolute -z-10 w-full"
+            />
+            <div class="highlight__content space-y-3">
+              <h3>Vervorming</h3>
+              <dl role="list" class="list--definition">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <div class="item--grid">
+                      <dt>Gevel vervormd</dt>
+                      <dd>Geen data</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Lintvoegmeting beoordeling</dt>
+                      <dd>Nihil</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Lintvoegmeting</dt>
+                      <dd>300</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Drempel voorgevel niveau</dt>
+                      <dd>Geen data</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Scheve deur- en/of raamkozijn</dt>
+                      <dd>Geen data</dd>
+                    </div>
                   </div>
-                  <div class="item--grid">
-                    <dt>Lintvoegmeting beoordeling</dt>
-                    <dd>Nihil</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Lintvoegmeting</dt>
-                    <dd>300</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Drempel voorgevel niveau</dt>
-                    <dd>Geen data</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Scheve deur- en/of raamkozijn</dt>
-                    <dd>Geen data</dd>
+                  <div>
+                    <div class="item--grid">
+                      <dt>Scheefstand</dt>
+                      <dd>Zand</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Loodmeting beoordeling</dt>
+                      <dd>Geen data</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Laadmeting</dt>
+                      <dd>300</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Drempel achtergevel niveau</dt>
+                      <dd>Geen data</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Pandzakkingssnelheid</dt>
+                      <dd>300</dd>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <div class="item--grid">
-                    <dt>Scheefstand</dt>
-                    <dd>Zand</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Loodmeting beoordeling</dt>
-                    <dd>Geen data</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Laadmeting</dt>
-                    <dd>300</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Drempel achtergevel niveau</dt>
-                    <dd>Geen data</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Pandzakkingssnelheid</dt>
-                    <dd>300</dd>
-                  </div>
-                </div>
-              </div>
-            </dl>
+              </dl>
+            </div>
           </div>
         </section>
       </article>
+
+      <!-- PAGE BREAK -->
+      <div class="page-break break-after-page"></div>
 
       <!-- CHAPTER: FACADE REVIEW -->
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
             src="fundermaps/graph.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Pandzakking</h2>
+          <h2 class="h-4">Pandzakking</h2>
         </header>
         <section class="space-y-10">
-          <div class="space-y-3 bg-grey-100 p-8">
-            <h3>Pandzakkingsgegevens</h3>
-            <dl role="list" class="list--definition">
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <div class="item--grid">
-                    <dt>Pandzakkingssnelheid</dt>
-                    <dd>Geen data</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Kwaliteit meetpunt</dt>
-                    <dd>Nihil</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Aantal meetpunten</dt>
-                    <dd>300</dd>
-                  </div>
-                  <div class="item--grid">
-                    <dt>Variatiecoëfficiënt</dt>
-                    <dd>Geen data</dd>
+          <div class="highlight w-1/2">
+            <img
+              src="./resources/images/highlight-bg.png"
+              alt=""
+              class="inset absolute -z-10 w-full"
+            />
+            <div class="highlight__content space-y-3">
+              <h3>Pandzakkingsgegevens</h3>
+              <dl role="list" class="list--definition">
+                <div class="grid">
+                  <div>
+                    <div class="item--grid">
+                      <dt>Pandzakkingssnelheid</dt>
+                      <dd>Geen data</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Kwaliteit meetpunt</dt>
+                      <dd>Nihil</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Aantal meetpunten</dt>
+                      <dd>300</dd>
+                    </div>
+                    <div class="item--grid">
+                      <dt>Variatiecoëfficiënt</dt>
+                      <dd>Geen data</dd>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </dl>
+              </dl>
+            </div>
           </div>
           <figure>
             <img
@@ -933,14 +976,17 @@
         </section>
       </article>
 
+      <!-- PAGE BREAK -->
+      <div class="page-break break-after-page"></div>
+
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
             src="fundermaps/alert.svg"
-            class="accent-color-blue aspect-square w-4 -translate-y-0.5"
+            class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
-          <h2>Incidenten</h2>
+          <h2 class="h-4">Incidenten</h2>
         </header>
 
         <section class="space-y-10">
@@ -953,10 +999,13 @@
         </section>
       </article>
 
+      <!-- PAGE BREAK -->
+      <div class="page-break break-after-page"></div>
+
       <!-- CHAPTER: CLOSING REMARKS -->
-      <article class="break-before-page space-y-5">
+      <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
-          <h2>Afsluitende tekst</h2>
+          <h2 class="h-4">Afsluitende tekst</h2>
         </header>
         <section class="space-y-4 text-grey-700">
           <p>

@@ -1,0 +1,13 @@
+.highlight {
+  @apply relative isolate grid overflow-clip rounded bg-green-100;
+  margin-inline: 0 !important;
+  grid-template: 1fr / 1fr;
+
+  > * {
+    grid-area: 1 / 1;
+  }
+}
+
+.highlight__content {
+  @apply p-8;
+}

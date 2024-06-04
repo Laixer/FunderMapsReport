@@ -6,8 +6,8 @@
 /* @import url("./pages/index.css"); */
 
 @page {
-  size: letter portrait;
-  margin: 5.2in 4.5in !important;
+  size: A4 portrait;
+  margin: 1.75cm;
   padding: 0;
 }
 
@@ -21,7 +21,15 @@ html {
 }
 
 .a4 {
-  @apply m-0 space-y-10 bg-white;
+  @apply m-0 bg-white shadow-none;
   padding: 0;
   width: auto;
+}
+
+header {
+  @apply break-inside-avoid break-after-avoid;
+}
+
+.page-break {
+  @apply bg-transparent;
 }

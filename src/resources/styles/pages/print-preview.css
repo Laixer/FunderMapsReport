@@ -1,5 +1,6 @@
 @import url("../print/typography.css");
 @import url("../print/header.css");
+@import url("../print/highlight.css");
 @import url("../print/table.css");
 
 .page-print-preview {
@@ -7,7 +8,7 @@
 }
 
 .a4 {
-  @apply mx-auto mb-10 space-y-10 bg-white shadow;
+  @apply mx-auto mb-10 bg-white shadow;
   padding: 0.52in 0.35in;
   width: 8.5in;
 
@@ -15,4 +16,14 @@
   section {
     margin-inline: 0.17in;
   }
+
+  > * {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.page-break {
+  @apply w-full bg-grey-200;
+
+  height: 1px;
 }
