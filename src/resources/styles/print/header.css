@@ -1,0 +1,9 @@
+.header--print {
+  @apply grid place-items-center bg-red-500;
+  margin-inline: 0 !important;
+  grid-template: 1fr / 1fr;
+
+  > * {
+    grid-area: 1 / 1;
+  }
+}
