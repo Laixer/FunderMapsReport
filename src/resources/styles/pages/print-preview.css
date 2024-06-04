@@ -1,0 +1,18 @@
+@import url("../print/typography.css");
+@import url("../print/header.css");
+@import url("../print/table.css");
+
+.page-print-preview {
+  @apply h-auto bg-grey-100 p-10;
+}
+
+.a4 {
+  @apply mx-auto mb-10 space-y-10 bg-white shadow;
+  padding: 0.52in 0.35in;
+  width: 8.5in;
+
+  header,
+  section {
+    margin-inline: 0.17in;
+  }
+}

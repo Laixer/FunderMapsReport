@@ -9,5 +9,13 @@
     dd {
       @apply text-end leading-loose text-grey-700;
     }
+
+    .item--grid {
+      @apply grid grid-cols-2 items-baseline gap-4;
+
+      dd {
+        @apply text-start;
+      }
+    }
   }
 }
