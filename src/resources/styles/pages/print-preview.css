@@ -23,7 +23,13 @@
 }
 
 .page-break {
-  @apply w-full bg-grey-200;
+  @apply relative grid w-full place-content-center bg-grey-200;
 
   height: 1px;
+
+  &:before {
+    content: "Page Break";
+
+    @apply rounded border border-grey-200 bg-white px-2 py-0.5 text-grey-400;
+  }
 }

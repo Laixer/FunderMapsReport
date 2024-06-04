@@ -32,4 +32,8 @@ header {
 
 .page-break {
   @apply bg-transparent;
+
+  &:before {
+    @apply hidden;
+  }
 }
