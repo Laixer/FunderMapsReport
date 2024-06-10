@@ -1,0 +1,47 @@
+/* stylelint-disable custom-property-pattern */
+.stroke-accent,
+.fill-accent {
+  --_accent-color: var(--accent-color, currentColor);
+}
+
+.accent-stroke-dark,
+.accent-stroke-light,
+.accent-fill-dark,
+.accent-fill-light {
+  --_accent-color: var(--accent-color, theme(colors.grey.700));
+  --_accent-color-light: var(--accent-color-light, theme(colors.grey.200));
+}
+
+.stroke-accent {
+  stroke: var(--_accent-color);
+}
+
+.fill-accent {
+  fill: var(--_accent-color);
+}
+
+.accent-fill-light {
+  fill: var(--_accent-color-light);
+}
+
+.accent-fill-dark {
+  fill: var(--_accent-color);
+}
+
+.accent-stroke-light {
+  stroke: var(--_accent-color-light);
+}
+
+.accent-stroke-dark {
+  stroke: var(--_accent-color);
+}
+
+.accent-color-green {
+  --accent-color: theme(colors.green.500);
+  --accent-color-light: theme(colors.green.200);
+}
+
+.accent-color-blue {
+  --accent-color: theme(colors.blue.500);
+  --accent-color-light: theme(colors.blue.200);
+}

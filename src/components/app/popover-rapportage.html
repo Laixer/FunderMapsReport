@@ -1,0 +1,105 @@
+<div
+  x-dialog
+  x-model="popupRapportageOpen"
+  class="app-modal modal | pointer-events-none z-20 grid place-items-start overflow-y-auto py-4"
+  x-cloak
+  data-variant="main"
+>
+  <div
+    class="panel pointer-events-auto mt-8"
+    aria-role="dialog"
+    aria-describedby="dialog-label"
+    aria-modal="true"
+    data-variant="popover"
+  >
+    <header class="panel__header">
+      <h5 id="dialog-label" class="heading-5">Rapportage</h5>
+      <button
+        class="button button--link | group absolute right-8 top-3 text-blue-900 hover:text-red-500"
+        x-on:click="setPopupRapportage(false)"
+      >
+        <span>
+          <div class="button__label">Sluit</div>
+        </span>
+        <icon
+          src="close.svg"
+          class="aspect-square h-3.5 text-red-500"
+          aria-hidden="true"
+        ></icon>
+      </button>
+    </header>
+    <div class="panel__content content | -mx-6 space-y-4 px-6">
+      <p class="text-grey-700">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui at facere
+        rem numquam necessitatibus provident nesciunt dicta error est, fuga,
+        quos ad quasi, incidunt similique corrupti ab quas iste iusto?
+      </p>
+      <div class="accordion divide-y divide-grey-200">
+        <details>
+          <summary class="list-none">
+            <div class="flex justify-between py-4">
+              <h6 class="font-bold leading-none">Handhavingstermijn</h6>
+              <span data-show-open="false">
+                <icon
+                  src="plus.svg"
+                  class="aspect-square w-4"
+                  aria-hidden="true"
+                ></icon>
+              </span>
+              <span data-show-open="true">
+                <icon
+                  src="minus.svg"
+                  class="aspect-square w-4"
+                  aria-hidden="true"
+                ></icon>
+              </span>
+            </div>
+          </summary>
+          <div class="content">
+            <ol class="list--legenda">
+              <li style="--marker-color: orange">> 25</li>
+              <li>20 t/m 25</li>
+              <li>15 t/m 20</li>
+              <li style="--marker-color: purple">10 t/m 15</li>
+              <li>5 t/m 10</li>
+              <li>0 t/m 5</li>
+            </ol>
+          </div>
+        </details>
+        <details>
+          <summary class="list-none">
+            <div class="flex justify-between py-4">
+              <h6 class="font-bold leading-none">Rapportage type</h6>
+              <span data-show-open="false">
+                <icon
+                  src="plus.svg"
+                  class="aspect-square w-4"
+                  aria-hidden="true"
+                ></icon>
+              </span>
+              <span data-show-open="true">
+                <icon
+                  src="minus.svg"
+                  class="aspect-square w-4"
+                  aria-hidden="true"
+                ></icon>
+              </span>
+            </div>
+          </summary>
+          <div class="content">
+            <p>
+              Requires a computer running an operating system. The computer must
+              have some memory and ideally some kind of long-term storage. An
+              input device as well as some form of output device is recommended.
+            </p>
+            <p>
+              Requires a computer running an operating system. The computer must
+              have some memory and ideally some kind of long-term storage. An
+              input device as well as some form of output device is recommended.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>

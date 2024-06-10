@@ -1,0 +1,14 @@
+table {
+  th {
+    @apply text-left font-normal;
+  }
+
+  th,
+  td {
+    @apply py-2.5;
+  }
+
+  tbody {
+    @apply divide-y divide-grey-200 text-grey-700;
+  }
+}

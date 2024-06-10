@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fundermaps - Dashboard</title>
+    <link href="./resources/styles/app.css" rel="stylesheet" />
+    <script type="module" src="./resources/scripts/app.js"></script>
+  </head>
+
+  <body class="page-dashboard" x-data="panels">
+    <include src="app/header.html"></include>
+    <div
+      class="app-view | relative bg-grey-200"
+      style="
+        background-image: url(&quot;./resources/images/map.png&quot;);
+        background-repeat: no-repeat;
+        background-size: cover;
+      "
+    >
+      <div
+        class="map__actions | absolute left-8 top-12"
+        x-show="!leftPanelOpen"
+      >
+        <button class="button button--solid" x-on:click="setLeftPanel(true)">
+          <icon src="filter.svg" class="w-3" aria-hidden="true"></icon>
+          Open filter
+        </button>
+      </div>
+      <!-- Start content for DEMO -->
+      <div class="map__navigation | absolute bottom-5 right-5">A</div>
+      <button
+        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        x-on:click="setRightPanel()"
+      >
+        <icon
+          src="classification/a.svg"
+          class="ml-auto aspect-square h-8 transition-transform"
+          aria-hidden="true"
+        ></icon>
+      </button>
+      <!-- End content for DEMO -->
+    </div>
+    <include src="app/panel-left.html"></include>
+    <include src="app/panel-right.html"></include>
+    <include src="app/modal-information.html"></include>
+    <include src="app/modal-settings.html"></include>
+    <include src="app/modal-statistics.html"></include>
+    <include src="app/popover-rapportage.html"></include>
+  </body>
+</html>

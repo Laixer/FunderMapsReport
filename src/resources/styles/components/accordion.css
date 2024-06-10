@@ -1,0 +1,25 @@
+.accordion {
+  summary {
+    @apply cursor-pointer;
+
+    &:hover {
+      @apply text-green-500;
+    }
+  }
+
+  details:not([open]) {
+    [data-show-open="true"] {
+      @apply hidden;
+    }
+  }
+
+  details[open] {
+    [data-show-open="false"] {
+      @apply hidden;
+    }
+
+    .content {
+      @apply pb-4;
+    }
+  }
+}
