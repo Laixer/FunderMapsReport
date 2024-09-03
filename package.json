@@ -21,10 +21,12 @@
     "posthtml-inline-svg": "^0.2.0",
     "prettier": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.5.11",
+    "process": "^0.11.10",
     "rimraf": "^3.0.2",
     "stylelint": "^16.2.0",
     "stylelint-config-standard": "^36.0.0",
-    "tailwindcss": "^3.3.6"
+    "tailwindcss": "^3.3.6",
+    "yarn": "^1.22.22"
   },
   "scripts": {
     "clean:output": "rimraf dist",
@@ -37,7 +39,9 @@
     "@alpinejs/ui": "^3.13.5-beta.0",
     "@kurkle/color": "^0.3.2",
     "alpinejs": "^3.13.5",
-    "chart.js": "^4.4.1"
+    "chart.js": "^4.4.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1"
   },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
