@@ -1,6 +1,6 @@
 
 import { createRouter, createWebHistory } from 'vue-router'
-import { useSessionStore } from '@/store/session';
+// import { useSessionStore } from '@/store/session';
 
 import PDF from '@/views/PDF.vue'
 
@@ -9,7 +9,7 @@ import NoAccess from '@/views/NoAccess.vue'
 
 // 404
 import NotFound from '@/views/NotFound.vue' 
-import { storeToRefs } from 'pinia';
+// import { storeToRefs } from 'pinia';
 
 const router = createRouter({
   history: createWebHistory(),
