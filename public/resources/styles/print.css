@@ -1,39 +1,41 @@
-@import url("tailwindcss/base.css");
-@import url("./base/common.print.css");
+@media print {
+  @import url("tailwindcss/base.css");
+  @import url("./base/common.print.css");
 
-/* @import url("./utilities/index.css"); */
+  /* @import url("./utilities/index.css"); */
 
-/* @import url("./pages/index.css"); */
+  /* @import url("./pages/index.css"); */
 
-@page {
-  size: A4 portrait;
-  margin: 1.75cm;
-  padding: 0;
-}
+  @page {
+    size: A4 portrait;
+    margin: 1.75cm;
+    padding: 0;
+  }
 
-html {
-  margin: 0;
-  padding: 0;
-}
+  html {
+    margin: 0;
+    padding: 0;
+  }
 
-.page-print-preview {
-  @apply m-0 bg-transparent p-0;
-}
+  .page-print-preview {
+    @apply m-0 bg-transparent p-0;
+  }
 
-.a4 {
-  @apply m-0 bg-white shadow-none;
-  padding: 0;
-  width: auto;
-}
+  .a4 {
+    @apply m-0 bg-white shadow-none;
+    padding: 0;
+    width: auto;
+  }
 
-header {
-  @apply break-inside-avoid break-after-avoid;
-}
+  header {
+    @apply break-inside-avoid break-after-avoid;
+  }
 
-.page-break {
-  @apply bg-transparent;
+  .page-break {
+    @apply bg-transparent;
 
-  &:before {
-    @apply hidden;
+    &:before {
+      @apply hidden;
+    }
   }
 }
