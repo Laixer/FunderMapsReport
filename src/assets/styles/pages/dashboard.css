@@ -1,0 +1,46 @@
+.page-dashboard {
+  @apply grid;
+
+  grid-template-columns: [panel-left full-start] 21rem [main] auto [panel-right] 21rem [full-end];
+  grid-template-rows: [header] theme(spacing.20) [main] auto;
+
+  .app-header {
+    grid-column: full;
+    grid-row: header;
+  }
+
+  .app-view {
+    grid-column: full;
+    grid-row: main;
+  }
+
+  .app-modal {
+    grid-column: full;
+    grid-row: main;
+
+    @screen xl {
+      grid-column: main;
+      grid-row: main;
+    }
+
+    &[data-variant="full"] {
+      grid-column: full;
+      grid-row: main;
+    }
+
+    &[data-variant="main"] {
+      grid-column: main;
+      grid-row: main;
+    }
+  }
+
+  .app-sidebar--left {
+    grid-row: main;
+    grid-column: panel-left;
+  }
+
+  .app-sidebar--right {
+    grid-row: main;
+    grid-column: panel-right;
+  }
+}

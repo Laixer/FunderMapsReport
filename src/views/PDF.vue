@@ -10,18 +10,18 @@
         class="header--print | relative isolate overflow-hidden rounded-md"
       >
         <img
-          src="./resources/images/header-bg.png"
+          src="@assets/images/header-bg.png"
           alt=""
           class="inset absolute -z-10 w-full"
         />
         <img
-          src="./resources/images/header-artifact.print.png"
+          src="@assets/images/header-artifact.print.png"
           alt=""
           class="justify-self-start"
         />
         <div class="grid justify-items-center gap-2 text-white">
           <img
-            src="./resources/svg/fundermaps-inverted.svg"
+            src="@assets/svg/fundermaps-inverted.svg?url"
             alt="Logo Fundermaps"
             class="h-8"
           />
@@ -32,11 +32,11 @@
       <!-- CHAPTER: BUILDING -->
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
-          <icon
-            src="fundermaps/building.svg"
+          <img
+            src="@assets/svg/icons/fundermaps/building.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
-          ></icon>
+          ></img>
           <h2 class="h-4">Pand</h2>
         </header>
         <section class="space-y-7">
@@ -73,7 +73,7 @@
       <article class="space-y-5">
         <header class="flex items-center gap-2.5">
           <icon
-            src="fundermaps/pin.svg"
+            src="fundermaps/pin.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
@@ -82,14 +82,14 @@
         <section class="space-y-7">
           <figure class="aspect-map w-full overflow-clip">
             <img
-              src="./resources/images/map.png"
+              src="@assets/images/map.png"
               alt="Kaart van de locatie"
               class="asp w-full object-cover"
             />
           </figure>
           <div class="highlight">
             <img
-              src="./resources/images/highlight-bg.png"
+              src="@assets/images/highlight-bg.png"
               alt=""
               class="inset absolute -z-10 w-full"
             />
@@ -139,7 +139,7 @@
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
-            src="fundermaps/file-foundation.svg"
+            src="fundermaps/file-foundation.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
@@ -151,7 +151,7 @@
               class="col-span-3 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-4"
             >
               <icon
-                src="foundation/houten-palen.svg"
+                src="foundation/houten-palen.svg?url"
                 class="aspect-square w-2/3 flex-1"
                 aria-hidden="true"
               ></icon>
@@ -204,7 +204,7 @@
           <div class="space-y-5">
             <div class="highlight">
               <img
-                src="./resources/images/highlight-bg.png"
+                src="@assets/images/highlight-bg.png"
                 alt=""
                 class="inset absolute -z-10 w-full"
               />
@@ -283,7 +283,7 @@
 
             <div class="highlight">
               <img
-                src="./resources/images/highlight-bg.png"
+                src="@assets/images/highlight-bg.png"
                 alt=""
                 class="inset absolute -z-10 w-full"
               />
@@ -333,7 +333,7 @@
             <div class="chart | grid grid-cols-2 items-center gap-4">
               <figure>
                 <img
-                  src="./resources/images/pie-chart.png"
+                  src="@assets/images/pie-chart.png"
                   alt="Grafiek 1"
                   class="w-full"
                 />
@@ -351,7 +351,7 @@
             <div class="chart | grid grid-cols-2 items-center gap-4">
               <figure>
                 <img
-                  src="./resources/images/pie-chart.png"
+                  src="@assets/images/pie-chart.png"
                   alt="Grafiek 1"
                   class="w-full"
                 />
@@ -374,7 +374,7 @@
       <article class="break-inside-avoid space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
-            src="fundermaps/wrench.svg"
+            src="fundermaps/wrench.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
@@ -409,7 +409,7 @@
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
-            src="fundermaps/alert.svg"
+            src="fundermaps/alert.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
@@ -427,7 +427,7 @@
                       <dt>Droogstand</dt>
                       <dd>
                         <icon
-                          src="classification/c.svg"
+                          src="classification/c.svg?url"
                           class="aspect-square w-4"
                           aria-hidden="true"
                         />
@@ -454,7 +454,7 @@
             <div class="chart | grid grid-cols-12 items-center gap-4">
               <figure class="col-span-5">
                 <img
-                  src="./resources/images/pie-chart.png"
+                  src="@assets/images/pie-chart.png"
                   alt="Grafiek 1"
                   class="w-full"
                 />
@@ -481,7 +481,7 @@
                       <dt>Ontwateringsdiepte</dt>
                       <dd>
                         <icon
-                          src="classification/a.svg"
+                          src="classification/a.svg?url"
                           class="aspect-square w-4"
                           aria-hidden="true"
                         />
@@ -508,7 +508,7 @@
             <div class="chart | grid grid-cols-12 items-center gap-4">
               <figure class="col-span-5">
                 <img
-                  src="./resources/images/pie-chart.png"
+                  src="@assets/images/pie-chart.png"
                   alt="Grafiek 1"
                   class="w-full"
                 />
@@ -535,7 +535,7 @@
                       <dt>Verschilzakking</dt>
                       <dd>
                         <icon
-                          src="classification/e.svg"
+                          src="classification/e.svg?url"
                           class="aspect-square w-4"
                           aria-hidden="true"
                         />
@@ -562,7 +562,7 @@
             <div class="chart | grid grid-cols-12 items-center gap-4">
               <figure class="col-span-5">
                 <img
-                  src="./resources/images/pie-chart.png"
+                  src="@assets/images/pie-chart.png"
                   alt="Grafiek 1"
                   class="w-full"
                 />
@@ -589,7 +589,7 @@
                       <dt>Droogstand</dt>
                       <dd class="flex justify-end">
                         <icon
-                          src="classification/b.svg"
+                          src="classification/b.svg?url"
                           class="aspect-square w-4"
                           aria-hidden="true"
                         />
@@ -616,7 +616,7 @@
             <div class="chart | grid grid-cols-12 items-center gap-4">
               <figure class="col-span-5">
                 <img
-                  src="./resources/images/pie-chart.png"
+                  src="@assets/images/pie-chart.png"
                   alt="Grafiek 1"
                   class="w-full"
                 />
@@ -639,7 +639,7 @@
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
-            src="fundermaps/file-report.svg"
+            src="fundermaps/file-report.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
@@ -683,7 +683,7 @@
             </tbody>
           </table>
           <figure>
-            <img src="./resources/images/bar-chart.png" alt="" class="w-full" />
+            <img src="@assets/images/bar-chart.png" alt="" class="w-full" />
           </figure>
         </section>
       </article>
@@ -692,7 +692,7 @@
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
-            src="fundermaps/scan.svg"
+            src="fundermaps/scan.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
@@ -706,7 +706,7 @@
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
                 <icon
-                  src="facade/achter.svg"
+                  src="facade/achter.svg?url"
                   class="aspect-square w-full flex-1"
                   aria-hidden="true"
                 ></icon>
@@ -736,7 +736,7 @@
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
                 <icon
-                  src="facade/inpandig.svg"
+                  src="facade/inpandig.svg?url"
                   class="aspect-square w-full flex-1"
                   aria-hidden="true"
                 ></icon>
@@ -766,7 +766,7 @@
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
                 <icon
-                  src="facade/links.svg"
+                  src="facade/links.svg?url"
                   class="aspect-square w-full flex-1"
                   aria-hidden="true"
                 ></icon>
@@ -796,7 +796,7 @@
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
                 <icon
-                  src="facade/rechts.svg"
+                  src="facade/rechts.svg?url"
                   class="aspect-square w-full flex-1"
                   aria-hidden="true"
                 ></icon>
@@ -826,7 +826,7 @@
                 class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
               >
                 <icon
-                  src="facade/voor.svg"
+                  src="facade/voor.svg?url"
                   class="aspect-square w-full flex-1"
                   aria-hidden="true"
                 ></icon>
@@ -855,7 +855,7 @@
 
           <div class="highlight">
             <img
-              src="./resources/images/highlight-bg.png"
+              src="@assets/images/highlight-bg.png"
               alt=""
               class="inset absolute -z-10 w-full"
             />
@@ -921,7 +921,7 @@
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
-            src="fundermaps/graph.svg"
+            src="fundermaps/graph.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
@@ -930,7 +930,7 @@
         <section class="space-y-10">
           <div class="highlight w-1/2">
             <img
-              src="./resources/images/highlight-bg.png"
+              src="@assets/images/highlight-bg.png"
               alt=""
               class="inset absolute -z-10 w-full"
             />
@@ -962,7 +962,7 @@
           </div>
           <figure>
             <img
-              src="./resources/images/scatter-chart.png"
+              src="@assets/images/scatter-chart.png"
               alt=""
               class="w-full"
             />
@@ -976,7 +976,7 @@
       <article class="space-y-5">
         <header class="flex break-after-avoid items-center gap-2.5">
           <icon
-            src="fundermaps/alert.svg"
+            src="fundermaps/alert.svg?url"
             class="accent-color-blue aspect-square w-4"
             aria-hidden="true"
           ></icon>
@@ -985,10 +985,10 @@
 
         <section class="space-y-10">
           <figure>
-            <img src="./resources/images/map.print.png" alt="" class="w-full" />
+            <img src="@assets/images/map.print.png" alt="" class="w-full" />
           </figure>
           <figure>
-            <img src="./resources/images/bar-chart.png" alt="" class="w-full" />
+            <img src="@assets/images/bar-chart.png" alt="" class="w-full" />
           </figure>
         </section>
       </article>

@@ -1,0 +1,55 @@
+.input--toggle {
+  [type="checkbox"] {
+    + label {
+      @apply relative inline-grid items-start gap-2.5 text-base leading-tight text-grey-700;
+
+      grid-template-columns: theme(spacing.10) auto;
+
+      &::before {
+        content: "";
+
+        @apply z-10 col-start-1 row-start-1 h-5 w-10 rounded-full bg-grey-200 transition-all;
+      }
+
+      &::after {
+        content: "";
+
+        @apply z-20 col-start-1 row-start-1 aspect-square h-4 -translate-x-2.5 place-self-center rounded-full bg-grey-700 transition-all;
+      }
+    }
+
+    &:disabled {
+      + label {
+        @apply pointer-events-none cursor-default text-grey-400;
+
+        &::before {
+          @apply opacity-50;
+        }
+
+        &::after {
+          @apply opacity-50;
+        }
+      }
+    }
+
+    &:checked {
+      + label {
+        &::before {
+          @apply bg-green-500;
+        }
+
+        &::after {
+          @apply translate-x-2.5 bg-white;
+        }
+      }
+
+      &:disabled {
+        + label {
+          &::after {
+            @apply opacity-100;
+          }
+        }
+      }
+    }
+  }
+}

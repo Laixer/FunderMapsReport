@@ -1,0 +1,9 @@
+.cards {
+  @apply grid gap-10;
+
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.card {
+  @apply overflow-hidden rounded-lg bg-white shadow-card;
+}

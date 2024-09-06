@@ -1,0 +1,17 @@
+.modal {
+  .panel {
+    @apply relative max-h-full w-full max-w-3xl space-y-4 rounded-lg bg-white px-16 py-12 shadow-float xl:px-12 2xl:px-16;
+
+    &[data-variant="narrow"] {
+      @apply max-w-xl;
+    }
+
+    &[data-variant="popover"] {
+      @apply max-w-xs rounded-none rounded-r-lg p-8 shadow-none;
+    }
+
+    &__footer {
+      @apply pb-6;
+    }
+  }
+}
