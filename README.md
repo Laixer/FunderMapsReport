@@ -1,93 +1,18 @@
-# Project Name
+# Vue 3 + TypeScript + Vite
 
-Fundermaps Dashboard
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Omschrijving
+## Recommended Setup
 
-Dit is een demo project voor de Fundermaps Maps omgeving.
+- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
 
-- Er is rekening gehouden met een minimale schermbreedte van 1024px.
-- De Javascript is alleen voor presentatie doeleinden en niet productie klaar.
-- De applicatie:
-  - Header
-  - Main view
-  - Sidebar left
-  - Sidebar right
+- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
 
-## Gebruikte technologieën
 
-De volgende technologiën zijn gebruikt voor de demo.
+## Design Links
 
-- [Post CSS](https://postcss.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Parcel](https://parceljs.org/)
-- [Alpine.js](https://github.com/alpinejs/alpine)
-- [Post html](https://posthtml.org/)
+- https://fundermaps.lemone.design/
+- https://maps-fundermaps-0815e42252619b01eb5ad6094e9d956ecc31cd7dac1e1f0.lemone.cloud/index.html
+- https://www.figma.com/proto/pj0EJjVD4KXzZGE7o8f2Rs/%F0%9F%8E%A8-FunderMaps---UI?page-id=253%3A1907&type=design&node-id=357-264&viewport=844%2C-3214%2C0.19&t=evEj68y3QY7VhTJT-1&scaling=min-zoom&starting-point-node-id=361%3A1118
 
-Parcel, Post HTML en Alpine zijn gebruikt voor de demo, het is aan te raden om Tailwind + Postcss ook te gebruiken voor ontwikkeling van de applicatie.
 
-Opzetten van Tailwind css met elk Framework:
-
-- https://tailwindcss.com/docs/installation/framework-guides
-- [ViteJS voorbeeld + VueJS](https://tailwindcss.com/docs/guides/vite#vue)
-
-## Getting Started
-
-### Vereisten
-
-- Node.js (version 20.10.0)
-
-### Installatie
-
-1. Clone de repository.
-2. Installeer de dependencies
-
-```bash
-# Start de applicatie
-yarn start
-
-# Bouw de applicatie
-yarn build
-```
-
-## Demo
-
-### Link demo omgeving online
-
-[Online Demo](https://maps-fundermaps-0815e42252619b01eb5ad6094e9d956ecc31cd7dac1e1f0.lemone.cloud/)
-
-### Klikbare elementen
-
-#### Homepage
-
-- Login knop (gaat naar dashboard)
-- Naar wachtwoord vergeten
-
-#### Wachtwoord vergeten
-
-- Naar login
-
-#### Dashboard
-
-- Naar kaart groep (opent een dropdown)
-- Gebruikers menu (opent een dropdown)
-  - Ga naar profiel (opent een profiel modal)
-  - Ga naar panels page
-  - Ga naar loading screen
-  - Uitloggen (gaat naar login)
-- Open filter (opent de linker sidebar)
-  - Sluit (sluit sidebar)
-  - Rapportage (opent rapportage)
-    - Terug naar kaartfilter (opent kaart filter)
-    - Info i (open popup rapportage uitleg)
-    - Accordion
-  - Verhouding aantal fundering in de buurt (opent grafiek modal)
-- Groene marker (opent rechter balk)
-  - Sluit (sluit sidebar)
-  - Alle informatie link (opent informatie modal)
-  - Bekijk onderzoeks informatie (opent sidebar level 2)
-    - Terug naar pand informatie (opent pand informatie)
-- Loading screen 
-  - Gebruik het Gebruikers menu om te navigeren
-- Panels page
-  - Klik op 1 van de sluit knoppen om terug te gaan naar het dashboard
