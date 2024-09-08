@@ -1,1034 +1,261 @@
+<script setup lang="ts">
+import { onBeforeMount, watch, computed } from 'vue';
+import { storeToRefs } from 'pinia';
+
+import api from '@/services/api';
+
+import { useBuildingStore } from '@/store/buildings';
+import { useGeoLocationsStore } from '@/store/building/geolocations'
+import { useAnalysisStore } from '@/store/building/analysis'
+import { useRecoveryReportsStore } from '@/store/building/recovery'
+import { useInquiriesStore } from '@/store/building/inquiries'
+import { useIncidentReportsStore } from '@/store/building/incidents'
+import { useStatisticsStore } from '@/store/building/statistics'
+
+// import Chapter from '@/components/Print/Chapter.vue'
+import PageBreak from '@/components/Print/PageBreak.vue'
+
+import BuildingChapter from '@/components/Print/Chapters/BuildingChapter.vue'
+import LocationChapter from '@/components/Print/Chapters/LocationChapter.vue';
+import InquirySampleChapter from '@/components/Print/Chapters/InquirySampleChapter.vue'
+import FoundationRestorationChapter from '@/components/Print/Chapters/FoundationRestorationChapter.vue'
+import FoundationRiskChapter from '@/components/Print/Chapters/FoundationRiskChapter.vue'
+import ReportingChapter from '@/components/Print/Chapters/ReportingChapter.vue'
+import FacadeReviewChapter from '@/components/Print/Chapters/FacadeReviewChapter.vue'
+import DisplacementDataChapter from '@/components/Print/Chapters/DisplacementDataChapter.vue'
+import IncidentsChapter from '@/components/Print/Chapters/IncidentsChapter.vue'
+
+/**
+ * Store access 
+ */
+const { buildingId } = storeToRefs(useBuildingStore())
+
+/**
+ * Menu items
+ */
+ const { 
+  loadLocationDataByBuildingId,
+  buildingLocationDataHasBeenRetrieved
+} = useGeoLocationsStore()
+
+const { 
+  loadAnalysisDataByBuildingId,
+  buildingAnalysisDataHasBeenRetrieved
+} = useAnalysisStore()
+
+const { 
+  loadStatisticsDataByBuildingId,
+  buildingStatisticsDataHasBeenRetrieved
+} = useStatisticsStore()
+
+/**
+ * Green buttons
+ */
+const { 
+  buildingRecoveryReportDataHasBeenRetrieved,
+  setRecoveryDataByBuildingId
+} = useRecoveryReportsStore()
+
+const { 
+  buildingInquiryDataHasBeenRetrieved,
+  setInquiryDataByBuildingId
+} = useInquiriesStore()
+
+const { 
+  buildingIncidentReportDataHasBeenRetrieved,
+  setIncidentDataByBuildingId
+} = useIncidentReportsStore()
+
+const hasAllBuildingInformation = computed(() => {
+  if (! buildingId.value) return false
+
+  return (
+    buildingLocationDataHasBeenRetrieved(buildingId.value)
+    && buildingAnalysisDataHasBeenRetrieved(buildingId.value)
+    && buildingStatisticsDataHasBeenRetrieved(buildingId.value)
+    && buildingRecoveryReportDataHasBeenRetrieved(buildingId.value)
+    && buildingInquiryDataHasBeenRetrieved(buildingId.value)
+    && buildingIncidentReportDataHasBeenRetrieved(buildingId.value)
+  )
+})
+
+/**
+ * When the selected building changes, we put the stores to work
+ */
+watch(
+  () => buildingId.value,
+  async (buildingId) => {
+    if (buildingId === null) return
+
+    // TODO: Quick fix to support cache. Move to some store ?
+    const getAllReportDataUnlessCached = async function getAlReportDataUnlessCached(buildingId: string) {
+      if (
+        ! buildingRecoveryReportDataHasBeenRetrieved(buildingId) ||
+        ! buildingIncidentReportDataHasBeenRetrieved(buildingId) ||
+        ! buildingInquiryDataHasBeenRetrieved(buildingId)
+      ) {
+        return await api.building.getAllReportDataByBuildingId(buildingId)
+          .then(response => {
+
+            if (! buildingRecoveryReportDataHasBeenRetrieved(buildingId)) {
+              setRecoveryDataByBuildingId(buildingId, response.recoveries, response.recoverySamples)
+            }
+            if (! buildingInquiryDataHasBeenRetrieved(buildingId)) {
+              setInquiryDataByBuildingId(buildingId, response.inquiries, response.inquirySamples)
+            }
+            if (! buildingIncidentReportDataHasBeenRetrieved(buildingId)) {
+              setIncidentDataByBuildingId(buildingId, response.incidents)
+            }
+          })
+      }
+
+      return Promise.resolve()
+    }
+
+    // TODO: Handle errors here ?
+    // TODO: Retry logic. Local or global?
+    await Promise.all([
+      loadLocationDataByBuildingId(buildingId),
+      loadAnalysisDataByBuildingId(buildingId),
+      loadStatisticsDataByBuildingId(buildingId),
+
+      // TODO: This implementation is a quick fix to support "cache"
+      getAllReportDataUnlessCached(buildingId)
+    ])
+  },
+  { immediate: true }
+)
+
+onBeforeMount(() => {
+  const { setBuildingId } = useBuildingStore()
+
+  // With (empty) inquiry samples
+  // setBuildingId('FIR622020-3297')
+
+  // with incident reports, no inquiry samples
+  // setBuildingId("FIR622020-3458")
+
+  // Recovery & inquiry
+  setBuildingId('NL.IMBAG.PAND.0599100000636585')
+})
+
+</script>
 
 <template>
-  
-  <!-- <div class="page-print-preview | content | space-y-12"> <!-- body tag ... -->
 
-    <!-- <div class="a4"> -->
-      <!-- CHAPTER: HEADER -->
+  <template v-if="hasAllBuildingInformation">
 
-      <header
-        class="header--print | relative isolate overflow-hidden rounded-md"
-      >
+    <!-- HEADER -->
+    <header
+      class="header--print | relative isolate overflow-hidden rounded-md"
+    >
+      <img
+        src="@assets/images/header-bg.png"
+        alt=""
+        class="inset absolute -z-10 w-full"
+      />
+      <img
+        src="@assets/images/header-artifact.print.png"
+        alt=""
+        class="justify-self-start"
+      />
+      <div class="grid justify-items-center gap-2 text-white">
         <img
-          src="@assets/images/header-bg.png"
-          alt=""
-          class="inset absolute -z-10 w-full"
+          src="@assets/svg/fundermaps-inverted.svg?url"
+          alt="Logo Fundermaps"
+          class="h-8"
         />
-        <img
-          src="@assets/images/header-artifact.print.png"
-          alt=""
-          class="justify-self-start"
-        />
-        <div class="grid justify-items-center gap-2 text-white">
-          <img
-            src="@assets/svg/fundermaps-inverted.svg?url"
-            alt="Logo Fundermaps"
-            class="h-8"
-          />
-          <h1>Funderingsrisicorapport</h1>
-        </div>
+        <h1>Funderingsrisicorapport</h1>
+      </div>
+    </header>
+
+    
+    <!-- CHAPTER: BUILDING -->
+    <!-- TODO: 2 unknown fields -->
+    <BuildingChapter />
+
+    <!-- CHAPTER: LOCATION -->
+    <LocationChapter />
+
+    <!-- PAGE BREAK -->
+    <PageBreak />
+
+    <!-- CHAPTER: FOUNDATION -->
+    <!-- TODO: 1 unknown field -->
+    <!-- TODO: foundationTypeReliability presented as paragraph in pdf, but is an enum with 1 word values (e.g. "Vastgesteld") -->
+    <!-- TODO: Repeat field in Niveau & Kwaliteit -->
+    <!-- TODO: Generate Pie charts... chart about building years and foundation types for 1 building... ??? -->
+    <InquirySampleChapter />
+
+    <!-- CHAPTER: FOUNDATION RESTORATION -->
+    <!-- TODO: No known data points in recovery report or recovery sample ... -->
+    <FoundationRestorationChapter />
+
+    <!-- CHAPTER: FOUNDATION RISK -->
+    <!-- TODO: Unknown field "Type herstel" for 'Droogstand'. Changed to drystandReliability -->
+    <!-- TODO: differentialsettlement is not presented in the Maps sidebar, but it is in the PDF -->
+    <!-- TODO: Droogstand was included twice as chapter section. Other risks were not presented (e.g. bioinfection) -->
+    <!-- TODO: Unknown paragraphs -->
+    <!-- TODO: Unknown graphs -->
+    <FoundationRiskChapter />
+
+    <!-- CHAPTER: REPORTING -->
+    <!-- TODO: statistics on incidents in district? -- same as IncidentsChapter...? -->
+    <ReportingChapter />
+
+    <!-- CHAPTER: FACADE REVIEW -->
+    <FacadeReviewChapter />
+
+    <!-- PAGE BREAK -->
+    <PageBreak />
+
+    <!-- CHAPTER: DISPLACEMENT DATA -->
+    <!-- TODO: Discuss chapter -->
+    <DisplacementDataChapter />
+
+    <!-- PAGE BREAK -->
+    <PageBreak />
+
+    <!-- CHAPTER: INCIDENTS -->
+    <!-- TODO: statistics on incidents in district? -- same as ReportingChapter...? -->
+    <IncidentsChapter />
+
+    <!-- PAGE BREAK -->
+    <PageBreak />
+
+    <!-- CHAPTER: CLOSING REMARKS -->
+    <article class="space-y-5">
+      <header class="flex break-after-avoid items-center gap-2.5">
+        <h2 class="h-4">Afsluitende tekst</h2>
       </header>
+      <section class="space-y-4 text-grey-700">
+        <p>
+          Daar waar onderzoeksgegevens zijn gebruikt, is de betrouwbaarheid
+          van de uitgangspunten hoog. Het funderingstype en/of
+          funderingsrisico wordt dan ook als &lsquo;vastgesteld&rsquo;
+          beschouwd.Wanneer geen onderzoeksgegevens beschikbaar zijn voor het
+          betreffende pand, maar wel voor de naastgelegen panden,betreft het
+          aangegeven funderingstype en de risicobeoordeling een
+          &lsquo;afgeleid&rsquo; uitgangspunt. Het is zeer aannemelijk deze
+          afgeleide uitgangspunten ook voor dit betreffende pand gelden daar
+          dit pand onderdeel is van dezelfde bouw- of funderingseenheid.
+        </p>
+        <p>
+          Indien er geen gegevens van het pand of de naastgelegen panden
+          beschikbaar zijn, wordt een modelanalyse uitgevoerd.Deze
+          analyseresultaten zijn indicatief en hebben een lagere
+          betrouwbaarheid.
+        </p>
+        <p>
+          Wanneer u het niet eens bent met de beoordeling, wanneer u
+          wijzigingen van de data wilt doorgeven of meer informatie wiltover
+          dit funderingsrisicorapport of de QuickScan, dan kunt u terecht op
+          <a href="https://www.fundermaps.com/formulier/meldingen"
+            >https://www.fundermaps.com/formulier/meldingen</a
+          >.
+        </p>
+      </section>
+    </article>
 
-      <!-- CHAPTER: BUILDING -->
-      <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <img
-            src="@assets/svg/icons/fundermaps/building.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></img>
-          <h2 class="h-4">Pand</h2>
-        </header>
-        <section class="space-y-7">
-          <dl role="list" class="list--definition">
-            <div class="item">
-              <dt>Adres</dt>
-              <dd>Willemsplein 492, 3016 DR Rotterdam</dd>
-            </div>
-            <div class="item">
-              <dt>Oppervlakte</dt>
-              <dd>1.000 m<sup>2</sup></dd>
-            </div>
-            <div class="item">
-              <dt>Gebouw hoogte</dt>
-              <dd>45,65m</dd>
-            </div>
-            <div class="item">
-              <dt>Gebruik</dt>
-              <dd>Wonen</dd>
-            </div>
-            <div class="item">
-              <dt>Bestemming</dt>
-              <dd>Wonen</dd>
-            </div>
-            <div class="item">
-              <dt>Onderbouw</dt>
-              <dd>Kelder aanwezig</dd>
-            </div>
-          </dl>
-        </section>
-      </article>
-
-      <!-- CHAPTER: LOCATION -->
-      <article class="space-y-5">
-        <header class="flex items-center gap-2.5">
-          <icon
-            src="fundermaps/pin.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></icon>
-          <h2 class="h-4">Locatie</h2>
-        </header>
-        <section class="space-y-7">
-          <figure class="aspect-map w-full overflow-clip">
-            <img
-              src="@assets/images/map.png"
-              alt="Kaart van de locatie"
-              class="asp w-full object-cover"
-            />
-          </figure>
-          <div class="highlight">
-            <img
-              src="@assets/images/highlight-bg.png"
-              alt=""
-              class="inset absolute -z-10 w-full"
-            />
-            <div class="highlight__content space-y-3">
-              <h3>Omgeving</h3>
-              <dl role="list" class="list--definition">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <div class="item--grid">
-                      <dt>Sondering</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Maaiveldniveau</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Grondwaterniveau</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="item--grid">
-                      <dt>Ondergrond type</dt>
-                      <dd>Zand</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Maaiveld hoogte</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Grondwater</dt>
-                      <dd>3,54</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </section>
-      </article>
-
-      <!-- PAGE BREAK -->
-      <div class="page-break break-after-page"></div>
-
-      <!-- CHAPTER: FOUNDATION -->
-      <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <icon
-            src="fundermaps/file-foundation.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></icon>
-          <h2 class="h-4">Fundering</h2>
-        </header>
-        <section class="space-y-7">
-          <div class="grid grid-cols-12 gap-4">
-            <figure
-              class="col-span-3 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-4"
-            >
-              <icon
-                src="foundation/houten-palen.svg?url"
-                class="aspect-square w-2/3 flex-1"
-                aria-hidden="true"
-              ></icon>
-              <figcaption
-                class="is-12 leadding-none flex-initial text-center font-bold text-grey-700"
-              >
-                Inpandige scheur
-              </figcaption>
-            </figure>
-            <dl role="list" class="list--definition col-span-9">
-              <div class="item">
-                <dt>Handhavingstermijn</dt>
-                <dd>Geen data</dd>
-              </div>
-              <div class="item">
-                <dt>Geconstateerde schade</dt>
-                <dd>Geen data</dd>
-              </div>
-              <div class="item">
-                <dt>Algehele funderingskwaliteit</dt>
-                <dd>Geen data</dd>
-              </div>
-              <div class="item">
-                <dt>Oorzaak funderingsschade</dt>
-                <dd>Geen data</dd>
-              </div>
-              <div class="item">
-                <dt>Bestemming</dt>
-                <dd>Geen data</dd>
-              </div>
-              <div class="item">
-                <dt>Onderbouw</dt>
-                <dd>Geen data</dd>
-              </div>
-            </dl>
-          </div>
-
-          <div class="space-y-3">
-            <h3>Betrouwbaarheid type fundering</h3>
-            <div class="max-w-prose text-grey-700">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis
-                perspiciatis ducimus et eaque sapiente aliquid, nihil laudantium
-                error, itaque sint quaerat distinctio rem, ipsam iure vero!
-                Voluptas nemo veritatis expedita.
-              </p>
-            </div>
-          </div>
-
-          <div class="space-y-5">
-            <div class="highlight">
-              <img
-                src="@assets/images/highlight-bg.png"
-                alt=""
-                class="inset absolute -z-10 w-full"
-              />
-              <div class="highlight__content space-y-3">
-                <h3>Palen & Hout</h3>
-                <dl role="list" class="list--definition">
-                  <div class="grid grid-cols-2 gap-4">
-                    <div>
-                      <div class="item--grid">
-                        <dt>Paalkop niveau</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Paalkop diameter</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Hart-op-hart afstand</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Houtsoort</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Inslagdiepte</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Houtkwaliteit paal</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Resterende draagkracht paal</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Houtonderzoek</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="item--grid">
-                        <dt>Paalkop niveau</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Paalkop diameter</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Hart-op-hart afstand</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Houtsoort</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Houtkwaliteit paal</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Resterende draagkracht paal</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Houtonderzoek</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                    </div>
-                  </div>
-                </dl>
-              </div>
-            </div>
-
-            <div class="highlight">
-              <img
-                src="@assets/images/highlight-bg.png"
-                alt=""
-                class="inset absolute -z-10 w-full"
-              />
-              <div class="highlight__content space-y-3">
-                <h3>Niveau & Kwaliteit</h3>
-                <dl role="list" class="list--definition">
-                  <div class="grid grid-cols-2 gap-4">
-                    <div>
-                      <div class="item--grid">
-                        <dt>Kwaliteit metselwerk</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Funderingsbalk</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Niveau onderkant funderingsbalk</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Handhavingstermijn</dt>
-                        <dd>xx jaar</dd>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="item--grid">
-                        <dt>Niveau onderkant funderingsbalk</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Kwaliteit funderingsbalk</dt>
-                        <dd>Geen data</dd>
-                      </div>
-                      <div class="item--grid">
-                        <dt>Funderingskwaliteit</dt>
-                        <dd>Goed/Slecht/Matig/Voldoende</dd>
-                      </div>
-                    </div>
-                  </div>
-                </dl>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <div class="chart | grid grid-cols-2 items-center gap-4">
-              <figure>
-                <img
-                  src="@assets/images/pie-chart.png"
-                  alt="Grafiek 1"
-                  class="w-full"
-                />
-              </figure>
-              <div class="legenda space-y-3">
-                <h3>Aantal bouwjaren</h3>
-                <ol class="list--legenda">
-                  <li class="legenda--10">Aantal 1</li>
-                  <li class="legenda--20">Aantal 2</li>
-                  <li class="legenda--30">Aantal 3</li>
-                  <li class="legenda--40">Aantal 4</li>
-                </ol>
-              </div>
-            </div>
-            <div class="chart | grid grid-cols-2 items-center gap-4">
-              <figure>
-                <img
-                  src="@assets/images/pie-chart.png"
-                  alt="Grafiek 1"
-                  class="w-full"
-                />
-              </figure>
-              <div class="legenda space-y-3">
-                <h3>Type fundering</h3>
-                <ol class="list--legenda">
-                  <li class="legenda--10">Aantal 1</li>
-                  <li class="legenda--20">Aantal 2</li>
-                  <li class="legenda--30">Aantal 3</li>
-                  <li class="legenda--40">Aantal 4</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </section>
-      </article>
-
-      <!-- CHAPTER: FOUNDATION RESTORATION -->
-      <article class="break-inside-avoid space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <icon
-            src="fundermaps/wrench.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></icon>
-          <h2 class="h-4">Funderingsherstel</h2>
-        </header>
-
-        <section class="space-y-7">
-          <dl role="list" class="list--definition">
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <div class="item--grid">
-                  <dt>Funderingsherstel</dt>
-                  <dd>Ja/<strong class="text-black">Nee</strong></dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Locatieherstel</dt>
-                  <dd><strong class="text-black">Ja</strong>/Nee</dd>
-                </div>
-              </div>
-              <div>
-                <div class="item--grid">
-                  <dt>Type herstel</dt>
-                  <dd>Partieeel/Volledig/Verlaging</dd>
-                </div>
-              </div>
-            </div>
-          </dl>
-        </section>
-      </article>
-
-      <!-- CHAPTER: FOUNDATION RISK -->
-      <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <icon
-            src="fundermaps/alert.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></icon>
-          <h2 class="h-4">Funderingsrisico</h2>
-        </header>
-
-        <section class="space-y-7">
-          <!-- RISK: Droogstand -->
-          <div class="risk break-inside-avoid space-y-5">
-            <div class="space-y-2">
-              <dl role="list" class="list--definition">
-                <div class="grid grid-cols-12 items-start gap-4">
-                  <div class="col-span-5">
-                    <div class="item">
-                      <dt>Droogstand</dt>
-                      <dd>
-                        <icon
-                          src="classification/c.svg?url"
-                          class="aspect-square w-4"
-                          aria-hidden="true"
-                        />
-                      </dd>
-                    </div>
-                  </div>
-                  <div class="col-span-7">
-                    <div class="item">
-                      <dt>Type herstel</dt>
-                      <dd>Partieeel/Volledig/Verlaging</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
-              <div class="text-grey-700">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum quam corrupti ipsa, iure aspernatur sed maxime dolores
-                  ipsum quae saepe quas voluptate fuga culpa debitis quibusdam
-                  nam neque id repellendus.
-                </p>
-              </div>
-            </div>
-            <div class="chart | grid grid-cols-12 items-center gap-4">
-              <figure class="col-span-5">
-                <img
-                  src="@assets/images/pie-chart.png"
-                  alt="Grafiek 1"
-                  class="w-full"
-                />
-              </figure>
-              <div class="legenda col-span-5 space-y-3">
-                <h3>Aantal bouwjaren</h3>
-                <ol class="list--legenda">
-                  <li class="legenda--10">Aantal 1</li>
-                  <li class="legenda--20">Aantal 2</li>
-                  <li class="legenda--30">Aantal 3</li>
-                  <li class="legenda--40">Aantal 4</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-
-          <!-- RISK: Ontwateringsdiepte -->
-          <div class="risk break-inside-avoid space-y-5">
-            <div class="space-y-2">
-              <dl role="list" class="list--definition">
-                <div class="grid grid-cols-12 gap-4">
-                  <div class="col-span-5">
-                    <div class="item">
-                      <dt>Ontwateringsdiepte</dt>
-                      <dd>
-                        <icon
-                          src="classification/a.svg?url"
-                          class="aspect-square w-4"
-                          aria-hidden="true"
-                        />
-                      </dd>
-                    </div>
-                  </div>
-                  <div class="col-span-7">
-                    <div class="item">
-                      <dt>Betrouwbaarheid</dt>
-                      <dd>Vastgesteld/Afgeleid/Indicatief</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
-              <div class="text-grey-700">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum quam corrupti ipsa, iure aspernatur sed maxime dolores
-                  ipsum quae saepe quas voluptate fuga culpa debitis quibusdam
-                  nam neque id repellendus.
-                </p>
-              </div>
-            </div>
-            <div class="chart | grid grid-cols-12 items-center gap-4">
-              <figure class="col-span-5">
-                <img
-                  src="@assets/images/pie-chart.png"
-                  alt="Grafiek 1"
-                  class="w-full"
-                />
-              </figure>
-              <div class="legenda col-span-5 space-y-3">
-                <h3>Aantal bouwjaren</h3>
-                <ol class="list--legenda">
-                  <li class="legenda--10">Aantal 1</li>
-                  <li class="legenda--20">Aantal 2</li>
-                  <li class="legenda--30">Aantal 3</li>
-                  <li class="legenda--40">Aantal 4</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-
-          <!-- RISK: Verschilzakking -->
-          <div class="risk break-inside-avoid space-y-5">
-            <div class="space-y-2">
-              <dl role="list" class="list--definition">
-                <div class="grid grid-cols-12 gap-4">
-                  <div class="col-span-5">
-                    <div class="item">
-                      <dt>Verschilzakking</dt>
-                      <dd>
-                        <icon
-                          src="classification/e.svg?url"
-                          class="aspect-square w-4"
-                          aria-hidden="true"
-                        />
-                      </dd>
-                    </div>
-                  </div>
-                  <div class="col-span-7">
-                    <div class="item">
-                      <dt>Betrouwbaarheid</dt>
-                      <dd>Vastgesteld/Afgeleid/Indicatief</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
-              <div class="text-grey-700">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum quam corrupti ipsa, iure aspernatur sed maxime dolores
-                  ipsum quae saepe quas voluptate fuga culpa debitis quibusdam
-                  nam neque id repellendus.
-                </p>
-              </div>
-            </div>
-            <div class="chart | grid grid-cols-12 items-center gap-4">
-              <figure class="col-span-5">
-                <img
-                  src="@assets/images/pie-chart.png"
-                  alt="Grafiek 1"
-                  class="w-full"
-                />
-              </figure>
-              <div class="legenda col-span-5 space-y-3">
-                <h3>Aantal bouwjaren</h3>
-                <ol class="list--legenda">
-                  <li class="legenda--10">Aantal 1</li>
-                  <li class="legenda--20">Aantal 2</li>
-                  <li class="legenda--30">Aantal 3</li>
-                  <li class="legenda--40">Aantal 4</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-
-          <!-- RISK: Droogstand -->
-          <div class="risk break-inside-avoid space-y-5">
-            <div class="space-y-2">
-              <dl role="list" class="list--definition">
-                <div class="grid grid-cols-12 gap-4">
-                  <div class="col-span-5">
-                    <div class="item">
-                      <dt>Droogstand</dt>
-                      <dd class="flex justify-end">
-                        <icon
-                          src="classification/b.svg?url"
-                          class="aspect-square w-4"
-                          aria-hidden="true"
-                        />
-                      </dd>
-                    </div>
-                  </div>
-                  <div class="col-span-7">
-                    <div class="item">
-                      <dt>Betrouwbaarheid</dt>
-                      <dd>Partieeel/Volledig/Verlaging</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
-              <div class="text-grey-700">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum quam corrupti ipsa, iure aspernatur sed maxime dolores
-                  ipsum quae saepe quas voluptate fuga culpa debitis quibusdam
-                  nam neque id repellendus.
-                </p>
-              </div>
-            </div>
-            <div class="chart | grid grid-cols-12 items-center gap-4">
-              <figure class="col-span-5">
-                <img
-                  src="@assets/images/pie-chart.png"
-                  alt="Grafiek 1"
-                  class="w-full"
-                />
-              </figure>
-              <div class="legenda col-span-5 space-y-3">
-                <h3>Aantal bouwjaren</h3>
-                <ol class="list--legenda">
-                  <li class="legenda--10">Aantal 1</li>
-                  <li class="legenda--20">Aantal 2</li>
-                  <li class="legenda--30">Aantal 3</li>
-                  <li class="legenda--40">Aantal 4</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </section>
-      </article>
-
-      <!-- CHAPTER: REPORTING -->
-      <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <icon
-            src="fundermaps/file-report.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></icon>
-          <h2 class="h-4">Rapportage</h2>
-        </header>
-        <section class="break-before-avoid-page break-inside-avoid space-y-7">
-          <table class="w-full">
-            <thead>
-              <tr>
-                <th>Nummer</th>
-                <th>Naam</th>
-                <th>Type</th>
-                <th>Datum</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>012345678</td>
-                <td>Onderzoeksnaam</td>
-                <td>Gevelscan</td>
-                <td>07-05-2011</td>
-              </tr>
-              <tr>
-                <td>012345678</td>
-                <td>Onderzoeksnaam</td>
-                <td>Gevelscan</td>
-                <td>07-05-2011</td>
-              </tr>
-              <tr>
-                <td>012345678</td>
-                <td>Onderzoeksnaam</td>
-                <td>Gevelscan</td>
-                <td>07-05-2011</td>
-              </tr>
-              <tr>
-                <td>012345678</td>
-                <td>Onderzoeksnaam</td>
-                <td>Gevelscan</td>
-                <td>07-05-2011</td>
-              </tr>
-            </tbody>
-          </table>
-          <figure>
-            <img src="@assets/images/bar-chart.png" alt="" class="w-full" />
-          </figure>
-        </section>
-      </article>
-
-      <!-- CHAPTER: FACADE REVIEW -->
-      <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <icon
-            src="fundermaps/scan.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></icon>
-          <h2 class="h-4">Gevelscan</h2>
-        </header>
-
-        <section class="space-y-7">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="grid grid-cols-6 items-center gap-4">
-              <figure
-                class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
-              >
-                <icon
-                  src="facade/achter.svg?url"
-                  class="aspect-square w-full flex-1"
-                  aria-hidden="true"
-                ></icon>
-                <figcaption
-                  class="flex-initial text-center font-bold leading-4 text-grey-700"
-                >
-                  Inpandige scheur
-                </figcaption>
-              </figure>
-              <dl role="list" class="list--definition col-span-4">
-                <div class="item--grid">
-                  <dt>Herstel</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Type</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Scheur (mm)</dt>
-                  <dd>Geen data</dd>
-                </div>
-              </dl>
-            </div>
-            <div class="grid grid-cols-6 items-center gap-4">
-              <figure
-                class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
-              >
-                <icon
-                  src="facade/inpandig.svg?url"
-                  class="aspect-square w-full flex-1"
-                  aria-hidden="true"
-                ></icon>
-                <figcaption
-                  class="flex-initial text-center font-bold leading-4 text-grey-700"
-                >
-                  Inpandige scheur
-                </figcaption>
-              </figure>
-              <dl role="list" class="list--definition col-span-4">
-                <div class="item--grid">
-                  <dt>Herstel</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Type</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Scheur (mm)</dt>
-                  <dd>Geen data</dd>
-                </div>
-              </dl>
-            </div>
-            <div class="grid grid-cols-6 items-center gap-4">
-              <figure
-                class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
-              >
-                <icon
-                  src="facade/links.svg?url"
-                  class="aspect-square w-full flex-1"
-                  aria-hidden="true"
-                ></icon>
-                <figcaption
-                  class="flex-initial text-center font-bold leading-4 text-grey-700"
-                >
-                  Inpandige scheur
-                </figcaption>
-              </figure>
-              <dl role="list" class="list--definition col-span-4">
-                <div class="item--grid">
-                  <dt>Herstel</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Type</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Scheur (mm)</dt>
-                  <dd>Geen data</dd>
-                </div>
-              </dl>
-            </div>
-            <div class="grid grid-cols-6 items-center gap-4">
-              <figure
-                class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
-              >
-                <icon
-                  src="facade/rechts.svg?url"
-                  class="aspect-square w-full flex-1"
-                  aria-hidden="true"
-                ></icon>
-                <figcaption
-                  class="flex-initial text-center font-bold leading-4 text-grey-700"
-                >
-                  Inpandige scheur
-                </figcaption>
-              </figure>
-              <dl role="list" class="list--definition col-span-4">
-                <div class="item--grid">
-                  <dt>Herstel</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Type</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Scheur (mm)</dt>
-                  <dd>Geen data</dd>
-                </div>
-              </dl>
-            </div>
-            <div class="grid grid-cols-6 items-center gap-4">
-              <figure
-                class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
-              >
-                <icon
-                  src="facade/voor.svg?url"
-                  class="aspect-square w-full flex-1"
-                  aria-hidden="true"
-                ></icon>
-                <figcaption
-                  class="flex-initial text-center font-bold leading-4 text-grey-700"
-                >
-                  Inpandige scheur
-                </figcaption>
-              </figure>
-              <dl role="list" class="list--definition col-span-4">
-                <div class="item--grid">
-                  <dt>Herstel</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Type</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Scheur (mm)</dt>
-                  <dd>Geen data</dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-
-          <div class="highlight">
-            <img
-              src="@assets/images/highlight-bg.png"
-              alt=""
-              class="inset absolute -z-10 w-full"
-            />
-            <div class="highlight__content space-y-3">
-              <h3>Vervorming</h3>
-              <dl role="list" class="list--definition">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <div class="item--grid">
-                      <dt>Gevel vervormd</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Lintvoegmeting beoordeling</dt>
-                      <dd>Nihil</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Lintvoegmeting</dt>
-                      <dd>300</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Drempel voorgevel niveau</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Scheve deur- en/of raamkozijn</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="item--grid">
-                      <dt>Scheefstand</dt>
-                      <dd>Zand</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Loodmeting beoordeling</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Laadmeting</dt>
-                      <dd>300</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Drempel achtergevel niveau</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Pandzakkingssnelheid</dt>
-                      <dd>300</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </section>
-      </article>
-
-      <!-- PAGE BREAK -->
-      <div class="page-break break-after-page"></div>
-
-      <!-- CHAPTER: FACADE REVIEW -->
-      <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <icon
-            src="fundermaps/graph.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></icon>
-          <h2 class="h-4">Pandzakking</h2>
-        </header>
-        <section class="space-y-10">
-          <div class="highlight w-1/2">
-            <img
-              src="@assets/images/highlight-bg.png"
-              alt=""
-              class="inset absolute -z-10 w-full"
-            />
-            <div class="highlight__content space-y-3">
-              <h3>Pandzakkingsgegevens</h3>
-              <dl role="list" class="list--definition">
-                <div class="grid">
-                  <div>
-                    <div class="item--grid">
-                      <dt>Pandzakkingssnelheid</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Kwaliteit meetpunt</dt>
-                      <dd>Nihil</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Aantal meetpunten</dt>
-                      <dd>300</dd>
-                    </div>
-                    <div class="item--grid">
-                      <dt>Variatiecoëfficiënt</dt>
-                      <dd>Geen data</dd>
-                    </div>
-                  </div>
-                </div>
-              </dl>
-            </div>
-          </div>
-          <figure>
-            <img
-              src="@assets/images/scatter-chart.png"
-              alt=""
-              class="w-full"
-            />
-          </figure>
-        </section>
-      </article>
-
-      <!-- PAGE BREAK -->
-      <div class="page-break break-after-page"></div>
-
-      <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <icon
-            src="fundermaps/alert.svg?url"
-            class="accent-color-blue aspect-square w-4"
-            aria-hidden="true"
-          ></icon>
-          <h2 class="h-4">Incidenten</h2>
-        </header>
-
-        <section class="space-y-10">
-          <figure>
-            <img src="@assets/images/map.print.png" alt="" class="w-full" />
-          </figure>
-          <figure>
-            <img src="@assets/images/bar-chart.png" alt="" class="w-full" />
-          </figure>
-        </section>
-      </article>
-
-      <!-- PAGE BREAK -->
-      <div class="page-break break-after-page"></div>
-
-      <!-- CHAPTER: CLOSING REMARKS -->
-      <article class="space-y-5">
-        <header class="flex break-after-avoid items-center gap-2.5">
-          <h2 class="h-4">Afsluitende tekst</h2>
-        </header>
-        <section class="space-y-4 text-grey-700">
-          <p>
-            Daar waar onderzoeksgegevens zijn gebruikt, is de betrouwbaarheid
-            van de uitgangspunten hoog. Het funderingstype en/of
-            funderingsrisico wordt dan ook als &lsquo;vastgesteld&rsquo;
-            beschouwd.Wanneer geen onderzoeksgegevens beschikbaar zijn voor het
-            betreffende pand, maar wel voor de naastgelegen panden,betreft het
-            aangegeven funderingstype en de risicobeoordeling een
-            &lsquo;afgeleid&rsquo; uitgangspunt. Het is zeer aannemelijk deze
-            afgeleide uitgangspunten ook voor dit betreffende pand gelden daar
-            dit pand onderdeel is van dezelfde bouw- of funderingseenheid.
-          </p>
-          <p>
-            Indien er geen gegevens van het pand of de naastgelegen panden
-            beschikbaar zijn, wordt een modelanalyse uitgevoerd.Deze
-            analyseresultaten zijn indicatief en hebben een lagere
-            betrouwbaarheid.
-          </p>
-          <p>
-            Wanneer u het niet eens bent met de beoordeling, wanneer u
-            wijzigingen van de data wilt doorgeven of meer informatie wiltover
-            dit funderingsrisicorapport of de QuickScan, dan kunt u terecht op
-            <a href="https://www.fundermaps.com/formulier/meldingen"
-              >https://www.fundermaps.com/formulier/meldingen</a
-            >.
-          </p>
-        </section>
-      </article>
-    <!-- </div>
-  </div> -->
+  </template>
 </template>

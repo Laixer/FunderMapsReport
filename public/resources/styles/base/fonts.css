@@ -9,8 +9,8 @@
   font-style: normal;
   font-weight: normal;
   src:
-    url("../fonts/greycliffcf-regular.woff") format("woff2"),
-    url("../fonts/greycliffcf-regular.woff") format("woff");
+    url("@assets/fonts/greycliffcf-regular.woff") format("woff2"),
+    url("@assets/fonts/greycliffcf-regular.woff") format("woff");
 }
 
 @font-face {
@@ -19,8 +19,8 @@
   font-style: italic;
   font-weight: normal;
   src:
-    url("../fonts/greycliffcf-regularoblique.woff2") format("woff2"),
-    url("../fonts/greycliffcf-regularoblique.woff") format("woff");
+    url("@assets/fonts/greycliffcf-regularoblique.woff2") format("woff2"),
+    url("@assets/fonts/greycliffcf-regularoblique.woff") format("woff");
 }
 
 @font-face {
@@ -29,8 +29,8 @@
   font-style: normal;
   font-weight: 800;
   src:
-    url("../fonts/greycliffcf-extrabold.woff2") format("woff2"),
-    url("../fonts/greycliffcf-extrabold.woff") format("woff");
+    url("@assets/fonts/greycliffcf-extrabold.woff2") format("woff2"),
+    url("@assets/fonts/greycliffcf-extrabold.woff") format("woff");
 }
 
 @font-face {
@@ -39,6 +39,6 @@
   font-style: italic;
   font-weight: 800;
   src:
-    url("../fonts/greycliffcf-extraboldoblique.woff2") format("woff2"),
-    url("../fonts/greycliffcf-extraboldoblique.woff") format("woff");
+    url("@assets/fonts/greycliffcf-extraboldoblique.woff2") format("woff2"),
+    url("@assets/fonts/greycliffcf-extraboldoblique.woff") format("woff");
 }

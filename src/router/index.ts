@@ -1,6 +1,6 @@
-
+import { storeToRefs } from 'pinia';
 import { createRouter, createWebHistory } from 'vue-router'
-// import { useSessionStore } from '@/store/session';
+import { useSessionStore } from '@/store/session';
 
 import PDF from '@/views/PDF.vue'
 
@@ -9,7 +9,7 @@ import NoAccess from '@/views/NoAccess.vue'
 
 // 404
 import NotFound from '@/views/NotFound.vue' 
-// import { storeToRefs } from 'pinia';
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -35,18 +35,16 @@ const router = createRouter({
 /**
  * Only allow access to authenticated users 
  */
-// router.beforeEach((to, _) => {
+router.beforeEach((to, _) => {
 
-//   const sessionStore = useSessionStore()
-//   const { isAuthenticated } = storeToRefs(sessionStore)
-//   console.log("authenticated", isAuthenticated.value)
+  const { authenticateFromAccessToken } = useSessionStore()
 
-//   if (
-//     ! isAuthenticated.value &&
-//     to.name !== 'NoAccess'
-//   ) {
-//     return { name: 'NoAccess' }
-//   }
-// })
+  if (
+    ! authenticateFromAccessToken() &&
+    to.name !== 'NoAccess'
+  ) {
+    return { name: 'NoAccess' }
+  }
+})
 
 export default router

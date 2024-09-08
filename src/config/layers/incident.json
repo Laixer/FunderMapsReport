@@ -1,0 +1,12 @@
+{
+  "id": "incident",
+  "type": "fill-extrusion",
+  "source": "incident",
+  "source-layer": "incident",
+  "minzoom": 14,
+  "layout": {"visibility": "none"},
+  "paint": {
+      "fill-extrusion-color": "#1e3f67",
+      "fill-extrusion-height": ["get", "height"]
+  }
+}

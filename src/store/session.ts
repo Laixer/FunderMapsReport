@@ -17,6 +17,7 @@ function useSession() {
   // Note: this is called from App.vue setup, so no async available
   function authenticateFromAccessToken() {
     isAuthenticated.value = hasNonExpiredToken()
+    return isAuthenticated.value
   }
 
   return {
