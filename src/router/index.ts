@@ -1,4 +1,3 @@
-import { storeToRefs } from 'pinia';
 import { createRouter, createWebHistory } from 'vue-router'
 import { useSessionStore } from '@/store/session';
 
