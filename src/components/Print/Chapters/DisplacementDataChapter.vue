@@ -1,13 +1,43 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+
+import Chapter from '@/components/Print/Chapter.vue'
+
+import { useAnalysisStore } from '@/store/building/analysis';
+import { useBuildingStore } from '@/store/buildings';
+import { FieldDataConfig, retrieveAndFormatFieldData } from '@/utils/fieldData.ts';
+
+
+const { buildingId } = storeToRefs(useBuildingStore())
+const { getAnalysisDataByBuildingId } = useAnalysisStore()
+
+/**
+ * Data source for panel
+ */
+const analysisData = computed(() => {
+  if (! buildingId.value) return null
+  return getAnalysisDataByBuildingId(buildingId.value)
+})
+
+
+/**
+ * Foundation label
+ */
+const velocity = computed(() => {
+  return retrieveAndFormatFieldData(
+    new FieldDataConfig({
+      name: 'velocity',
+      source: analysisData
+    })
+  )
+})
+</script>
+
 <template>
-  <article class="space-y-5">
-    <header class="flex break-after-avoid items-center gap-2.5">
-      <icon
-        src="fundermaps/graph.svg?url"
-        class="accent-color-blue aspect-square w-4"
-        aria-hidden="true"
-      ></icon>
-      <h2 class="h-4">Pandzakking</h2>
-    </header>
+  <Chapter
+    icon="graph"
+    title="Pandzakking">
     <section class="space-y-10">
       <div class="highlight w-1/2">
         <img
@@ -21,26 +51,15 @@
             <div class="grid">
               <div>
                 <div class="item--grid">
-                  <dt>Pandzakkingssnelheid</dt>
-                  <dd>Geen data</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Kwaliteit meetpunt</dt>
-                  <dd>Nihil</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Aantal meetpunten</dt>
-                  <dd>300</dd>
-                </div>
-                <div class="item--grid">
-                  <dt>Variatiecoëfficiënt</dt>
-                  <dd>Geen data</dd>
+                  <dt>{{ velocity.label }}</dt>
+                  <dd>{{ velocity.value }}</dd>
                 </div>
               </div>
             </div>
           </dl>
         </div>
       </div>
+
       <figure>
         <img
           src="@assets/images/scatter-chart.png"
@@ -49,5 +68,5 @@
         />
       </figure>
     </section>
-  </article>
+  </Chapter>
 </template>

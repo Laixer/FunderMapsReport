@@ -5,12 +5,15 @@ import { storeToRefs } from 'pinia';
 import { IInquiryReport } from '@/datastructures/interfaces/index.ts';
 
 import Chapter from '@/components/Print/Chapter.vue'
+import BarChart from '@/components/Charts/BarChart.vue';
 
 import { useInquiriesStore } from '@/store/building/inquiries.ts';
+import { useStatisticsStore } from '@/store/building/statistics';
 import { useBuildingStore } from '@/store/buildings';
 
 const { buildingId } = storeToRefs(useBuildingStore())
 const { getInquiryByBuildingId } = useInquiriesStore()
+const { getStatisticsDataByBuildingId } = useStatisticsStore()
 
 /**
  * Data inquiry sample source for panel
@@ -18,6 +21,45 @@ const { getInquiryByBuildingId } = useInquiriesStore()
 const inqueryData: ComputedRef<IInquiryReport[]> = computed(() => {
   if (! buildingId.value) return []
   return getInquiryByBuildingId(buildingId.value) || []
+})
+
+// const reportGraph = computed(() => {
+
+//   const data = (inqueryData.value || []).reduce((acc, item: IInquiryReport) => {
+//     const year = item.documentDate.split('-')[0]
+//     acc[year] = (acc[year] || 0) + 1
+
+//     return acc
+//   }, {} as Record<string,number>)
+
+//   return {
+//     data: Object.values(data),
+//     labels: Object.keys(data)
+//   }
+// })
+
+/******************************************************************************
+ * Graph
+ */
+
+const buildingStatistics = computed(() => {
+  if (! buildingId.value) return null
+  return getStatisticsDataByBuildingId(buildingId.value)
+})
+
+
+const reportGraph = computed(() => {
+  if (! buildingStatistics.value?.totalReportCount) {
+    return {
+      data: [],
+      labels: []
+    }
+  }
+
+  return {
+    data: buildingStatistics?.value?.totalReportCount.map(item => item.totalCount),
+    labels: buildingStatistics.value.totalReportCount.map(item => item.year + '')
+  }
 })
 
 </script>
@@ -46,9 +88,16 @@ const inqueryData: ComputedRef<IInquiryReport[]> = computed(() => {
           </tr>
         </tbody>
       </table>
-      <figure>
+
+      <BarChart
+        v-if="reportGraph.data.length !== 0"
+        title="Aantal rapportages in de wijk per jaar"
+        :data="reportGraph.data"
+        :labels="reportGraph.labels" />
+
+      <!-- <figure>
         <img src="@assets/images/bar-chart.png" alt="" class="w-full" />
-      </figure>
+      </figure> -->
     </section>
 
   </Chapter>

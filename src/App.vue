@@ -13,8 +13,10 @@ let accessTokenRefreshInterval: ReturnType<typeof setTimeout>|null = null
  * Try to continue from the access token if there is one
  */ 
 try {
-  authenticateFromAccessToken()
-  refreshAccessToken()
+  if (! import.meta.env.VITE_AUTH_KEY) {
+    authenticateFromAccessToken()
+    refreshAccessToken()
+  }
 } catch(e) {
   // no luck, no harm
 }
@@ -26,7 +28,7 @@ try {
 watch(
   () => isAuthenticated.value,
   (isAuthenticated) => {
-    if (isAuthenticated) {
+    if (isAuthenticated && ! import.meta.env.VITE_AUTH_KEY) {
       /**
        * Refresh the jwt access token every 10 minutes
        *  The refresh fn checks for the existance of a token

@@ -2,21 +2,28 @@
 import { type ComputedRef, computed } from 'vue'; 
 import { storeToRefs } from 'pinia';
 
+import { IConstructionYearPair, IFoundationTypePair } from '@/datastructures/interfaces/api/IStatistics.ts';
 import { ICombinedInquiryData } from '@/datastructures/interfaces/index.ts';
+import { CHART_COLORS } from '@/config';
 
 import Chapter from '@/components/Print/Chapter.vue'
 import FoundationIcon from '@/components/Common/Icons/FoundationIcon.vue';
+import PieChart from '@/components/Charts/PieChart.vue'
+import BarChart from '@/components/Charts/BarChart.vue';
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs, CompletedFieldData } from '@/utils/fieldData'
 import { inquirySampleFieldLabels } from '@/datastructures/fieldLabels'
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useInquiriesStore } from '@/store/building/inquiries.ts';
+import { useStatisticsStore } from '@/store/building/statistics';
 import { useBuildingStore } from '@/store/buildings';
+
 
 
 const { getAnalysisDataByBuildingId } = useAnalysisStore()
 const { getCombinedInquiryDataByBuildingId } = useInquiriesStore()
+const { getStatisticsDataByBuildingId } = useStatisticsStore()
 const { buildingId } = storeToRefs(useBuildingStore())
 
 /**
@@ -73,18 +80,6 @@ const foundationIconName = computed(() => {
   }
 })
 
-/**
- * 
- */
-const foundationTypeReliability = computed(() => {
-  return retrieveAndFormatFieldData(
-    new FieldDataConfig({
-      name: 'foundationTypeReliability',
-      source: analysisData
-    })
-  )
-})
-
 
 /**
  * Data inquiry sample source for panel
@@ -104,12 +99,12 @@ const fieldsWithFoundationData = computed(() => {
     source: inqueryData.value?.[0]?.sample || undefined,
     labels: inquirySampleFieldLabels,
     configs: [
+      new FieldDataConfig({ name: 'foundationTypeReliability', source: analysisData }),
       new FieldDataConfig({ name: 'enforcementTerm' }),
       new FieldDataConfig({ name: 'damageCharacteristics' }),
       new FieldDataConfig({ name: 'overallQuality' }),
       new FieldDataConfig({ name: 'damageCause' }),
-      // TODO: Unknown field: "bestemming"
-      new FieldDataConfig({ name: 'substructure' })
+      new FieldDataConfig({ name: 'substructure' }),
     ]
   })
   
@@ -151,13 +146,8 @@ const fieldGroupHeaders: Record<string, string> = {
       // Niveau & Kwaliteit
       new FieldDataConfig({ group: 'quality', name: 'masonQuality' }),
       new FieldDataConfig({ group: 'quality', name: 'constructionQuality' }),
-      new FieldDataConfig({ group: 'quality', name: 'constructionLevel' }),
-      new FieldDataConfig({ group: 'quality', name: 'enforcementTerm' }),
-
-      // TODO: Repeat field ... 
       new FieldDataConfig({ group: 'quality', name: 'constructionLevel' }), 
       new FieldDataConfig({ group: 'quality', name: 'pileWoodCapacityVerticalQuality' }),
-      new FieldDataConfig({ group: 'quality', name: 'overallQuality' }),
     ]
   })
 
@@ -175,6 +165,82 @@ const fieldGroupHeaders: Record<string, string> = {
         return acc
       }, {} as Record<string, CompletedFieldData[]>
     )
+})
+
+/******************************************************************************
+ * Graph
+ */
+
+const buildingStatistics = computed(() => {
+  if (! buildingId.value) return null
+  return getStatisticsDataByBuildingId(buildingId.value)
+})
+
+const constructionGraph = computed(() => {
+  if (! buildingStatistics.value?.constructionYearDistribution) {
+    return {
+      data: [],
+      labels: []
+    }
+  }
+
+  return {
+    data: buildingStatistics?.value?.constructionYearDistribution.decades.map((decade: IConstructionYearPair) => {
+      return decade.totalCount
+    }),
+    labels: buildingStatistics.value.constructionYearDistribution.decades.map((decade: IConstructionYearPair) => {
+      return `${decade.decade.yearFrom.substring(0, 4)}-${decade.decade.yearTo.substring(0, 4)}`
+    })
+  }
+})
+
+const foundationTypeGraph = computed(() => {
+  return {
+    labels: ['Betonnen', 'Houten paal met betonoplanger', 'Houten palen', 'Niet onderheid', 'Overige'],
+    data: buildingStatistics.value?.foundationTypeDistribution.foundationTypes.reduce((acc: number[], pair: IFoundationTypePair ) => {
+        switch(pair.foundationType) {
+          case 3:
+          case 11:
+          case 12:
+          case 13:
+            acc[0] = acc[0] + pair.percentage
+            return acc
+
+          case 10:
+            acc[1] = acc[1] + pair.percentage
+            return acc
+          
+          case 0:
+          case 1:
+          case 2:
+          case 15:
+          case 16:
+          case 17:
+            acc[2] = acc[2] + pair.percentage
+            return acc
+          
+          case 4:
+          case 5:
+          case 6:
+          case 7:
+          case 8:
+          case 9:
+            acc[3] = acc[3] + pair.percentage
+            return acc
+
+          default:
+            acc[4] = acc[4] + pair.percentage
+            return acc
+        }
+      }, [0, 0, 0, 0, 0]) || [],
+    legend: ['Betonnen', 'Houten paal met betonoplanger', 'Houten palen', 'Niet onderheid', 'Overige'].map((label, index) => {
+      const colors = Object.values(CHART_COLORS)
+      return {
+        label,
+        color: `--marker-color: ${colors[index]}`
+      }
+    })
+  }
 })
 
 </script>
@@ -211,15 +277,6 @@ const fieldGroupHeaders: Record<string, string> = {
         </dl>
       </div>
 
-      <div class="space-y-3">
-        <h3>{{ foundationTypeReliability.label }}</h3>
-        <div class="max-w-prose text-grey-700">
-          <p>
-            {{ foundationTypeReliability.value }}
-          </p>
-        </div>
-      </div>
-
       <div class="space-y-5">
         <div class="highlight">
           <img
@@ -245,7 +302,7 @@ const fieldGroupHeaders: Record<string, string> = {
                 <div>
                   <template v-for="(field, index) in sampleFieldsWithData['pile']">
                     <div 
-                      v-if="index > Math.floor(sampleFieldsWithData['pile'].length / 2)"
+                      v-if="index >= Math.floor(sampleFieldsWithData['pile'].length / 2)"
                       :key="field.name" 
                       class="item--grid">
                       <dt>{{ field.label }}</dt>
@@ -282,7 +339,7 @@ const fieldGroupHeaders: Record<string, string> = {
                 <div>
                   <template v-for="(field, index) in sampleFieldsWithData['quality']">
                     <div 
-                      v-if="index > Math.floor(sampleFieldsWithData['quality'].length / 2)"
+                      v-if="index >= Math.floor(sampleFieldsWithData['quality'].length / 2)"
                       :key="field.name" 
                       class="item--grid">
                       <dt>{{ field.label }}</dt>
@@ -295,44 +352,36 @@ const fieldGroupHeaders: Record<string, string> = {
           </div>
         </div>
       </div>
+      
+      <div 
+        v-if="foundationTypeGraph.data.length !== 0"
+        class="chart | grid grid-cols-12 items-center gap-4">
+        <div class="col-span-5">
+          <PieChart 
+            title="Type fundering (wijk)"
+            :data="foundationTypeGraph.data"
+            :labels="foundationTypeGraph.labels" />
+        </div>
+        <div class="col-span-7">
+          <div class="legenda space-y-3">
+            <h3>Type fundering (wijk)</h3>
+            <ol class="list--legenda">
+              <li 
+                v-for="item in foundationTypeGraph.legend" 
+                :style="item.color">{{ item.label }}</li>
+            </ol>
+          </div>
+        </div>
+      </div>
 
-      <div class="grid grid-cols-2 gap-4">
-        <div class="chart | grid grid-cols-2 items-center gap-4">
-          <figure>
-            <img
-              src="@assets/images/pie-chart.png"
-              alt="Grafiek 1"
-              class="w-full"
-            />
-          </figure>
-          <div class="legenda space-y-3">
-            <h3>Aantal bouwjaren</h3>
-            <ol class="list--legenda">
-              <li class="legenda--10">Aantal 1</li>
-              <li class="legenda--20">Aantal 2</li>
-              <li class="legenda--30">Aantal 3</li>
-              <li class="legenda--40">Aantal 4</li>
-            </ol>
-          </div>
-        </div>
-        <div class="chart | grid grid-cols-2 items-center gap-4">
-          <figure>
-            <img
-              src="@assets/images/pie-chart.png"
-              alt="Grafiek 1"
-              class="w-full"
-            />
-          </figure>
-          <div class="legenda space-y-3">
-            <h3>Type fundering</h3>
-            <ol class="list--legenda">
-              <li class="legenda--10">Aantal 1</li>
-              <li class="legenda--20">Aantal 2</li>
-              <li class="legenda--30">Aantal 3</li>
-              <li class="legenda--40">Aantal 4</li>
-            </ol>
-          </div>
-        </div>
+      <div 
+        v-if="constructionGraph.data.length !== 0"
+        class="chart | grid grid-cols-12 items-center gap-4">
+        <BarChart
+          class="w-full"
+          title="Bouwjaren (wijk)"
+          :data="constructionGraph.data"
+          :labels="constructionGraph.labels" />
       </div>
     </section>
   </Chapter>

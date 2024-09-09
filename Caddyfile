@@ -1,7 +1,7 @@
 localhost {
     handle_path /api/* {
         rewrite * /api{path}
-        reverse_proxy https://maps.fundermaps.com {
+        reverse_proxy https://whale-app-nm9uv.ondigitalocean.app {
                 header_up Host {upstream_hostport}
                 header_down Access-Control-Allow-Origin *
                 header_down Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"

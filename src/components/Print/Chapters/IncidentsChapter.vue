@@ -6,11 +6,14 @@ import { type LngLatLike, type Map, LngLat, type LayerSpecification } from 'mapb
 
 import Chapter from '@/components/Print/Chapter.vue'
 import MapBox from '@/components/Common/Mapbox/MapBox.vue'
+import BarChart from '@/components/Charts/BarChart.vue';
 
 import { useGeoLocationsStore } from '@/store/building/geolocations'
 import { useBuildingStore } from '@/store/buildings';
+import { useStatisticsStore } from '@/store/building/statistics.ts';
 
 const { getLocationDataByBuildingId } = useGeoLocationsStore()  
+const { getStatisticsDataByBuildingId } = useStatisticsStore()
 
 const { buildingId } = storeToRefs(useBuildingStore())
 
@@ -22,7 +25,7 @@ const mapOptions = computed(() => {
     interactive: false,
     attributionControl: false,
     performanceMetricsCollection: false,
-    zoom: 16
+    zoom: 10
   }
 
   if (! buildingId.value) {
@@ -45,10 +48,10 @@ const mapOptions = computed(() => {
 const onLoad = async function onLoad({ map }: { map: Map }) {
   // Add incident source
   const sourcePath = (import.meta.env.VITE_FUNDERMAPS_TILES_URL+'' || '')
-    .replace('{SOURCE}', 'incident')
+    .replace('{SOURCE}', 'incident_district')
 
   map.addSource(
-    "incident", 
+    "incident_district", 
     {
       type: 'vector',
       tiles: [sourcePath],
@@ -59,9 +62,25 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
 
   // Add incident layer
   // @ts-ignore
-  const layerSpecification: LayerSpecification = (await import('../../../config/layers/incident.json')).default
+  const layerSpecification: LayerSpecification = (await import('../../../config/layers/incident-district.json')).default
   map.addLayer(layerSpecification)
 }
+
+/**
+ * GRAPH data
+ */
+const buildingStatistics = computed(() => {
+  if (! buildingId.value) return null
+  return getStatisticsDataByBuildingId(buildingId.value)
+})
+
+const graphData = computed(() => {
+  return {
+    data: buildingStatistics.value?.totalIncidentCount.map(pair => pair.totalCount),
+    labels: buildingStatistics.value?.totalIncidentCount.map(pair => pair.year+''),
+  }
+})
+
 </script>
 
 <template>
@@ -76,9 +95,12 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
           @load="onLoad" />
       </div>
       
-      <figure>
-        <img src="@assets/images/bar-chart.png" alt="" class="w-full" />
-      </figure>
+      <BarChart
+        v-if="graphData.data && graphData.data?.length !== 0"
+        class="w-full"
+        title="Aantal incidenten in de wijk"
+        :data="graphData.data"
+        :labels="graphData.labels" />
     </section>
 
   </Chapter>

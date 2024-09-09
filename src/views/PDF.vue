@@ -11,6 +11,7 @@ import { useRecoveryReportsStore } from '@/store/building/recovery'
 import { useInquiriesStore } from '@/store/building/inquiries'
 import { useIncidentReportsStore } from '@/store/building/incidents'
 import { useStatisticsStore } from '@/store/building/statistics'
+import { useSubsidenceStore } from '@/store/building/subsidence.ts';
 
 // import Chapter from '@/components/Print/Chapter.vue'
 import PageBreak from '@/components/Print/PageBreak.vue'
@@ -24,6 +25,7 @@ import ReportingChapter from '@/components/Print/Chapters/ReportingChapter.vue'
 import FacadeReviewChapter from '@/components/Print/Chapters/FacadeReviewChapter.vue'
 import DisplacementDataChapter from '@/components/Print/Chapters/DisplacementDataChapter.vue'
 import IncidentsChapter from '@/components/Print/Chapters/IncidentsChapter.vue'
+
 
 /**
  * Store access 
@@ -66,6 +68,11 @@ const {
   setIncidentDataByBuildingId
 } = useIncidentReportsStore()
 
+const {
+  buildingSubsidenceDataHasBeenRetrieved,
+  loadSubsidenceDataByBuildingId
+} = useSubsidenceStore()
+
 const hasAllBuildingInformation = computed(() => {
   if (! buildingId.value) return false
 
@@ -76,6 +83,7 @@ const hasAllBuildingInformation = computed(() => {
     && buildingRecoveryReportDataHasBeenRetrieved(buildingId.value)
     && buildingInquiryDataHasBeenRetrieved(buildingId.value)
     && buildingIncidentReportDataHasBeenRetrieved(buildingId.value)
+    && buildingSubsidenceDataHasBeenRetrieved(buildingId.value)
   )
 })
 
@@ -120,7 +128,8 @@ watch(
       loadStatisticsDataByBuildingId(buildingId),
 
       // TODO: This implementation is a quick fix to support "cache"
-      getAllReportDataUnlessCached(buildingId)
+      getAllReportDataUnlessCached(buildingId),
+      loadSubsidenceDataByBuildingId(buildingId)
     ])
   },
   { immediate: true }
@@ -136,7 +145,10 @@ onBeforeMount(() => {
   // setBuildingId("FIR622020-3458")
 
   // Recovery & inquiry
-  setBuildingId('NL.IMBAG.PAND.0599100000636585')
+  // setBuildingId('NL.IMBAG.PAND.0599100000636585')
+
+  // Subsidence
+  setBuildingId("NL.IMBAG.PAND.0091100000015361")
 })
 
 </script>
@@ -171,7 +183,7 @@ onBeforeMount(() => {
 
     
     <!-- CHAPTER: BUILDING -->
-    <!-- TODO: 2 unknown fields -->
+    <!-- TODO: 2 fields yet to be implemented in API -->
     <BuildingChapter />
 
     <!-- CHAPTER: LOCATION -->
@@ -181,26 +193,15 @@ onBeforeMount(() => {
     <PageBreak />
 
     <!-- CHAPTER: FOUNDATION -->
-    <!-- TODO: 1 unknown field -->
-    <!-- TODO: foundationTypeReliability presented as paragraph in pdf, but is an enum with 1 word values (e.g. "Vastgesteld") -->
-    <!-- TODO: Repeat field in Niveau & Kwaliteit -->
-    <!-- TODO: Generate Pie charts... chart about building years and foundation types for 1 building... ??? -->
     <InquirySampleChapter />
 
     <!-- CHAPTER: FOUNDATION RESTORATION -->
-    <!-- TODO: No known data points in recovery report or recovery sample ... -->
     <FoundationRestorationChapter />
 
     <!-- CHAPTER: FOUNDATION RISK -->
-    <!-- TODO: Unknown field "Type herstel" for 'Droogstand'. Changed to drystandReliability -->
-    <!-- TODO: differentialsettlement is not presented in the Maps sidebar, but it is in the PDF -->
-    <!-- TODO: Droogstand was included twice as chapter section. Other risks were not presented (e.g. bioinfection) -->
-    <!-- TODO: Unknown paragraphs -->
-    <!-- TODO: Unknown graphs -->
     <FoundationRiskChapter />
 
     <!-- CHAPTER: REPORTING -->
-    <!-- TODO: statistics on incidents in district? -- same as IncidentsChapter...? -->
     <ReportingChapter />
 
     <!-- CHAPTER: FACADE REVIEW -->
@@ -210,14 +211,14 @@ onBeforeMount(() => {
     <PageBreak />
 
     <!-- CHAPTER: DISPLACEMENT DATA -->
-    <!-- TODO: Discuss chapter -->
+    <!-- TODO: API to be provided -->
     <DisplacementDataChapter />
 
     <!-- PAGE BREAK -->
     <PageBreak />
 
     <!-- CHAPTER: INCIDENTS -->
-    <!-- TODO: statistics on incidents in district? -- same as ReportingChapter...? -->
+    <!-- TODO: Map layer not visible -->
     <IncidentsChapter />
 
     <!-- PAGE BREAK -->

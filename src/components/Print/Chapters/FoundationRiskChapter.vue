@@ -4,6 +4,8 @@ import { storeToRefs } from 'pinia';
 
 import Chapter from '@/components/Print/Chapter.vue'
 import ClassificationIcon from '@/components/Common/Icons/ClassificationIcon.vue'
+import PieChart from '@/components/Charts/PieChart.vue'
+import { CHART_COLORS } from '@/config';
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs, CompletedFieldData } from '@/utils/fieldData'
 import { riskFieldLabels } from '@/datastructures/fieldLabels'
@@ -13,11 +15,12 @@ import { type EFoundationRisk } from '@/datastructures/enums';
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useBuildingStore } from '@/store/buildings';
+import { useStatisticsStore } from '@/store/building/statistics';
 
 
 const { getAnalysisDataByBuildingId } = useAnalysisStore()
+const { getStatisticsDataByBuildingId } = useStatisticsStore()
 const { buildingId } = storeToRefs(useBuildingStore())
-
 
 /**
  * Data source for panel
@@ -80,6 +83,31 @@ const fieldsWithDataAndIcons: ComputedRef<Record<string, CompletedFieldDataWithI
     )
 })
 
+
+/**
+ * GRAPH data
+ */
+const buildingStatistics = computed(() => {
+  if (! buildingId.value) return null
+  return getStatisticsDataByBuildingId(buildingId.value)
+})
+
+const graphData = computed(() => {
+  const result = {
+    data: Object.values(buildingStatistics.value?.foundationRiskDistribution || {}),
+    labels: Object.keys(buildingStatistics.value?.foundationRiskDistribution || {}).map(key => key.replace('percentage', '')),
+    legend: Object.keys(buildingStatistics.value?.foundationRiskDistribution || {}).map((key, index) => {
+      const colors = Object.values(CHART_COLORS)
+      return {
+        label: key.replace('percentage', ''),
+        color: `--marker-color: ${colors[index]}`
+      }
+    }),
+  }
+
+  return result
+})
+
 </script>
 
 
@@ -95,15 +123,17 @@ const fieldsWithDataAndIcons: ComputedRef<Record<string, CompletedFieldDataWithI
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 items-start gap-4">
               <div 
-                v-if="fieldsWithDataAndIcons.drystandRisk?.icon"
                 class="col-span-5">
                 <div class="item">
                   <dt>Droogstand</dt>
-                  <dd>
+                  <dd v-if="fieldsWithDataAndIcons.drystandRisk?.icon">
                     <ClassificationIcon 
                       :name="fieldsWithDataAndIcons.drystandRisk?.icon + ''" 
                       class="aspect-square w-4"
                       aria-hidden="true" />
+                  </dd>
+                  <dd v-else>
+                    -
                   </dd>
                 </div>
               </div>
@@ -119,30 +149,8 @@ const fieldsWithDataAndIcons: ComputedRef<Record<string, CompletedFieldDataWithI
 
           <div class="text-grey-700">
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Nostrum quam corrupti ipsa, iure aspernatur sed maxime dolores
-              ipsum quae saepe quas voluptate fuga culpa debitis quibusdam
-              nam neque id repellendus.
+              Bij droogstand komt het hoogstgelegen funderingshout (regelmatig) droog te staan. Hierdoor kan het funderingshout gaan rotten door de aanvoer van zuurstof. Na jarenlange droogstand kan het draagvermogen van de fundering zijn aangetast, waardoor het pand kan gaan deformeren. Indien dit in een vergevorderd stadium is, zijn er scheuren in de gevel zichtbaar, klemmen ramen en deuren, en vertoont het gevelaanzicht tekenen van verzakkingen.
             </p>
-          </div>
-        </div>
-
-        <div class="chart | grid grid-cols-12 items-center gap-4">
-          <figure class="col-span-5">
-            <img
-              src="@assets/images/pie-chart.png"
-              alt="Grafiek 1"
-              class="w-full"
-            />
-          </figure>
-          <div class="legenda col-span-5 space-y-3">
-            <h3>Aantal bouwjaren</h3>
-            <ol class="list--legenda">
-              <li class="legenda--10">Aantal 1</li>
-              <li class="legenda--20">Aantal 2</li>
-              <li class="legenda--30">Aantal 3</li>
-              <li class="legenda--40">Aantal 4</li>
-            </ol>
           </div>
         </div>
       </div>
@@ -153,15 +161,17 @@ const fieldsWithDataAndIcons: ComputedRef<Record<string, CompletedFieldDataWithI
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
               <div 
-                v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon"
                 class="col-span-5">
                 <div class="item">
                   <dt>Ontwateringsdiepte</dt>
-                  <dd>
+                  <dd v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon">
                     <ClassificationIcon 
                       :name="fieldsWithDataAndIcons.dewateringDepthRisk?.icon + ''" 
                       class="aspect-square w-4"
                       aria-hidden="true" />
+                  </dd>
+                  <dd v-else>
+                    -
                   </dd>
                 </div>
               </div>
@@ -175,29 +185,8 @@ const fieldsWithDataAndIcons: ComputedRef<Record<string, CompletedFieldDataWithI
           </dl>
           <div class="text-grey-700">
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Nostrum quam corrupti ipsa, iure aspernatur sed maxime dolores
-              ipsum quae saepe quas voluptate fuga culpa debitis quibusdam
-              nam neque id repellendus.
+              Wanneer de grondwaterstand zich te dicht op de fundering bevindt, is er een risico op optrekkend vocht en (verschil-)verzakkingen van het pand.
             </p>
-          </div>
-        </div>
-        <div class="chart | grid grid-cols-12 items-center gap-4">
-          <figure class="col-span-5">
-            <img
-              src="@assets/images/pie-chart.png"
-              alt="Grafiek 1"
-              class="w-full"
-            />
-          </figure>
-          <div class="legenda col-span-5 space-y-3">
-            <h3>Aantal bouwjaren</h3>
-            <ol class="list--legenda">
-              <li class="legenda--10">Aantal 1</li>
-              <li class="legenda--20">Aantal 2</li>
-              <li class="legenda--30">Aantal 3</li>
-              <li class="legenda--40">Aantal 4</li>
-            </ol>
           </div>
         </div>
       </div>
@@ -208,37 +197,54 @@ const fieldsWithDataAndIcons: ComputedRef<Record<string, CompletedFieldDataWithI
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
               <div 
-                v-if="fieldsWithDataAndIcons.drystandRisk?.icon"
                 class="col-span-5">
                 <div class="item">
-                  <dt>Verschilzakking</dt>
-                  <dd>
+                  <dt>Bacteriële aantasting</dt>
+                  <dd 
+                    v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon">
                     <ClassificationIcon 
-                      :name="fieldsWithDataAndIcons.drystandRisk?.icon + ''" 
+                      :name="fieldsWithDataAndIcons.bioInfectionRisk?.icon + ''" 
                       class="aspect-square w-4"
                       aria-hidden="true" />
+                  </dd>
+                  <dd v-else>
+                    -
                   </dd>
                 </div>
               </div>
               <div class="col-span-7">
                 <div class="item">
-                  <dt>{{ fieldsWithDataAndIcons.differentialsettlementReliability?.label }}</dt>
-                  <dd>{{ fieldsWithDataAndIcons.differentialsettlementReliability?.value }}</dd>
+                  <dt>{{ fieldsWithDataAndIcons.bioInfectionReliability?.label }}</dt>
+                  <dd>{{ fieldsWithDataAndIcons.bioInfectionReliability?.value }}</dd>
                 </div>
               </div>
             </div>
           </dl>
           <div class="text-grey-700">
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Nostrum quam corrupti ipsa, iure aspernatur sed maxime dolores
-              ipsum quae saepe quas voluptate fuga culpa debitis quibusdam
-              nam neque id repellendus.
+              Er kunnen grenen palen zijn gebruikt voor de fundeirng. Hierdoor kan er een risico zijn op bacteriële aantasting. Grenen palen zijn gevoelig voor bacteriële aantasting, waardoor het hout van buitenaf wordt aangetast over de gehele lengte van de paal. Het draagvermogen van de paal neemt daarmee af, waardoor het pand gaat verzakken. Indien dit in een vergevorderd stadium is, zijn er scheuren in de gevel zichtbaar, klemmen ramen en deuren, en vertoont het gevelaanzicht tekenen van verzakkingen.
             </p>
           </div>
         </div>
         <div class="chart | grid grid-cols-12 items-center gap-4">
-          <figure class="col-span-5">
+          <div class="col-span-5">
+            <PieChart 
+              title="Type fundering (wijk)"
+              :data="graphData.data"
+              :labels="graphData.labels" />
+          </div>
+          <div class="col-span-7">
+            <div class="legenda space-y-3">
+              <h3>Verdeling van funderingsrisico in de wijk</h3>
+              <ol class="list--legenda">
+                <li 
+                  v-for="item in graphData.legend" 
+                  :style="item.color">{{ item.label }}</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- <figure class="col-span-5">
             <img
               src="@assets/images/pie-chart.png"
               alt="Grafiek 1"
@@ -254,6 +260,7 @@ const fieldsWithDataAndIcons: ComputedRef<Record<string, CompletedFieldDataWithI
               <li class="legenda--40">Aantal 4</li>
             </ol>
           </div>
+           -->
         </div>
       </div>
     </section>

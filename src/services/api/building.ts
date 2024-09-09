@@ -8,7 +8,8 @@ import type {
   IRecoverySample,
   IDownloadLink,
   IInquirySample,
-  ICombinedReportData
+  ICombinedReportData,
+  ISubsidence
 } from "@/datastructures/interfaces"
 import { get } from "../apiClient"
 import { Analysis } from "@/datastructures/classes/Analysis"
@@ -128,6 +129,15 @@ export const getAllReportDataByBuildingId = async function getAllReportDataByBui
   return await get({ endpoint: `/report/${buildingId}` })
 }
 
+/******************************************************************************
+ *    Subsidence data
+ *****************************************************************************/
+
+
+export const getSubsidenceByBuildingId = async function getSubsidenceByBuildingId(buildingId: string): Promise<ISubsidence[]> {
+  return await get({ endpoint: `/subsidence/${buildingId}` })
+}
+
 
 export default {
   getLocationInformationByBuildingId,
@@ -140,5 +150,6 @@ export default {
   getInquiryReportDownloadLink,
   getStatisticsByBuildingId,
   getIncidentReportsByBuildingId,
-  getAllReportDataByBuildingId
+  getAllReportDataByBuildingId,
+  getSubsidenceByBuildingId
 }

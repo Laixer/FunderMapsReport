@@ -20,6 +20,9 @@ interface ImportMetaEnv {
 
   // Fundermaps base mapbox style
   readonly VITE_FUNDERMAPS_BASE_STYLE: string
+
+  // Internal Auth Key (overrides jwt token if set)
+  readonly VITE_AUTH_KEY: string
 }
 
 interface ImportMeta {
