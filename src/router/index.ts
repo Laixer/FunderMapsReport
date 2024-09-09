@@ -40,7 +40,8 @@ router.beforeEach((to, _) => {
 
   if (
     ! authenticateFromAccessToken() &&
-    to.name !== 'NoAccess'
+    to.name !== 'NoAccess' &&
+    ! import.meta.env.VITE_AUTH_KEY
   ) {
     return { name: 'NoAccess' }
   }

@@ -13,7 +13,7 @@ import { useRouter, useRoute } from 'vue-router'
 const passAuthCheckOrExit = function passAuthOrThrowException(requireAuth: boolean, autoredirect: boolean) {
   // Check for auth
   try {
-    if (requireAuth) {
+    if (requireAuth && ! import.meta.env.VITE_AUTH_KEY) {
       if (! hasAccessToken()) {
         throw new APITokenError("Missing access token")
       }
