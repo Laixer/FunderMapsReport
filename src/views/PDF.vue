@@ -25,6 +25,7 @@ import ReportingChapter from '@/components/Print/Chapters/ReportingChapter.vue'
 import FacadeReviewChapter from '@/components/Print/Chapters/FacadeReviewChapter.vue'
 import DisplacementDataChapter from '@/components/Print/Chapters/DisplacementDataChapter.vue'
 import IncidentsChapter from '@/components/Print/Chapters/IncidentsChapter.vue'
+import { useRoute, useRouter } from 'vue-router';
 
 
 /**
@@ -138,6 +139,15 @@ watch(
 onBeforeMount(() => {
   const { setBuildingId } = useBuildingStore()
 
+  const route = useRoute()
+  const router = useRouter()
+  
+  if (! route.params.buildingId) {
+    router.push({ name: 'NotFound' })
+    return
+  }
+
+
   // With (empty) inquiry samples
   // setBuildingId('FIR622020-3297')
 
@@ -148,7 +158,7 @@ onBeforeMount(() => {
   // setBuildingId('NL.IMBAG.PAND.0599100000636585')
 
   // Subsidence
-  setBuildingId("NL.IMBAG.PAND.0091100000015361")
+  setBuildingId(route.params.buildingId as string)
 })
 
 </script>
