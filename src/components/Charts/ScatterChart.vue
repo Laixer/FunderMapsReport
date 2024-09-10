@@ -5,17 +5,22 @@ import { onMounted, ref, watch } from 'vue';
 import { CHART_COLORS } from '@/config';
 import Chart from 'chart.js/auto';
 
+type point = {
+  x: number
+  y: number
+}
+
 const props = withDefaults(defineProps<{
   title?: string,
   labels?: string[],
-  data?: string[]|number[],
+  data?: point[],
   horizontal?: boolean,
   borderColors?: string[],
   backgroundColors?: string[]
 }>(), {
   title: 'Statistiek',
   labels: () => ['red', 'blue', 'green'],
-  data: () => [100, 200, 600],
+  data: () => [],
   horizontal: false,
   borderColors: () => Object.values(CHART_COLORS),
   backgroundColors: () => Object.values(CHART_COLORS)
@@ -28,7 +33,7 @@ let chart: any|null = null
 const canvas = ref<HTMLCanvasElement>();
 
 const createChart = function createChart(
-  title: string, labels: string[], data: string[]|number[], backgroundColors: string[], borderColors: string[], horizontal: boolean
+  title: string, labels: string[], data: point[], backgroundColors: string[], borderColors: string[], horizontal: boolean
 ) {
   if (! canvas.value || ! canvas.value.getContext("2d")) {
     return
@@ -38,12 +43,11 @@ const createChart = function createChart(
   chart = new Chart(
     canvas.value.getContext("2d") as CanvasRenderingContext2D, 
     {
-      type: "bar",
+      type: "bubble",
       data: {
         labels,
         datasets: [
           {
-            label: title,
             data,
             backgroundColor: backgroundColors,
             borderColor: borderColors,
@@ -61,9 +65,16 @@ const createChart = function createChart(
             }
           },
           x: {
-            beginAtZero: true,
+            color: 'red',
+            // beginAtZero: true,
             ticks: {
-              precision: 0
+              //@ts-ignore - TS wants a number, we want to show a date string, which does work just fine
+              callback: function(value: number, index, ticks) {
+                return (new Date(value)).toLocaleDateString('nl-NL', { 
+                  year: 'numeric',
+                  month: 'short',
+                })
+              }
             }
           }
         },
@@ -74,6 +85,14 @@ const createChart = function createChart(
           },
           legend: {
             display: false
+          },
+          tooltip: {
+            callbacks: {
+              // any to avoid TS issue without having to create an interface for the whole thing
+              label: function(context: any) {
+                return `${(new Date(context.raw.x)).toLocaleDateString('nl-NL')}: ${(context.raw.y)}`
+              }
+            }
           }
         }
       },

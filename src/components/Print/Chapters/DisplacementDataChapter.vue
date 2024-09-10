@@ -3,14 +3,18 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import Chapter from '@/components/Print/Chapter.vue'
+import ScatterChart from '@/components/Charts/ScatterChart.vue';
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useBuildingStore } from '@/store/buildings';
-import { FieldDataConfig, retrieveAndFormatFieldData } from '@/utils/fieldData.ts';
+import { useSubsidenceStore } from '@/store/building/subsidence.ts';
 
+import { FieldDataConfig, retrieveAndFormatFieldData } from '@/utils/fieldData.ts';
 
 const { buildingId } = storeToRefs(useBuildingStore())
 const { getAnalysisDataByBuildingId } = useAnalysisStore()
+const { getSubsidenceDataByBuildingId } = useSubsidenceStore()
+
 
 /**
  * Data source for panel
@@ -32,6 +36,31 @@ const velocity = computed(() => {
     })
   )
 })
+
+/******************************************************************************
+ * Graph
+ */
+
+const subsidenceData = computed(() => {
+  if (! buildingId.value) return []
+
+  return getSubsidenceDataByBuildingId(buildingId.value)
+})
+
+const graphData = computed(() => {
+  console.log("subsidenceData", subsidenceData.value)
+  return {
+    labels: [],
+    data: subsidenceData.value?.map(item => {
+      return {
+        y: item.velocity,
+        x: Date.parse(item.markAt),
+        r: 2
+      }
+    })
+  }
+})
+
 </script>
 
 <template>
@@ -60,6 +89,13 @@ const velocity = computed(() => {
         </div>
       </div>
 
+      <ScatterChart
+        title="Pandzakking"
+        :labels="graphData.labels"
+        :data="graphData.data"
+        :borderColors="['#191e3c']"
+        :backgroundColors="['#191e3c']"
+         />
       <figure>
         <img
           src="@assets/images/scatter-chart.png"
