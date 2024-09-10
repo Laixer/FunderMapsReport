@@ -5,6 +5,9 @@ import { onMounted, ref, watch } from 'vue';
 import { CHART_COLORS } from '@/config';
 import Chart from 'chart.js/auto';
 
+import chartTrendline from 'chartjs-plugin-trendline';
+Chart.register(chartTrendline)
+
 type point = {
   x: number
   y: number
@@ -51,8 +54,16 @@ const createChart = function createChart(
             data,
             backgroundColor: backgroundColors,
             borderColor: borderColors,
-            borderWidth: 1
+            borderWidth: 1,
+            // @ts-ignore
+            trendlineLinear: {
+              colorMin: "#17a4ea",
+		          colorMax: "#17a4ea",
+              lineStyle: "solid",
+              width: 2,
+            }
           },
+          
         ]
       },
       options: {
@@ -61,19 +72,20 @@ const createChart = function createChart(
           y: {
             beginAtZero: true,
             ticks: {
+              color: '#808c99',
               precision: 0
             }
           },
           x: {
-            color: 'red',
             // beginAtZero: true,
             ticks: {
+              color: '#808c99',
               //@ts-ignore - TS wants a number, we want to show a date string, which does work just fine
               callback: function(value: number, index, ticks) {
                 return (new Date(value)).toLocaleDateString('nl-NL', { 
                   year: 'numeric',
                   month: 'short',
-                })
+                }).split(' ')
               }
             }
           }
@@ -90,7 +102,7 @@ const createChart = function createChart(
             callbacks: {
               // any to avoid TS issue without having to create an interface for the whole thing
               label: function(context: any) {
-                return `${(new Date(context.raw.x)).toLocaleDateString('nl-NL')}: ${(context.raw.y)}`
+                return `${(new Date(context.raw.x)).toLocaleDateString('nl-NL')}: ${(context.raw.y)} mm/jaar`
               }
             }
           }

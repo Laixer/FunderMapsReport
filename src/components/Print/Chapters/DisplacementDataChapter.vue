@@ -90,19 +90,13 @@ const graphData = computed(() => {
       </div>
 
       <ScatterChart
-        title="Pandzakking"
+        title="Pandzakking (mm/jaar)"
         :labels="graphData.labels"
         :data="graphData.data"
         :borderColors="['#191e3c']"
         :backgroundColors="['#191e3c']"
-         />
-      <figure>
-        <img
-          src="@assets/images/scatter-chart.png"
-          alt=""
-          class="w-full"
-        />
-      </figure>
+      />
+      
     </section>
   </Chapter>
 </template>
