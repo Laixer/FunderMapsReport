@@ -6,6 +6,26 @@ import { getAuthHeader, hasAccessToken, hasAccessTokenExpired } from '@/services
 
 import { useRouter, useRoute } from 'vue-router'
 
+
+/******************************************************************************
+ * API Key overrides JWT auth
+ */
+const apiKey: string|null = import.meta.env.VITE_AUTH_KEY || null
+
+export const hasAPIKey = function hasAPIKey() {
+  return apiKey !== null && apiKey.length !== 0
+}
+
+const getAPIKey = function getAPIKey() {
+  return apiKey
+}
+const getAPIKeyAuthHeader = function getAPIKeyAuthHeader() {
+  return {
+    'Authorization': 'authkey ' + getAPIKey()
+  }
+}
+
+
 /******************************************************************************
  * The function thats is calling the shots
  */
@@ -13,7 +33,7 @@ import { useRouter, useRoute } from 'vue-router'
 const passAuthCheckOrExit = function passAuthOrThrowException(requireAuth: boolean, autoredirect: boolean) {
   // Check for auth
   try {
-    if (requireAuth && ! import.meta.env.VITE_AUTH_KEY) {
+    if (requireAuth && ! hasAPIKey()) {
       if (! hasAccessToken()) {
         throw new APITokenError("Missing access token")
       }
@@ -50,6 +70,7 @@ export const makeCall = async function makeCall({
   autoredirect?: boolean 
 }) {
   let fetchOptions = {}
+  let authHeader = {}
   let responseBody = null
 
   console.log(endpoint, body, requireAuth)
@@ -57,11 +78,20 @@ export const makeCall = async function makeCall({
   try {
     passAuthCheckOrExit(requireAuth, autoredirect)
 
+    // Auth
+    if (requireAuth) {
+      if (hasAPIKey()) {
+        authHeader = getAPIKeyAuthHeader()
+      } else {
+        authHeader = getAuthHeader()
+      }
+    }
+
+    // Options
     fetchOptions = {
       method,
       headers: Object.assign(
-        // Note: requireAuth = false also includes the header if it is available
-        requireAuth ? getAuthHeader() as object : {}, 
+        authHeader, 
         {
           "Content-Type": "application/json",
         }

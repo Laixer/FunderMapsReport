@@ -8,6 +8,7 @@ import NoAccess from '@/views/NoAccess.vue'
 
 // 404
 import NotFound from '@/views/NotFound.vue' 
+import { hasAPIKey } from '@/services/apiClient';
 
 
 const router = createRouter({
@@ -39,9 +40,9 @@ router.beforeEach((to, _) => {
   const { authenticateFromAccessToken } = useSessionStore()
 
   if (
+    ! hasAPIKey() &&
     ! authenticateFromAccessToken() &&
-    to.name !== 'NoAccess' &&
-    ! import.meta.env.VITE_AUTH_KEY
+    to.name !== 'NoAccess'
   ) {
     return { name: 'NoAccess' }
   }

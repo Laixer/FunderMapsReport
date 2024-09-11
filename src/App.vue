@@ -3,6 +3,7 @@ import { watch } from 'vue';
 import { refreshAccessToken } from '@/services/jwt.ts'
 import { useSessionStore } from '@/store/session';
 import { storeToRefs } from 'pinia';
+import { hasAPIKey } from '@/services/apiClient.ts';
 
 const sessionStore = useSessionStore()
 const { authenticateFromAccessToken } = sessionStore
@@ -13,7 +14,7 @@ let accessTokenRefreshInterval: ReturnType<typeof setTimeout>|null = null
  * Try to continue from the access token if there is one
  */ 
 try {
-  if (! import.meta.env.VITE_AUTH_KEY) {
+  if (! hasAPIKey()) {
     authenticateFromAccessToken()
     refreshAccessToken()
   }
@@ -28,7 +29,7 @@ try {
 watch(
   () => isAuthenticated.value,
   (isAuthenticated) => {
-    if (isAuthenticated && ! import.meta.env.VITE_AUTH_KEY) {
+    if (isAuthenticated && ! hasAPIKey()) {
       /**
        * Refresh the jwt access token every 10 minutes
        *  The refresh fn checks for the existance of a token

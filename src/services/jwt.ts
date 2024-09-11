@@ -87,14 +87,6 @@ export function hasNonExpiredToken(token?: string|null): boolean {
  * return authorization header with jwt token, or an empty object
  */
 export function getAuthHeader(): AuthorizationHeader | {} {
-
-  const authKey = import.meta.env.VITE_AUTH_KEY
-  if (authKey) {
-    return {
-      'Authorization': 'authkey ' + authKey
-    }
-  }
-
   const token = getAccessToken()
   return (hasNonExpiredToken(token))
     ? { 'Authorization': 'Bearer ' + token }
