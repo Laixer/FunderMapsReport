@@ -48,7 +48,7 @@ const fieldsWithData = computed(() => {
   const fieldsConfig = applyContextToFieldDataConfigs({
     source: analysisData,
     configs: [
-      new FieldDataConfig({ name: 'address', source: locationData.value?.address }),
+      new FieldDataConfig({ name: 'fullAddress', source: locationData.value?.address }),
       new FieldDataConfig({ name: 'surfaceArea' }),
       new FieldDataConfig({ name: 'height' }),
       // TODO: 2 unknown fields (Gebruik & Bestemming)
