@@ -25,7 +25,7 @@ const mapOptions = computed(() => {
     interactive: false,
     attributionControl: false,
     performanceMetricsCollection: false,
-    zoom: 10
+    zoom: 12
   }
 
   if (! buildingId.value) {
@@ -64,6 +64,7 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
   // @ts-ignore
   const layerSpecification: LayerSpecification = (await import('../../../config/layers/incident-district.json')).default
   map.addLayer(layerSpecification)
+  map.setLayoutProperty('incident-district', 'visibility', 'visible')
 }
 
 /**
