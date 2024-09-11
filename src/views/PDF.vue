@@ -222,14 +222,14 @@ onBeforeMount(() => {
     <PageBreak />
 
     <!-- CHAPTER: DISPLACEMENT DATA -->
-    <!-- TODO: API to be provided -->
+    <!-- TODO: add legend to graph? -->
     <DisplacementDataChapter />
 
     <!-- PAGE BREAK -->
     <PageBreak />
 
     <!-- CHAPTER: INCIDENTS -->
-    <!-- TODO: Map layer not visible -->
+    <!-- TODO: add legend to map -->
     <IncidentsChapter />
 
     <!-- PAGE BREAK -->
