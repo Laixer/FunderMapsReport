@@ -2,7 +2,7 @@
 import { computed } from 'vue'; 
 import { storeToRefs } from 'pinia';
 
-import { type LngLatLike, type Map, LngLat, type LayerSpecification } from 'mapbox-gl'
+import { type LngLatLike, type Map, LngLat, type LayerSpecification, Marker } from 'mapbox-gl'
 
 import Chapter from '@/components/Print/Chapter.vue'
 import MapBox from '@/components/Common/Mapbox/MapBox.vue'
@@ -25,7 +25,7 @@ const mapOptions = computed(() => {
     interactive: false,
     attributionControl: false,
     performanceMetricsCollection: false,
-    zoom: 12
+    zoom: 10
   }
 
   if (! buildingId.value) {
@@ -65,6 +65,22 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
   const layerSpecification: LayerSpecification = (await import('../../../config/layers/incident-district.json')).default
   map.addLayer(layerSpecification)
   map.setLayoutProperty('incident-district', 'visibility', 'visible')
+
+  if (! buildingId.value) {
+    return false
+  }
+  
+  const buildingData = getLocationDataByBuildingId(buildingId.value)
+  if (! buildingData || ! buildingData.residence?.longitude || ! buildingData.residence?.latitude) {
+    return false
+  }
+
+  new Marker({
+      draggable: false
+  }).setLngLat(new LngLat(
+    buildingData.residence?.longitude,
+    buildingData.residence?.latitude
+  )).addTo(map);
 }
 
 /**
