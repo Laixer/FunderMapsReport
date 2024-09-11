@@ -231,7 +231,6 @@ onBeforeMount(() => {
     <PageBreak />
 
     <!-- CHAPTER: INCIDENTS -->
-    <!-- TODO: add legend to map -->
     <IncidentsChapter />
 
     <!-- PAGE BREAK -->

@@ -226,6 +226,29 @@ const graphData = computed(() => {
             </p>
           </div>
         </div>
+      </div>
+
+      <!-- RISK -->
+      <div class="risk break-inside-avoid space-y-5">
+        <div class="space-y-2">
+          <dl role="list" class="list--definition">
+            <div class="grid grid-cols-12 gap-4">
+              <div 
+                class="col-span-12">
+                <div class="item">
+                  <dt>Risicoverdeling van de Wijk op Basis van Risicomodellen</dt>
+                  <dd></dd>
+                </div>
+              </div>
+            </div>
+          </dl>
+          <div class="text-grey-700">
+            <p>
+              Het hoogste risico uit de verschillende risicomodellen is toegepast op het pand. Deze maximale risico’s zijn vervolgens gebruikt om een overzicht van de risicoverdeling voor de hele wijk te maken, waarbij de verhoudingen worden weergegeven in de bijgaande grafiek.
+            </p>
+          </div>
+        </div>
+        
         <div class="chart | grid grid-cols-12 items-center gap-4">
           <div class="col-span-5">
             <PieChart 
@@ -243,24 +266,6 @@ const graphData = computed(() => {
               </ol>
             </div>
           </div>
-
-          <!-- <figure class="col-span-5">
-            <img
-              src="@assets/images/pie-chart.png"
-              alt="Grafiek 1"
-              class="w-full"
-            />
-          </figure>
-          <div class="legenda col-span-5 space-y-3">
-            <h3>Aantal bouwjaren</h3>
-            <ol class="list--legenda">
-              <li class="legenda--10">Aantal 1</li>
-              <li class="legenda--20">Aantal 2</li>
-              <li class="legenda--30">Aantal 3</li>
-              <li class="legenda--40">Aantal 4</li>
-            </ol>
-          </div>
-           -->
         </div>
       </div>
     </section>
