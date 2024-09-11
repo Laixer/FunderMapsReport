@@ -215,6 +215,8 @@ onBeforeMount(() => {
     <!-- CHAPTER: REPORTING -->
     <ReportingChapter />
 
+    <PageBreak />
+    
     <!-- CHAPTER: FACADE REVIEW -->
     <FacadeReviewChapter />
 
