@@ -84,6 +84,26 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
 }
 
 /**
+ * Map Legend
+ */
+
+const legendItems = [{
+  label: '1 incident',
+  color: "#c1d4e6"
+}, {
+  label: '3 incidenten',
+  color: "#91bad6",
+}, {
+  label: '5 incidenten',
+  color: "hsl(203, 36%, 50%)",
+}, {
+  label: '10 incidenten',
+  color: "hsl(213, 55%, 26%)"
+}]
+
+
+
+/**
  * GRAPH data
  */
 const buildingStatistics = computed(() => {
@@ -98,6 +118,7 @@ const graphData = computed(() => {
   }
 })
 
+
 </script>
 
 <template>
@@ -111,6 +132,13 @@ const graphData = computed(() => {
           :options="mapOptions"
           @load="onLoad" />
       </div>
+
+      <div class="MapLegend flex">
+        <div v-for="item in legendItems" :key="item.label" class="flex items-center px-2">
+          <div :style="`background-color: ${item.color};`" class="w-3 h-3 mr-1"></div>
+          <div class="label">{{ item.label }}</div>
+        </div>
+      </div>
       
       <BarChart
         v-if="graphData.data && graphData.data?.length !== 0"
@@ -123,3 +151,11 @@ const graphData = computed(() => {
   </Chapter>
 
 </template>
+
+<style>
+.MapLegend {
+  margin-top: 1rem !important;
+  color: #808c99;
+}
+
+</style>
