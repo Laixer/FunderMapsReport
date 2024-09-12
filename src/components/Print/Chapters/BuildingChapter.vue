@@ -56,7 +56,12 @@ const fieldsWithData = computed(() => {
         label: 'Onderbouw', 
         name: 'substructure', 
         source: inqueryData.value?.[0]?.sample, 
-      })
+      }),
+      new FieldDataConfig({ 
+        label: 'BAG ID', 
+        name: 'buildingId', 
+        source: analysisData.value, 
+      }),
     ]
   })
   
