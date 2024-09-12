@@ -220,8 +220,6 @@ onBeforeMount(() => {
     <!-- CHAPTER: FACADE REVIEW -->
     <FacadeReviewChapter />
 
-    <!-- PAGE BREAK -->
-    <PageBreak />
 
     <!-- CHAPTER: DISPLACEMENT DATA -->
     <!-- TODO: add legend to graph? -->

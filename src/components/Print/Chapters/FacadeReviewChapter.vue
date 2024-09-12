@@ -13,6 +13,7 @@ import { inquirySampleFieldLabels } from '@/datastructures/fieldLabels'
 
 import { useInquiriesStore } from '@/store/building/inquiries.ts';
 import { useBuildingStore } from '@/store/buildings';
+import PageBreak from '@/components/Print/PageBreak.vue';
 
 const { getCombinedInquiryDataByBuildingId } = useInquiriesStore()
 const { buildingId } = storeToRefs(useBuildingStore())
@@ -275,4 +276,6 @@ const hasSampleData = computed(() => {
       </div>
     </section>
   </Chapter>
+  <!-- PAGE BREAK -->
+  <PageBreak v-if="hasSampleData" />
 </template>
