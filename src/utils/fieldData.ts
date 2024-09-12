@@ -105,8 +105,6 @@ export class FieldDataConfig implements IFieldDataConfig {
       console.error("FieldDataConfig requires a name", data)
       throw new Error("FieldDataConfig is missing something")
     }
-
-
   }
 }
 
@@ -155,9 +153,9 @@ export const retrieveAndFormatFieldData = function retrieveAndFormatFieldData(co
   console.log("format field", dataObj, config)
 
   /**
-   * A data source is required, unless intentionally set to `null`
+   * A data source is required, unless intentionally set to `null`, or if we _do_ have a label in the config
    */
-  if (! config.source && config.source !== null) {
+  if (! config.source && config.source !== null && ! config.label) {
     throw new Error(`Missing source for ${config.name}`)
   }
 
