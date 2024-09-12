@@ -1,0 +1,13 @@
+# example netlify.toml
+[build]
+  command = "npm run build"
+  functions = "functions"
+  publish = "dist"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

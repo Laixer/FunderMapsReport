@@ -1,0 +1,27 @@
+localhost {
+    handle_path /api/* {
+        rewrite * /api{path}
+        reverse_proxy https://whale-app-nm9uv.ondigitalocean.app {
+                header_up Host {upstream_hostport}
+                header_down Access-Control-Allow-Origin *
+                header_down Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
+                header_down Access-Control-Allow-Headers "Content-Type, Authorization"
+                header_down Access-Control-Allow-Credentials true
+        }
+
+        @options {
+                method OPTIONS
+        }
+        handle @options {
+                respond "" 204
+                header Access-Control-Allow-Origin *
+                header Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
+                header Access-Control-Allow-Headers "Content-Type, Authorization"
+                header Access-Control-Allow-Credentials true
+        }
+    }
+    # passthrough to frontend
+    handle {
+        reverse_proxy http://localhost:5173  
+    }
+}

@@ -1,0 +1,12 @@
+@import url("tailwindcss/base.css");
+@import url("./base/index.css");
+@import url("tailwindcss/components.css");
+@import url("./components/index.css");
+@import url("tailwindcss/utilities.css");
+@import url("./utilities/index.css");
+@import url("./pages/index.css");
+
+.chart {
+  width: 100%;
+  height: 100%;
+}

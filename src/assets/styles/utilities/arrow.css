@@ -1,0 +1,11 @@
+.arrow {
+  @apply isolate pt-3 before:absolute before:z-10 before:aspect-square before:w-5 before:rotate-45 before:rounded-tl before:bg-white;
+}
+
+.arrow--top-left {
+  @apply before:left-10 before:top-0.5;
+}
+
+.arrow--top-right {
+  @apply before:right-10 before:top-0.5;
+}

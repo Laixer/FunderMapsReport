@@ -1,0 +1,13 @@
+.page-no-session {
+  @apply bg-cover bg-center;
+
+  background-image: url("../images/background.jpg");
+}
+
+.temp {
+  width: calc(100vw - 3rem);
+
+  @screen sm {
+    width: 30rem;
+  }
+}

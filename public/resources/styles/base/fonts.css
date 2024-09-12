@@ -1,0 +1,44 @@
+/*
+  Common: Fonts
+  @author: lemone.com
+*/
+
+@font-face {
+  font-display: swap;
+  font-family: "Greycliff CF";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("@assets/fonts/greycliffcf-regular.woff") format("woff2"),
+    url("@assets/fonts/greycliffcf-regular.woff") format("woff");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Greycliff CF";
+  font-style: italic;
+  font-weight: normal;
+  src:
+    url("@assets/fonts/greycliffcf-regularoblique.woff2") format("woff2"),
+    url("@assets/fonts/greycliffcf-regularoblique.woff") format("woff");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Greycliff CF";
+  font-style: normal;
+  font-weight: 800;
+  src:
+    url("@assets/fonts/greycliffcf-extrabold.woff2") format("woff2"),
+    url("@assets/fonts/greycliffcf-extrabold.woff") format("woff");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Greycliff CF";
+  font-style: italic;
+  font-weight: 800;
+  src:
+    url("@assets/fonts/greycliffcf-extraboldoblique.woff2") format("woff2"),
+    url("@assets/fonts/greycliffcf-extraboldoblique.woff") format("woff");
+}

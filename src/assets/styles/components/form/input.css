@@ -1,0 +1,105 @@
+.input--text {
+  @apply space-y-1;
+
+  .input-field {
+    @apply flex items-stretch rounded border border-grey-400 bg-white;
+
+    &:focus-within {
+      outline: 5px auto Highlight;
+      outline: 5px auto -webkit-focus-ring-color;
+    }
+
+    @supports selector(:has(*)) {
+      &:focus-within {
+        @apply outline-none;
+      }
+
+      &:has(input:focus-visible, textarea:focus-visible) {
+        outline: 5px auto Highlight;
+        outline: 5px auto -webkit-focus-ring-color;
+      }
+    }
+
+    > :first-child {
+      @apply rounded-l;
+    }
+
+    > :last-child {
+      @apply rounded-r;
+    }
+
+    /* :not(:placeholder-shown) */
+    &[data-validation="success"],
+    &:has(:user-valid:not(:placeholder-shown)) {
+      @apply border-green-500;
+
+      [type="text"],
+      [type="email"],
+      [type="url"],
+      [type="password"],
+      [type="tel"],
+      [type="number"] {
+        background: url("../svg/icons/validation-success.svg") no-repeat;
+        background-size: theme(spacing.3);
+        background-position: center right 1rem;
+      }
+    }
+
+    &[data-validation="error"],
+    &:has(:user-invalid) {
+      @apply border-red-500;
+
+      [type="text"],
+      [type="email"],
+      [type="url"],
+      [type="password"],
+      [type="tel"],
+      [type="number"] {
+        @apply text-red-500;
+
+        background: url("../svg/icons/validation-error.svg") no-repeat;
+        background-size: theme(spacing[2.5]);
+        background-position: center right 1rem;
+      }
+    }
+
+    &__before {
+      @apply flex items-center pl-3 pr-4;
+
+      + input {
+        @apply pl-0;
+      }
+    }
+
+    &__after {
+      @apply -ml-3 flex items-center px-4;
+    }
+  }
+
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="tel"],
+  [type="number"] {
+    @apply w-full py-2.5 pl-4 pr-10 text-base leading-none text-blue-900 placeholder-grey-400 focus:outline-none;
+
+    &::placeholder {
+      @apply text-grey-400;
+    }
+
+    &:user-invalid {
+      @apply text-red-500;
+
+      background: url("../svg/icons/validation-error.svg") no-repeat;
+      background-size: theme(spacing[2.5]);
+      background-position: center right 1rem;
+    }
+
+    &:user-invalid {
+      background: url("../svg/icons/validation-success.svg") no-repeat;
+      background-size: theme(spacing.3);
+      background-position: center right 1rem;
+    }
+  }
+}

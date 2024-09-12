@@ -1,0 +1,51 @@
+.input--radio {
+  [type="radio"] {
+    + label {
+      @apply relative inline-grid items-start gap-2.5 text-base leading-tight text-grey-700;
+
+      grid-template-columns: theme(spacing.5) auto;
+
+      &::before {
+        content: "";
+
+        @apply z-10 col-start-1 row-start-1 aspect-square h-5 rounded-full border border-grey-400 bg-gradient-to-b from-white to-grey-100 text-transparent transition-all;
+      }
+
+      &::after {
+        content: "";
+
+        @apply z-20 col-start-1 row-start-1 aspect-square h-2 place-self-center rounded-full;
+      }
+    }
+
+    &:disabled {
+      + label {
+        @apply pointer-events-none cursor-default text-grey-400;
+
+        &::before {
+          @apply opacity-50;
+        }
+      }
+    }
+
+    &:checked {
+      + label {
+        &::before {
+          @apply border-transparent from-green-500 to-green-500;
+        }
+
+        &::after {
+          @apply bg-white;
+        }
+      }
+
+      &:disabled {
+        + label {
+          &::before {
+            @apply from-grey-400 to-grey-400 opacity-100;
+          }
+        }
+      }
+    }
+  }
+}

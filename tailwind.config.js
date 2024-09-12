@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/index.html", "./src/**/*.{html,svg,mdx,js,ts}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx,svg,html}",
+  ], // content: ["./src/index.html", "./src/**/*.{html,svg,mdx,js,ts}"],
   theme: {
     fontSize: {
       tag: [
@@ -137,12 +140,13 @@ export default {
           "0 10px 20px 0px rgb(0 0 0 / 0.1), 0 4px 4px 0px rgb(0 0 0 / 0.1)",
         card: "0 10px 20px 0px rgb(0 0 0 / 0.1), 0 4px 4px 0px rgb(0 0 0 / 0.1)",
         float: "0px 5px 15px 0px rgb(44 45 60 / 0.2)",
-      },
+      },      
       aspectRatio: {
         map: "495 / 220",
       },
     },
-  },
+  },  
   variants: {},
   plugins: [],
-};
+}
+

@@ -1,0 +1,5 @@
+.search-bar {
+  .input-field {
+    width: clamp(10rem, 2.6471rem + 31.3725vw, 25rem);
+  }
+}
