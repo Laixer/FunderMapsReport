@@ -70,7 +70,9 @@ const reportGraph = computed(() => {
     title="Rapportage">
     
     <section class="break-before-avoid-page break-inside-avoid space-y-7">
-      <table class="w-full">
+      <table 
+        v-if="inqueryData.length !== 0"
+        class="w-full">
         <thead>
           <tr>
             <th>Nummer</th>
