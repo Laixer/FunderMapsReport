@@ -74,6 +74,10 @@ const createChart = function createChart(
             ticks: {
               color: '#808c99',
               precision: 0
+            },
+            title: {
+              display: true,
+              text: 'mm'
             }
           },
           x: {
@@ -102,7 +106,7 @@ const createChart = function createChart(
             callbacks: {
               // any to avoid TS issue without having to create an interface for the whole thing
               label: function(context: any) {
-                return `${(new Date(context.raw.x)).toLocaleDateString('nl-NL')}: ${(context.raw.y)} mm/jaar`
+                return `${(new Date(context.raw.x)).toLocaleDateString('nl-NL')}: ${(context.raw.y)} mm`
               }
             }
           }

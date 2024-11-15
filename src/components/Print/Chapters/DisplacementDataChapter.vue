@@ -90,7 +90,7 @@ const graphData = computed(() => {
       </div>
 
       <ScatterChart
-        title="Pandzakking (mm/jaar)"
+        title="Pandzakking mm"
         :labels="graphData.labels"
         :data="graphData.data"
         :borderColors="['#191e3c']"
