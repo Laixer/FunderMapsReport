@@ -145,7 +145,7 @@ const addMarker = function addMarker({ map }: { map: Map }) {
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <div 
-                  v-for="field in fieldsWithInquirySampleData" 
+                  v-for="field in fieldsWithAnalysisData" 
                   :key="field.name"
                   class="item--grid">
                   <dt>{{ field.label }}</dt>
@@ -154,7 +154,7 @@ const addMarker = function addMarker({ map }: { map: Map }) {
               </div>
               <div>
                 <div 
-                  v-for="field in fieldsWithAnalysisData" 
+                  v-for="field in fieldsWithInquirySampleData" 
                   :key="field.name"
                   class="item--grid">
                   <dt>{{ field.label }}</dt>
