@@ -70,6 +70,9 @@ const reportGraph = computed(() => {
     title="Rapportage">
     
     <section class="break-before-avoid-page break-inside-avoid space-y-7">
+      <p v-if="inqueryData.length !== 0">
+        De volgende rapportage(s) zijn beschikbaar voor dit pand en zijn gebruikt voor het opstellen van het funderingsrisicorapport
+      </p>
       <table 
         v-if="inqueryData.length !== 0"
         class="w-full">
