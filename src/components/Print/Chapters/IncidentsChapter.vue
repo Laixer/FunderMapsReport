@@ -112,9 +112,14 @@ const buildingStatistics = computed(() => {
 })
 
 const graphData = computed(() => {
+  const data = (buildingStatistics.value?.totalIncidentCount?.slice() || [])
+    .sort(function(a, b) {
+      return a.year - b.year;
+    })
+
   return {
-    data: buildingStatistics.value?.totalIncidentCount.map(pair => pair.totalCount),
-    labels: buildingStatistics.value?.totalIncidentCount.map(pair => pair.year+''),
+    data: data.map(pair => pair.totalCount),
+    labels: data.map(pair => pair.year+''),
   }
 })
 
