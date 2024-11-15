@@ -118,7 +118,9 @@ const graphData = computed(() => {
     
     <section class="space-y-7">
       <!-- RISK: Droogstand -->
-      <div class="risk break-inside-avoid space-y-5">
+      <div 
+        v-if="fieldsWithDataAndIcons.drystandRisk?.icon"
+        class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 items-start gap-4">
@@ -156,7 +158,9 @@ const graphData = computed(() => {
       </div>
 
       <!-- RISK: Ontwateringsdiepte -->
-      <div class="risk break-inside-avoid space-y-5">
+      <div 
+        v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon"
+        class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
@@ -192,7 +196,9 @@ const graphData = computed(() => {
       </div>
 
       <!-- RISK: Verschilzakking -->
-      <div class="risk break-inside-avoid space-y-5">
+      <div 
+        v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon"
+        class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
