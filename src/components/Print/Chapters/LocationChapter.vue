@@ -92,6 +92,8 @@ const fieldsWithInquirySampleData = computed(() => {
       new FieldDataConfig({ name: 'cpt' }), // sondering
       new FieldDataConfig({ name: 'groundLevel' }),
       new FieldDataConfig({ name: 'groundwaterLevelNet' }),
+      new FieldDataConfig({ name: 'monitoringWell' }),
+      new FieldDataConfig({ name: 'groundwaterLevelTemp' })
     ]
   })
   
