@@ -92,6 +92,7 @@ const graphData = computed(() => {
       </div>
 
       <ScatterChart
+        v-if="graphData.data?.length !== 0"
         title="Pandzakking mm"
         :labels="graphData.labels"
         :data="graphData.data"

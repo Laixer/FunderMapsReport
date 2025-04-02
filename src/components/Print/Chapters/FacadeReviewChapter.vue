@@ -38,12 +38,25 @@ const selectedCaseItem: ComputedRef<ICombinedInquiryData|null> = computed(() => 
   return null
 })
 
+
+const groupHasData: Record<string, boolean> = {
+  'skewed-left': false,
+  'skewed-right': false,
+  indoor: false,
+  front: false,
+  back: false,
+  left: false,
+  right: false
+} 
+
 /**
  * Whether there is sample data to be shown
  */
 const hasSampleData = computed(() => {
-  return !! (selectedCaseItem.value?.sample)
+  return (!! (selectedCaseItem.value?.sample)) && ! Object.values(groupHasData).every(value => value === false)
 })
+
+
 
 /**
  * Fields config
@@ -103,6 +116,11 @@ const hasSampleData = computed(() => {
         if (group) {
           acc[group] = acc[group] || []
           acc[group].push(fieldData)
+
+
+          if (fieldData.formattedFieldValueLabel !== 'Geen data') {
+            groupHasData[group] = true
+          }
         }
 
         return acc
@@ -119,7 +137,7 @@ const hasSampleData = computed(() => {
     title="Gevelscan">
 
     <section class="space-y-7">
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-2 gap-4" v-if="(groupHasData['indoor'] || groupHasData['left'] || groupHasData['right'] || groupHasData['front'] || groupHasData['back'])">
         <div class="grid grid-cols-6 items-center gap-4">
           <figure
             class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2"
@@ -242,7 +260,7 @@ const hasSampleData = computed(() => {
         </div>
       </div>
 
-      <div class="highlight">
+      <div v-if="(groupHasData['skewed-left'] || groupHasData['skewed-right'])" class="highlight" >
         <img
           src="@assets/images/highlight-bg.png"
           alt=""

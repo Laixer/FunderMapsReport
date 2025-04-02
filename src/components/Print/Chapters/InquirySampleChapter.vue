@@ -117,10 +117,15 @@ const fieldGroupHeaders: Record<string, string> = {
   quality: 'Niveau & Kwaliteit',
 }
 
+const groupHasData: Record<string, boolean> = {
+  pile: false,
+  quality: false,
+} 
+
 /**
  * Fields config
  */
- const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = computed(() => {
+const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = computed(() => {
 
   const sampleFieldsConfig = applyContextToFieldDataConfigs({
     source: inqueryData.value?.[0]?.sample || undefined,
@@ -160,6 +165,10 @@ const fieldGroupHeaders: Record<string, string> = {
         if (group) {
           acc[group] = acc[group] || []
           acc[group].push(fieldData)
+
+          if (fieldData.formattedFieldValueLabel !== 'Geen data') {
+            groupHasData[group] = true
+          }
         }
 
         return acc
@@ -278,7 +287,7 @@ const foundationTypeGraph = computed(() => {
       </div>
 
       <div class="space-y-5">
-        <div class="highlight">
+        <div v-if="groupHasData['pile']" class="highlight">
           <img
             src="@assets/images/highlight-bg.png"
             alt=""
@@ -315,7 +324,7 @@ const foundationTypeGraph = computed(() => {
           </div>
         </div>
 
-        <div class="highlight">
+        <div v-if="groupHasData['pile']" class="highlight">
           <img
             src="@assets/images/highlight-bg.png"
             alt=""

@@ -139,10 +139,7 @@ const graphData = computed(() => {
       </div>
 
       <div class="MapLegend flex">
-        <div v-for="item in legendItems" :key="item.label" class="flex items-center px-2">
-          <div :style="`background-color: ${item.color};`" class="w-3 h-3 mr-1"></div>
-          <div class="label">{{ item.label }}</div>
-        </div>
+        Van lichtblauw naar donkerblauw: van enkele meldingen naar veel meldingen.
       </div>
       
       <BarChart
