@@ -98,7 +98,8 @@ const reportGraph = computed(() => {
         v-if="reportGraph.data.length !== 0"
         title="Aantal rapportages in de wijk per jaar"
         :data="reportGraph.data"
-        :labels="reportGraph.labels" />
+        :labels="reportGraph.labels"
+        gradient />
 
       <!-- <figure>
         <img src="@assets/images/bar-chart.png" alt="" class="w-full" />

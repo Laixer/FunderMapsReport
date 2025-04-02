@@ -381,7 +381,8 @@ const foundationTypeGraph = computed(() => {
           class="w-full"
           title="Bouwjaren (wijk)"
           :data="constructionGraph.data"
-          :labels="constructionGraph.labels" />
+          :labels="constructionGraph.labels"
+          gradient />
       </div>
     </section>
   </Chapter>

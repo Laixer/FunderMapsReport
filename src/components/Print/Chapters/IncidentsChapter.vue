@@ -150,7 +150,8 @@ const graphData = computed(() => {
         class="w-full"
         title="Aantal incidenten in de wijk"
         :data="graphData.data"
-        :labels="graphData.labels" />
+        :labels="graphData.labels"
+        gradient />
     </section>
 
   </Chapter>

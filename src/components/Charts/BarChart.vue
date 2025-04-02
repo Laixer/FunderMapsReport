@@ -4,6 +4,9 @@ import { onMounted, ref, watch } from 'vue';
 
 import { CHART_COLORS } from '@/config';
 import Chart from 'chart.js/auto';
+import gradient from 'chartjs-plugin-gradient';
+
+Chart.register(gradient)
 
 const props = withDefaults(defineProps<{
   title?: string,
@@ -11,14 +14,16 @@ const props = withDefaults(defineProps<{
   data?: string[]|number[],
   horizontal?: boolean,
   borderColors?: string[],
-  backgroundColors?: string[]
+  backgroundColors?: string[],
+  gradient?: boolean
 }>(), {
   title: 'Statistiek',
   labels: () => ['red', 'blue', 'green'],
   data: () => [100, 200, 600],
   horizontal: false,
   borderColors: () => Object.values(CHART_COLORS),
-  backgroundColors: () => Object.values(CHART_COLORS)
+  backgroundColors: () => Object.values(CHART_COLORS),
+  gradient: false
 })
 
 // @ts-ignore: No time to deep dive into all the TS particulars of Chart.js
@@ -32,7 +37,21 @@ const createChart = function createChart(
 ) {
   if (! canvas.value || ! canvas.value.getContext("2d")) {
     return
-  } 
+  }
+
+  // Use the provided data to determine the gradient step size
+  // Use 25 as min and 150 as max step size
+  const gradientStep =
+    Math.max(
+      10,
+      Math.min(
+        150, 
+        Math.round(
+          Math.max(...props.data.map(data => Number(data))) / 4
+        )
+      )
+    )
+  
 
   // eslint-disable-next-line no-unused-vars
   chart = new Chart(
@@ -47,7 +66,35 @@ const createChart = function createChart(
             data,
             backgroundColor: backgroundColors,
             borderColor: borderColors,
-            borderWidth: 1
+            borderWidth: 1,
+
+            // @ts-ignore
+            gradient: props.gradient ? {
+              backgroundColor: {
+                axis: 'y',
+                colors: {
+                  // 0: '#f7fbff',
+                  // 0: '#d8e7f5',
+                  0: '#b0d2e8',
+                  [gradientStep]: '#73b3d8',
+                  [gradientStep * 2]: '#3e8ec4',
+                  [gradientStep * 3]: '#1563aa',
+                  [gradientStep * 4]: '#08306b'
+                }
+              },
+              borderColor: {
+                axis: 'y',
+                colors: {
+                  // 0: '#f7fbff',
+                  // 0: '#d8e7f5',
+                  0: '#b0d2e8',
+                  [gradientStep]: '#73b3d8',
+                  [gradientStep * 2]: '#3e8ec4',
+                  [gradientStep * 3]: '#1563aa',
+                  [gradientStep * 4]: '#08306b'
+                }
+              }
+            } : null
           },
         ]
       },
