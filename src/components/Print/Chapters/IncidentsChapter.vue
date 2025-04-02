@@ -83,25 +83,6 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
   )).addTo(map);
 }
 
-/**
- * Map Legend
- */
-
-const legendItems = [{
-  label: '1 incident',
-  color: "#c1d4e6"
-}, {
-  label: '3 incidenten',
-  color: "#91bad6",
-}, {
-  label: '5 incidenten',
-  color: "hsl(203, 36%, 50%)",
-}, {
-  label: '10 incidenten',
-  color: "hsl(213, 55%, 26%)"
-}]
-
-
 
 /**
  * GRAPH data
