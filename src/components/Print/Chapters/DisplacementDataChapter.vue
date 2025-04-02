@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 
 import Chapter from '@/components/Print/Chapter.vue'
 import ScatterChart from '@/components/Charts/ScatterChart.vue';
+import ItemGrid from '@/components/ItemGrid.vue';
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useBuildingStore } from '@/store/buildings';
@@ -79,10 +80,11 @@ const graphData = computed(() => {
           <dl role="list" class="list--definition">
             <div class="grid">
               <div>
-                <div class="item--grid">
-                  <dt>{{ velocity.label }}</dt>
-                  <dd>{{ velocity.value }}</dd>
-                </div>
+                <ItemGrid :fields="[{
+                  name: 'velocity',
+                  value: velocity.value,
+                  label: velocity.label
+                }]" />
               </div>
             </div>
           </dl>

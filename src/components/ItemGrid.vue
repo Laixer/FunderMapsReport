@@ -25,7 +25,7 @@ const formattedFields = props.fields.map(field => {
     <dt v-if="!field.break">{{ field.label }}</dt>
     <dt v-else>
       <div>{{ field.label.split('(')[0] }}</div>
-      <div>{{ `(${field.label.split('(')[1]}` }}</div>
+      <div class="italic">{{ `(${field.label.split('(')[1]}` }}</div>
     </dt>
     <dd>{{ field.value }}</dd>
   </div>
