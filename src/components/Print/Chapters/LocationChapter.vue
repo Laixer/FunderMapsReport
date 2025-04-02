@@ -7,6 +7,7 @@ import { ICombinedInquiryData } from '@/datastructures/interfaces/index.ts';
 
 import Chapter from '@/components/Print/Chapter.vue'
 import MapBox from '@/components/Common/Mapbox/MapBox.vue'
+import ItemGrid from '@/components/ItemGrid.vue';
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs } from '@/utils/fieldData'
 import { inquirySampleFieldLabels } from '@/datastructures/fieldLabels'
@@ -15,6 +16,7 @@ import { useGeoLocationsStore } from '@/store/building/geolocations'
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useInquiriesStore } from '@/store/building/inquiries.ts';
 import { useBuildingStore } from '@/store/buildings';
+
 
 
 const { getLocationDataByBuildingId } = useGeoLocationsStore()  
@@ -146,22 +148,10 @@ const addMarker = function addMarker({ map }: { map: Map }) {
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <div 
-                  v-for="field in fieldsWithAnalysisData" 
-                  :key="field.name"
-                  class="item--grid">
-                  <dt>{{ field.label }}</dt>
-                  <dd>{{ field.value }}</dd>
-                </div>
+                <ItemGrid :fields="fieldsWithAnalysisData" />
               </div>
               <div>
-                <div 
-                  v-for="field in fieldsWithInquirySampleData" 
-                  :key="field.name"
-                  class="item--grid">
-                  <dt>{{ field.label }}</dt>
-                  <dd>{{ field.value }}</dd>
-                </div>
+                <ItemGrid :fields="fieldsWithInquirySampleData" />
               </div>
             </div>
           </dl>
