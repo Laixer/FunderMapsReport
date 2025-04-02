@@ -261,8 +261,8 @@ onBeforeMount(() => {
           Wanneer u het niet eens bent met de beoordeling, wanneer u
           wijzigingen van de data wilt doorgeven of meer informatie wiltover
           dit funderingsrisicorapport of de QuickScan, dan kunt u terecht op
-          <a href="https://www.fundermaps.com/formulier/meldingen"
-            >https://www.fundermaps.com/formulier/meldingen</a
+          <a :href="`https://feedback.fundermaps.com/`"
+            >{{ `https://feedback.fundermaps.com/` }}</a
           >.
         </p>
       </section>
