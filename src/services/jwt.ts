@@ -15,7 +15,7 @@ interface FundermapsJwtPayload extends JwtPayload {
   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": string,
   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress": string,
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string,
-  "cfo":  string,
+  "cfo": string,
   "cfor": string
 }
 
@@ -40,9 +40,9 @@ function getAccessToken(): string | null {
 /**
  * Get the access token from storage and decode it.
  */
-function getAccessTokenDecoded(token?: string|null): FundermapsJwtPayload {
+function getAccessTokenDecoded(token?: string | null): FundermapsJwtPayload {
   token = token ?? getAccessToken();
-  if (! token) {
+  if (!token) {
     throw new Error('Could not get access token when requesting user');
   }
 
@@ -61,7 +61,7 @@ export function hasAccessToken(): boolean {
   return getAccessToken() !== null
 }
 
-export function hasAccessTokenExpired(token?: string|null): boolean {
+export function hasAccessTokenExpired(token?: string | null): boolean {
   token = token ?? getAccessToken();
 
   if (token === null) {
@@ -71,7 +71,7 @@ export function hasAccessTokenExpired(token?: string|null): boolean {
 
   const parsed = getAccessTokenDecoded(token);
   const time = Math.round((new Date()).getTime() / 1000);
-  
+
   return (parsed?.exp || 0) < time;
 }
 
@@ -79,8 +79,8 @@ export function hasAccessTokenExpired(token?: string|null): boolean {
  * Check whether the user has credentials stored
  * Note: the credentials may be invalid. It's up to the server to verify the token.
  */
-export function hasNonExpiredToken(token?: string|null): boolean {
-  return ! hasAccessTokenExpired(token)
+export function hasNonExpiredToken(token?: string | null): boolean {
+  return !hasAccessTokenExpired(token)
 }
 
 /**

@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 
 import { useSessionStore } from './session';
 
-const buildingId: Ref<string|null> = ref(null)
+const buildingId: Ref<string | null> = ref(null)
 
 /**
  * Whether a building is selected

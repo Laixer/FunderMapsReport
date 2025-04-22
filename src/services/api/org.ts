@@ -8,9 +8,9 @@ import { get } from "../apiClient"
 export const getOrgs = async function getOrgs() {
   return await get({ endpoint: '/organization' })
     .then(response => {
-      
+
       // Currently only 1 org is returned as object
-      response = Array.isArray(response) ? response : [ response ]
+      response = Array.isArray(response) ? response : [response]
 
       // This mapper removes the datapoints that are either to be depreciated on the server side or not relevant to the UI
       return response.map((org: IOrg) => {

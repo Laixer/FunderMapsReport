@@ -8,17 +8,17 @@ import { hasAPIKey } from '@/services/apiClient.ts';
 const sessionStore = useSessionStore()
 const { authenticateFromAccessToken } = sessionStore
 const { isAuthenticated } = storeToRefs(sessionStore)
-let accessTokenRefreshInterval: ReturnType<typeof setTimeout>|null = null
+let accessTokenRefreshInterval: ReturnType<typeof setTimeout> | null = null
 
 /**
  * Try to continue from the access token if there is one
- */ 
+ */
 try {
-  if (! hasAPIKey()) {
+  if (!hasAPIKey()) {
     authenticateFromAccessToken()
     refreshAccessToken()
   }
-} catch(e) {
+} catch (e) {
   // no luck, no harm
 }
 
@@ -29,7 +29,7 @@ try {
 watch(
   () => isAuthenticated.value,
   (isAuthenticated) => {
-    if (isAuthenticated && ! hasAPIKey()) {
+    if (isAuthenticated && !hasAPIKey()) {
       /**
        * Refresh the jwt access token every 10 minutes
        *  The refresh fn checks for the existance of a token

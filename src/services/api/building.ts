@@ -1,7 +1,7 @@
-import type { 
-  IGeoLocationData, 
-  IIncidentReport, 
-  IInquiryReport, 
+import type {
+  IGeoLocationData,
+  IIncidentReport,
+  IInquiryReport,
   IRecoveryReport,
   IAnalysis,
   IStatistics,
@@ -24,7 +24,7 @@ import { Analysis } from "@/datastructures/classes/Analysis"
  *  - NL.IMBAG.PAND.0018100000044244
  *  - NL.IMBAG.NUMMERAANDUIDING.0202200000386344
  *  - gfm-ee8e9a3ccc954296a84b247eda947045
- */ 
+ */
 
 /******************************************************************************
  *    Location
@@ -63,7 +63,7 @@ export const getRecoveryReportsByBuildingId = async function getRecoveryReportsB
 /**
  * Get all recovery samples of a recovery report
  */
-export const getRecoverySamplesByRecoveryId = async function getRecoverySamplesByRecoveryId(recoveryId: string|number): Promise<IRecoverySample[]> {
+export const getRecoverySamplesByRecoveryId = async function getRecoverySamplesByRecoveryId(recoveryId: string | number): Promise<IRecoverySample[]> {
   return await get({ endpoint: `/recovery/${recoveryId}/sample` })
 }
 
@@ -88,7 +88,7 @@ export const getInquiriesByBuildingId = async function getInquiriesByBuildingId(
 /**
  * Get all inquiry samples of a inquiry report
  */
-export const getInquirySamplesByInquiryId = async function getInquirySamplesByInquiryId(inquiryId: string|number): Promise<IInquirySample[]> {
+export const getInquirySamplesByInquiryId = async function getInquirySamplesByInquiryId(inquiryId: string | number): Promise<IInquirySample[]> {
   return await get({ endpoint: `/inquiry/${inquiryId}/sample` })
 }
 

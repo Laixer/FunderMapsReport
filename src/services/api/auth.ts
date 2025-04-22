@@ -1,8 +1,7 @@
-
 import { get, post } from "../apiClient"
 
 export const login = async function login(email: string, password: string) {
-  return await post({ 
+  return await post({
     endpoint: '/auth/signin',
     body: {
       email, password
@@ -22,7 +21,7 @@ export const refresh = async function refresh() {
  * Send a request for a password reset mail
  */
 export const requestPasswordReset = async function requestPasswordReset(email: string) {
-  return await post({ 
+  return await post({
     endpoint: '/auth/reset-password',
     body: {
       email
@@ -35,7 +34,7 @@ export const requestPasswordReset = async function requestPasswordReset(email: s
  * Send a request for a password reset mail
  */
 export const resetPassword = async function resetPassword(email: string, token: string, password: string) {
-  return await post({ 
+  return await post({
     endpoint: '/auth/reset-new-password',
     body: {
       email,
@@ -51,7 +50,7 @@ export const resetPassword = async function resetPassword(email: string, token: 
  *  Note: this is only for users who are logged in
  */
 export const changePassword = async function changePassword(oldPassword: string, newPassword: string) {
-  return await post({ 
+  return await post({
     endpoint: '/auth/change-password',
     body: {
       oldPassword: oldPassword,

@@ -10,10 +10,10 @@ export const sleep = (delay: number) => new Promise((resolve) => setTimeout(reso
  * Helper function for variableSleep
  *  It doesn't need to be perfectly random
  */
-function getRandomInt(min: number, max: number) { 
-  min = Math.ceil(min); 
-  max = Math.floor(max); 
-  return Math.floor(Math.random() * (max - min + 1)) + min; 
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /**
@@ -25,10 +25,10 @@ export const variableSleep = async (delay: number, variance: number = 25) => {
   variance = variance / 100
 
   const offset = getRandomInt(
-    variableAspect - (variableAspect * variance), 
+    variableAspect - (variableAspect * variance),
     variableAspect + (variableAspect * variance)
   )
 
   const variableDelay = Math.floor(delay - variableAspect + offset)
-  await sleep( variableDelay )
+  await sleep(variableDelay)
 }

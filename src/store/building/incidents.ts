@@ -42,11 +42,11 @@ const buildingHasIncidentReports = function buildingHasIncidentReports(buildingI
  *  Note: returns an empty array if the incidentReport data has not yet been retrieved
  */
 const getIncidentReportsByBuildingId = function getIncidentReportsByBuildingId(buildingId: string): IIncidentReport[] {
-  if (! buildingHasIncidentReports(buildingId)) return []
+  if (!buildingHasIncidentReports(buildingId)) return []
 
   return incidentReportIdsByBuildingId.value[buildingId]
-    .filter(( incidentReportId: string ) => !! incidentReportsById.value[incidentReportId])
-    .map(( incidentReportId: string ) => incidentReportsById.value[incidentReportId])
+    .filter((incidentReportId: string) => !!incidentReportsById.value[incidentReportId])
+    .map((incidentReportId: string) => incidentReportsById.value[incidentReportId])
 }
 
 
@@ -68,24 +68,24 @@ const loadIncidentReportDataByBuildingId = async function loadIncidentReportData
   try {
 
     // Data for this building is currently already being retrieved
-    if (isLoadingBuildingDataById.value[buildingId] === true) return 
+    if (isLoadingBuildingDataById.value[buildingId] === true) return
     isLoadingBuildingDataById.value[buildingId] = true
 
     /**
      * If we use cache, and the building data has already been loaded, we got nothing to do.
      */
     if (cache === true && buildingIncidentReportDataHasBeenRetrieved(buildingId)) {
-      return 
+      return
     }
 
     /**
      * Otherwise we start by retrieving the inqueries associated with the building
      */
     const response: IIncidentReport[] = await api.building.getIncidentReportsByBuildingId(buildingId)
-    
+
     setIncidentDataByBuildingId(buildingId, response)
 
-  } catch(e) {
+  } catch (e) {
     console.log("Error loading incidentReport data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?

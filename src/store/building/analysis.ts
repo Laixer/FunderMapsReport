@@ -40,15 +40,15 @@ const buildingAnalysisDataFailedToLoad = function buildingAnalysisDataFailedToLo
  *  Note: the data may still be loading
  */
 const buildingHasAnalysisData = function buildingHasAnalysisData(buildingId: string): boolean {
-  return buildingAnalysisDataHasBeenRetrieved(buildingId) && !! analysisDataByBuildingId.value[buildingId]
+  return buildingAnalysisDataHasBeenRetrieved(buildingId) && !!analysisDataByBuildingId.value[buildingId]
 }
 
 /**
  * Get all analysis data by building id
  *  Note: returns null if the data has not yet been retrieved
  */
-const getAnalysisDataByBuildingId = function getAnalysisDataByBuildingId(buildingId: string): IAnalysis|null {
-  if (! buildingHasAnalysisData(buildingId)) return null
+const getAnalysisDataByBuildingId = function getAnalysisDataByBuildingId(buildingId: string): IAnalysis | null {
+  if (!buildingHasAnalysisData(buildingId)) return null
 
   return analysisDataByBuildingId.value[buildingId]
 }
@@ -58,7 +58,7 @@ const loadAnalysisDataByBuildingId = async function loadAnalysisDataByBuildingId
   try {
 
     // Data for this building is currently already being retrieved
-    if (isLoadingBuildingDataById.value[buildingId] === true) return 
+    if (isLoadingBuildingDataById.value[buildingId] === true) return
     isLoadingBuildingDataById.value[buildingId] = true
 
     /**
@@ -70,11 +70,11 @@ const loadAnalysisDataByBuildingId = async function loadAnalysisDataByBuildingId
      * Otherwise we start by retrieving the analysis data associated with the building
      */
     const response: IAnalysis = await api.building.getAnalysisByBuildingId(buildingId)
-    
+
     // Store data
     analysisDataByBuildingId.value[buildingId] = response || null
 
-  } catch(e) {
+  } catch (e) {
     console.log("Error loading analysis data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?

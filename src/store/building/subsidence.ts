@@ -40,15 +40,15 @@ const buildingSubsidenceDataFailedToLoad = function buildingSubsidenceDataFailed
  *  Note: the data may still be loading
  */
 const buildingHasSubsidenceData = function buildingHasSubsidenceData(buildingId: string): boolean {
-  return buildingSubsidenceDataHasBeenRetrieved(buildingId) && !! subsidenceDataByBuildingId.value[buildingId]
+  return buildingSubsidenceDataHasBeenRetrieved(buildingId) && !!subsidenceDataByBuildingId.value[buildingId]
 }
 
 /**
  * Get all subsidence data by building id
  *  Note: returns null if the data has not yet been retrieved
  */
-const getSubsidenceDataByBuildingId = function getSubsidenceDataByBuildingId(buildingId: string): ISubsidence[]|null {
-  if (! buildingHasSubsidenceData(buildingId)) return null
+const getSubsidenceDataByBuildingId = function getSubsidenceDataByBuildingId(buildingId: string): ISubsidence[] | null {
+  if (!buildingHasSubsidenceData(buildingId)) return null
 
   return subsidenceDataByBuildingId.value[buildingId]
 }
@@ -58,7 +58,7 @@ const loadSubsidenceDataByBuildingId = async function loadSubsidenceDataByBuildi
   try {
 
     // Data for this building is currently already being retrieved
-    if (isLoadingBuildingDataById.value[buildingId] === true) return 
+    if (isLoadingBuildingDataById.value[buildingId] === true) return
     isLoadingBuildingDataById.value[buildingId] = true
 
     /**
@@ -70,11 +70,11 @@ const loadSubsidenceDataByBuildingId = async function loadSubsidenceDataByBuildi
      * Otherwise we start by retrieving the subsidence associated with the building
      */
     const response: ISubsidence[] = await api.building.getSubsidenceByBuildingId(buildingId)
-    
+
     // Store data
     subsidenceDataByBuildingId.value[buildingId] = response || null
 
-  } catch(e) {
+  } catch (e) {
     console.log("Error loading subsidence data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?
@@ -121,7 +121,7 @@ function useSubsidence() {
     buildingHasSubsidenceData,
     getSubsidenceDataByBuildingId,
 
-    loadSubsidenceDataByBuildingId    
+    loadSubsidenceDataByBuildingId
   }
 }
 

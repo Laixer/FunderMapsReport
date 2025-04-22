@@ -72,11 +72,11 @@ const buildingHasRecoveryReports = function buildingHasRecoveryReports(buildingI
  *  Note: returns an empty array if the recoveryReport data has not yet been retrieved
  */
 const getRecoveryReportByBuildingId = function getRecoveryReportByBuildingId(buildingId: string): IRecoveryReport[] {
-  if (! buildingHasRecoveryReports(buildingId)) return []
+  if (!buildingHasRecoveryReports(buildingId)) return []
 
   return recoveryReportIdsByBuildingId.value[buildingId]
-    .filter(( recoveryReportId: number ) => !! recoveryReportsById.value[recoveryReportId])
-    .map(( recoveryReportId: number ) => recoveryReportsById.value[recoveryReportId])
+    .filter((recoveryReportId: number) => !!recoveryReportsById.value[recoveryReportId])
+    .map((recoveryReportId: number) => recoveryReportsById.value[recoveryReportId])
 }
 
 // TODO: Add variations on functions above & incl building id => recoveryReport id => samples
@@ -117,15 +117,15 @@ const getCombinedRecoveryDataByBuildingId = function getCombinedRecoveryDataByBu
         })
 
       console.log("samples", samples)
-      
+
       // If there are none, add the report without sample
       if (samples.length === 0) {
         combinedData.push({
           report: toValue(report),
           sample: undefined
         })
-      
-      // Otherwise add an entry for every recovery + sample combination
+
+        // Otherwise add an entry for every recovery + sample combination
       } else {
         samples.forEach(sample => {
           combinedData.push({
@@ -137,7 +137,7 @@ const getCombinedRecoveryDataByBuildingId = function getCombinedRecoveryDataByBu
     })
 
   console.log(combinedData)
-    
+
   return combinedData
 }
 
@@ -160,9 +160,9 @@ const setRecoveryDataByBuildingId = function setRecoveryDataByBuildingId(buildin
     sample = new RecoverySample(sample)
     const reportId = sample.recovery
     recoverySamplesByRecoveryReportId.value[reportId] = recoverySamplesByRecoveryReportId.value[reportId] || []
-    
+
     // Only add unknown samples
-    if (! recoverySamplesByRecoveryReportId.value[reportId].map(sample => sample.id).includes(sample.id)) {
+    if (!recoverySamplesByRecoveryReportId.value[reportId].map(sample => sample.id).includes(sample.id)) {
       recoverySamplesByRecoveryReportId.value[reportId].push(sample)
     }
 
@@ -178,21 +178,21 @@ const setRecoveryDataByBuildingId = function setRecoveryDataByBuildingId(buildin
 const loadRecoveryReportDataByBuildingId = async function loadRecoveryReportDataByBuildingId(buildingId: string, cache: boolean = true) {
   try {
     // Data for this building is currently already being retrieved
-    if (isLoadingBuildingDataById.value[buildingId] === true) return 
+    if (isLoadingBuildingDataById.value[buildingId] === true) return
     isLoadingBuildingDataById.value[buildingId] = true
 
     /**
      * If we use cache, and the building data has already been loaded, we got nothing to do.
      */
     if (cache === true && buildingRecoveryReportDataHasBeenRetrieved(buildingId)) {
-      return 
+      return
     }
 
     /**
      * Otherwise we start by retrieving the inqueries associated with the building
      */
     const response: IRecoveryReport[] = await api.building.getRecoveryReportsByBuildingId(buildingId)
-    
+
     response.forEach((recoveryReport: IRecoveryReport) => {
       recoveryReportsById.value[recoveryReport.id] = new RecoveryReport(recoveryReport)
     })
@@ -203,7 +203,7 @@ const loadRecoveryReportDataByBuildingId = async function loadRecoveryReportData
     /**
      * Get connected samples by report id
      */
-    for(let report in response) {
+    for (let report in response) {
       const recoveryReportId = response[report].id
       const sampleResponse = await api.building.getRecoverySamplesByRecoveryId(recoveryReportId)
 
@@ -213,7 +213,7 @@ const loadRecoveryReportDataByBuildingId = async function loadRecoveryReportData
       })
     }
 
-  } catch(e) {
+  } catch (e) {
     console.log("Error loading recoveryReport data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?

@@ -14,7 +14,7 @@ const showStatisticsModal = ref(false)
 /**
  * 
  */
-const statisticsGraph: Ref<string|null> = ref(null)
+const statisticsGraph: Ref<string | null> = ref(null)
 
 /**
  * Statistics data by Building Id
@@ -51,15 +51,15 @@ const buildingStatisticsDataFailedToLoad = function buildingStatisticsDataFailed
  *  Note: the data may still be loading
  */
 const buildingHasStatisticsData = function buildingHasStatisticsData(buildingId: string): boolean {
-  return buildingStatisticsDataHasBeenRetrieved(buildingId) && !! statisticsDataByBuildingId.value[buildingId]
+  return buildingStatisticsDataHasBeenRetrieved(buildingId) && !!statisticsDataByBuildingId.value[buildingId]
 }
 
 /**
  * Get all statistics data by building id
  *  Note: returns null if the data has not yet been retrieved
  */
-const getStatisticsDataByBuildingId = function getStatisticsDataByBuildingId(buildingId: string): IStatistics|null {
-  if (! buildingHasStatisticsData(buildingId)) return null
+const getStatisticsDataByBuildingId = function getStatisticsDataByBuildingId(buildingId: string): IStatistics | null {
+  if (!buildingHasStatisticsData(buildingId)) return null
 
   return statisticsDataByBuildingId.value[buildingId]
 }
@@ -69,7 +69,7 @@ const loadStatisticsDataByBuildingId = async function loadStatisticsDataByBuildi
   try {
 
     // Data for this building is currently already being retrieved
-    if (isLoadingBuildingDataById.value[buildingId] === true) return 
+    if (isLoadingBuildingDataById.value[buildingId] === true) return
     isLoadingBuildingDataById.value[buildingId] = true
 
     /**
@@ -81,11 +81,11 @@ const loadStatisticsDataByBuildingId = async function loadStatisticsDataByBuildi
      * Otherwise we start by retrieving the statistics associated with the building
      */
     const response: IStatistics = await api.building.getStatisticsByBuildingId(buildingId)
-    
+
     // Store data
     statisticsDataByBuildingId.value[buildingId] = response || null
 
-  } catch(e) {
+  } catch (e) {
     console.log("Error loading statistics data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?
@@ -137,7 +137,7 @@ function useStatistics() {
     // Statistics modal
     showStatisticsModal,
     statisticsGraph
-    
+
   }
 }
 

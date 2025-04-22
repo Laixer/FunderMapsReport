@@ -7,13 +7,13 @@ const mapMapset = function mapMapset(rawmapset: IMapset): IMapsetFE {
   let layerSet = []
 
   try {
-    layerSet =rawmapset.layerSet ? JSON.parse(rawmapset.layerSet) : []  
-  } catch(e) {
+    layerSet = rawmapset.layerSet ? JSON.parse(rawmapset.layerSet) : []
+  } catch (e) {
     console.log(`Failed to process layerSet information. ${rawmapset?.name || rawmapset.id} will have no interactive layers.`)
   }
   try {
     options = rawmapset?.options ? JSON.parse(rawmapset.options) : {}
-  } catch(e) {
+  } catch (e) {
     console.log("Failed to process mapset options. Loading without options.")
   }
 
@@ -24,7 +24,7 @@ const mapMapset = function mapMapset(rawmapset: IMapset): IMapsetFE {
     style: rawmapset.style,
     layers: rawmapset?.layers || [],
     options,
-    public: (!! rawmapset?.public) || false,
+    public: (!!rawmapset?.public) || false,
     consent: rawmapset?.consent || null,
     note: rawmapset?.note || null,
     icon: rawmapset?.icon || 'home-info',
@@ -40,7 +40,7 @@ const mapMapset = function mapMapset(rawmapset: IMapset): IMapsetFE {
 /******************************************************************************
  * Map Groups endpoints
  */
-export const getAvailableMapsets = async function getAvailableMapsets(): Promise<IMapsetFE[]|null> {
+export const getAvailableMapsets = async function getAvailableMapsets(): Promise<IMapsetFE[] | null> {
   const response = await get({ endpoint: '/mapset' })
   if (response) {
     return response.map(mapMapset)
@@ -49,7 +49,7 @@ export const getAvailableMapsets = async function getAvailableMapsets(): Promise
   return null
 }
 
-export const getPublicAndAvailableMapsetsById = async function getAvailableMapsets(id: string): Promise<IMapsetFE[]|null> {
+export const getPublicAndAvailableMapsetsById = async function getAvailableMapsets(id: string): Promise<IMapsetFE[] | null> {
   console.log(id)
   const response = await get({ endpoint: `/mapset/${id}`, requireAuth: false }) // TODO: Change endpoint
   if (response) {

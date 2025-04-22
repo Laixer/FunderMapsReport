@@ -1,8 +1,8 @@
 
 import { type ShallowRef, shallowRef } from 'vue';
-import { defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
-import { hasNonExpiredToken } from '@/services/jwt'; 
+import { hasNonExpiredToken } from '@/services/jwt';
 
 /**
  * Whether the user is authenticated

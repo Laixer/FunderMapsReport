@@ -10,7 +10,7 @@ import { useRouter, useRoute } from 'vue-router'
 /******************************************************************************
  * API Key overrides JWT auth
  */
-const apiKey: string|null = import.meta.env.VITE_AUTH_KEY || null
+const apiKey: string | null = import.meta.env.VITE_AUTH_KEY || null
 
 export const hasAPIKey = function hasAPIKey() {
   return apiKey !== null && apiKey.length !== 0
@@ -33,8 +33,8 @@ const getAPIKeyAuthHeader = function getAPIKeyAuthHeader() {
 const passAuthCheckOrExit = function passAuthOrThrowException(requireAuth: boolean, autoredirect: boolean) {
   // Check for auth
   try {
-    if (requireAuth && ! hasAPIKey()) {
-      if (! hasAccessToken()) {
+    if (requireAuth && !hasAPIKey()) {
+      if (!hasAccessToken()) {
         throw new APITokenError("Missing access token")
       }
 
@@ -42,7 +42,7 @@ const passAuthCheckOrExit = function passAuthOrThrowException(requireAuth: boole
         throw new APITokenError("Access token has expired")
       }
     }
-  } catch(e) {
+  } catch (e) {
     console.log("failed to pass auth check")
     console.log(e)
 
@@ -60,14 +60,14 @@ const passAuthCheckOrExit = function passAuthOrThrowException(requireAuth: boole
   }
 }
 
-export const makeCall = async function makeCall({ 
+export const makeCall = async function makeCall({
   endpoint, method = 'GET', body, requireAuth = true, autoredirect = true
-} : { 
-  endpoint: string, 
-  method?: 'GET'|'POST'|'PUT', 
+}: {
+  endpoint: string,
+  method?: 'GET' | 'POST' | 'PUT',
   body?: unknown,
   requireAuth?: boolean,
-  autoredirect?: boolean 
+  autoredirect?: boolean
 }) {
   let fetchOptions = {}
   let authHeader = {}
@@ -91,7 +91,7 @@ export const makeCall = async function makeCall({
     fetchOptions = {
       method,
       headers: Object.assign(
-        authHeader, 
+        authHeader,
         {
           "Content-Type": "application/json",
         }
@@ -100,7 +100,7 @@ export const makeCall = async function makeCall({
     }
 
     const response = await fetch(
-      combineEndpoint(endpoint), 
+      combineEndpoint(endpoint),
       fetchOptions
     )
 
@@ -110,15 +110,15 @@ export const makeCall = async function makeCall({
       if (response.status !== 204) {
         responseBody = await response.json()
       }
-    } catch(e) {
+    } catch (e) {
       console.log(e)
-      
+
       if (response.ok && response.status !== 204) {
         throw new Error("Failed to process response body")
       }
     }
 
-    if (! response.ok) {
+    if (!response.ok) {
       throw new APIErrorResponse(
         response.status,
         responseBody
@@ -128,13 +128,13 @@ export const makeCall = async function makeCall({
     passAuthCheckOrExit(requireAuth, autoredirect)
 
     return responseBody
-  } catch(err: unknown) {
+  } catch (err: unknown) {
     console.log(err)
 
     if (err instanceof APIClientError) {
       throw err
     }
-    
+
     throw new APICallError(
       err,
       endpoint,
@@ -148,8 +148,8 @@ export const makeCall = async function makeCall({
  * Error classes
  *  Note: this is a rather basic implementation
  */
-export class APIClientError {}
-export class APIErrorResponse extends APIClientError{
+export class APIClientError { }
+export class APIErrorResponse extends APIClientError {
 
   // The status code of the error response 
   status: number
@@ -185,18 +185,18 @@ export class APICallError extends APIClientError {
   err: unknown
 
   // Some api call context information
-  endpoint: string 
+  endpoint: string
   options: object
   responseBody: unknown
 
   constructor(
-    err: unknown, 
-    endpoint: string, 
-    options: object, 
+    err: unknown,
+    endpoint: string,
+    options: object,
     responseBody: unknown
   ) {
     super()
-    
+
     this.err = err
     this.endpoint = endpoint
     this.options = options
@@ -208,22 +208,22 @@ export class APICallError extends APIClientError {
  * Shortcuts
  */
 export const get = async function get(
-  { endpoint, body, requireAuth, autoredirect } : 
-  { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
+  { endpoint, body, requireAuth, autoredirect }:
+    { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
 ) {
   return await makeCall({ endpoint, method: 'GET', body, requireAuth, autoredirect })
 }
 
 export const post = async function post(
-  { endpoint, body, requireAuth, autoredirect } : 
-  { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
+  { endpoint, body, requireAuth, autoredirect }:
+    { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
 ) {
   return await makeCall({ endpoint, method: 'POST', body, requireAuth, autoredirect })
 }
 
 export const put = async function put(
-  { endpoint, body, requireAuth, autoredirect } : 
-  { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
+  { endpoint, body, requireAuth, autoredirect }:
+    { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
 ) {
   return await makeCall({ endpoint, method: 'PUT', body, requireAuth, autoredirect })
 }

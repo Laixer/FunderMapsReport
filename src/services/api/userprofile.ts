@@ -9,7 +9,7 @@ export const getUserProfile = async function getUserProfile() {
 }
 
 export const putUserProfile = async function postUserProfile(data: IUserProfile) {
-  return await put({ endpoint: '/user', body: data})
+  return await put({ endpoint: '/user', body: data })
 }
 
 export default {

@@ -71,11 +71,11 @@ const buildingHasInquiries = function buildingHasInquiries(buildingId: string): 
  *  Note: returns an empty array if the inquiry data has not yet been retrieved
  */
 const getInquiryByBuildingId = function getInquiryByBuildingId(buildingId: string): IInquiryReport[] {
-  if (! buildingHasInquiries(buildingId)) return []
+  if (!buildingHasInquiries(buildingId)) return []
 
   return inquiryIdsByBuildingId.value[buildingId]
-    .filter(( inquiryId: number ) => !! inquiriesById.value[inquiryId])
-    .map(( inquiryId: number ) => inquiriesById.value[inquiryId])
+    .filter((inquiryId: number) => !!inquiriesById.value[inquiryId])
+    .map((inquiryId: number) => inquiriesById.value[inquiryId])
 }
 
 // TODO: Add variations on functions above & incl building id => inquiry id => samples
@@ -116,15 +116,15 @@ const getCombinedInquiryDataByBuildingId = function getCombinedInquiryDataByBuil
         })
 
       console.log("samples", samples)
-      
+
       // If there are none, add the report without sample
       if (samples.length === 0) {
         combinedData.push({
           report: toValue(report),
           sample: undefined
         })
-      
-      // Otherwise add an entry for every inquiry + sample combination
+
+        // Otherwise add an entry for every inquiry + sample combination
       } else {
         samples.forEach(sample => {
           combinedData.push({
@@ -136,7 +136,7 @@ const getCombinedInquiryDataByBuildingId = function getCombinedInquiryDataByBuil
     })
 
   console.log(combinedData)
-    
+
   return combinedData
 }
 
@@ -160,7 +160,7 @@ const setInquiryDataByBuildingId = function setInquiryDataByBuildingId(buildingI
     inquirySamplesByInquiryId.value[reportId] = inquirySamplesByInquiryId.value[reportId] || []
 
     // Only add unknown samples
-    if (! inquirySamplesByInquiryId.value[reportId].map(sample => sample.id).includes(sample.id)) {
+    if (!inquirySamplesByInquiryId.value[reportId].map(sample => sample.id).includes(sample.id)) {
       inquirySamplesByInquiryId.value[reportId].push(sample)
     }
 
@@ -169,7 +169,7 @@ const setInquiryDataByBuildingId = function setInquiryDataByBuildingId(buildingI
 
     inquirySampleIdsByBuildingId.value[buildingId] = inquirySampleIdsByBuildingId.value[buildingId] || []
     inquirySampleIdsByBuildingId.value[buildingId].push(sample.id)
-  
+
   })
 
 
@@ -178,30 +178,30 @@ const setInquiryDataByBuildingId = function setInquiryDataByBuildingId(buildingI
 const loadInquiryDataByBuildingId = async function loadInquiryDataByBuildingId(buildingId: string, cache: boolean = true) {
   try {
     // Data for this building is currently already being retrieved
-    if (isLoadingBuildingDataById.value[buildingId] === true) return 
+    if (isLoadingBuildingDataById.value[buildingId] === true) return
     isLoadingBuildingDataById.value[buildingId] = true
 
     /**
      * If we use cache, and the building data has already been loaded, we got nothing to do.
      */
     if (cache === true && buildingInquiryDataHasBeenRetrieved(buildingId)) {
-      return 
+      return
     }
 
     /**
      * Otherwise we start by retrieving the inqueries associated with the building
      */
     const reports: IInquiryReport[] = await api.building.getInquiriesByBuildingId(buildingId)
-    
+
     // Get all samples
     let samples: IInquirySample[] = []
-    for(let report in reports) {
+    for (let report in reports) {
       const sampleResponse = await api.building.getInquirySamplesByInquiryId(reports[report].id)
       samples = samples.concat(sampleResponse)
     }
 
     setInquiryDataByBuildingId(buildingId, reports, samples)
-  } catch(e) {
+  } catch (e) {
     console.log("Error loading inquiry data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?

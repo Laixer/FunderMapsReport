@@ -1,5 +1,3 @@
-
-
 import auth from './auth'
 import building from './building'
 import mapset from './mapset'

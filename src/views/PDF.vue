@@ -36,17 +36,17 @@ const { buildingId } = storeToRefs(useBuildingStore())
 /**
  * Menu items
  */
- const { 
+const {
   loadLocationDataByBuildingId,
   buildingLocationDataHasBeenRetrieved
 } = useGeoLocationsStore()
 
-const { 
+const {
   loadAnalysisDataByBuildingId,
   buildingAnalysisDataHasBeenRetrieved
 } = useAnalysisStore()
 
-const { 
+const {
   loadStatisticsDataByBuildingId,
   buildingStatisticsDataHasBeenRetrieved
 } = useStatisticsStore()
@@ -54,17 +54,17 @@ const {
 /**
  * Green buttons
  */
-const { 
+const {
   buildingRecoveryReportDataHasBeenRetrieved,
   setRecoveryDataByBuildingId
 } = useRecoveryReportsStore()
 
-const { 
+const {
   buildingInquiryDataHasBeenRetrieved,
   setInquiryDataByBuildingId
 } = useInquiriesStore()
 
-const { 
+const {
   buildingIncidentReportDataHasBeenRetrieved,
   setIncidentDataByBuildingId
 } = useIncidentReportsStore()
@@ -75,7 +75,7 @@ const {
 } = useSubsidenceStore()
 
 const hasAllBuildingInformation = computed(() => {
-  if (! buildingId.value) return false
+  if (!buildingId.value) return false
 
   return (
     buildingLocationDataHasBeenRetrieved(buildingId.value)
@@ -99,20 +99,20 @@ watch(
     // TODO: Quick fix to support cache. Move to some store ?
     const getAllReportDataUnlessCached = async function getAlReportDataUnlessCached(buildingId: string) {
       if (
-        ! buildingRecoveryReportDataHasBeenRetrieved(buildingId) ||
-        ! buildingIncidentReportDataHasBeenRetrieved(buildingId) ||
-        ! buildingInquiryDataHasBeenRetrieved(buildingId)
+        !buildingRecoveryReportDataHasBeenRetrieved(buildingId) ||
+        !buildingIncidentReportDataHasBeenRetrieved(buildingId) ||
+        !buildingInquiryDataHasBeenRetrieved(buildingId)
       ) {
         return await api.building.getAllReportDataByBuildingId(buildingId)
           .then(response => {
 
-            if (! buildingRecoveryReportDataHasBeenRetrieved(buildingId)) {
+            if (!buildingRecoveryReportDataHasBeenRetrieved(buildingId)) {
               setRecoveryDataByBuildingId(buildingId, response.recoveries, response.recoverySamples)
             }
-            if (! buildingInquiryDataHasBeenRetrieved(buildingId)) {
+            if (!buildingInquiryDataHasBeenRetrieved(buildingId)) {
               setInquiryDataByBuildingId(buildingId, response.inquiries, response.inquirySamples)
             }
-            if (! buildingIncidentReportDataHasBeenRetrieved(buildingId)) {
+            if (!buildingIncidentReportDataHasBeenRetrieved(buildingId)) {
               setIncidentDataByBuildingId(buildingId, response.incidents)
             }
           })
@@ -141,8 +141,8 @@ onBeforeMount(() => {
 
   const route = useRoute()
   const router = useRouter()
-  
-  if (! route.params.buildingId) {
+
+  if (!route.params.buildingId) {
     router.push({ name: 'NotFound' })
     return
   }
@@ -169,30 +169,16 @@ onBeforeMount(() => {
   <template v-if="hasAllBuildingInformation">
 
     <!-- HEADER -->
-    <header
-      class="header--print | relative isolate overflow-hidden rounded-md"
-    >
-      <img
-        src="@assets/images/header-bg.png"
-        alt=""
-        class="inset absolute -z-10 w-full"
-      />
-      <img
-        src="@assets/images/header-artifact.print.png"
-        alt=""
-        class="justify-self-start"
-      />
+    <header class="header--print | relative isolate overflow-hidden rounded-md">
+      <img src="@assets/images/header-bg.png" alt="" class="inset absolute -z-10 w-full" />
+      <img src="@assets/images/header-artifact.print.png" alt="" class="justify-self-start" />
       <div class="grid justify-items-center gap-2 text-white">
-        <img
-          src="@assets/svg/fundermaps-inverted.svg?url"
-          alt="Logo Fundermaps"
-          class="h-8"
-        />
+        <img src="@assets/svg/fundermaps-inverted.svg?url" alt="Logo Fundermaps" class="h-8" />
         <h1>Funderingsrisicorapport</h1>
       </div>
     </header>
 
-    
+
     <!-- CHAPTER: BUILDING -->
     <!-- TODO: 2 fields yet to be implemented in API -->
     <BuildingChapter />
@@ -216,7 +202,7 @@ onBeforeMount(() => {
     <ReportingChapter />
 
     <PageBreak />
-    
+
     <!-- CHAPTER: FACADE REVIEW -->
     <FacadeReviewChapter />
 
@@ -261,9 +247,7 @@ onBeforeMount(() => {
           Wanneer u het niet eens bent met de beoordeling, wanneer u
           wijzigingen van de data wilt doorgeven of meer informatie wiltover
           dit funderingsrisicorapport of de QuickScan, dan kunt u terecht op
-          <a :href="`https://feedback.fundermaps.com/`"
-            >{{ `https://feedback.fundermaps.com/` }}</a
-          >.
+          <a :href="`https://feedback.fundermaps.com/`">{{ `https://feedback.fundermaps.com/` }}</a>.
         </p>
       </section>
     </article>

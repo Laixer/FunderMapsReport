@@ -10,7 +10,7 @@ import { GeoLocationData } from '@/datastructures/classes/Location/LocationData'
 /**
  * Location data by Building Id
  */
-const locationDataByBuildingId: Ref<Record<string, IGeoLocationData|null>> = ref({})
+const locationDataByBuildingId: Ref<Record<string, IGeoLocationData | null>> = ref({})
 
 /**
  * Whether currently data for a building is being loaded
@@ -41,15 +41,15 @@ const buildingLocationDataFailedToLoad = function buildingLocationDataFailedToLo
  *  Note: the data may still be loading
  */
 const buildingHasLocationData = function buildingHasLocationData(buildingId: string): boolean {
-  return buildingLocationDataHasBeenRetrieved(buildingId) && !! locationDataByBuildingId.value[buildingId]
+  return buildingLocationDataHasBeenRetrieved(buildingId) && !!locationDataByBuildingId.value[buildingId]
 }
 
 /**
  * Get all location data by building id
  *  Note: returns null if the location data has not yet been retrieved
  */
-const getLocationDataByBuildingId = function getLocationDataByBuildingId(buildingId: string): IGeoLocationData|null {
-  if (! buildingHasLocationData(buildingId)) return null
+const getLocationDataByBuildingId = function getLocationDataByBuildingId(buildingId: string): IGeoLocationData | null {
+  if (!buildingHasLocationData(buildingId)) return null
 
   return locationDataByBuildingId.value[buildingId]
 }
@@ -57,7 +57,7 @@ const getLocationDataByBuildingId = function getLocationDataByBuildingId(buildin
 /**
  * Get the full address of a building
  */
-const getFullAddressByBuildingId = function getFullAddressByBuildingId(buildingId: string): string|null {
+const getFullAddressByBuildingId = function getFullAddressByBuildingId(buildingId: string): string | null {
   const location = getLocationDataByBuildingId(buildingId)
   return location?.address?.fullAddress || null
 }
@@ -65,7 +65,7 @@ const getFullAddressByBuildingId = function getFullAddressByBuildingId(buildingI
 /**
  * Get the street name and building number of a building
  */
-const getAddressByBuildingId = function getAddressByBuildingId(buildingId: string) : string|null {
+const getAddressByBuildingId = function getAddressByBuildingId(buildingId: string): string | null {
   const location = getLocationDataByBuildingId(buildingId)
   if (location?.address?.street) {
     return `${location?.address?.street} ${location?.address?.buildingNumber}`.trim()
@@ -82,8 +82,8 @@ const loadLocationDataByBuildingId = async function loadLocationDataByBuildingId
     // buildingId = 'NL.IMBAG.PAND.0606100000000733' => 404 on geolocation
 
     // Data for this building is currently already being retrieved
-    if (isLoadingBuildingDataById.value[buildingId] === true) { 
-      return 
+    if (isLoadingBuildingDataById.value[buildingId] === true) {
+      return
     }
     isLoadingBuildingDataById.value[buildingId] = true
 
@@ -98,13 +98,13 @@ const loadLocationDataByBuildingId = async function loadLocationDataByBuildingId
      * Otherwise we start by retrieving the location data associated with the building
      */
     const response: IGeoLocationData = await api.building.getLocationInformationByBuildingId(buildingId)
-    
+
     // Store data
-    locationDataByBuildingId.value[buildingId] = response 
-      ? new GeoLocationData(response) 
+    locationDataByBuildingId.value[buildingId] = response
+      ? new GeoLocationData(response)
       : null
 
-  } catch(e) {
+  } catch (e) {
     console.log("Error loading location data by building id", e)
 
     // TODO: Catch-em all... and maybe do something more with them?
