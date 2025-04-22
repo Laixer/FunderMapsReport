@@ -1,36 +1,35 @@
-
 /**
  * All fieldlabels by fieldname as defined in excels from https://github.com/Laixer/FunderMapsWebFront/issues/2
  * 
  * All fieldlabels are provided per endpoint / class, as one combined set (with overlap!) and grouped by associated class name
  */
 
-export const addressFieldLabels = <Record<string, string>> {
+export const addressFieldLabels = <Record<string, string>>{
   fullAddress: 'Adres',
   postalCode: 'Postcode',
   buildingNumber: 'Nummeraanduiding'
 }
-export const buildingFieldLabels = <Record<string, string>> {
+export const buildingFieldLabels = <Record<string, string>>{
   externalId: 'BAG Pand ID'
 }
-export const neighborhoodFieldLabels = <Record<string, string>> {
+export const neighborhoodFieldLabels = <Record<string, string>>{
   name: 'Buurt'
 }
-export const districtFieldLabels = <Record<string, string>> {
+export const districtFieldLabels = <Record<string, string>>{
   name: 'Wijk'
 }
-export const municipalityFieldLabels = <Record<string, string>> {
+export const municipalityFieldLabels = <Record<string, string>>{
   name: 'Gemeente'
 }
-export const stateFieldLabels = <Record<string, string>> {
+export const stateFieldLabels = <Record<string, string>>{
   name: 'Provincie'
 }
 
-export const locationFieldLabels = <Record<string, string>> {
-  
+export const locationFieldLabels = <Record<string, string>>{
+
 }
 
-export const analysisFieldLabels = <Record<string, string>> {
+export const analysisFieldLabels = <Record<string, string>>{
   constructionYear: "Bouwjaar",
   constructionYearReliability: "Betrouwbaarheid bouwjaar",
   surfaceArea: "Vloeroppervlak",
@@ -59,7 +58,7 @@ export const analysisFieldLabels = <Record<string, string>> {
   facadescanRisk: "Risico GevelScan"
 }
 
-export const recoveryFieldLabels = <Record<string, string>> {
+export const recoveryFieldLabels = <Record<string, string>>{
   documentName: "Documentnaam",
   id: "Onderzoeksnummer",
   type: "Type bewijslast",
@@ -67,7 +66,7 @@ export const recoveryFieldLabels = <Record<string, string>> {
   auditStatus: "Controle status",
 }
 
-export const AttributionControlFieldLabels = <Record<string, string>> {
+export const AttributionControlFieldLabels = <Record<string, string>>{
   contractor: "Uitvoerder",
   owner: "Opdrachtgever",
   creator: "Verwerkt door",
@@ -78,11 +77,11 @@ export const AttributionControlFieldLabels = <Record<string, string>> {
   reviewerName: "Gecontroleerd door"
 }
 
-export const StateControlFieldLabels = <Record<string, string>> {
+export const StateControlFieldLabels = <Record<string, string>>{
   auditStatus: 'Controlestatus'
 }
 
-export const recoverySampleFieldLabels = <Record<string, string>> {
+export const recoverySampleFieldLabels = <Record<string, string>>{
   // recovery: "Type herstel",
   recovery: 'Onderzoeksnummer',
   type: "Methode herstel",
@@ -97,7 +96,7 @@ export const recoverySampleFieldLabels = <Record<string, string>> {
   id: 'Herstelnummer'
 }
 
-export const inquiryFieldLabels = <Record<string, string>> {
+export const inquiryFieldLabels = <Record<string, string>>{
   documentName: "Documentnaam",
   id: "Onderzoeksnummer",
   type: "Onderzoekstype",
@@ -114,13 +113,13 @@ export const inquiryFieldLabels = <Record<string, string>> {
   note: "Opmerking"
 }
 
-export const inquirySampleFieldLabels = <Record<string, string>> {
+export const inquirySampleFieldLabels = <Record<string, string>>{
   address: 'Adres ID',
   building: 'Pand ID',
 
   foundationType: "Type fundering",
   recoveryAdvised: "Funderingsherstel advies",
-  
+
   note: "Opmerking",
   builtYear: "Bouwjaar volgens onderzoek",
   substructure: "Onderbouw",
@@ -182,7 +181,7 @@ export const inquirySampleFieldLabels = <Record<string, string>> {
   crackFacadeRightSize: "Scheur"
 }
 
-export const statisticsFieldLabels = <Record<string, string>> {
+export const statisticsFieldLabels = <Record<string, string>>{
   // TODO: missing field names E134 - E138
   // TODO: Typo in F135: fundeirngstypes => funderingstypes
   /**
@@ -194,7 +193,7 @@ Aantal onderzoeken in buurt naar jaar
    */
 }
 
-export const riskFieldLabels = <Record<string, string>> {
+export const riskFieldLabels = <Record<string, string>>{
   drystandRisk: "Droogstandrisico",
   drystand: "Droogstand",
   drystandReliability: "Betrouwbaarheid droogstandsrisico",
@@ -207,7 +206,7 @@ export const riskFieldLabels = <Record<string, string>> {
   unclassifiedRisk: "Vastgesteld"
 }
 
-export const indicentFieldLabels = <Record<string, string>> {
+export const indicentFieldLabels = <Record<string, string>>{
   id: "Nummer",
   address: "Adres",
   building: "BAG Pand ID",
@@ -259,7 +258,7 @@ export const fieldLabels = Object.assign(
 /**
  * Field labels grouped by source class name 
  */
-export const fieldLabelsBySource = <Record<string, Record<string, string>>> {
+export const fieldLabelsBySource = <Record<string, Record<string, string>>>{
   'Analysis': analysisFieldLabels,
 
   'Location': locationFieldLabels,
@@ -272,7 +271,7 @@ export const fieldLabelsBySource = <Record<string, Record<string, string>>> {
 
   'AttributionControl': AttributionControlFieldLabels,
   'StateControl': StateControlFieldLabels,
-  'RecoveryReport': recoveryFieldLabels, 
+  'RecoveryReport': recoveryFieldLabels,
   'RecoverySample': recoverySampleFieldLabels,
 
   'Inquiry': inquiryFieldLabels,

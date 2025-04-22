@@ -1,5 +1,3 @@
-
-
 # Datastructures
 
 This folder provides files with information about
