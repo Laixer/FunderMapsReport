@@ -4,11 +4,11 @@ import { get, put } from "../apiClient"
 /******************************************************************************
  * User Profile Endpoints
  */
-export const getUserProfile = async function getUserProfile() {
+export const getUserProfile = async () => {
   return await get({ endpoint: '/user' })
 }
 
-export const putUserProfile = async function postUserProfile(data: IUserProfile) {
+export const putUserProfile = async (data: IUserProfile) => {
   return await put({ endpoint: '/user', body: data })
 }
 

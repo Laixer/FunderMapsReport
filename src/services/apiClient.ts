@@ -1,4 +1,3 @@
-
 import { apiBasePath } from "@/config"
 import { trimLeadingChar, trimTrailingChar } from "@/utils/string"
 
@@ -12,14 +11,15 @@ import { useRouter, useRoute } from 'vue-router'
  */
 const apiKey: string | null = import.meta.env.VITE_AUTH_KEY || null
 
-export const hasAPIKey = function hasAPIKey() {
+export const hasAPIKey = () => {
   return apiKey !== null && apiKey.length !== 0
 }
 
-const getAPIKey = function getAPIKey() {
+const getAPIKey = () => {
   return apiKey
 }
-const getAPIKeyAuthHeader = function getAPIKeyAuthHeader() {
+
+const getAPIKeyAuthHeader = () => {
   return {
     'Authorization': 'authkey ' + getAPIKey()
   }
@@ -30,7 +30,7 @@ const getAPIKeyAuthHeader = function getAPIKeyAuthHeader() {
  * The function thats is calling the shots
  */
 
-const passAuthCheckOrExit = function passAuthOrThrowException(requireAuth: boolean, autoredirect: boolean) {
+const passAuthCheckOrExit = (requireAuth: boolean, autoredirect: boolean) => {
   // Check for auth
   try {
     if (requireAuth && !hasAPIKey()) {
@@ -60,7 +60,7 @@ const passAuthCheckOrExit = function passAuthOrThrowException(requireAuth: boole
   }
 }
 
-export const makeCall = async function makeCall({
+export const makeCall = async ({
   endpoint, method = 'GET', body, requireAuth = true, autoredirect = true
 }: {
   endpoint: string,
@@ -68,7 +68,7 @@ export const makeCall = async function makeCall({
   body?: unknown,
   requireAuth?: boolean,
   autoredirect?: boolean
-}) {
+}) => {
   let fetchOptions = {}
   let authHeader = {}
   let responseBody = null
@@ -207,24 +207,24 @@ export class APICallError extends APIClientError {
 /******************************************************************************
  * Shortcuts
  */
-export const get = async function get(
+export const get = async (
   { endpoint, body, requireAuth, autoredirect }:
     { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
-) {
+) => {
   return await makeCall({ endpoint, method: 'GET', body, requireAuth, autoredirect })
 }
 
-export const post = async function post(
+export const post = async (
   { endpoint, body, requireAuth, autoredirect }:
     { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
-) {
+) => {
   return await makeCall({ endpoint, method: 'POST', body, requireAuth, autoredirect })
 }
 
-export const put = async function put(
+export const put = async (
   { endpoint, body, requireAuth, autoredirect }:
     { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
-) {
+) => {
   return await makeCall({ endpoint, method: 'PUT', body, requireAuth, autoredirect })
 }
 
@@ -235,6 +235,6 @@ export const put = async function put(
 /**
  * Combine the endpoint with the base path while removing the trailing & leading / of the two segments
  */
-function combineEndpoint(endpoint: string) {
+const combineEndpoint = (endpoint: string) => {
   return `${trimTrailingChar(apiBasePath, '/')}/api/${trimLeadingChar(endpoint, '/')}`
 }

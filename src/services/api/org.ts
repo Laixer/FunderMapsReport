@@ -1,11 +1,10 @@
-
 import { IOrg } from "@/datastructures/interfaces"
 import { get } from "../apiClient"
 
 /**
  * returns a single org based on the active user session
  */
-export const getOrgs = async function getOrgs() {
+export const getOrgs = async () => {
   return await get({ endpoint: '/organization' })
     .then(response => {
 

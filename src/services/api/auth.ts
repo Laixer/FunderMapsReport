@@ -1,6 +1,6 @@
 import { get, post } from "../apiClient"
 
-export const login = async function login(email: string, password: string) {
+export const login = async (email: string, password: string) => {
   return await post({
     endpoint: '/auth/signin',
     body: {
@@ -10,7 +10,7 @@ export const login = async function login(email: string, password: string) {
   })
 }
 
-export const refresh = async function refresh() {
+export const refresh = async () => {
   return await get({
     endpoint: 'auth/token-refresh',
     requireAuth: true
@@ -20,7 +20,7 @@ export const refresh = async function refresh() {
 /**
  * Send a request for a password reset mail
  */
-export const requestPasswordReset = async function requestPasswordReset(email: string) {
+export const requestPasswordReset = async (email: string) => {
   return await post({
     endpoint: '/auth/reset-password',
     body: {
@@ -33,7 +33,7 @@ export const requestPasswordReset = async function requestPasswordReset(email: s
 /**
  * Send a request for a password reset mail
  */
-export const resetPassword = async function resetPassword(email: string, token: string, password: string) {
+export const resetPassword = async (email: string, token: string, password: string) => {
   return await post({
     endpoint: '/auth/reset-new-password',
     body: {
@@ -49,7 +49,7 @@ export const resetPassword = async function resetPassword(email: string, token: 
  * Send a request to change a password
  *  Note: this is only for users who are logged in
  */
-export const changePassword = async function changePassword(oldPassword: string, newPassword: string) {
+export const changePassword = async (oldPassword: string, newPassword: string) => {
   return await post({
     endpoint: '/auth/change-password',
     body: {

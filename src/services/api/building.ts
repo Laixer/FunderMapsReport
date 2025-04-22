@@ -14,8 +14,6 @@ import type {
 import { get } from "../apiClient"
 import { Analysis } from "@/datastructures/classes/Analysis"
 
-
-
 /****************************************************************************** 
  * This includes all endpoints from Excel v6
  *
@@ -117,7 +115,7 @@ export const getStatisticsByBuildingId = async function getStatisticsByBuildingI
 /**
  * Get all indicents by building id
  */
-export const getIncidentReportsByBuildingId = async function getIncidentReportsByBuildingId(buildingId: string): Promise<IIncidentReport[]> {
+export const getIncidentReportsByBuildingId = async (buildingId: string): Promise<IIncidentReport[]> => {
   return await get({ endpoint: `/incident/building/${buildingId}` })
 }
 
@@ -125,7 +123,7 @@ export const getIncidentReportsByBuildingId = async function getIncidentReportsB
  *    ALL Report data (inquiry, recovery & incidents)
  *****************************************************************************/
 
-export const getAllReportDataByBuildingId = async function getAllReportDataByBuildingId(buildingId: string): Promise<ICombinedReportData> {
+export const getAllReportDataByBuildingId = async (buildingId: string): Promise<ICombinedReportData> => {
   return await get({ endpoint: `/report/${buildingId}` })
 }
 
@@ -134,10 +132,9 @@ export const getAllReportDataByBuildingId = async function getAllReportDataByBui
  *****************************************************************************/
 
 
-export const getSubsidenceByBuildingId = async function getSubsidenceByBuildingId(buildingId: string): Promise<ISubsidence[]> {
+export const getSubsidenceByBuildingId = async (buildingId: string): Promise<ISubsidence[]> => {
   return await get({ endpoint: `/subsidence/${buildingId}` })
 }
-
 
 export default {
   getLocationInformationByBuildingId,

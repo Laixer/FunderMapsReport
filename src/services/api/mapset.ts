@@ -1,7 +1,7 @@
 import { type IMapsetFE, type IMapset } from "@/datastructures/interfaces"
 import { get } from "../apiClient"
 
-const mapMapset = function mapMapset(rawmapset: IMapset): IMapsetFE {
+const mapMapset = (rawmapset: IMapset): IMapsetFE => {
 
   let options = {}
   let layerSet = []
@@ -40,7 +40,7 @@ const mapMapset = function mapMapset(rawmapset: IMapset): IMapsetFE {
 /******************************************************************************
  * Map Groups endpoints
  */
-export const getAvailableMapsets = async function getAvailableMapsets(): Promise<IMapsetFE[] | null> {
+export const getAvailableMapsets = async (): Promise<IMapsetFE[] | null> => {
   const response = await get({ endpoint: '/mapset' })
   if (response) {
     return response.map(mapMapset)
@@ -49,7 +49,7 @@ export const getAvailableMapsets = async function getAvailableMapsets(): Promise
   return null
 }
 
-export const getPublicAndAvailableMapsetsById = async function getAvailableMapsets(id: string): Promise<IMapsetFE[] | null> {
+export const getPublicAndAvailableMapsetsById = async (id: string): Promise<IMapsetFE[] | null> => {
   console.log(id)
   const response = await get({ endpoint: `/mapset/${id}`, requireAuth: false }) // TODO: Change endpoint
   if (response) {

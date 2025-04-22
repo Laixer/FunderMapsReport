@@ -73,10 +73,8 @@ const getAddressByBuildingId = function getAddressByBuildingId(buildingId: strin
   return null
 }
 
-
-const loadLocationDataByBuildingId = async function loadLocationDataByBuildingId(buildingId: string, cache: boolean = true) {
+const loadLocationDataByBuildingId = async (buildingId: string, cache: boolean = true) => {
   try {
-
     // TODO: HARDCODED FOR DEBUG
     // buildingId = 'NL.IMBAG.PAND.0599100000610651'
     // buildingId = 'NL.IMBAG.PAND.0606100000000733' => 404 on geolocation

@@ -31,14 +31,14 @@ const access_token_key = 'access_token';
 /**
  * Gets the stored access token.
  */
-function getAccessToken(): string | null {
+const getAccessToken = (): string | null => {
   return localStorage.getItem(access_token_key);
 }
 
 /**
  * Get the access token from storage and decode it.
  */
-function getAccessTokenDecoded(token?: string | null): FundermapsJwtPayload {
+const getAccessTokenDecoded = (token?: string | null): FundermapsJwtPayload => {
   token = token ?? getAccessToken();
   if (!token) {
     throw new Error('Could not get access token when requesting user');
@@ -55,74 +55,79 @@ function getAccessTokenDecoded(token?: string | null): FundermapsJwtPayload {
 /**
  * Whether an access token is available, expired or not
  */
-export function hasAccessToken(): boolean {
-  return getAccessToken() !== null
+export const hasAccessToken = (): boolean => {
+  return getAccessToken() !== null;
 }
 
-export function hasAccessTokenExpired(token?: string | null): boolean {
-  token = token ?? getAccessToken();
+export const hasAccessTokenExpired = (token?: string | null): boolean => {
+  try {
+    token = token ?? getAccessToken();
+    if (!token) {
+      return true;
+    }
 
-  if (token === null) {
-    console.log("No token available")
-    return false;
+    const decoded = jwtDecode<FundermapsJwtPayload>(token);
+
+    if (decoded?.exp) {
+      // Use an early expiration timeout (30 seconds)
+      return (Date.now() / 1000) >= (decoded.exp - 30);
+    }
+  } catch (e) {
+    console.error(e);
   }
-
-  const parsed = getAccessTokenDecoded(token);
-  const time = Math.round((new Date()).getTime() / 1000);
-
-  return (parsed?.exp || 0) < time;
+  return true;
 }
 
 /**
  * Check whether the user has credentials stored
  * Note: the credentials may be invalid. It's up to the server to verify the token.
  */
-export function hasNonExpiredToken(token?: string | null): boolean {
-  return !hasAccessTokenExpired(token)
+export const hasNonExpiredToken = (token?: string | null): boolean => {
+  return !hasAccessTokenExpired(token);
 }
 
 /**
  * return authorization header with jwt token, or an empty object
  */
-export function getAuthHeader(): AuthorizationHeader | {} {
-  const token = getAccessToken()
+export const getAuthHeader = (): AuthorizationHeader | {} => {
+  const token = getAccessToken();
   return (hasNonExpiredToken(token))
     ? { 'Authorization': 'Bearer ' + token }
-    : {}
+    : {};
 }
 
 /**
  * Get information from the token
  *  : string|number|string[]|null 
  */
-export function getClaimFromAccessToken(claim: string) {
+export const getClaimFromAccessToken = (claim: string) => {
   if (hasNonExpiredToken()) {
     const parsed = getAccessTokenDecoded();
-    return parsed?.[claim as keyof FundermapsJwtPayload] || null
+    return parsed?.[claim as keyof FundermapsJwtPayload] || null;
   }
 
-  return null
+  return null;
 }
 
 /**
  * Store the access token in local storage
  */
-export function storeAccessToken(token: string): void {
-  localStorage.setItem(access_token_key, token)
+export const storeAccessToken = (token: string): void => {
+  localStorage.setItem(access_token_key, token);
 }
 
 /**
  * Remove the token, ending the user session
  */
-export function removeAccessToken(): void {
-  localStorage.removeItem(access_token_key)
+export const removeAccessToken = (): void => {
+  localStorage.removeItem(access_token_key);
 }
 
 /**
  * Renew the authentication credentials
  *  This refresh is called in an interval in App.vue
  */
-export function refreshAccessToken(): void {
+export const refreshAccessToken = (): void => {
   if (hasNonExpiredToken()) {
     api.auth
       .refresh()
@@ -130,7 +135,7 @@ export function refreshAccessToken(): void {
       .catch(() => {
         // TODO: Redirect to Login?
         // console.error(error)
-      })
+      });
   }
 }
 
