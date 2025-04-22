@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'; 
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { type LngLatLike, type Map, LngLat, type LayerSpecification, Marker } from 'mapbox-gl'
@@ -12,7 +12,7 @@ import { useGeoLocationsStore } from '@/store/building/geolocations'
 import { useBuildingStore } from '@/store/buildings';
 import { useStatisticsStore } from '@/store/building/statistics.ts';
 
-const { getLocationDataByBuildingId } = useGeoLocationsStore()  
+const { getLocationDataByBuildingId } = useGeoLocationsStore()
 const { getStatisticsDataByBuildingId } = useStatisticsStore()
 
 const { buildingId } = storeToRefs(useBuildingStore())
@@ -28,12 +28,12 @@ const mapOptions = computed(() => {
     zoom: 10
   }
 
-  if (! buildingId.value) {
+  if (!buildingId.value) {
     return baseOptions
   }
 
   const buildingData = getLocationDataByBuildingId(buildingId.value)
-  if (! buildingData || ! buildingData.residence?.longitude || ! buildingData.residence?.latitude) {
+  if (!buildingData || !buildingData.residence?.longitude || !buildingData.residence?.latitude) {
     return baseOptions
   }
 
@@ -47,11 +47,11 @@ const mapOptions = computed(() => {
 
 const onLoad = async function onLoad({ map }: { map: Map }) {
   // Add incident source
-  const sourcePath = (import.meta.env.VITE_FUNDERMAPS_TILES_URL+'' || '')
+  const sourcePath = (import.meta.env.VITE_FUNDERMAPS_TILES_URL + '' || '')
     .replace('{SOURCE}', 'incident_district')
 
   map.addSource(
-    "incident_district", 
+    "incident_district",
     {
       type: 'vector',
       tiles: [sourcePath],
@@ -66,17 +66,17 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
   map.addLayer(layerSpecification)
   map.setLayoutProperty('incident-district', 'visibility', 'visible')
 
-  if (! buildingId.value) {
+  if (!buildingId.value) {
     return false
   }
-  
+
   const buildingData = getLocationDataByBuildingId(buildingId.value)
-  if (! buildingData || ! buildingData.residence?.longitude || ! buildingData.residence?.latitude) {
+  if (!buildingData || !buildingData.residence?.longitude || !buildingData.residence?.latitude) {
     return false
   }
 
   new Marker({
-      draggable: false
+    draggable: false
   }).setLngLat(new LngLat(
     buildingData.residence?.longitude,
     buildingData.residence?.latitude
@@ -88,19 +88,19 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
  * GRAPH data
  */
 const buildingStatistics = computed(() => {
-  if (! buildingId.value) return null
+  if (!buildingId.value) return null
   return getStatisticsDataByBuildingId(buildingId.value)
 })
 
 const graphData = computed(() => {
   const data = (buildingStatistics.value?.totalIncidentCount?.slice() || [])
-    .sort(function(a, b) {
+    .sort(function (a, b) {
       return a.year - b.year;
     })
 
   return {
     data: data.map(pair => pair.totalCount),
-    labels: data.map(pair => pair.year+''),
+    labels: data.map(pair => pair.year + ''),
   }
 })
 
@@ -108,28 +108,19 @@ const graphData = computed(() => {
 </script>
 
 <template>
-  <Chapter
-    icon="alert"
-    title="Incidenten">
+  <Chapter icon="alert" title="Incidenten">
 
     <section class="space-y-10">
       <div class="aspect-map w-full overflow-clip">
-        <MapBox 
-          :options="mapOptions"
-          @load="onLoad" />
+        <MapBox :options="mapOptions" @load="onLoad" />
       </div>
 
       <div class="MapLegend flex">
         Van lichtblauw naar donkerblauw: van enkele meldingen naar veel meldingen.
       </div>
-      
-      <BarChart
-        v-if="graphData.data && graphData.data?.length !== 0"
-        class="w-full"
-        title="Aantal incidenten in de wijk"
-        :data="graphData.data"
-        :labels="graphData.labels"
-        gradient />
+
+      <BarChart v-if="graphData.data && graphData.data?.length !== 0" class="w-full"
+        title="Aantal incidenten in de wijk" :data="graphData.data" :labels="graphData.labels" gradient />
     </section>
 
   </Chapter>
@@ -141,5 +132,4 @@ const graphData = computed(() => {
   margin-top: 1rem !important;
   color: #808c99;
 }
-
 </style>

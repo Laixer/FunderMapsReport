@@ -1,5 +1,3 @@
-
-
 // Use previous verion as example: https://github.com/Laixer/FunderMapsClientApp/blob/master/src/services/auth.ts#L3
 // From line 130
 

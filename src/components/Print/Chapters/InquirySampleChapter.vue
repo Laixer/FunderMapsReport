@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type ComputedRef, computed } from 'vue'; 
+import { type ComputedRef, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { IConstructionYearPair, IFoundationTypePair } from '@/datastructures/interfaces/api/IStatistics.ts';
@@ -30,7 +30,7 @@ const { buildingId } = storeToRefs(useBuildingStore())
  * Data source for panel
  */
 const analysisData = computed(() => {
-  if (! buildingId.value) return null
+  if (!buildingId.value) return null
   return getAnalysisDataByBuildingId(buildingId.value)
 })
 
@@ -47,9 +47,9 @@ const foundationType = computed(() => {
 })
 
 const foundationIconName = computed(() => {
-  if (! analysisData.value) return null
+  if (!analysisData.value) return null
 
-  switch(analysisData.value?.foundationType) {
+  switch (analysisData.value?.foundationType) {
     case 0:
     case 1:
     case 2:
@@ -71,7 +71,7 @@ const foundationIconName = computed(() => {
     case 8:
     case 9:
       return 'niet-onderheid'
-    
+
     case 10:
       return 'houten-palen-oplanger'
 
@@ -85,7 +85,7 @@ const foundationIconName = computed(() => {
  * Data inquiry sample source for panel
  */
 const inqueryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
-  if (! buildingId.value) return []
+  if (!buildingId.value) return []
   return getCombinedInquiryDataByBuildingId(buildingId.value) || []
 })
 
@@ -107,7 +107,7 @@ const fieldsWithFoundationData = computed(() => {
       new FieldDataConfig({ name: 'substructure' }),
     ]
   })
-  
+
   return fieldsConfig.map(retrieveAndFormatFieldData)
 })
 
@@ -120,7 +120,7 @@ const fieldGroupHeaders: Record<string, string> = {
 const groupHasData: Record<string, boolean> = {
   pile: false,
   quality: false,
-} 
+}
 
 /**
  * Fields config
@@ -151,7 +151,7 @@ const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = 
       // Niveau & Kwaliteit
       new FieldDataConfig({ group: 'quality', name: 'masonQuality' }),
       new FieldDataConfig({ group: 'quality', name: 'constructionQuality' }),
-      new FieldDataConfig({ group: 'quality', name: 'constructionLevel' }), 
+      new FieldDataConfig({ group: 'quality', name: 'constructionLevel' }),
       new FieldDataConfig({ group: 'quality', name: 'pileWoodCapacityVerticalQuality' }),
     ]
   })
@@ -181,12 +181,12 @@ const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = 
  */
 
 const buildingStatistics = computed(() => {
-  if (! buildingId.value) return null
+  if (!buildingId.value) return null
   return getStatisticsDataByBuildingId(buildingId.value)
 })
 
 const constructionGraph = computed(() => {
-  if (! buildingStatistics.value?.constructionYearDistribution) {
+  if (!buildingStatistics.value?.constructionYearDistribution) {
     return {
       data: [],
       labels: []
@@ -206,42 +206,42 @@ const constructionGraph = computed(() => {
 const foundationTypeGraph = computed(() => {
   return {
     labels: ['Betonnen', 'Houten paal met betonoplanger', 'Houten palen', 'Niet onderheid', 'Overige'],
-    data: buildingStatistics.value?.foundationTypeDistribution.foundationTypes.reduce((acc: number[], pair: IFoundationTypePair ) => {
-        switch(pair.foundationType) {
-          case 3:
-          case 11:
-          case 12:
-          case 13:
-            acc[0] = acc[0] + pair.percentage
-            return acc
+    data: buildingStatistics.value?.foundationTypeDistribution.foundationTypes.reduce((acc: number[], pair: IFoundationTypePair) => {
+      switch (pair.foundationType) {
+        case 3:
+        case 11:
+        case 12:
+        case 13:
+          acc[0] = acc[0] + pair.percentage
+          return acc
 
-          case 10:
-            acc[1] = acc[1] + pair.percentage
-            return acc
-          
-          case 0:
-          case 1:
-          case 2:
-          case 15:
-          case 16:
-          case 17:
-            acc[2] = acc[2] + pair.percentage
-            return acc
-          
-          case 4:
-          case 5:
-          case 6:
-          case 7:
-          case 8:
-          case 9:
-            acc[3] = acc[3] + pair.percentage
-            return acc
+        case 10:
+          acc[1] = acc[1] + pair.percentage
+          return acc
 
-          default:
-            acc[4] = acc[4] + pair.percentage
-            return acc
-        }
-      }, [0, 0, 0, 0, 0]) || [],
+        case 0:
+        case 1:
+        case 2:
+        case 15:
+        case 16:
+        case 17:
+          acc[2] = acc[2] + pair.percentage
+          return acc
+
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+          acc[3] = acc[3] + pair.percentage
+          return acc
+
+        default:
+          acc[4] = acc[4] + pair.percentage
+          return acc
+      }
+    }, [0, 0, 0, 0, 0]) || [],
     legend: ['Betonnen', 'Houten paal met betonoplanger', 'Houten palen', 'Niet onderheid', 'Overige'].map((label, index) => {
       const colors = Object.values(CHART_COLORS)
       return {
@@ -255,31 +255,19 @@ const foundationTypeGraph = computed(() => {
 </script>
 
 <template>
-  <Chapter 
-    icon="file-foundation"
-    title="Fundering">
+  <Chapter icon="file-foundation" title="Fundering">
     <section class="space-y-7">
       <div class="grid grid-cols-12 gap-4">
-        <figure
-          v-if="foundationIconName"
-          class="col-span-3 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-4"
-        >
-          <FoundationIcon 
-            :name="foundationIconName"
-            class="aspect-square w-2/3 flex-1"
-            aria-hidden="true" />
-          <figcaption
-            class="is-12 leadding-none flex-initial text-center font-bold text-grey-700"
-          >
+        <figure v-if="foundationIconName"
+          class="col-span-3 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-4">
+          <FoundationIcon :name="foundationIconName" class="aspect-square w-2/3 flex-1" aria-hidden="true" />
+          <figcaption class="is-12 leadding-none flex-initial text-center font-bold text-grey-700">
             {{ foundationType.value }}
           </figcaption>
         </figure>
 
         <dl role="list" class="list--definition col-span-9">
-          <div 
-            v-for="field in fieldsWithFoundationData" 
-            :key="field.name"
-            class="item">
+          <div v-for="field in fieldsWithFoundationData" :key="field.name" class="item">
             <dt>{{ field.label }}</dt>
             <dd>{{ field.value }}</dd>
           </div>
@@ -288,20 +276,14 @@ const foundationTypeGraph = computed(() => {
 
       <div class="space-y-5">
         <div v-if="groupHasData['pile']" class="highlight">
-          <img
-            src="@assets/images/highlight-bg.png"
-            alt=""
-            class="inset absolute -z-10 w-full"
-          />
+          <img src="@assets/images/highlight-bg.png" alt="" class="inset absolute -z-10 w-full" />
           <div class="highlight__content space-y-3">
             <h3>{{ fieldGroupHeaders['pile'] }}</h3>
             <dl role="list" class="list--definition">
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <template v-for="(field, index) in sampleFieldsWithData['pile']">
-                    <div 
-                      v-if="index < Math.ceil(sampleFieldsWithData['pile'].length / 2)"
-                      :key="field.name" 
+                    <div v-if="index < Math.ceil(sampleFieldsWithData['pile'].length / 2)" :key="field.name"
                       class="item--grid">
                       <dt>{{ field.label }}</dt>
                       <dd>{{ field.value }}</dd>
@@ -310,9 +292,7 @@ const foundationTypeGraph = computed(() => {
                 </div>
                 <div>
                   <template v-for="(field, index) in sampleFieldsWithData['pile']">
-                    <div 
-                      v-if="index >= Math.floor(sampleFieldsWithData['pile'].length / 2)"
-                      :key="field.name" 
+                    <div v-if="index >= Math.floor(sampleFieldsWithData['pile'].length / 2)" :key="field.name"
                       class="item--grid">
                       <dt>{{ field.label }}</dt>
                       <dd>{{ field.value }}</dd>
@@ -325,20 +305,14 @@ const foundationTypeGraph = computed(() => {
         </div>
 
         <div v-if="groupHasData['pile']" class="highlight">
-          <img
-            src="@assets/images/highlight-bg.png"
-            alt=""
-            class="inset absolute -z-10 w-full"
-          />
+          <img src="@assets/images/highlight-bg.png" alt="" class="inset absolute -z-10 w-full" />
           <div class="highlight__content space-y-3">
             <h3>{{ fieldGroupHeaders['quality'] }}</h3>
             <dl role="list" class="list--definition">
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <template v-for="(field, index) in sampleFieldsWithData['quality']">
-                    <div 
-                      v-if="index < Math.ceil(sampleFieldsWithData['quality'].length / 2)"
-                      :key="field.name" 
+                    <div v-if="index < Math.ceil(sampleFieldsWithData['quality'].length / 2)" :key="field.name"
                       class="item--grid">
                       <dt>{{ field.label }}</dt>
                       <dd>{{ field.value }}</dd>
@@ -347,9 +321,7 @@ const foundationTypeGraph = computed(() => {
                 </div>
                 <div>
                   <template v-for="(field, index) in sampleFieldsWithData['quality']">
-                    <div 
-                      v-if="index >= Math.floor(sampleFieldsWithData['quality'].length / 2)"
-                      :key="field.name" 
+                    <div v-if="index >= Math.floor(sampleFieldsWithData['quality'].length / 2)" :key="field.name"
                       class="item--grid">
                       <dt>{{ field.label }}</dt>
                       <dd>{{ field.value }}</dd>
@@ -361,37 +333,25 @@ const foundationTypeGraph = computed(() => {
           </div>
         </div>
       </div>
-      
-      <div 
-        v-if="foundationTypeGraph.data.length !== 0"
-        class="chart | grid grid-cols-12 items-center gap-4">
+
+      <div v-if="foundationTypeGraph.data.length !== 0" class="chart | grid grid-cols-12 items-center gap-4">
         <div class="col-span-5">
-          <PieChart 
-            title="Type fundering (wijk)"
-            :data="foundationTypeGraph.data"
+          <PieChart title="Type fundering (wijk)" :data="foundationTypeGraph.data"
             :labels="foundationTypeGraph.labels" />
         </div>
         <div class="col-span-7">
           <div class="legenda space-y-3">
             <h3>Type fundering (wijk)</h3>
             <ol class="list--legenda">
-              <li 
-                v-for="item in foundationTypeGraph.legend" 
-                :style="item.color">{{ item.label }}</li>
+              <li v-for="item in foundationTypeGraph.legend" :style="item.color">{{ item.label }}</li>
             </ol>
           </div>
         </div>
       </div>
 
-      <div 
-        v-if="constructionGraph.data.length !== 0"
-        class="chart | grid grid-cols-12 items-center gap-4">
-        <BarChart
-          class="w-full"
-          title="Bouwjaren (wijk)"
-          :data="constructionGraph.data"
-          :labels="constructionGraph.labels"
-          gradient />
+      <div v-if="constructionGraph.data.length !== 0" class="chart | grid grid-cols-12 items-center gap-4">
+        <BarChart class="w-full" title="Bouwjaren (wijk)" :data="constructionGraph.data"
+          :labels="constructionGraph.labels" gradient />
       </div>
     </section>
   </Chapter>

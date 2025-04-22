@@ -11,11 +11,9 @@ import { useRecoveryReportsStore } from '@/store/building/recovery'
 import { useInquiriesStore } from '@/store/building/inquiries'
 import { useIncidentReportsStore } from '@/store/building/incidents'
 import { useStatisticsStore } from '@/store/building/statistics'
-import { useSubsidenceStore } from '@/store/building/subsidence.ts';
+import { useSubsidenceStore } from '@/store/building/subsidence';
 
-// import Chapter from '@/components/Print/Chapter.vue'
 import PageBreak from '@/components/Print/PageBreak.vue'
-
 import BuildingChapter from '@/components/Print/Chapters/BuildingChapter.vue'
 import LocationChapter from '@/components/Print/Chapters/LocationChapter.vue';
 import InquirySampleChapter from '@/components/Print/Chapters/InquirySampleChapter.vue'
@@ -105,7 +103,6 @@ watch(
       ) {
         return await api.building.getAllReportDataByBuildingId(buildingId)
           .then(response => {
-
             if (!buildingRecoveryReportDataHasBeenRetrieved(buildingId)) {
               setRecoveryDataByBuildingId(buildingId, response.recoveries, response.recoverySamples)
             }
@@ -147,18 +144,6 @@ onBeforeMount(() => {
     return
   }
 
-
-  // With (empty) inquiry samples
-  // setBuildingId('FIR622020-3297')
-
-  // with incident reports, no inquiry samples
-  // setBuildingId("FIR622020-3458")
-
-  // Recovery & inquiry
-  // setBuildingId('NL.IMBAG.PAND.0599100000636585')
-
-  // Subsidence
-  // NL.IMBAG.PAND.0091100000015361
   setBuildingId(route.params.buildingId as string)
 })
 

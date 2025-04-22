@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type ComputedRef, computed } from 'vue'; 
+import { type ComputedRef, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { IInquiryReport } from '@/datastructures/interfaces/index.ts';
@@ -19,7 +19,7 @@ const { getStatisticsDataByBuildingId } = useStatisticsStore()
  * Data inquiry sample source for panel
  */
 const inqueryData: ComputedRef<IInquiryReport[]> = computed(() => {
-  if (! buildingId.value) return []
+  if (!buildingId.value) return []
   return getInquiryByBuildingId(buildingId.value) || []
 })
 
@@ -43,13 +43,13 @@ const inqueryData: ComputedRef<IInquiryReport[]> = computed(() => {
  */
 
 const buildingStatistics = computed(() => {
-  if (! buildingId.value) return null
+  if (!buildingId.value) return null
   return getStatisticsDataByBuildingId(buildingId.value)
 })
 
 
 const reportGraph = computed(() => {
-  if (! buildingStatistics.value?.totalReportCount) {
+  if (!buildingStatistics.value?.totalReportCount) {
     return {
       data: [],
       labels: []
@@ -65,17 +65,14 @@ const reportGraph = computed(() => {
 </script>
 
 <template>
-  <Chapter 
-    icon="file-report"
-    title="Rapportage">
-    
+  <Chapter icon="file-report" title="Rapportage">
+
     <section class="break-before-avoid-page break-inside-avoid space-y-7">
       <p v-if="inqueryData.length !== 0">
-        De volgende rapportage(s) zijn beschikbaar voor dit pand en zijn gebruikt voor het opstellen van het funderingsrisicorapport
+        De volgende rapportage(s) zijn beschikbaar voor dit pand en zijn gebruikt voor het opstellen van het
+        funderingsrisicorapport
       </p>
-      <table 
-        v-if="inqueryData.length !== 0"
-        class="w-full">
+      <table v-if="inqueryData.length !== 0" class="w-full">
         <thead>
           <tr>
             <th>Nummer</th>
@@ -94,12 +91,8 @@ const reportGraph = computed(() => {
         </tbody>
       </table>
 
-      <BarChart
-        v-if="reportGraph.data.length !== 0"
-        title="Aantal rapportages in de wijk per jaar"
-        :data="reportGraph.data"
-        :labels="reportGraph.labels"
-        gradient />
+      <BarChart v-if="reportGraph.data.length !== 0" title="Aantal rapportages in de wijk per jaar"
+        :data="reportGraph.data" :labels="reportGraph.labels" gradient />
 
       <!-- <figure>
         <img src="@assets/images/bar-chart.png" alt="" class="w-full" />

@@ -8,7 +8,7 @@ import ItemGrid from '@/components/ItemGrid.vue';
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useBuildingStore } from '@/store/buildings';
-import { useSubsidenceStore } from '@/store/building/subsidence.ts';
+import { useSubsidenceStore } from '@/store/building/subsidence';
 
 import { FieldDataConfig, retrieveAndFormatFieldData } from '@/utils/fieldData.ts';
 
@@ -21,7 +21,7 @@ const { getSubsidenceDataByBuildingId } = useSubsidenceStore()
  * Data source for panel
  */
 const analysisData = computed(() => {
-  if (! buildingId.value) return null
+  if (!buildingId.value) return null
   return getAnalysisDataByBuildingId(buildingId.value)
 })
 
@@ -43,7 +43,7 @@ const velocity = computed(() => {
  */
 
 const subsidenceData = computed(() => {
-  if (! buildingId.value) return []
+  if (!buildingId.value) return []
 
   return getSubsidenceDataByBuildingId(buildingId.value)
 })
@@ -65,16 +65,10 @@ const graphData = computed(() => {
 </script>
 
 <template>
-  <Chapter
-    icon="graph"
-    title="Pandzakking">
+  <Chapter icon="graph" title="Pandzakking">
     <section class="space-y-10">
       <div class="highlight w-1/2">
-        <img
-          src="@assets/images/highlight-bg.png"
-          alt=""
-          class="inset absolute -z-10 w-full"
-        />
+        <img src="@assets/images/highlight-bg.png" alt="" class="inset absolute -z-10 w-full" />
         <div class="highlight__content space-y-3">
           <h3>Pandzakkingsgegevens</h3>
           <dl role="list" class="list--definition">
@@ -91,15 +85,9 @@ const graphData = computed(() => {
         </div>
       </div>
 
-      <ScatterChart
-        v-if="graphData.data?.length !== 0"
-        title="Pandzakking mm"
-        :labels="graphData.labels"
-        :data="graphData.data"
-        :borderColors="['#191e3c']"
-        :backgroundColors="['#191e3c']"
-      />
-      
+      <ScatterChart v-if="graphData.data?.length !== 0" title="Pandzakking mm" :labels="graphData.labels"
+        :data="graphData.data" :borderColors="['#191e3c']" :backgroundColors="['#191e3c']" />
+
     </section>
   </Chapter>
 </template>

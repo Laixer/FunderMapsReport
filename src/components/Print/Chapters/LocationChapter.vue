@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef } from 'vue'; 
+import { computed, type ComputedRef } from 'vue';
 import { storeToRefs } from 'pinia';
 import { type LngLatLike, type Map, LngLat, Marker } from 'mapbox-gl'
 
@@ -19,7 +19,7 @@ import { useBuildingStore } from '@/store/buildings';
 
 
 
-const { getLocationDataByBuildingId } = useGeoLocationsStore()  
+const { getLocationDataByBuildingId } = useGeoLocationsStore()
 const { getAnalysisDataByBuildingId } = useAnalysisStore()
 const { getCombinedInquiryDataByBuildingId } = useInquiriesStore()
 const { buildingId } = storeToRefs(useBuildingStore())
@@ -34,12 +34,12 @@ const mapOptions = computed(() => {
     zoom: 16
   }
 
-  if (! buildingId.value) {
+  if (!buildingId.value) {
     return baseOptions
   }
 
   const buildingData = getLocationDataByBuildingId(buildingId.value)
-  if (! buildingData || ! buildingData.residence?.longitude || ! buildingData.residence?.latitude) {
+  if (!buildingData || !buildingData.residence?.longitude || !buildingData.residence?.latitude) {
     return baseOptions
   }
 
@@ -55,7 +55,7 @@ const mapOptions = computed(() => {
  * Data source for panel
  */
 const analysisData = computed(() => {
-  if (! buildingId.value) return null
+  if (!buildingId.value) return null
   return getAnalysisDataByBuildingId(buildingId.value)
 })
 
@@ -63,7 +63,7 @@ const analysisData = computed(() => {
  * Data inquiry sample source for panel
  */
 const inqueryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
-  if (! buildingId.value) return []
+  if (!buildingId.value) return []
   return getCombinedInquiryDataByBuildingId(buildingId.value) || []
 })
 
@@ -81,7 +81,7 @@ const fieldsWithAnalysisData = computed(() => {
       new FieldDataConfig({ name: 'groundWaterLevel' })
     ]
   })
-  
+
   return fieldsConfig.map(retrieveAndFormatFieldData)
 })
 
@@ -98,23 +98,23 @@ const fieldsWithInquirySampleData = computed(() => {
       new FieldDataConfig({ name: 'groundwaterLevelTemp' })
     ]
   })
-  
+
   return fieldsConfig.map(retrieveAndFormatFieldData)
 })
 
 const addMarker = function addMarker({ map }: { map: Map }) {
 
-  if (! buildingId.value) {
+  if (!buildingId.value) {
     return false
   }
 
   const buildingData = getLocationDataByBuildingId(buildingId.value)
-  if (! buildingData || ! buildingData.residence?.longitude || ! buildingData.residence?.latitude) {
+  if (!buildingData || !buildingData.residence?.longitude || !buildingData.residence?.latitude) {
     return false
   }
 
   new Marker({
-      draggable: false
+    draggable: false
   }).setLngLat(new LngLat(
     buildingData.residence?.longitude,
     buildingData.residence?.latitude
@@ -124,24 +124,15 @@ const addMarker = function addMarker({ map }: { map: Map }) {
 </script>
 
 <template>
-  <Chapter 
-    icon="pin"
-    title="Locatie">
+  <Chapter icon="pin" title="Locatie">
     <section class="space-y-7">
       <div class="aspect-map w-full overflow-clip">
-        <MapBox 
-          class="asp w-full object-cover"
-          :options="mapOptions"
-          @load="addMarker" />
+        <MapBox class="asp w-full object-cover" :options="mapOptions" @load="addMarker" />
       </div>
-      
+
       <div class="highlight">
-        
-        <img
-          src="@assets/images/highlight-bg.png"
-          alt=""
-          class="inset absolute -z-10 w-full"
-        />
+
+        <img src="@assets/images/highlight-bg.png" alt="" class="inset absolute -z-10 w-full" />
 
         <div class="highlight__content space-y-3">
           <h3>Omgeving</h3>

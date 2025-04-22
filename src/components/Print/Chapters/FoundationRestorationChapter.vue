@@ -18,12 +18,12 @@ const { getCombinedRecoveryDataByBuildingId } = useRecoveryReportsStore()
  * Data source for panel
  */
 const caseItems: ComputedRef<ICombinedRecoveryData[]> = computed(() => {
-  if (! buildingId.value) return []
+  if (!buildingId.value) return []
   return getCombinedRecoveryDataByBuildingId(buildingId.value) || []
 })
 
 const type = computed(() => {
-  if (! caseItems.value?.[0]?.sample) {
+  if (!caseItems.value?.[0]?.sample) {
     return {
       value: null
     }
@@ -38,7 +38,7 @@ const type = computed(() => {
 })
 
 const facade = computed(() => {
-  if (! caseItems.value?.[0]?.sample) {
+  if (!caseItems.value?.[0]?.sample) {
     return {
       value: null
     }
@@ -61,9 +61,7 @@ const facade = computed(() => {
 </script>
 
 <template>
-  <Chapter
-    icon="wrench"
-    title="Funderingsherstel">
+  <Chapter icon="wrench" title="Funderingsherstel">
 
     <section class="space-y-7">
       <dl role="list" class="list--definition">
