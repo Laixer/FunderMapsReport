@@ -5,7 +5,6 @@ import { storeToRefs } from 'pinia';
 import Chapter from '@/components/Print/Chapter.vue'
 import ClassificationIcon from '@/components/Common/Icons/ClassificationIcon.vue'
 import PieChart from '@/components/Charts/PieChart.vue'
-import { CHART_COLORS } from '@/config';
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs, CompletedFieldData } from '@/utils/fieldData'
 import { riskFieldLabels } from '@/datastructures/fieldLabels'
@@ -97,7 +96,7 @@ const graphData = computed(() => {
     data: Object.values(buildingStatistics.value?.foundationRiskDistribution || {}),
     labels: Object.keys(buildingStatistics.value?.foundationRiskDistribution || {}).map(key => key.replace('percentage', '')),
     legend: Object.keys(buildingStatistics.value?.foundationRiskDistribution || {}).map((key, index) => {
-      const colors = Object.values(CHART_COLORS)
+      const colors = ['#2E7D32', '#9E9D24', '#F9A825', '#EF6C00', '#C62828']
       return {
         label: key.replace('percentage', ''),
         color: `--marker-color: ${colors[index]}`
@@ -122,7 +121,6 @@ const graphData = computed(() => {
             <div class="grid grid-cols-12 items-start gap-4">
               <div class="col-span-5">
                 <div class="item">
-                  <dt>Droogstand</dt>
                   <dd v-if="fieldsWithDataAndIcons.drystandRisk?.icon">
                     <ClassificationIcon :name="fieldsWithDataAndIcons.drystandRisk?.icon + ''" class="aspect-square w-4"
                       aria-hidden="true" />
@@ -130,6 +128,7 @@ const graphData = computed(() => {
                   <dd v-else>
                     -
                   </dd>
+                  <dt>Droogstand</dt>
                 </div>
               </div>
               <div class="col-span-7">
@@ -143,24 +142,19 @@ const graphData = computed(() => {
 
           <div class="text-grey-700">
             <p>
-              Bij droogstand komt het hoogstgelegen funderingshout (regelmatig) droog te staan. Hierdoor kan het
-              funderingshout gaan rotten door de aanvoer van zuurstof. Na jarenlange droogstand kan het draagvermogen
-              van de fundering zijn aangetast, waardoor het pand kan gaan deformeren. Indien dit in een vergevorderd
-              stadium is, zijn er scheuren in de gevel zichtbaar, klemmen ramen en deuren, en vertoont het gevelaanzicht
-              tekenen van verzakkingen.
+              Bij droogstand (ook wel paalrot genoemd) komt het hoogstgelegen deel van het funderingshout (regelmatig) boven de grondwaterspiegel te liggen. Hierdoor kan zuurstof toetreden, wat leidt tot houtrot. Na jarenlange droogstand kan het draagvermogen van de fundering zijn aangetast, met als gevolg dat het pand vervormt. In een vergevorderd stadium uit zich dit in scheurvorming in de gevel, klemmende ramen en deuren, en zichtbare verzakkingen in het gevelaanzich.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- RISK: Ontwateringsdiepte -->
+      <!-- RISK: Ontwateringsdiepte (Optrekkend vocht & Verschilzakking) -->
       <div v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
               <div class="col-span-5">
                 <div class="item">
-                  <dt>Ontwateringsdiepte</dt>
                   <dd v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon">
                     <ClassificationIcon :name="fieldsWithDataAndIcons.dewateringDepthRisk?.icon + ''"
                       class="aspect-square w-4" aria-hidden="true" />
@@ -168,6 +162,7 @@ const graphData = computed(() => {
                   <dd v-else>
                     -
                   </dd>
+                  <dt>Optrekkend vocht</dt>
                 </div>
               </div>
               <div class="col-span-7">
@@ -178,23 +173,58 @@ const graphData = computed(() => {
               </div>
             </div>
           </dl>
-          <div class="text-grey-700">
+          <div class="space-y-4 text-grey-700">
             <p>
-              Wanneer de grondwaterstand zich te dicht op de fundering bevindt, is er een risico op optrekkend vocht en
-              (verschil-)verzakkingen van het pand.
+              Wanneer de grondwaterstand langdurig hoog is en zich dicht bij de fundering bevindt, ontstaat het risico op optrekkend vocht. Via poreuze bouwmaterialen - zoals bakstenen en metselmortel - wordt vocht opgenomen en trekt het omhoog in de constructie. Dit kan leiden tot schimmelvorming op muren en vloeren. Naast mogelijke gezondheidsklachten kan langdurige vochtbelasting ook leiden tot aantasting van bouwmaterialen, wat de constructieve staat van het pand verzwakt. 
+            </p>
+            <p>
+              Bij een hoge grondwaterstand kan bovendien water in de kruipruimte blijven staan, wat de luchtvochtigheid verhoogt en daarmee de kans op schimmel en houtrot verder vergroot.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" class="risk break-inside-avoid space-y-5">
+        <div class="space-y-2">
+          <dl role="list" class="list--definition">
+            <div class="grid grid-cols-12 gap-4">
+              <div class="col-span-5">
+                <div class="item">
+                  <dd v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon">
+                    <ClassificationIcon :name="fieldsWithDataAndIcons.dewateringDepthRisk?.icon + ''"
+                      class="aspect-square w-4" aria-hidden="true" />
+                  </dd>
+                  <dd v-else>
+                    -
+                  </dd>
+                  <dt>Verschilzakking</dt>
+                </div>
+              </div>
+              <div class="col-span-7">
+                <div class="item">
+                  <dt>{{ fieldsWithDataAndIcons.dewateringDepthReliability?.label }}</dt>
+                  <dd>{{ fieldsWithDataAndIcons.dewateringDepthReliability?.value }}</dd>
+                </div>
+              </div>
+            </div>
+          </dl>
+          <div class="space-y-4 text-grey-700">
+            <p>
+              Wanneer het grondwaterpeil sterk fluctueert - bijvoorbeeld door natte winters en droge zomers - ontstaan grotere verschillen in de grondwaterstand gedurende het jaar. Door klimaatverandering worden deze extremen steeds sterker: de winters worden natter, de zomers droger. Dit vergroot de dynamiek van het grondwaterpeil.
+            </p>
+            <p>
+              Deze schommelingen hebben invloed op samendrukbare grondlagen zoals klei en veen. Tijdens droge perioden drogen deze lagen uit, waardoor ze inklinken (consolideren) en het pand geleidelijk zakt. In de natte maanden stijgt het grondwater vervolgens sneller tot aan de fundering, met een verhoogd risico op optrekkend vocht tot gevolg. Door deze cyclische belasting kunnen onder het pand ongelijkmatige zettingen ontstaan, waarbij de draagkracht op verschillende plekken afneemt. Dit kan leiden tot scheefstand en vervorming van het gebouw.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- RISK: Verschilzakking -->
+      <!-- RISK: Bacteriële aantasting -->
       <div v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon" class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
               <div class="col-span-5">
                 <div class="item">
-                  <dt>Bacteriële aantasting</dt>
                   <dd v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon">
                     <ClassificationIcon :name="fieldsWithDataAndIcons.bioInfectionRisk?.icon + ''"
                       class="aspect-square w-4" aria-hidden="true" />
@@ -202,6 +232,7 @@ const graphData = computed(() => {
                   <dd v-else>
                     -
                   </dd>
+                  <dt>Bacteriële aantasting</dt>
                 </div>
               </div>
               <div class="col-span-7">
@@ -214,14 +245,25 @@ const graphData = computed(() => {
           </dl>
           <div class="text-grey-700">
             <p>
-              Er kunnen grenen palen zijn gebruikt voor de fundeirng. Hierdoor kan er een risico zijn op bacteriële
-              aantasting. Grenen palen zijn gevoelig voor bacteriële aantasting, waardoor het hout van buitenaf wordt
-              aangetast over de gehele lengte van de paal. Het draagvermogen van de paal neemt daarmee af, waardoor het
-              pand gaat verzakken. Indien dit in een vergevorderd stadium is, zijn er scheuren in de gevel zichtbaar,
-              klemmen ramen en deuren, en vertoont het gevelaanzicht tekenen van verzakkingen.
+              Bij de fundering kunnen grenenhouten palen zijn toegepast. Dit hout is gevoelig voor bacteriële aantasting, waarbij het van buitenaf over de volledige lengte wordt aangetast (ook wel palenpest genoemd). Hierdoor neemt het draagvermogen van de palen geleidelijk af, met verzakking van het pand als gevolg. In een vergevorderd stadium uit zich dit in scheurvorming in de gevel, klemmende ramen en deuren, en zichtbare verzakkingen in het gevelaanzicht. 
             </p>
           </div>
         </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <img 
+          v-if="fieldsWithDataAndIcons.drystandRisk?.icon" 
+          src="@assets/images/Schimmelaantasting_droogstand.webp" alt="" />
+        <img 
+          v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon"
+          src="@assets/images/bacteriele_aantasting.webp" alt="" />
+        <img 
+          v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon"
+          src="@assets/images/optrekkend_vocht.webp" alt="" />
+        <img 
+          v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon"
+          src="@assets/images/verschilzakking.webp" alt="" />
       </div>
 
       <!-- RISK -->
@@ -239,16 +281,18 @@ const graphData = computed(() => {
           </dl>
           <div class="text-grey-700">
             <p>
-              Het hoogste risico uit de verschillende risicomodellen is toegepast op het pand. Deze maximale risico’s
-              zijn vervolgens gebruikt om een overzicht van de risicoverdeling voor de hele wijk te maken, waarbij de
-              verhoudingen worden weergegeven in de bijgaande grafiek.
+              In deze grafiek is per pand het hoogste risico bepaald uit de verschillende risicomodellen. Deze maximale risico-waarden zijn vervolgens gebruikt om de risicoverdeling in de hele wijk in kaart te brengen, waarbij de verhoudingen zijn weergegeven in de bijgaande grafiek.
             </p>
           </div>
         </div>
 
         <div class="chart | grid grid-cols-12 items-center gap-4">
           <div class="col-span-5">
-            <PieChart title="Type fundering (wijk)" :data="graphData.data" :labels="graphData.labels" />
+            <PieChart 
+              title="Type fundering (wijk)" 
+              :data="graphData.data" 
+              :labels="graphData.labels" 
+              :backgroundColors="['#2E7D32', '#9E9D24', '#F9A825', '#EF6C00', '#C62828']"  />
           </div>
           <div class="col-span-7">
             <div class="legenda space-y-3">

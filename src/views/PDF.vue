@@ -24,6 +24,7 @@ import FacadeReviewChapter from '@/components/Print/Chapters/FacadeReviewChapter
 import DisplacementDataChapter from '@/components/Print/Chapters/DisplacementDataChapter.vue'
 import IncidentsChapter from '@/components/Print/Chapters/IncidentsChapter.vue'
 import { useRoute, useRouter } from 'vue-router';
+import ConstructionYearChapter from '@/components/Print/Chapters/ConstructionYearChapter.vue';
 
 
 /**
@@ -150,10 +151,8 @@ onBeforeMount(() => {
 </script>
 
 <template>
-
   <template v-if="hasAllBuildingInformation">
 
-    <!-- HEADER -->
     <header class="header--print | relative isolate overflow-hidden rounded-md">
       <img src="@assets/images/header-bg.png" alt="" class="inset absolute -z-10 w-full" />
       <img src="@assets/images/header-artifact.print.png" alt="" class="justify-self-start" />
@@ -163,79 +162,103 @@ onBeforeMount(() => {
       </div>
     </header>
 
-
-    <!-- CHAPTER: BUILDING -->
-    <!-- TODO: 2 fields yet to be implemented in API -->
     <BuildingChapter />
-
-    <!-- CHAPTER: LOCATION -->
     <LocationChapter />
-
-    <!-- PAGE BREAK -->
     <PageBreak />
 
-    <!-- CHAPTER: FOUNDATION -->
     <InquirySampleChapter />
-
-    <!-- CHAPTER: FOUNDATION RESTORATION -->
     <FoundationRestorationChapter />
-
-    <!-- CHAPTER: FOUNDATION RISK -->
+    <PageBreak />
+    
+    <ConstructionYearChapter />
+    <PageBreak />
+    
     <FoundationRiskChapter />
+    <PageBreak />
 
-    <!-- CHAPTER: REPORTING -->
     <ReportingChapter />
 
-    <PageBreak />
-
-    <!-- CHAPTER: FACADE REVIEW -->
     <FacadeReviewChapter />
 
-
-    <!-- CHAPTER: DISPLACEMENT DATA -->
-    <!-- TODO: add legend to graph? -->
     <DisplacementDataChapter />
 
-    <!-- PAGE BREAK -->
-    <PageBreak />
-
-    <!-- CHAPTER: INCIDENTS -->
     <IncidentsChapter />
-
-    <!-- PAGE BREAK -->
     <PageBreak />
 
-    <!-- CHAPTER: CLOSING REMARKS -->
     <article class="space-y-5">
       <header class="flex break-after-avoid items-center gap-2.5">
-        <h2 class="h-4">Afsluitende tekst</h2>
+        <h2 class="h-4">Toelichting op het funderingsrisicorapport</h2>
       </header>
       <section class="space-y-4 text-grey-700">
+        <strong>Betrouwbaarheid</strong>
         <p>
-          Daar waar onderzoeksgegevens zijn gebruikt, is de betrouwbaarheid
-          van de uitgangspunten hoog. Het funderingstype en/of
-          funderingsrisico wordt dan ook als &lsquo;vastgesteld&rsquo;
-          beschouwd.Wanneer geen onderzoeksgegevens beschikbaar zijn voor het
-          betreffende pand, maar wel voor de naastgelegen panden,betreft het
-          aangegeven funderingstype en de risicobeoordeling een
-          &lsquo;afgeleid&rsquo; uitgangspunt. Het is zeer aannemelijk deze
-          afgeleide uitgangspunten ook voor dit betreffende pand gelden daar
-          dit pand onderdeel is van dezelfde bouw- of funderingseenheid.
+          De betrouwbaarheid van het funderingsrisicorapport hangt af van de beschikbaarheid en aard van de onderliggende gegevens:
+        </p>
+        <ul>
+          <li>
+            <strong>Vastgesteld:</strong> Wanneer er geen directe onderzoeksgegevens beschikbaar zijn voor het pand zelf, maar wel voor naastgelegen panden binnen dezelfde bouw- of funderingseenheid, wordt het funderingstype en de risicobeoordeling beschouwd als afgeleid. Deze afleiding is doorgaans goed onderbouwd, omdat vergelijkbare constructies en omstandigheden gelden
+          </li>
+          <li>
+            <strong>Afgeleid:</strong> Daar waar specifieke onderzoeksgegevens van het betreffende pand beschikbaar zijn, is de betrouwbaarheid van de uitgangspunten hoog. Het funderingstype en/of het funderingsrisico wordt dan als vastgesteld beschouwd.
+          </li>
+          <li>
+            <strong>Modelmatig (indicatief):</strong> Als er geen gegevens beschikbaar zijn van het pand zelf of van omliggende panden, wordt gebruikgemaakt van een modelanalyse. De uitkomsten daarvan zijn indicatief en hebben een lagere betrouwbaarheid.
+          </li>
+        </ul>
+
+        <strong class="block">Aanvullend onderzoek</strong>
+        <p>
+          Wanneer het risico op funderingsproblematiek verhoogd is en de databetrouwbaarheid als vastgesteld of afgeleid wordt beschouwd, kan een QuickScan uitkomst bieden. Zeker wanneer u – of een expert – op basis van zichtbare signalen zoals scheurvorming of scheefstand vermoedt dat daadwerkelijk sprake is van funderingsschade.
         </p>
         <p>
-          Indien er geen gegevens van het pand of de naastgelegen panden
-          beschikbaar zijn, wordt een modelanalyse uitgevoerd.Deze
-          analyseresultaten zijn indicatief en hebben een lagere
-          betrouwbaarheid.
+          Een QuickScan is een snelle en relatief betaalbare methode om het funderingsrisico nader te beoordelen. Op basis van deze beoordeling kan worden vastgesteld of aanvullend funderingsonderzoek noodzakelijk is, of dat het risiconiveau juist naar beneden kan worden bijgesteld.
         </p>
         <p>
-          Wanneer u het niet eens bent met de beoordeling, wanneer u
-          wijzigingen van de data wilt doorgeven of meer informatie wiltover
-          dit funderingsrisicorapport of de QuickScan, dan kunt u terecht op
-          <a :href="`https://feedback.fundermaps.com/`">{{ `https://feedback.fundermaps.com/` }}</a>.
+          Meer informatie vindt u op de website van het Kennis Centrum Aanpak Funderingsproblematiek (KCAF): <a href="https://www.kcaf.nl/quickscan-risicobeoordeling/" target="_blank">https://www.kcaf.nl/quickscan-risicobeoordeling/</a>
+        </p>
+
+        <strong class="block">Wijzigen of reageren?</strong>
+        <p>
+          Bent u het niet eens met de beoordeling, wilt u gegevens wijzigen of heeft u behoefte aan aanvullende informatie over dit funderingsrisicorapport? Dan kunt u terecht op: <a href="https://feedback.fundermaps.com/" target="_blank">https://feedback.fundermaps.com/</a>.
+        </p>
+        <p>
+          Hier kunt u eenvoudig een wijzigingsverzoek indienen of contact opnemen met ons team.
         </p>
       </section>
     </article>
 
+    <PageBreak />
+
+    <article class="space-y-5">
+      <header class="flex break-after-avoid items-center gap-2.5">
+        <h2 class="h-4">Disclaimer</h2>
+      </header>
+      <section class="space-y-4 text-grey-700">
+        <p>
+          Dit funderingsrisicorapport is opgesteld op basis van beschikbare gegevens, metingen, modelanalyses en externe bronnen die op het moment van samenstelling beschikbaar waren. De gebruikte informatie is deels afkomstig van derden en/of berekend met behulp van algoritmen en risicomodellen. Waar mogelijk zijn deze gegevens aangevuld met locatiegerichte onderzoeksresultaten.
+        </p>
+        <p>
+          De in dit rapport opgenomen funderingstypen en risico-indicaties zijn bedoeld als risicosignalering. Wanneer de betrouwbaarheid als modelmatig (indicatief) is aangeduid, betreft het een globale inschatting op basis van generieke data. Deze gegevens geven geen garantie voor de daadwerkelijke staat van het pand en vormen geen vervanging van een technisch funderingsonderzoek op locatie.
+        </p>
+        <p>
+          De betrouwbaarheid van het risicoprofiel verschilt per pand en is afhankelijk van de beschikbaarheid en kwaliteit van onderliggende data. Aanduidingen als vastgesteld, afgeleid of indicatief verwijzen naar deze mate van betrouwbaarheid.
+        </p>
+        <p>
+          De informatie in dit rapport is uitsluitend bedoeld als hulpmiddel bij het verkrijgen van inzicht in mogelijke funderingsrisico's. Het rapport is niet bedoeld als bindend advies voor juridische of financiële besluitvorming, zoals aankoop, verkoop of hypothecaire financiering.
+        </p>
+        <p>
+          Voor het vaststellen van de feitelijke staat van de fundering is een inspectie op locatie door een daartoe gespecialiseerd bureau noodzakelijk. Dit rapport vervangt een dergelijk onderzoek niet.
+        </p>
+        <p>
+          De gegevens in dit rapport zijn momentopnamen. Funderingscondities en risico-inschattingen kunnen in de loop van de tijd wijzigen als gevolg van veranderende omgevingsfactoren of beschikbaarheid van nieuwe data.
+        </p>
+        <p>
+          FunderMaps en haar partners spannen zich in om betrouwbare en actuele gegevens te leveren, maar kunnen niet instaan voor de juistheid, volledigheid of geschiktheid van de informatie voor het specifieke doel van de gebruiker. Gebruik van dit rapport is op eigen risico. FunderMaps aanvaardt geen aansprakelijkheid voor directe of indirecte schade als gevolg van interpretatie of toepassing van de gegevens in dit rapport.
+        </p>
+        <p>
+          Bij twijfel over de inhoud of toepassing van dit rapport wordt geadviseerd contact op te nemen met een deskundig funderingsadviseur of een funderingsonderzoeksbureau.
+        </p>
+      </section>
+    </article>
   </template>
 </template>

@@ -10,3 +10,13 @@
   width: 100%;
   height: 100%;
 }
+
+.maplegend--item:before {
+  content: '';
+  position: absolute;
+  background-color: var(--color);
+  width: 1.125rem; 
+  height: 1.125rem;
+  top: 0;
+  left: -0.5rem;
+}

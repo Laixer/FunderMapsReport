@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 
 import { ICombinedInquiryData } from '@/datastructures/interfaces/index.ts';
 
+import PageBreak from '@/components/Print/PageBreak.vue'
 import Chapter from '@/components/Print/Chapter.vue'
 import FacadeIcon from '@/components/Common/Icons/FacadeIcon.vue';
 
@@ -13,7 +14,6 @@ import { inquirySampleFieldLabels } from '@/datastructures/fieldLabels'
 
 import { useInquiriesStore } from '@/store/building/inquiries.ts';
 import { useBuildingStore } from '@/store/buildings';
-import PageBreak from '@/components/Print/PageBreak.vue';
 
 const { getCombinedInquiryDataByBuildingId } = useInquiriesStore()
 const { buildingId } = storeToRefs(useBuildingStore())

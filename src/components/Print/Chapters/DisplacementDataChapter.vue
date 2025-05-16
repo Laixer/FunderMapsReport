@@ -5,6 +5,7 @@ import { storeToRefs } from 'pinia';
 import Chapter from '@/components/Print/Chapter.vue'
 import ScatterChart from '@/components/Charts/ScatterChart.vue';
 import ItemGrid from '@/components/ItemGrid.vue';
+import PageBreak from '@/components/Print/PageBreak.vue'
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useBuildingStore } from '@/store/buildings';
@@ -37,6 +38,9 @@ const velocity = computed(() => {
     })
   )
 })
+const hasVelocityData = computed(() => {
+  return velocity.value.value !== 'Geen data'
+})
 
 /******************************************************************************
  * Graph
@@ -65,9 +69,20 @@ const graphData = computed(() => {
 </script>
 
 <template>
-  <Chapter icon="graph" title="Pandzakking">
+  <Chapter v-if="hasVelocityData || graphData.data?.length" icon="graph" title="Pandzakking">
     <section class="space-y-10">
-      <div class="highlight w-1/2">
+      <div class="space-y-4 text-grey-700">
+        <p>
+          Voor een deel van de panden in Nederland zijn zakkingsgegevens beschikbaar. Deze zijn verkregen op basis van satellietmetingen en bepaald met een zogenaamde InSAR-analyse, waarbij de zakkingssnelheid per jaar wordt uitgedrukt in millimeters per jaar (mm/jaar).
+        </p>
+        <p>
+          De meting geeft de mate van zakking aan in een bepaalde periode, maar kan niet direct worden gebruikt om de absolute zakking te bepalen – oftewel hoeveel het pand in totaal is gezakt over de volledige levensduur.
+        </p>
+        <p>
+          De meetresultaten zijn verwerkt in de risicomodellen en dragen bij aan het bepalen van het funderingsrisico per pand.
+        </p>
+      </div>
+      <div v-if="hasVelocityData" class="highlight w-1/2">
         <img src="@assets/images/highlight-bg.png" alt="" class="inset absolute -z-10 w-full" />
         <div class="highlight__content space-y-3">
           <h3>Pandzakkingsgegevens</h3>
@@ -90,4 +105,7 @@ const graphData = computed(() => {
 
     </section>
   </Chapter>
+
+  <!-- PAGE BREAK -->
+  <PageBreak v-if="hasVelocityData || graphData.data?.length" />
 </template>

@@ -101,6 +101,11 @@ const fieldsWithInquirySampleData = computed(() => {
 
   return fieldsConfig.map(retrieveAndFormatFieldData)
 })
+const hasInquirySampleData = computed(() => {
+  return fieldsWithInquirySampleData.value.some(
+    field => field.value !== 'Geen data'
+  )
+})
 
 const addMarker = function addMarker({ map }: { map: Map }) {
 
@@ -137,11 +142,11 @@ const addMarker = function addMarker({ map }: { map: Map }) {
         <div class="highlight__content space-y-3">
           <h3>Omgeving</h3>
           <dl role="list" class="list--definition">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid gap-4" :class="hasInquirySampleData ? 'grid-cols-2' : ''">
               <div>
                 <ItemGrid :fields="fieldsWithAnalysisData" />
               </div>
-              <div>
+              <div v-if="hasInquirySampleData">
                 <ItemGrid :fields="fieldsWithInquirySampleData" />
               </div>
             </div>

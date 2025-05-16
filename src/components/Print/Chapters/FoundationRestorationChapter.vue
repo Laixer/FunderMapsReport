@@ -52,11 +52,19 @@ const facade = computed(() => {
   )
 })
 
-// Report sample
-// recoverySampleFieldLabels.type !== "geen data" => Funderingsherstel = ja
-// recoverySampleFieldLabels.facade !== "geen data" => Locatieherstel = ja
-// Type herstel = recoverySampleFieldLabels.type
-
+const recoveryDate = computed(() => {
+  if (!caseItems.value?.[0]?.sample) {
+    return {
+      value: null
+    }
+  }
+  return retrieveAndFormatFieldData(
+    new FieldDataConfig({
+      name: 'recoveryDate',
+      source: caseItems.value?.[0]?.sample || null
+    })
+  )
+})
 
 </script>
 
@@ -64,6 +72,11 @@ const facade = computed(() => {
   <Chapter icon="wrench" title="Funderingsherstel">
 
     <section class="space-y-7">
+      <div class="text-gray-700">
+        <p>
+          Vanuit het Nationaal Funderingsherstelregister is de volgende informatie beschikbaar over het herstel van het pand:
+        </p>
+      </div>
       <dl role="list" class="list--definition">
         <div class="grid grid-cols-2 gap-4">
           <div>
@@ -74,14 +87,17 @@ const facade = computed(() => {
             </div>
             <div class="item--grid">
               <dt>Locatieherstel</dt>
-              <dd v-if="facade.value === null">Ja/<strong class="text-black">Nee</strong></dd>
-              <dd v-else><strong class="text-black">Ja</strong>/Nee</dd>
+              <dd>{{ facade.value === null ? 'geen data' : facade.value }}</dd>
             </div>
           </div>
           <div>
             <div class="item--grid">
               <dt>Type herstel</dt>
-              <dd>{{ facade.value === null ? 'geen data' : facade.value }}</dd>
+              <dd>{{ type.value === null ? 'geen data' : type.value }}</dd>
+            </div>
+            <div class="item--grid">
+              <dt>Datum hersteld</dt>
+              <dd>{{ recoveryDate.value === null ? 'geen data' : recoveryDate.value }}</dd>
             </div>
           </div>
         </div>

@@ -74,7 +74,7 @@ const fieldsWithData = computed(() => {
   <Chapter icon="building" title="Pand">
     <section class="space-y-7">
       <dl role="list" class="list--definition">
-        <div v-for="field in fieldsWithData" :key="field.name" class="item">
+        <div v-for="field in fieldsWithData" :key="field.name" class="item justify-between">
           <dt>{{ field.label }}</dt>
           <dd>{{ field.value }}</dd>
         </div>

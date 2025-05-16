@@ -3,7 +3,7 @@
     /* @apply space-y-2; */
 
     .item {
-      @apply flex items-baseline justify-between gap-3;
+      @apply flex items-baseline gap-3;
 
       .risk & {
         @apply items-center;
