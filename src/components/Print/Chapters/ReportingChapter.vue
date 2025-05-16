@@ -23,21 +23,6 @@ const inqueryData: ComputedRef<IInquiryReport[]> = computed(() => {
   return getInquiryByBuildingId(buildingId.value) || []
 })
 
-// const reportGraph = computed(() => {
-
-//   const data = (inqueryData.value || []).reduce((acc, item: IInquiryReport) => {
-//     const year = item.documentDate.split('-')[0]
-//     acc[year] = (acc[year] || 0) + 1
-
-//     return acc
-//   }, {} as Record<string,number>)
-
-//   return {
-//     data: Object.values(data),
-//     labels: Object.keys(data)
-//   }
-// })
-
 /******************************************************************************
  * Graph
  */
@@ -65,7 +50,7 @@ const reportGraph = computed(() => {
 </script>
 
 <template>
-  <Chapter icon="file-report" title="Rapportage">
+  <Chapter v-if="inqueryData.length || reportGraph.data.length" icon="file-report" title="Rapportage">
 
     <section class="break-before-avoid-page break-inside-avoid space-y-7">
       <p v-if="inqueryData.length !== 0">
@@ -93,10 +78,6 @@ const reportGraph = computed(() => {
 
       <BarChart v-if="reportGraph.data.length !== 0" title="Aantal rapportages in de wijk per jaar"
         :data="reportGraph.data" :labels="reportGraph.labels" gradient />
-
-      <!-- <figure>
-        <img src="@assets/images/bar-chart.png" alt="" class="w-full" />
-      </figure> -->
     </section>
 
   </Chapter>
