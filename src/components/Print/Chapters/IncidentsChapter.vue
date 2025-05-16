@@ -6,15 +6,12 @@ import { type LngLatLike, type Map, LngLat, type LayerSpecification, Marker } fr
 
 import Chapter from '@/components/Print/Chapter.vue'
 import MapBox from '@/components/Common/Mapbox/MapBox.vue'
-import BarChart from '@/components/Charts/BarChart.vue';
 
 import { useGeoLocationsStore } from '@/store/building/geolocations'
 import { useBuildingStore } from '@/store/buildings';
-import { useStatisticsStore } from '@/store/building/statistics.ts';
 import MapLegend from '@/components/MapLegend.vue';
 
 const { getLocationDataByBuildingId } = useGeoLocationsStore()
-const { getStatisticsDataByBuildingId } = useStatisticsStore()
 
 const { buildingId } = storeToRefs(useBuildingStore())
 
@@ -88,22 +85,6 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
 /**
  * GRAPH data
  */
-const buildingStatistics = computed(() => {
-  if (!buildingId.value) return null
-  return getStatisticsDataByBuildingId(buildingId.value)
-})
-
-const graphData = computed(() => {
-  const data = (buildingStatistics.value?.totalIncidentCount?.slice() || [])
-    .sort(function (a, b) {
-      return a.year - b.year;
-    })
-
-  return {
-    data: data.map(pair => pair.totalCount),
-    labels: data.map(pair => pair.year + ''),
-  }
-})
 
 const legendItems = [
   {
