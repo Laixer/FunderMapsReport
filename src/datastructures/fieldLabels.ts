@@ -124,7 +124,7 @@ export const inquirySampleFieldLabels = <Record<string, string>>{
   builtYear: "Bouwjaar volgens onderzoek",
   substructure: "Onderbouw",
   cpt: "Sondering",
-  groundLevel: "Maaiveldniveau (uit onderzoek)",
+  groundLevel: "Maaiveldniveau (volgens AHN)",
   groundwaterLevelNet: "Grondwaterstand (uit peilbuis)",
   monitoringWell: "Peilbuis",
   groundwaterLevelTemp: "Grondwaterniveau bij ontgraving",
