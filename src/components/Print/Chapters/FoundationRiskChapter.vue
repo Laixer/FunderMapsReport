@@ -254,7 +254,7 @@ const graphData = computed(() => {
       <div class="grid grid-cols-2 gap-4">
         <img 
           v-if="fieldsWithDataAndIcons.drystandRisk?.icon" 
-          src="@assets/images/Schimmelaantasting_droogstand.webp" alt="" />
+          src="@assets/images/schimmelaantasting_droogstand.webp" alt="" />
         <img 
           v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon"
           src="@assets/images/bacteriele_aantasting.webp" alt="" />
