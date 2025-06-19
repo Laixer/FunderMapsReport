@@ -74,7 +74,8 @@ const recoveryDate = computed(() => {
     <section class="space-y-7">
       <div class="text-gray-700">
         <p>
-          Vanuit het Nationaal Funderingsherstelregister is de volgende informatie beschikbaar over het herstel van het pand:
+          Vanuit het Nationaal Funderingsherstelregister is de volgende informatie beschikbaar over het herstel van het
+          pand:
         </p>
       </div>
       <dl role="list" class="list--definition">
@@ -102,6 +103,13 @@ const recoveryDate = computed(() => {
           </div>
         </div>
       </dl>
+      <p>
+        Wilt u uw pand aanmelden voor het funderingsherstelregister?
+        <a href="https://feedback.fundermaps.com/" target="_blank" rel="noopener noreferrer"
+          class="text-blue-600 underline hover:text-blue-800">
+          Klik hier om uw pand aan te melden
+        </a>.
+      </p>
     </section>
   </Chapter>
 </template>
