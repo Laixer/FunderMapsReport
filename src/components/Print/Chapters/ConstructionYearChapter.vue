@@ -144,7 +144,7 @@ const legendItems = [
     color: '#b378b1',
     label: '2000 t/m 2010'
   },
-  { 
+  {
     color: '#bd6495',
     label: '2010 t/m 2020'
   },

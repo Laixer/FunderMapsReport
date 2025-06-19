@@ -142,7 +142,11 @@ const graphData = computed(() => {
 
           <div class="text-grey-700">
             <p>
-              Bij droogstand (ook wel paalrot genoemd) komt het hoogstgelegen deel van het funderingshout (regelmatig) boven de grondwaterspiegel te liggen. Hierdoor kan zuurstof toetreden, wat leidt tot houtrot. Na jarenlange droogstand kan het draagvermogen van de fundering zijn aangetast, met als gevolg dat het pand vervormt. In een vergevorderd stadium uit zich dit in scheurvorming in de gevel, klemmende ramen en deuren, en zichtbare verzakkingen in het gevelaanzich.
+              Bij droogstand (ook wel paalrot genoemd) komt het hoogstgelegen deel van het funderingshout (regelmatig)
+              boven de grondwaterspiegel te liggen. Hierdoor kan zuurstof toetreden, wat leidt tot houtrot. Na
+              jarenlange droogstand kan het draagvermogen van de fundering zijn aangetast, met als gevolg dat het pand
+              vervormt. In een vergevorderd stadium uit zich dit in scheurvorming in de gevel, klemmende ramen en
+              deuren, en zichtbare verzakkingen in het gevelaanzich.
             </p>
           </div>
         </div>
@@ -175,10 +179,15 @@ const graphData = computed(() => {
           </dl>
           <div class="space-y-4 text-grey-700">
             <p>
-              Wanneer de grondwaterstand langdurig hoog is en zich dicht bij de fundering bevindt, ontstaat het risico op optrekkend vocht. Via poreuze bouwmaterialen - zoals bakstenen en metselmortel - wordt vocht opgenomen en trekt het omhoog in de constructie. Dit kan leiden tot schimmelvorming op muren en vloeren. Naast mogelijke gezondheidsklachten kan langdurige vochtbelasting ook leiden tot aantasting van bouwmaterialen, wat de constructieve staat van het pand verzwakt. 
+              Wanneer de grondwaterstand langdurig hoog is en zich dicht bij de fundering bevindt, ontstaat het risico
+              op optrekkend vocht. Via poreuze bouwmaterialen - zoals bakstenen en metselmortel - wordt vocht opgenomen
+              en trekt het omhoog in de constructie. Dit kan leiden tot schimmelvorming op muren en vloeren. Naast
+              mogelijke gezondheidsklachten kan langdurige vochtbelasting ook leiden tot aantasting van bouwmaterialen,
+              wat de constructieve staat van het pand verzwakt. 
             </p>
             <p>
-              Bij een hoge grondwaterstand kan bovendien water in de kruipruimte blijven staan, wat de luchtvochtigheid verhoogt en daarmee de kans op schimmel en houtrot verder vergroot.
+              Bij een hoge grondwaterstand kan bovendien water in de kruipruimte blijven staan, wat de luchtvochtigheid
+              verhoogt en daarmee de kans op schimmel en houtrot verder vergroot.
             </p>
           </div>
         </div>
@@ -209,10 +218,18 @@ const graphData = computed(() => {
           </dl>
           <div class="space-y-4 text-grey-700">
             <p>
-              Wanneer het grondwaterpeil sterk fluctueert - bijvoorbeeld door natte winters en droge zomers - ontstaan grotere verschillen in de grondwaterstand gedurende het jaar. Door klimaatverandering worden deze extremen steeds sterker: de winters worden natter, de zomers droger. Dit vergroot de dynamiek van het grondwaterpeil.
+              Wanneer het grondwaterpeil sterk fluctueert - bijvoorbeeld door natte winters en droge zomers - ontstaan
+              grotere verschillen in de grondwaterstand gedurende het jaar. Door klimaatverandering worden deze extremen
+              steeds sterker: de winters worden natter, de zomers droger. Dit vergroot de dynamiek van het
+              grondwaterpeil.
             </p>
             <p>
-              Deze schommelingen hebben invloed op samendrukbare grondlagen zoals klei en veen. Tijdens droge perioden drogen deze lagen uit, waardoor ze inklinken (consolideren) en het pand geleidelijk zakt. In de natte maanden stijgt het grondwater vervolgens sneller tot aan de fundering, met een verhoogd risico op optrekkend vocht tot gevolg. Door deze cyclische belasting kunnen onder het pand ongelijkmatige zettingen ontstaan, waarbij de draagkracht op verschillende plekken afneemt. Dit kan leiden tot scheefstand en vervorming van het gebouw.
+              Deze schommelingen hebben invloed op samendrukbare grondlagen zoals klei en veen. Tijdens droge perioden
+              drogen deze lagen uit, waardoor ze inklinken (consolideren) en het pand geleidelijk zakt. In de natte
+              maanden stijgt het grondwater vervolgens sneller tot aan de fundering, met een verhoogd risico op
+              optrekkend vocht tot gevolg. Door deze cyclische belasting kunnen onder het pand ongelijkmatige zettingen
+              ontstaan, waarbij de draagkracht op verschillende plekken afneemt. Dit kan leiden tot scheefstand en
+              vervorming van het gebouw.
             </p>
           </div>
         </div>
@@ -245,25 +262,24 @@ const graphData = computed(() => {
           </dl>
           <div class="text-grey-700">
             <p>
-              Bij de fundering kunnen grenenhouten palen zijn toegepast. Dit hout is gevoelig voor bacteriële aantasting, waarbij het van buitenaf over de volledige lengte wordt aangetast (ook wel palenpest genoemd). Hierdoor neemt het draagvermogen van de palen geleidelijk af, met verzakking van het pand als gevolg. In een vergevorderd stadium uit zich dit in scheurvorming in de gevel, klemmende ramen en deuren, en zichtbare verzakkingen in het gevelaanzicht. 
+              Bij de fundering kunnen grenenhouten palen zijn toegepast. Dit hout is gevoelig voor bacteriële
+              aantasting, waarbij het van buitenaf over de volledige lengte wordt aangetast (ook wel palenpest genoemd).
+              Hierdoor neemt het draagvermogen van de palen geleidelijk af, met verzakking van het pand als gevolg. In
+              een vergevorderd stadium uit zich dit in scheurvorming in de gevel, klemmende ramen en deuren, en
+              zichtbare verzakkingen in het gevelaanzicht.
             </p>
           </div>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <img 
-          v-if="fieldsWithDataAndIcons.drystandRisk?.icon" 
-          src="@assets/images/schimmelaantasting_droogstand.webp" alt="" />
-        <img 
-          v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon"
-          src="@assets/images/bacteriele_aantasting.webp" alt="" />
-        <img 
-          v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon"
-          src="@assets/images/optrekkend_vocht.webp" alt="" />
-        <img 
-          v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon"
-          src="@assets/images/verschilzakking.webp" alt="" />
+        <img v-if="fieldsWithDataAndIcons.drystandRisk?.icon" src="@assets/images/schimmelaantasting_droogstand.webp"
+          alt="" />
+        <img v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon" src="@assets/images/bacteriele_aantasting.webp"
+          alt="" />
+        <img v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" src="@assets/images/optrekkend_vocht.webp"
+          alt="" />
+        <img v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" src="@assets/images/verschilzakking.webp" alt="" />
       </div>
 
       <!-- RISK -->
@@ -281,18 +297,17 @@ const graphData = computed(() => {
           </dl>
           <div class="text-grey-700">
             <p>
-              In deze grafiek is per pand het hoogste risico bepaald uit de verschillende risicomodellen. Deze maximale risico-waarden zijn vervolgens gebruikt om de risicoverdeling in de hele wijk in kaart te brengen, waarbij de verhoudingen zijn weergegeven in de bijgaande grafiek.
+              In deze grafiek is per pand het hoogste risico bepaald uit de verschillende risicomodellen. Deze maximale
+              risico-waarden zijn vervolgens gebruikt om de risicoverdeling in de hele wijk in kaart te brengen, waarbij
+              de verhoudingen zijn weergegeven in de bijgaande grafiek.
             </p>
           </div>
         </div>
 
         <div class="chart | grid grid-cols-12 items-center gap-4">
           <div class="col-span-5">
-            <PieChart 
-              title="Type fundering (wijk)" 
-              :data="graphData.data" 
-              :labels="graphData.labels" 
-              :backgroundColors="['#2E7D32', '#9E9D24', '#F9A825', '#EF6C00', '#C62828']"  />
+            <PieChart title="Type fundering (wijk)" :data="graphData.data" :labels="graphData.labels"
+              :backgroundColors="['#2E7D32', '#9E9D24', '#F9A825', '#EF6C00', '#C62828']" />
           </div>
           <div class="col-span-7">
             <div class="legenda space-y-3">

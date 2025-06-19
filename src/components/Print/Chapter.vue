@@ -13,16 +13,11 @@ defineProps({
 
   <article class="space-y-5">
     <header class="flex break-after-avoid items-center gap-2.5">
-      <FundermapsIcon
-        v-if="icon"
-        :name="icon"
-        class="accent-color-blue aspect-square w-4"
-        aria-hidden="true"
-      />
+      <FundermapsIcon v-if="icon" :name="icon" class="accent-color-blue aspect-square w-4" aria-hidden="true" />
       <h2 class="h-4">{{ title }}</h2>
     </header>
 
     <slot />
-    
+
   </article>
 </template>

@@ -7,7 +7,7 @@ import PDF from '@/views/PDF.vue'
 import NoAccess from '@/views/NoAccess.vue'
 
 // 404
-import NotFound from '@/views/NotFound.vue' 
+import NotFound from '@/views/NotFound.vue'
 import { hasAPIKey } from '@/services/apiClient';
 
 
@@ -24,10 +24,10 @@ const router = createRouter({
       name: 'NoAccess',
       component: NoAccess
     },
-    { 
-      path: '/:pathMatch(.*)*', 
-      name: 'NotFound', 
-      component: NotFound 
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: NotFound
     },
   ],
 })
@@ -40,8 +40,8 @@ router.beforeEach((to, _) => {
   const { authenticateFromAccessToken } = useSessionStore()
 
   if (
-    ! hasAPIKey() &&
-    ! authenticateFromAccessToken() &&
+    !hasAPIKey() &&
+    !authenticateFromAccessToken() &&
     to.name !== 'NoAccess'
   ) {
     return { name: 'NoAccess' }

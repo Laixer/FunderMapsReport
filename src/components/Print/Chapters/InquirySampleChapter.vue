@@ -317,25 +317,47 @@ const foundationTypeGraph = computed(() => {
 
       <div class="text-grey-700">
         <p v-if="foundationIconName === 'houten-palen'">
-          Bij een fundering op houten palen wordt het gebouw gedragen door verticale houten palen die diep in de grond zijn aangebracht. Deze palen reiken doorgaans tot een draagkrachtige zandlaag en zijn bedoeld om de constructie te ondersteunen in slappe of natte bodems. De palen blijven in goede staat zolang ze onder de grondwaterstand blijven en er daardoor geen zuurstof bij komt.
+          Bij een fundering op houten palen wordt het gebouw gedragen door verticale houten palen die diep in de grond
+          zijn
+          aangebracht. Deze palen reiken doorgaans tot een draagkrachtige zandlaag en zijn bedoeld om de constructie te
+          ondersteunen in slappe of natte bodems. De palen blijven in goede staat zolang ze onder de grondwaterstand
+          blijven
+          en er daardoor geen zuurstof bij komt.
         </p>
         <p v-if="foundationIconName === 'betonnen-palen'">
-          Bij een fundering op betonpalen wordt de belasting van het gebouw overgedragen aan de ondergrond via betonnen palen die diep in de bodem zijn geheid. Deze funderingsvorm is veelal toegepast bij zwaardere constructies of in gebieden waar de draagkrachtige laag zich op grotere diepte bevindt. Betonpalen zijn duurzaam, bestand tegen vocht en bacteriële aantasting, en kennen doorgaans geen funderingsproblematiek.
+          Bij een fundering op betonpalen wordt de belasting van het gebouw overgedragen aan de ondergrond via betonnen
+          palen
+          die diep in de bodem zijn geheid. Deze funderingsvorm is veelal toegepast bij zwaardere constructies of in
+          gebieden
+          waar de draagkrachtige laag zich op grotere diepte bevindt. Betonpalen zijn duurzaam, bestand tegen vocht en
+          bacteriële aantasting, en kennen doorgaans geen funderingsproblematiek.
         </p>
         <p v-if="foundationIconName === 'houten-palen-oplanger'">
-          Een fundering op houten palen met oplanger bestaat uit houten palen die zijn verlengd met een betonnen opzetstuk (de oplanger). Deze oplanger zorgt ervoor dat de paalkop dieper onder het maaiveld - en idealiter onder de grondwaterstand - komt te liggen. Het doel hiervan is om het hout te beschermen tegen zuurstof en daarmee tegen aantasting, zoals rot. Deze methode werd vaak toegepast bij latere aanpassingen of bij hersteldelen in bestaande bebouwing.
+          Een fundering op houten palen met oplanger bestaat uit houten palen die zijn verlengd met een betonnen
+          opzetstuk (de
+          oplanger). Deze oplanger zorgt ervoor dat de paalkop dieper onder het maaiveld - en idealiter onder de
+          grondwaterstand - komt te liggen. Het doel hiervan is om het hout te beschermen tegen zuurstof en daarmee
+          tegen
+          aantasting, zoals rot. Deze methode werd vaak toegepast bij latere aanpassingen of bij hersteldelen in
+          bestaande
+          bebouwing.
         </p>
         <p v-if="foundationIconName === 'niet-onderheid'">
-          Een ondiepe fundering - vaak aangeduid als fundering op staal - is een funderingsvorm waarbij het pand direct op een draagkrachtige grondlaag rust, zoals zand of vaste klei. De belasting van het gebouw wordt via funderingsstroken of poeren verspreid over de ondergrond. Deze methode is geschikt op locaties waar de draagkrachtige laag zich dicht bij het maaiveld bevindt. In slappe of ongelijkmatige bodems is er echter meer risico op zettingen of scheefstand. In het verleden is dit funderingstype veelvuldig toegepast in gebieden met beperkte draagkracht.
+          Een ondiepe fundering - vaak aangeduid als fundering op staal - is een funderingsvorm waarbij het pand direct
+          op een
+          draagkrachtige grondlaag rust, zoals zand of vaste klei. De belasting van het gebouw wordt via
+          funderingsstroken of
+          poeren verspreid over de ondergrond. Deze methode is geschikt op locaties waar de draagkrachtige laag zich
+          dicht bij
+          het maaiveld bevindt. In slappe of ongelijkmatige bodems is er echter meer risico op zettingen of scheefstand.
+          In
+          het verleden is dit funderingstype veelvuldig toegepast in gebieden met beperkte draagkracht.
         </p>
       </div>
 
       <div v-if="foundationTypeGraph.data.length !== 0" class="chart | grid grid-cols-12 items-center gap-4">
         <div class="col-span-5">
-          <PieChart 
-            title="Type fundering (wijk)" 
-            :data="foundationTypeGraph.data"
-            :labels="foundationTypeGraph.labels" 
+          <PieChart title="Type fundering (wijk)" :data="foundationTypeGraph.data" :labels="foundationTypeGraph.labels"
             :backgroundColors="['#CE0015', '#6A6C70', '#8F7A2E', '#8C3A28']" />
         </div>
         <div class="col-span-7">
