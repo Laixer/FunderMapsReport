@@ -28,11 +28,6 @@ export interface IMapsetFE {
   style: string,
 
   /**
-   * Mapbox layer names
-   */
-  layers: string[],
-
-  /**
    * Mapset metadata (Mapbox center, etc.) — parsed from the API JSON string.
    */
   metadata: { center?: number[] },

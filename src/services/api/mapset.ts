@@ -22,7 +22,6 @@ const mapMapset = (rawmapset: IMapset): IMapsetFE => {
     slug: rawmapset.slug,
     name: rawmapset?.name || 'Onbekende laag',
     style: rawmapset.style,
-    layers: rawmapset?.layers || [],
     metadata,
     public: (!!rawmapset?.public) || false,
     consent: rawmapset?.consent || null,

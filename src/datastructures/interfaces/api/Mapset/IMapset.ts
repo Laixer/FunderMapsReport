@@ -23,11 +23,6 @@ export interface IMapset {
   style: string,
 
   /**
-   * Mapbox layer names
-   */
-  layers?: string[],
-
-  /**
    * Mapset metadata (Mapbox center, etc.) — JSON string from the API.
    */
   metadata?: string,
