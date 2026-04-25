@@ -33,10 +33,9 @@ export interface IMapsetFE {
   layers: string[],
 
   /**
-   * Configuration options for the layers
-   * TODO: Which options? How do they differ for multiple layers?
+   * Mapset metadata (Mapbox center, etc.) — parsed from the API JSON string.
    */
-  options: { center?: number[] },
+  metadata: { center?: number[] },
 
   /**
    * Whether the mapset can be shared with others

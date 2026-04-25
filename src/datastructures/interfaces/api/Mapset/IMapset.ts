@@ -28,10 +28,9 @@ export interface IMapset {
   layers?: string[],
 
   /**
-   * Configuration options for the layers
-   * TODO: Which options? How do they differ for multiple layers?
+   * Mapset metadata (Mapbox center, etc.) — JSON string from the API.
    */
-  options?: string,
+  metadata?: string,
 
   /**
    * Whether the mapset can be shared with others

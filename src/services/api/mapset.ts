@@ -3,7 +3,7 @@ import { get } from "../apiClient"
 
 const mapMapset = (rawmapset: IMapset): IMapsetFE => {
 
-  let options = {}
+  let metadata = {}
   let layerSet = []
 
   try {
@@ -12,9 +12,9 @@ const mapMapset = (rawmapset: IMapset): IMapsetFE => {
     console.log(`Failed to process layerSet information. ${rawmapset?.name || rawmapset.id} will have no interactive layers.`)
   }
   try {
-    options = rawmapset?.options ? JSON.parse(rawmapset.options) : {}
+    metadata = rawmapset?.metadata ? JSON.parse(rawmapset.metadata) : {}
   } catch (e) {
-    console.log("Failed to process mapset options. Loading without options.")
+    console.log("Failed to process mapset metadata. Loading without metadata.")
   }
 
   return {
@@ -23,7 +23,7 @@ const mapMapset = (rawmapset: IMapset): IMapsetFE => {
     name: rawmapset?.name || 'Onbekende laag',
     style: rawmapset.style,
     layers: rawmapset?.layers || [],
-    options,
+    metadata,
     public: (!!rawmapset?.public) || false,
     consent: rawmapset?.consent || null,
     note: rawmapset?.note || null,
