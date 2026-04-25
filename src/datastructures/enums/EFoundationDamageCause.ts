@@ -84,7 +84,7 @@ export enum EFoundationDamageCause {
   /// <summary>
   ///     Damage due japanese knotweed.
   /// </summary>
-  JapanseKnotweed = 17,
+  JapaneseKnotweed = 17,
 
   /// <summary>
   ///     Groundwater level reduction.
@@ -113,6 +113,6 @@ export const EFoundationDamageCauseLabels: Map<EFoundationDamageCause, string> =
   [EFoundationDamageCause.Gas, "Gaswinning"],
   [EFoundationDamageCause.Vibrations, "Trillingen"],
   [EFoundationDamageCause.PartialFoundationRecovery, "Partieel funderingsherstel"],
-  [EFoundationDamageCause.JapanseKnotweed, "Beschadiging fundering door japanse duizendknoop"],
+  [EFoundationDamageCause.JapaneseKnotweed, "Beschadiging fundering door japanse duizendknoop"],
   [EFoundationDamageCause.GroundwaterLevelReduction, "Verlaging van grondwaterniveau"]
 ]);
