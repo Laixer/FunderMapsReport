@@ -6,7 +6,7 @@ export class Building extends EnumMethods implements IBuilding {
   id: string;
   externalId: string;
   builtYear: string | undefined;
-  isActive: boolean;
+  active: boolean;
   neighborhoodId: string | undefined;
 
   className = 'Building'
@@ -17,7 +17,7 @@ export class Building extends EnumMethods implements IBuilding {
     this.id = data.id;
     this.externalId = data.externalId;
     this.builtYear = data.builtYear;
-    this.isActive = data.isActive;
+    this.active = data.active;
     this.neighborhoodId = data.neighborhoodId;
   }
 }

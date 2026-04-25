@@ -2,6 +2,6 @@ import { IGeoLocationModel } from "./IGeoLocationModel";
 
 export interface IBuilding extends IGeoLocationModel {
   builtYear?: string, // DateTime
-  isActive: boolean,
+  active: boolean,
   neighborhoodId?: string
 }
