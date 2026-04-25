@@ -39,7 +39,7 @@ export enum EInquiryType {
   /// <summary>
   ///     Archieve research.
   /// </summary>
-  ArchieveResearch = 7,
+  ArchiveResearch = 7,
 
   /// <summary>
   ///     Architectural research.
@@ -86,7 +86,7 @@ export const EInquiryTypeLabels: Map<EInquiryType, string> = new Map([
   [EInquiryType.Unknown, "Onbekend"],
   [EInquiryType.DemolitionResearch, "Sloopgrensonderzoek"],
   [EInquiryType.SecondOpinion, "Secondopinion"],
-  [EInquiryType.ArchieveResearch, "Archiefonderzoek"],
+  [EInquiryType.ArchiveResearch, "Archiefonderzoek"],
   [EInquiryType.ArchitecturalResearch, "Bouwkundigonderzoek"],
   [EInquiryType.FoundationAdvice, "Funderingsadvies"],
   [EInquiryType.Inspectionpit, "Onderzoeksput"],
