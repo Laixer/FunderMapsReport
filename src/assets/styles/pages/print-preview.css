@@ -1,7 +1,7 @@
-@import url("../print/typography.css");
-@import url("../print/header.css");
-@import url("../print/highlight.css");
-@import url("../print/table.css");
+@import "../print/typography.css";
+@import "../print/header.css";
+@import "../print/highlight.css";
+@import "../print/table.css";
 
 .page-print-preview {
   @apply h-auto bg-grey-100 p-10;

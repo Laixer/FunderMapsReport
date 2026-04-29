@@ -1,10 +1,7 @@
-@import url("tailwindcss/base.css");
-@import url("./base/index.css");
-@import url("tailwindcss/components.css");
-@import url("./components/index.css");
-@import url("tailwindcss/utilities.css");
-@import url("./utilities/index.css");
-@import url("./pages/index.css");
+@import "./base/index.css";
+@import "./components/index.css";
+@import "./utilities/index.css";
+@import "./pages/index.css";
 
 .chart {
   width: 100%;
@@ -15,7 +12,7 @@
   content: '';
   position: absolute;
   background-color: var(--color);
-  width: 1.125rem; 
+  width: 1.125rem;
   height: 1.125rem;
   top: 0;
   left: -0.5rem;
