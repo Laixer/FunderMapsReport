@@ -133,7 +133,7 @@ export const getAllReportDataByBuildingId = async (buildingId: string): Promise<
 
 
 export const getSubsidenceByBuildingId = async (buildingId: string): Promise<ISubsidence[]> => {
-  return await get({ endpoint: `/product/${buildingId}/subsidence` })
+  return await get({ endpoint: `/product/${buildingId}/subsidence/historic` })
 }
 
 export default {
