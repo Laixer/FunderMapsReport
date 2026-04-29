@@ -195,7 +195,7 @@ const loadInquiryDataByBuildingId = async function loadInquiryDataByBuildingId(b
 
     // Get all samples
     let samples: IInquirySample[] = []
-    for (let report in reports) {
+    for (const report in reports) {
       const sampleResponse = await api.building.getInquirySamplesByInquiryId(reports[report].id)
       samples = samples.concat(sampleResponse)
     }

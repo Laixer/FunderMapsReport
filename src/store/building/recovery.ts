@@ -203,7 +203,7 @@ const loadRecoveryReportDataByBuildingId = async function loadRecoveryReportData
     /**
      * Get connected samples by report id
      */
-    for (let report in response) {
+    for (const report in response) {
       const recoveryReportId = response[report].id
       const sampleResponse = await api.building.getRecoverySamplesByRecoveryId(recoveryReportId)
 
