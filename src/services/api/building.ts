@@ -9,144 +9,95 @@ import type {
   IDownloadLink,
   IInquirySample,
   ICombinedReportData,
-  ISubsidence
+  ISubsidence,
 } from "@/datastructures/interfaces"
 import { get } from "../apiClient"
 import { Analysis } from "@/datastructures/classes/Analysis"
+import {
+  adaptAnalysis,
+  adaptStatistics,
+  adaptGeoLocationData,
+  adaptCombinedReport,
+  adaptSubsidence,
+  adaptInquiry,
+  adaptInquirySample,
+  adaptRecovery,
+  adaptRecoverySample,
+  adaptIncident,
+} from "./_adapters"
 
-/****************************************************************************** 
- * This includes all endpoints from Excel v6
- *
- *
- * Note: The API supports various formats for buildingId. For example:
- *  - NL.IMBAG.PAND.0018100000044244
- *  - NL.IMBAG.NUMMERAANDUIDING.0202200000386344
- *  - gfm-ee8e9a3ccc954296a84b247eda947045
- */
+// The TS API returns flat snake_case rows + string-valued enums; the legacy
+// frontend types (shared with the Vue 2 era) are nested camelCase + integer
+// enums. Every call passes through an adapt*() function (see _adapters.ts).
+// Mirrors the same pattern in ~/Projects/FunderMapsWebFront/src/services/api/building.ts.
 
-/******************************************************************************
- *    Location
- *****************************************************************************/
-
-/**
- * Location information from the geocoder, based on buildingId
- */
-export const getLocationInformationByBuildingId = async function getLocationInformationByBuildingId(buildingId: string): Promise<IGeoLocationData> {
-  return await get({ endpoint: `/geocoder/${buildingId}` })
+export const getLocationInformationByBuildingId = async (buildingId: string): Promise<IGeoLocationData> => {
+  const raw = await get({ endpoint: `/geocoder/building-info/${buildingId}` })
+  return adaptGeoLocationData(raw)
 }
 
-/******************************************************************************
- *    Building & Foundation information
- *****************************************************************************/
-
-/**
- * Get basic information about the building and foundation.
- */
-export const getAnalysisByBuildingId = async function getAnalysisByBuildingId(buildingId: string): Promise<IAnalysis> {
-  const response = await get<IAnalysis>({ endpoint: `/product/${buildingId}/analysis` })
-  return new Analysis(response)
+export const getAnalysisByBuildingId = async (buildingId: string): Promise<IAnalysis> => {
+  const raw = await get({ endpoint: `/product/${buildingId}/analysis` })
+  return new Analysis(adaptAnalysis(raw))
 }
 
-/******************************************************************************
- *    Recovery
- *****************************************************************************/
-
-/**
- * Get recovery reports about a building, if there are any
- */
-export const getRecoveryReportsByBuildingId = async function getRecoveryReportsByBuildingId(buildingId: string): Promise<IRecoveryReport[]> {
-  return await get({ endpoint: `/recovery/building/${buildingId}` })
+export const getStatisticsByBuildingId = async (buildingId: string): Promise<IStatistics> => {
+  const raw = await get({ endpoint: `/product/${buildingId}/statistics` })
+  return adaptStatistics(raw)
 }
-
-/**
- * Get all recovery samples of a recovery report
- */
-export const getRecoverySamplesByRecoveryId = async function getRecoverySamplesByRecoveryId(recoveryId: string | number): Promise<IRecoverySample[]> {
-  return await get({ endpoint: `/recovery/${recoveryId}/sample` })
-}
-
-/**
- * Retrieve an S3 download link, which can then be used to download the file (expires in 1 hour)
- */
-export const getRecoveryReportDownloadLink = async function getInquiryReportDownloadLink(recoveryId: string): Promise<IDownloadLink> {
-  return await get({ endpoint: `/recovery/${recoveryId}/download` })
-}
-
-/******************************************************************************
- *    Inquiry
- *****************************************************************************/
-
-/**
- * Get inquiry reports about a building, if there are any
- */
-export const getInquiriesByBuildingId = async function getInquiriesByBuildingId(buildingId: string): Promise<IInquiryReport[]> {
-  return await get({ endpoint: `/inquiry/building/${buildingId}` })
-}
-
-/**
- * Get all inquiry samples of a inquiry report
- */
-export const getInquirySamplesByInquiryId = async function getInquirySamplesByInquiryId(inquiryId: string | number): Promise<IInquirySample[]> {
-  return await get({ endpoint: `/inquiry/${inquiryId}/sample` })
-}
-
-/**
- * Retrieve an S3 download link, which can then be used to download the file (expires in 1 hour)
- */
-export const getInquiryReportDownloadLink = async function getInquiryReportDownloadLink(inquiryId: string): Promise<IDownloadLink> {
-  return await get({ endpoint: `/inquiry/${inquiryId}/download` })
-}
-
-/******************************************************************************
- *    Statistics
- *****************************************************************************/
-
-/**
- * Get statistics about a building by building id
- */
-export const getStatisticsByBuildingId = async function getStatisticsByBuildingId(buildingId: string): Promise<IStatistics> {
-  return await get({ endpoint: `/product/${buildingId}/statistics` })
-}
-
-/******************************************************************************
- *    Incidents
- *****************************************************************************/
-
-/**
- * Get all indicents by building id
- */
-export const getIncidentReportsByBuildingId = async (buildingId: string): Promise<IIncidentReport[]> => {
-  return await get({ endpoint: `/incident/building/${buildingId}` })
-}
-
-/******************************************************************************
- *    ALL Report data (inquiry, recovery & incidents)
- *****************************************************************************/
 
 export const getAllReportDataByBuildingId = async (buildingId: string): Promise<ICombinedReportData> => {
-  return await get({ endpoint: `/report/${buildingId}` })
+  const raw = await get({ endpoint: `/report/${buildingId}` })
+  return adaptCombinedReport(raw)
 }
 
-/******************************************************************************
- *    Subsidence data
- *****************************************************************************/
-
-
 export const getSubsidenceByBuildingId = async (buildingId: string): Promise<ISubsidence[]> => {
-  return await get({ endpoint: `/product/${buildingId}/subsidence/historic` })
+  const raw = await get({ endpoint: `/product/${buildingId}/subsidence/historic` })
+  return adaptSubsidence(raw)
+}
+
+export const getRecoveryReportsByBuildingId = async (buildingId: string): Promise<IRecoveryReport[]> => {
+  const raw = await get<unknown[]>({ endpoint: `/recovery/building/${buildingId}` })
+  return (raw ?? []).map(adaptRecovery)
+}
+
+export const getRecoverySamplesByRecoveryId = async (recoveryId: string | number): Promise<IRecoverySample[]> => {
+  const raw = await get<unknown[]>({ endpoint: `/recovery/${recoveryId}/sample` })
+  return (raw ?? []).map(adaptRecoverySample)
+}
+
+export const getRecoveryReportDownloadLink = async (recoveryId: string): Promise<IDownloadLink> =>
+  await get<IDownloadLink>({ endpoint: `/recovery/${recoveryId}/download` })
+
+export const getInquiriesByBuildingId = async (buildingId: string): Promise<IInquiryReport[]> => {
+  const raw = await get<unknown[]>({ endpoint: `/inquiry/building/${buildingId}` })
+  return (raw ?? []).map(adaptInquiry)
+}
+
+export const getInquirySamplesByInquiryId = async (inquiryId: string | number): Promise<IInquirySample[]> => {
+  const raw = await get<unknown[]>({ endpoint: `/inquiry/${inquiryId}/sample` })
+  return (raw ?? []).map(adaptInquirySample)
+}
+
+export const getInquiryReportDownloadLink = async (inquiryId: string): Promise<IDownloadLink> =>
+  await get<IDownloadLink>({ endpoint: `/inquiry/${inquiryId}/download` })
+
+export const getIncidentReportsByBuildingId = async (buildingId: string): Promise<IIncidentReport[]> => {
+  const raw = await get<unknown[]>({ endpoint: `/incident/building/${buildingId}` })
+  return (raw ?? []).map(adaptIncident)
 }
 
 export default {
   getLocationInformationByBuildingId,
   getAnalysisByBuildingId,
+  getStatisticsByBuildingId,
+  getAllReportDataByBuildingId,
+  getSubsidenceByBuildingId,
   getRecoveryReportsByBuildingId,
   getRecoverySamplesByRecoveryId,
   getRecoveryReportDownloadLink,
   getInquiriesByBuildingId,
   getInquirySamplesByInquiryId,
   getInquiryReportDownloadLink,
-  getStatisticsByBuildingId,
   getIncidentReportsByBuildingId,
-  getAllReportDataByBuildingId,
-  getSubsidenceByBuildingId
 }
