@@ -39,7 +39,7 @@ interface CompletedFieldDataWithIcon extends CompletedFieldData {
 
 const fieldsWithDataAndIcons: ComputedRef<Record<string, CompletedFieldDataWithIcon>> = computed(() => {
   const fieldsConfig = applyContextToFieldDataConfigs({
-    source: analysisData.value || {},
+    source: analysisData,
     labels: riskFieldLabels,
     configs: [
       new FieldDataConfig({ group: 'drystand', name: 'drystandRisk' }),
