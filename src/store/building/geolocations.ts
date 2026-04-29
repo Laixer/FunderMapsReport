@@ -1,9 +1,8 @@
-import { type Ref, ref, watch } from 'vue';
+import { type Ref, ref } from 'vue';
 import { defineStore } from 'pinia'
 
 import { type IGeoLocationData } from "@/datastructures/interfaces"
 import api from '@/services/api';
-import { useSessionStore } from '../session';
 import { GeoLocationData } from '@/datastructures/classes/Location/LocationData';
 
 
@@ -117,32 +116,7 @@ const loadLocationDataByBuildingId = async (buildingId: string, cache: boolean =
 }
 
 
-/**
- * Reset store to empty state
- */
-const clearGeoLocationInformation = function clearGeoLocationInformation() {
-  // Keep appropriate order of clearing data
-  locationDataByBuildingId.value = {}
-  isLoadingBuildingDataById.value = {}
-
-  // TODO: Cancel fetches that are in progress... 
-}
-
-
 function useGeoLocations() {
-  /**
-   * Clean up geo location data on logout
-   */
-  const { isAuthenticated } = useSessionStore()
-  watch(
-    () => isAuthenticated,
-    (value) => {
-      if (value !== true) {
-        clearGeoLocationInformation()
-      }
-    }
-  )
-
   return {
     buildingLocationDataHasBeenRetrieved,
     buildingHasLocationData,

@@ -1,9 +1,8 @@
-import { type Ref, ref, watch } from 'vue';
+import { type Ref, ref } from 'vue';
 import { defineStore } from 'pinia'
 
 import { type IIncidentReport } from "@/datastructures/interfaces"
 import api from '@/services/api';
-import { useSessionStore } from '../session';
 import { IncidentReport } from '@/datastructures/classes/IncidentReport';
 
 /**
@@ -99,33 +98,7 @@ const loadIncidentReportDataByBuildingId = async function loadIncidentReportData
 
 
 
-/**
- * Reset store to empty state
- */
-const clearIncidentReportData = function clearIncidentReportData() {
-  // Keep appropriate order of clearing data
-  incidentReportIdsByBuildingId.value = {}
-  incidentReportsById.value = {}
-  isLoadingBuildingDataById.value = {}
-
-  // TODO: Cancel fetches that are in progress... 
-}
-
-
 function useIncidentReports() {
-  /**
-   * Clean up incidentReport data on logout
-   */
-  const { isAuthenticated } = useSessionStore()
-  watch(
-    () => isAuthenticated,
-    (value) => {
-      if (value !== true) {
-        clearIncidentReportData()
-      }
-    }
-  )
-
   return {
     // IncidentReports by Building Id
     buildingIncidentReportDataHasBeenRetrieved,

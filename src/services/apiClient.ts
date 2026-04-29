@@ -1,202 +1,99 @@
 import { apiBasePath } from "@/config"
 import { trimLeadingChar, trimTrailingChar } from "@/utils/string"
 
-import { getAuthHeader, hasAccessToken, hasAccessTokenExpired } from '@/services/jwt.ts'
-
-import { useRouter, useRoute } from 'vue-router'
-
-
-/******************************************************************************
- * API Key overrides JWT auth
- */
+// Report is opaque: only ever rendered by pdf.co for PDF generation.
+// There is no user session and no login UI. Auth is a single static
+// API key baked in at build time via VITE_AUTH_KEY, sent as
+// `Authorization: AuthKey fmsk.xxx` (the format the TS API's
+// authMiddleware expects).
 const apiKey: string | null = import.meta.env.VITE_AUTH_KEY || null
 
-export const hasAPIKey = () => {
-  return apiKey !== null && apiKey.length !== 0
+export const hasAPIKey = (): boolean => apiKey !== null && apiKey.length !== 0
+
+type Method = 'GET' | 'POST' | 'PUT'
+
+interface CallOptions {
+  endpoint: string
+  method?: Method
+  body?: unknown
 }
 
-const getAPIKey = () => {
-  return apiKey
-}
-
-const getAPIKeyAuthHeader = () => {
-  return {
-    'Authorization': 'authkey ' + getAPIKey()
-  }
-}
-
-
-/******************************************************************************
- * The function thats is calling the shots
- */
-
-const passAuthCheckOrExit = (requireAuth: boolean, autoredirect: boolean) => {
-  // Check for auth
-  try {
-    if (requireAuth && !hasAPIKey()) {
-      if (!hasAccessToken()) {
-        throw new APITokenError("Missing access token")
-      }
-
-      if (hasAccessTokenExpired()) {
-        throw new APITokenError("Access token has expired")
-      }
-    }
-  } catch (e) {
-    console.log("failed to pass auth check")
-    console.log(e)
-
-    // When auth is required & missing / expired => redirect to login
-    if (autoredirect) {
-      const route = useRoute()
-      if (route.name !== 'Login') {
-        const router = useRouter()
-        router.push({ name: 'login' })
-      }
-      return
-    } else {
-      throw e
-    }
-  }
-}
-
-export const makeCall = async ({
-  endpoint, method = 'GET', body, requireAuth = true, autoredirect = true
-}: {
-  endpoint: string,
-  method?: 'GET' | 'POST' | 'PUT',
-  body?: unknown,
-  requireAuth?: boolean,
-  autoredirect?: boolean
-}) => {
-  let fetchOptions = {}
-  let authHeader = {}
-  let responseBody = null
-
-  console.log(endpoint, body, requireAuth)
+const makeCall = async ({ endpoint, method = 'GET', body }: CallOptions): Promise<unknown> => {
+  let fetchOptions: RequestInit = {}
+  let responseBody: unknown = null
 
   try {
-    passAuthCheckOrExit(requireAuth, autoredirect)
+    if (!hasAPIKey()) throw new APITokenError('VITE_AUTH_KEY not configured')
 
-    // Auth
-    if (requireAuth) {
-      if (hasAPIKey()) {
-        authHeader = getAPIKeyAuthHeader()
-      } else {
-        authHeader = getAuthHeader()
-      }
-    }
-
-    // Options
     fetchOptions = {
       method,
-      headers: Object.assign(
-        authHeader,
-        {
-          "Content-Type": "application/json",
-        }
-      ),
-      body: JSON.stringify(body)
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `AuthKey ${apiKey}`,
+      },
+      ...(body !== undefined && { body: JSON.stringify(body) }),
     }
 
-    const response = await fetch(
-      combineEndpoint(endpoint),
-      fetchOptions
-    )
+    const response = await fetch(buildUrl(endpoint), fetchOptions)
 
-    // Get the response body, preferrably processed as json
-    // Note: A failed call can often still have a valid json body, containing info about the error
-    try {
-      if (response.status !== 204) {
+    if (response.status !== 204) {
+      try {
         responseBody = await response.json()
-      }
-    } catch (e) {
-      console.log(e)
-
-      if (response.ok && response.status !== 204) {
-        throw new Error("Failed to process response body")
+      } catch {
+        if (response.ok) throw new Error('Failed to process response body')
       }
     }
 
     if (!response.ok) {
-      throw new APIErrorResponse(
-        response.status,
-        responseBody
-      )
+      throw new APIErrorResponse(response.status, responseBody)
     }
-
-    passAuthCheckOrExit(requireAuth, autoredirect)
 
     return responseBody
   } catch (err: unknown) {
-    console.log(err)
-
-    if (err instanceof APIClientError) {
-      throw err
-    }
-
-    throw new APICallError(
-      err,
-      endpoint,
-      fetchOptions,
-      responseBody
-    )
+    if (err instanceof APIClientError) throw err
+    throw new APICallError(err, endpoint, fetchOptions, responseBody)
   }
 }
 
-/******************************************************************************
- * Error classes
- *  Note: this is a rather basic implementation
- */
-export class APIClientError { }
+export class APIClientError extends Error {
+  constructor(message = 'API client error') {
+    super(message)
+    this.name = 'APIClientError'
+  }
+}
+
 export class APIErrorResponse extends APIClientError {
-
-  // The status code of the error response 
   status: number
-
-  // The response (JSON parsed) body
   body: unknown
 
   constructor(status: number, body: unknown) {
-    super()
-
+    super(`API error: ${status}`)
+    this.name = 'APIErrorResponse'
     this.status = status
     this.body = body
   }
 }
 
 export class APITokenError extends APIClientError {
-  status = 403
-  message: string
+  status = 401
 
   constructor(message: string) {
-    super()
-
-    this.message = message
+    super(message)
+    this.name = 'APITokenError'
   }
 }
 
 export class APICallError extends APIClientError {
-
   status = 500
   body = 'The API call failed'
-
-  // The thrown error
   err: unknown
-
-  // Some api call context information
   endpoint: string
   options: object
   responseBody: unknown
 
-  constructor(
-    err: unknown,
-    endpoint: string,
-    options: object,
-    responseBody: unknown
-  ) {
-    super()
-
+  constructor(err: unknown, endpoint: string, options: object, responseBody: unknown) {
+    super(`API call failed: ${endpoint}`)
+    this.name = 'APICallError'
     this.err = err
     this.endpoint = endpoint
     this.options = options
@@ -204,37 +101,14 @@ export class APICallError extends APIClientError {
   }
 }
 
-/******************************************************************************
- * Shortcuts
- */
-export const get = async (
-  { endpoint, body, requireAuth, autoredirect }:
-    { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
-) => {
-  return await makeCall({ endpoint, method: 'GET', body, requireAuth, autoredirect })
-}
+export const get = <T = unknown>(opts: { endpoint: string }) =>
+  makeCall({ ...opts, method: 'GET' }) as Promise<T>
 
-export const post = async (
-  { endpoint, body, requireAuth, autoredirect }:
-    { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
-) => {
-  return await makeCall({ endpoint, method: 'POST', body, requireAuth, autoredirect })
-}
+export const post = <T = unknown>(opts: { endpoint: string; body?: unknown }) =>
+  makeCall({ ...opts, method: 'POST' }) as Promise<T>
 
-export const put = async (
-  { endpoint, body, requireAuth, autoredirect }:
-    { endpoint: string, body?: unknown, requireAuth?: boolean, autoredirect?: boolean }
-) => {
-  return await makeCall({ endpoint, method: 'PUT', body, requireAuth, autoredirect })
-}
+export const put = <T = unknown>(opts: { endpoint: string; body?: unknown }) =>
+  makeCall({ ...opts, method: 'PUT' }) as Promise<T>
 
-/******************************************************************************
- * Internal helper methods
- */
-
-/**
- * Combine the endpoint with the base path while removing the trailing & leading / of the two segments
- */
-const combineEndpoint = (endpoint: string) => {
-  return `${trimTrailingChar(apiBasePath, '/')}/api/${trimLeadingChar(endpoint, '/')}`
-}
+const buildUrl = (endpoint: string): string =>
+  `${trimTrailingChar(apiBasePath, '/')}/api/${trimLeadingChar(endpoint, '/')}`
