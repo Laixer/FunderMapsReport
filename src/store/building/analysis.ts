@@ -24,14 +24,14 @@ const failedToLoadByBuildingId: Ref<Record<string, Record<string, unknown>>> = r
  * Whether the analysis data for a building have been retrieved previously
  */
 const buildingAnalysisDataHasBeenRetrieved = function buildingAnalysisDataHasBeenRetrieved(buildingId: string): boolean {
-  return Object.prototype.hasOwnProperty.call(analysisDataByBuildingId.value, buildingId)
+  return buildingId in analysisDataByBuildingId.value
 }
 
 /**
  * Whether the data failed to load (for whatever reason)
  */
 const buildingAnalysisDataFailedToLoad = function buildingAnalysisDataFailedToLoad(buildingId: string): boolean {
-  return Object.prototype.hasOwnProperty.call(failedToLoadByBuildingId.value, buildingId)
+  return buildingId in failedToLoadByBuildingId.value
 }
 
 /**

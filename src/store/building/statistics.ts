@@ -36,14 +36,14 @@ const failedToLoadByBuildingId: Ref<Record<string, Record<string, unknown>>> = r
  * Whether the statistics data for a building have been retrieved previously
  */
 const buildingStatisticsDataHasBeenRetrieved = function buildingStatisticsDataHasBeenRetrieved(buildingId: string): boolean {
-  return Object.prototype.hasOwnProperty.call(statisticsDataByBuildingId.value, buildingId)
+  return buildingId in statisticsDataByBuildingId.value
 }
 
 /**
  * Whether the data failed to load (for whatever reason)
  */
 const buildingStatisticsDataFailedToLoad = function buildingStatisticsDataFailedToLoad(buildingId: string): boolean {
-  return Object.prototype.hasOwnProperty.call(failedToLoadByBuildingId.value, buildingId)
+  return buildingId in failedToLoadByBuildingId.value
 }
 /**
  * Whether there is currently any statistics data available for a building
