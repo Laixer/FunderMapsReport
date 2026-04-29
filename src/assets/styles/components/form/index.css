@@ -1,7 +1,7 @@
-@import url("checkbox.css");
-@import url("input.css");
-@import url("label.css");
-@import url("message.css");
-@import url("radio.css");
-@import url("select.css");
-@import url("toggle.css");
+@import "./checkbox.css";
+@import "./input.css";
+@import "./label.css";
+@import "./message.css";
+@import "./radio.css";
+@import "./select.css";
+@import "./toggle.css";

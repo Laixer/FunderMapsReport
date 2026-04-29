@@ -1,5 +1,5 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
-@import url('../public/resources/styles/app.css');
-@import url('../public/resources/styles/print.css');
+@import "./assets/styles/app.css";
+@import "./assets/styles/print.css";

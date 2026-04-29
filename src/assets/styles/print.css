@@ -1,10 +1,9 @@
 @media print {
-  @import url("tailwindcss/base.css");
-  @import url("./base/common.print.css");
+  @import "./base/common.print.css";
 
-  /* @import url("./utilities/index.css"); */
+  /* @import "./utilities/index.css"; */
 
-  /* @import url("./pages/index.css"); */
+  /* @import "./pages/index.css"; */
 
   @page {
     size: A4 portrait;
