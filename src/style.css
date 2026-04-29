@@ -1,4 +1,5 @@
-@import url('../public/resources/styles/app.css');
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
-/* print styles */
+@import url('../public/resources/styles/app.css');
 @import url('../public/resources/styles/print.css');
