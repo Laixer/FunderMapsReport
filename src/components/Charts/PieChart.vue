@@ -17,8 +17,8 @@ const props = withDefaults(defineProps<{
   backgroundColors: () => Object.values(CHART_COLORS)
 })
 
-// @ts-ignore: No time to deep dive into all the TS particulars of Chart.js
-let chart: any|null = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let chart: any | null = null
 
 // Reference to Chart canvas element
 const canvas = ref<HTMLCanvasElement>();

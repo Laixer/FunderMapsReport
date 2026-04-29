@@ -19,20 +19,20 @@ const isLoadingBuildingDataById: Ref<Record<string, boolean>> = ref({})
 /**
  * List of buildingIds that failed to load, along with info about the reason
  */
-const failedToLoadByBuildingId: Ref<Record<string, Record<string, any>>> = ref({})
+const failedToLoadByBuildingId: Ref<Record<string, Record<string, unknown>>> = ref({})
 
 /**
  * Whether the location data for a building have been retrieved previously
  */
 const buildingLocationDataHasBeenRetrieved = function buildingLocationDataHasBeenRetrieved(buildingId: string): boolean {
-  return locationDataByBuildingId.value.hasOwnProperty(buildingId)
+  return Object.prototype.hasOwnProperty.call(locationDataByBuildingId.value, buildingId)
 }
 
 /**
  * Whether the location data failed to load (for whatever reason)
  */
 const buildingLocationDataFailedToLoad = function buildingLocationDataFailedToLoad(buildingId: string): boolean {
-  return failedToLoadByBuildingId.value.hasOwnProperty(buildingId)
+  return Object.prototype.hasOwnProperty.call(failedToLoadByBuildingId.value, buildingId)
 }
 
 /**

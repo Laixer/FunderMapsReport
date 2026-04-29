@@ -183,7 +183,7 @@ const graphData = computed(() => {
               op optrekkend vocht. Via poreuze bouwmaterialen - zoals bakstenen en metselmortel - wordt vocht opgenomen
               en trekt het omhoog in de constructie. Dit kan leiden tot schimmelvorming op muren en vloeren. Naast
               mogelijke gezondheidsklachten kan langdurige vochtbelasting ook leiden tot aantasting van bouwmaterialen,
-              wat de constructieve staat van het pand verzwakt. 
+              wat de constructieve staat van het pand verzwakt.
             </p>
             <p>
               Bij een hoge grondwaterstand kan bovendien water in de kruipruimte blijven staan, wat de luchtvochtigheid
@@ -313,7 +313,7 @@ const graphData = computed(() => {
             <div class="legenda space-y-3">
               <h3>Verdeling van funderingsrisico in de wijk</h3>
               <ol class="list--legenda">
-                <li v-for="item in graphData.legend" :style="item.color">{{ item.label }}</li>
+                <li v-for="item in graphData.legend" :key="item.label" :style="item.color">{{ item.label }}</li>
               </ol>
             </div>
           </div>

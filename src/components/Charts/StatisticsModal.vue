@@ -17,7 +17,7 @@ const { buildingId } = storeToRefs(useBuildingStore())
 const { getStatisticsDataByBuildingId } = useStatisticsStore()
 const { showStatisticsModal, statisticsGraph } = storeToRefs(useStatisticsStore())
 
-const emit = defineEmits(['close'])
+defineEmits(['close'])
 
 interface IComponents {
     [key: string]: Component
@@ -252,7 +252,7 @@ const backgroundColors = computed(() => {
     case 'foundationTypeDistribution': 
       return ['#7f8fa4', '#c9b441', '#7b2a2d', '#ce0015', '#ffcc69']
 
-    case 'foundationRiskDistribution':
+    case 'foundationRiskDistribution': {
       const riskColorMap = {
         'A': '#28CC8B',
         'B': '#A7DDB7',
@@ -262,8 +262,9 @@ const backgroundColors = computed(() => {
       }
 
       return labels.value
-        // @ts-ignore - things became too complex for TS to evaluate properly
+        // @ts-expect-error labels.value is string[] | number[]; for risk view it's always string[]
         .map((label: string) => (riskColorMap[label as keyof typeof riskColorMap] || ''))
+    }
   }
 
   return Object.values(CHART_TRANSPARENT_COLORS)

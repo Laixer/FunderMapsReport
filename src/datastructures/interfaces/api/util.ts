@@ -1,6 +1,4 @@
-export interface IAPIModel {}
-
-export interface IEnumMethods extends IAPIModel {
+export interface IEnumMethods {
 
   className: string
 

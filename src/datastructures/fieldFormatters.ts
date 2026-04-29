@@ -1,7 +1,9 @@
 import { toEuro, toFormattedDate, toMM, toMMYear, toMeters, toNAP, toScale, toSquareM, toYear } from "./formatters";
 
 
-export const formattersByField = <Record<string, Function>>{
+type Formatter = (value: string | number) => string
+
+export const formattersByField: Record<string, Formatter> = {
   restorationCosts: toEuro,
   velocity: toMMYear,
   surfaceArea: toSquareM,

@@ -18,20 +18,20 @@ const isLoadingBuildingDataById: Ref<Record<string, boolean>> = ref({})
 /**
  * List of buildingIds that failed to load, along with info about the reason
  */
-const failedToLoadByBuildingId: Ref<Record<string, Record<string, any>>> = ref({})
+const failedToLoadByBuildingId: Ref<Record<string, Record<string, unknown>>> = ref({})
 
 /**
  * Whether the analysis data for a building have been retrieved previously
  */
 const buildingAnalysisDataHasBeenRetrieved = function buildingAnalysisDataHasBeenRetrieved(buildingId: string): boolean {
-  return analysisDataByBuildingId.value.hasOwnProperty(buildingId)
+  return Object.prototype.hasOwnProperty.call(analysisDataByBuildingId.value, buildingId)
 }
 
 /**
  * Whether the data failed to load (for whatever reason)
  */
 const buildingAnalysisDataFailedToLoad = function buildingAnalysisDataFailedToLoad(buildingId: string): boolean {
-  return failedToLoadByBuildingId.value.hasOwnProperty(buildingId)
+  return Object.prototype.hasOwnProperty.call(failedToLoadByBuildingId.value, buildingId)
 }
 
 /**
