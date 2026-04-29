@@ -51,7 +51,7 @@ export interface IFieldDataConfig {
   source?: MaybeRefOrGetter<IEnumMethods | null | undefined> // | ComputedRef<IEnumMethods|null|undefined>
 
   // Whether or not to apply the formatter (includes centrally configured formatter)
-  format?: Boolean
+  format?: boolean
 
   // Optional formatter function
   formatter?: Function
@@ -68,7 +68,7 @@ export class FieldDataConfig implements IFieldDataConfig {
   name: string
   label?: string
   source?: MaybeRefOrGetter<IEnumMethods | null | undefined> // | ComputedRef<IEnumMethods|null|undefined>
-  format?: Boolean = true
+  format?: boolean = true
   formatter?: Function
   group?: string
 

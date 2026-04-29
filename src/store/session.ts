@@ -7,7 +7,7 @@ import { hasNonExpiredToken } from '@/services/jwt';
 /**
  * Whether the user is authenticated
  */
-const isAuthenticated: ShallowRef<Boolean> = shallowRef(false)
+const isAuthenticated: ShallowRef<boolean> = shallowRef(false)
 
 /**
  * 

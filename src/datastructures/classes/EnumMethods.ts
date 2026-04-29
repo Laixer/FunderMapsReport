@@ -18,7 +18,7 @@ export class EnumMethods implements IEnumMethods {
     if (this.isEnum(property)) {
       console.log('Check - it is an enum')
 
-      let labelProperty = `${property}Label`
+      const labelProperty = `${property}Label`
 
       console.log("Property", labelProperty)
 

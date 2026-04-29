@@ -2,10 +2,10 @@
 @import url("./avatar.css");
 @import url("./button.css");
 @import url("./foundation.css");
-@import url("./card");
-@import url("./form");
+@import url("./card/index.css");
+@import url("./form/index.css");
 @import url("./link.css");
-@import url("./list");
+@import url("./list/index.css");
 @import url("./loading.css");
-@import url("./panel");
+@import url("./panel/index.css");
 @import url("./searchbar.css");

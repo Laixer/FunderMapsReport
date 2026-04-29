@@ -42,7 +42,7 @@ const createChart = function createChart(
     return
   } 
 
-  // eslint-disable-next-line no-unused-vars
+   
   chart = new Chart(
     canvas.value.getContext("2d") as CanvasRenderingContext2D, 
     {
