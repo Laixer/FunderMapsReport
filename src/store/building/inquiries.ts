@@ -1,9 +1,8 @@
-import { type Ref, ref, watch, toValue } from 'vue';
+import { type Ref, ref, toValue } from 'vue';
 import { defineStore } from 'pinia'
 
 import { type ICombinedInquiryData, type IInquirySample, type IInquiryReport } from "@/datastructures/interfaces"
 import api from '@/services/api';
-import { useSessionStore } from '../session';
 import { InquirySample } from '@/datastructures/classes/InquirySample';
 import { Inquiry } from '@/datastructures/classes/Inquiry';
 
@@ -213,34 +212,8 @@ const loadInquiryDataByBuildingId = async function loadInquiryDataByBuildingId(b
 
 
 
-/**
- * Reset store to empty state
- */
-const clearInquiryData = function clearInquiryData() {
-  // Keep appropriate order of clearing data
-  inquiryIdsByBuildingId.value = {}
-  inquiriesById.value = {}
-  inquirySamplesByInquiryId.value = {}
-  isLoadingBuildingDataById.value = {}
-
-  // TODO: Cancel fetches that are in progress... 
-}
-
 
 function useInquiries() {
-  /**
-   * Clean up inquiry data on logout
-   */
-  const { isAuthenticated } = useSessionStore()
-  watch(
-    () => isAuthenticated,
-    (value) => {
-      if (value !== true) {
-        clearInquiryData()
-      }
-    }
-  )
-
   return {
     // Inquiries by Building Id
     buildingInquiryDataHasBeenRetrieved,

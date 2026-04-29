@@ -1,9 +1,8 @@
-import { type Ref, ref, watch } from 'vue';
+import { type Ref, ref } from 'vue';
 import { defineStore } from 'pinia'
 
 import { type IAnalysis } from "@/datastructures/interfaces"
 import api from '@/services/api';
-import { useSessionStore } from '../session';
 
 
 /**
@@ -89,32 +88,7 @@ const loadAnalysisDataByBuildingId = async function loadAnalysisDataByBuildingId
 }
 
 
-/**
- * Reset store to empty state
- */
-const clearAnalysisData = function clearAnalysisData() {
-  // Keep appropriate order of clearing data
-  analysisDataByBuildingId.value = {}
-  isLoadingBuildingDataById.value = {}
-
-  // TODO: Cancel fetches that are in progress... 
-}
-
-
 function useAnalysis() {
-  /**
-   * Clean up geo location data on logout
-   */
-  const { isAuthenticated } = useSessionStore()
-  watch(
-    () => isAuthenticated,
-    (value) => {
-      if (value !== true) {
-        clearAnalysisData()
-      }
-    }
-  )
-
   return {
     buildingAnalysisDataHasBeenRetrieved,
     buildingAnalysisDataFailedToLoad,

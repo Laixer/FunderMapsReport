@@ -43,7 +43,7 @@ export const getLocationInformationByBuildingId = async function getLocationInfo
  * Get basic information about the building and foundation.
  */
 export const getAnalysisByBuildingId = async function getAnalysisByBuildingId(buildingId: string): Promise<IAnalysis> {
-  const response = await get({ endpoint: `/product/analysis/${buildingId}` })
+  const response = await get<IAnalysis>({ endpoint: `/product/${buildingId}/analysis` })
   return new Analysis(response)
 }
 
@@ -105,7 +105,7 @@ export const getInquiryReportDownloadLink = async function getInquiryReportDownl
  * Get statistics about a building by building id
  */
 export const getStatisticsByBuildingId = async function getStatisticsByBuildingId(buildingId: string): Promise<IStatistics> {
-  return await get({ endpoint: `/product/statistics/building/${buildingId}` })
+  return await get({ endpoint: `/product/${buildingId}/statistics` })
 }
 
 /******************************************************************************
@@ -133,7 +133,7 @@ export const getAllReportDataByBuildingId = async (buildingId: string): Promise<
 
 
 export const getSubsidenceByBuildingId = async (buildingId: string): Promise<ISubsidence[]> => {
-  return await get({ endpoint: `/subsidence/${buildingId}` })
+  return await get({ endpoint: `/product/${buildingId}/subsidence` })
 }
 
 export default {

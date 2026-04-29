@@ -1,9 +1,8 @@
-import { type Ref, ref, watch } from 'vue';
+import { type Ref, ref } from 'vue';
 import { defineStore } from 'pinia'
 
 import { type ISubsidence } from "@/datastructures/interfaces"
 import api from '@/services/api';
-import { useSessionStore } from '../session';
 
 /**
  * Subsidence data by Building Id
@@ -89,32 +88,7 @@ const loadSubsidenceDataByBuildingId = async function loadSubsidenceDataByBuildi
 }
 
 
-/**
- * Reset store to empty state
- */
-const clearSubsidenceData = function clearSubsidenceData() {
-  // Keep appropriate order of clearing data
-  subsidenceDataByBuildingId.value = {}
-  isLoadingBuildingDataById.value = {}
-
-  // TODO: Cancel fetches that are in progress... 
-}
-
-
 function useSubsidence() {
-  /**
-   * Clean up geo location data on logout
-   */
-  const { isAuthenticated } = useSessionStore()
-  watch(
-    () => isAuthenticated,
-    (value) => {
-      if (value !== true) {
-        clearSubsidenceData()
-      }
-    }
-  )
-
   return {
     buildingSubsidenceDataHasBeenRetrieved,
     buildingSubsidenceDataFailedToLoad,

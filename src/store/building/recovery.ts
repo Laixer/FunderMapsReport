@@ -1,9 +1,8 @@
-import { type Ref, ref, watch, toValue } from 'vue';
+import { type Ref, ref, toValue } from 'vue';
 import { defineStore } from 'pinia'
 
 import { IRecoverySample, type IRecoveryReport } from "@/datastructures/interfaces"
 import api from '@/services/api';
-import { useSessionStore } from '../session';
 import { RecoveryReport } from '@/datastructures/classes/RecoveryReport';
 import { RecoverySample } from '@/datastructures/classes/RecoverySample';
 import { ICombinedRecoveryData } from '@/datastructures/interfaces/front-end/ICombinedRecoveryData';
@@ -224,34 +223,8 @@ const loadRecoveryReportDataByBuildingId = async function loadRecoveryReportData
 }
 
 
-/**
- * Reset store to empty state
- */
-const clearRecoveryReportData = function clearRecoveryReportData() {
-  // Keep appropriate order of clearing data
-  recoveryReportIdsByBuildingId.value = {}
-  recoveryReportsById.value = {}
-  recoverySamplesByRecoveryReportId.value = {}
-  isLoadingBuildingDataById.value = {}
-
-  // TODO: Cancel fetches that are in progress... 
-}
-
 
 function useRecoveryReports() {
-  /**
-   * Clean up recoveryReport data on logout
-   */
-  const { isAuthenticated } = useSessionStore()
-  watch(
-    () => isAuthenticated,
-    (value) => {
-      if (value !== true) {
-        clearRecoveryReportData()
-      }
-    }
-  )
-
   return {
     // RecoveryReports by Building Id
     buildingRecoveryReportDataHasBeenRetrieved,

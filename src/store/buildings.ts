@@ -1,8 +1,6 @@
 
-import { type Ref, ref, computed, watch } from 'vue';
+import { type Ref, ref, computed } from 'vue';
 import { defineStore } from 'pinia'
-
-import { useSessionStore } from './session';
 
 const buildingId: Ref<string | null> = ref(null)
 
@@ -32,26 +30,11 @@ const clearBuildingId = function clearBuildingId() {
 
 
 function useBuildings() {
-  /**
-   * Clean up selected building on logout
-   */
-  const { isAuthenticated } = useSessionStore()
-
-  watch(
-    () => isAuthenticated,
-    (value) => {
-      if (value !== true) {
-        clearBuildingId()
-      }
-    }
-  )
-
   return {
     buildingId,
     hasSelectedBuilding,
-
     setBuildingId,
-    clearBuildingId
+    clearBuildingId,
   }
 }
 
