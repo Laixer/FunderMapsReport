@@ -4,9 +4,9 @@ import { onMounted, ref, watch } from 'vue';
 
 import { CHART_COLORS } from '@/config';
 import Chart from 'chart.js/auto';
-import gradient from 'chartjs-plugin-gradient';
+import gradientPlugin from 'chartjs-plugin-gradient';
 
-Chart.register(gradient)
+Chart.register(gradientPlugin)
 
 const props = withDefaults(defineProps<{
   title?: string,
@@ -26,8 +26,8 @@ const props = withDefaults(defineProps<{
   gradient: false
 })
 
-// @ts-ignore: No time to deep dive into all the TS particulars of Chart.js
-let chart: any|null = null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let chart: any | null = null
 
 // Reference to Chart canvas element
 const canvas = ref<HTMLCanvasElement>();
@@ -68,7 +68,7 @@ const createChart = function createChart(
             borderColor: borderColors,
             borderWidth: 1,
 
-            // @ts-ignore
+            // @ts-expect-error gradient option provided by chartjs-plugin-gradient, not in Chart.js types
             gradient: props.gradient ? {
               backgroundColor: {
                 axis: 'y',

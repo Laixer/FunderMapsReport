@@ -97,7 +97,7 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
   )
 
   // Add incident layer
-  // @ts-ignore
+  // @ts-expect-error JSON layer config has wider shape than mapbox LayerSpecification typing
   const layerSpecification: LayerSpecification = (await import('../../../config/layers/construction-year.json')).default
   map.addLayer(layerSpecification)
   map.setLayoutProperty('construction-year', 'visibility', 'visible')

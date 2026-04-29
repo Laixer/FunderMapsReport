@@ -18,21 +18,21 @@ const isLoadingBuildingDataById: Ref<Record<string, boolean>> = ref({})
 /**
  * List of buildingIds that failed to load, along with info about the reason
  */
-const failedToLoadByBuildingId: Ref<Record<string, Record<string, any>>> = ref({})
+const failedToLoadByBuildingId: Ref<Record<string, Record<string, unknown>>> = ref({})
 
 
 /**
  * Whether the subsidence data for a building have been retrieved previously
  */
 const buildingSubsidenceDataHasBeenRetrieved = function buildingSubsidenceDataHasBeenRetrieved(buildingId: string): boolean {
-  return subsidenceDataByBuildingId.value.hasOwnProperty(buildingId)
+  return Object.prototype.hasOwnProperty.call(subsidenceDataByBuildingId.value, buildingId)
 }
 
 /**
  * Whether the data failed to load (for whatever reason)
  */
 const buildingSubsidenceDataFailedToLoad = function buildingSubsidenceDataFailedToLoad(buildingId: string): boolean {
-  return failedToLoadByBuildingId.value.hasOwnProperty(buildingId)
+  return Object.prototype.hasOwnProperty.call(failedToLoadByBuildingId.value, buildingId)
 }
 /**
  * Whether there is currently any subsidence data available for a building

@@ -37,17 +37,17 @@ export const toScale = function toScale(value: string | number): string {
 
 // example input format: 2022-05-11T15:09:24.289848Z
 // desired output dd-mm-jjjj
-export const toFormattedDate = function toFormattedDate(value: string): string {
+export const toFormattedDate = function toFormattedDate(value: string | number): string {
   try {
-    if (value === '') return value
+    if (value === '') return value as string
 
     return (new Date(value)).toLocaleDateString("nl-NL", {
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',
     })
-  } catch (e) {
-    return value
+  } catch {
+    return String(value)
   }
 }
 

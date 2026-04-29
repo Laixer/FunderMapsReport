@@ -25,10 +25,10 @@ export class EnumMethods implements IEnumMethods {
       // using `in` to include prototype chain
       if (labelProperty in this) {
 
-        // @ts-ignore
+        // @ts-expect-error dynamic property access on `this` — labelProperty is computed
         console.log("Found property", this[labelProperty])
 
-        // @ts-ignore - We know that all enum labels are either a string or number.
+        // @ts-expect-error dynamic property access — all enum labels are either a string or number
         return this[labelProperty] as string|number
       }
     }

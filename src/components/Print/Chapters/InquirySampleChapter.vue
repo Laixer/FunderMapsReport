@@ -364,7 +364,7 @@ const foundationTypeGraph = computed(() => {
           <div class="legenda space-y-3">
             <h3>Type fundering (wijk)</h3>
             <ol class="list--legenda">
-              <li v-for="item in foundationTypeGraph.legend" :style="item.color">{{ item.label }}</li>
+              <li v-for="item in foundationTypeGraph.legend" :key="item.label" :style="item.color">{{ item.label }}</li>
             </ol>
           </div>
         </div>
