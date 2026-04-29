@@ -25,14 +25,14 @@ const failedToLoadByBuildingId: Ref<Record<string, Record<string, unknown>>> = r
  * Whether the location data for a building have been retrieved previously
  */
 const buildingLocationDataHasBeenRetrieved = function buildingLocationDataHasBeenRetrieved(buildingId: string): boolean {
-  return Object.prototype.hasOwnProperty.call(locationDataByBuildingId.value, buildingId)
+  return buildingId in locationDataByBuildingId.value
 }
 
 /**
  * Whether the location data failed to load (for whatever reason)
  */
 const buildingLocationDataFailedToLoad = function buildingLocationDataFailedToLoad(buildingId: string): boolean {
-  return Object.prototype.hasOwnProperty.call(failedToLoadByBuildingId.value, buildingId)
+  return buildingId in failedToLoadByBuildingId.value
 }
 
 /**

@@ -25,14 +25,14 @@ const failedToLoadByBuildingId: Ref<Record<string, Record<string, unknown>>> = r
  * Whether the subsidence data for a building have been retrieved previously
  */
 const buildingSubsidenceDataHasBeenRetrieved = function buildingSubsidenceDataHasBeenRetrieved(buildingId: string): boolean {
-  return Object.prototype.hasOwnProperty.call(subsidenceDataByBuildingId.value, buildingId)
+  return buildingId in subsidenceDataByBuildingId.value
 }
 
 /**
  * Whether the data failed to load (for whatever reason)
  */
 const buildingSubsidenceDataFailedToLoad = function buildingSubsidenceDataFailedToLoad(buildingId: string): boolean {
-  return Object.prototype.hasOwnProperty.call(failedToLoadByBuildingId.value, buildingId)
+  return buildingId in failedToLoadByBuildingId.value
 }
 /**
  * Whether there is currently any subsidence data available for a building

@@ -186,7 +186,7 @@ export const retrieveAndFormatFieldData = function retrieveAndFormatFieldData(co
    * 
    * If the source is missing, or has no value for the property, we're done
    */
-  if (!source || !Object.prototype.hasOwnProperty.call(source, config.name)) {
+  if (!source || !(config.name in source)) {
 
     // If there is a default label, use it
     if (config.default) {
