@@ -15,6 +15,7 @@ import { useSubsidenceStore } from '@/store/building/subsidence';
 
 import PageBreak from '@/components/Print/PageBreak.vue'
 import CoverSummary from '@/components/Print/CoverSummary.vue'
+import ReportGuide from '@/components/Print/ReportGuide.vue'
 import BuildingChapter from '@/components/Print/Chapters/BuildingChapter.vue'
 import LocationChapter from '@/components/Print/Chapters/LocationChapter.vue';
 import InquirySampleChapter from '@/components/Print/Chapters/InquirySampleChapter.vue'
@@ -189,6 +190,9 @@ onUnmounted(() => {
     <CoverSummary />
     <PageBreak />
 
+    <ReportGuide />
+    <PageBreak />
+
     <BuildingChapter />
     <LocationChapter />
     <PageBreak />
@@ -214,26 +218,9 @@ onUnmounted(() => {
 
     <article class="space-y-5">
       <header class="flex break-after-avoid items-center gap-2.5">
-        <h2 class="h-4">Toelichting op het funderingsrisicorapport</h2>
+        <h2 class="h-4">Aanvullend onderzoek</h2>
       </header>
       <section class="space-y-4 text-grey-700">
-        <strong>Betrouwbaarheid</strong>
-        <p>
-          De betrouwbaarheid van het funderingsrisicorapport hangt af van de beschikbaarheid en aard van de onderliggende gegevens:
-        </p>
-        <ul>
-          <li>
-            <strong>Vastgesteld:</strong> Daar waar specifieke onderzoeksgegevens van het betreffende pand beschikbaar zijn, is de betrouwbaarheid van de uitgangspunten hoog. Het funderingstype en/of het funderingsrisico wordt dan als vastgesteld beschouwd.
-          </li>
-          <li>
-            <strong>Afgeleid:</strong> Wanneer er geen directe onderzoeksgegevens beschikbaar zijn voor het pand zelf, maar wel voor naastgelegen panden binnen dezelfde bouw- of funderingseenheid, wordt het funderingstype en de risicobeoordeling beschouwd als afgeleid. Deze afleiding is doorgaans goed onderbouwd, omdat vergelijkbare constructies en omstandigheden gelden.
-          </li>
-          <li>
-            <strong>Modelmatig (indicatief):</strong> Als er geen gegevens beschikbaar zijn van het pand zelf of van omliggende panden, wordt gebruikgemaakt van een modelanalyse. De uitkomsten daarvan zijn indicatief en hebben een lagere betrouwbaarheid.
-          </li>
-        </ul>
-
-        <strong class="block">Aanvullend onderzoek</strong>
         <p>
           Wanneer het risico op funderingsproblematiek verhoogd is en de databetrouwbaarheid als vastgesteld of afgeleid wordt beschouwd, kan een QuickScan uitkomst bieden. Zeker wanneer u – of een expert – op basis van zichtbare signalen zoals scheurvorming of scheefstand vermoedt dat daadwerkelijk sprake is van funderingsschade.
         </p>
