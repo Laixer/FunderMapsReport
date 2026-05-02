@@ -40,7 +40,7 @@
       [type="tel"],
       [type="number"] {
         background: url("../svg/icons/validation-success.svg") no-repeat;
-        background-size: theme(spacing.3);
+        background-size: 0.75rem;
         background-position: center right 1rem;
       }
     }
@@ -58,7 +58,7 @@
         @apply text-red-500;
 
         background: url("../svg/icons/validation-error.svg") no-repeat;
-        background-size: theme(spacing[2.5]);
+        background-size: 0.625rem;
         background-position: center right 1rem;
       }
     }
@@ -92,13 +92,13 @@
       @apply text-red-500;
 
       background: url("../svg/icons/validation-error.svg") no-repeat;
-      background-size: theme(spacing[2.5]);
+      background-size: 0.625rem;
       background-position: center right 1rem;
     }
 
     &:user-invalid {
       background: url("../svg/icons/validation-success.svg") no-repeat;
-      background-size: theme(spacing.3);
+      background-size: 0.75rem;
       background-position: center right 1rem;
     }
   }

@@ -8,8 +8,8 @@
 .accent-stroke-light,
 .accent-fill-dark,
 .accent-fill-light {
-  --_accent-color: var(--accent-color, theme(colors.grey.700));
-  --_accent-color-light: var(--accent-color-light, theme(colors.grey.200));
+  --_accent-color: var(--accent-color, var(--color-grey-700));
+  --_accent-color-light: var(--accent-color-light, var(--color-grey-200));
 }
 
 .stroke-accent {
@@ -37,11 +37,11 @@
 }
 
 .accent-color-green {
-  --accent-color: theme(colors.green.500);
-  --accent-color-light: theme(colors.green.200);
+  --accent-color: var(--color-green-500);
+  --accent-color-light: var(--color-green-200);
 }
 
 .accent-color-blue {
-  --accent-color: theme(colors.blue.500);
-  --accent-color-light: theme(colors.blue.200);
+  --accent-color: var(--color-blue-500);
+  --accent-color-light: var(--color-blue-200);
 }

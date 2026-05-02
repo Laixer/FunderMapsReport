@@ -2,7 +2,7 @@
   @apply grid;
 
   grid-template-columns: [panel-left full-start] 21rem [main] auto [panel-right] 21rem [full-end];
-  grid-template-rows: [header] theme(spacing.20) [main] auto;
+  grid-template-rows: [header] 5rem [main] auto;
 
   .app-header {
     grid-column: full;
