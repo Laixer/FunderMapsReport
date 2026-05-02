@@ -1,5 +1,74 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
+/*
+  Color theme as native CSS variables — supersedes the colors block in
+  tailwind.config.js. Tailwind 4 utilities (text-grey-700, bg-blue-500,
+  etc.) read these directly; custom CSS in src/assets/styles/ uses
+  var(--color-...) instead of the deprecated theme(colors....) helper,
+  which removes the silent-future-break risk we hit with the SCSS-style
+  &--definition nesting (commit 0dbb569).
+*/
+@theme {
+  --color-*: initial;
+
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  --color-blue-100: #e7f6fd;
+  --color-blue-200: #d1edfb;
+  --color-blue-500: #17a4ea;
+  --color-blue-900: #191e3c;
+
+  --color-green-100: #e9faf3;
+  --color-green-200: #afecd4;
+  --color-green-500: #28cc8b;
+  --color-green-700: #149d67;
+
+  --color-grey-100: #f6f7f8;
+  --color-grey-200: #e8eaf1;
+  --color-grey-400: #ced0da;
+  --color-grey-700: #7f8fa4;
+  --color-grey-800: #3d5372;
+
+  --color-red-500: #ed1c24;
+
+  --color-yellow-100: #fffaf0;
+  --color-yellow-500: #ffcc69;
+
+  --color-legenda-default-10: #85dbbe;
+  --color-legenda-default-20: #7edf9a;
+  --color-legenda-default-30: #79e370;
+  --color-legenda-default-40: #7ee587;
+  --color-legenda-default-50: #96ed51;
+  --color-legenda-default-60: #bdf450;
+  --color-legenda-default-70: #d3e14d;
+  --color-legenda-default-80: #c9b441;
+  --color-legenda-default-90: #b59e3c;
+  --color-legenda-default-100: #9d592d;
+  --color-legenda-default-110: #8c3a28;
+  --color-legenda-default-120: #7b2a2d;
+
+  --color-legenda-risk-10: #42ff33;
+  --color-legenda-risk-20: #d1ff33;
+  --color-legenda-risk-30: #ffec33;
+  --color-legenda-risk-40: #ffac33;
+  --color-legenda-risk-50: #ff5533;
+
+  --color-legenda-blue-10: #e1f1fd;
+  --color-legenda-blue-20: #bce4fb;
+  --color-legenda-blue-30: #81cff8;
+  --color-legenda-blue-40: #3eb7f2;
+  --color-legenda-blue-50: #17a4ea;
+  --color-legenda-blue-60: #087ec1;
+  --color-legenda-blue-70: #08659c;
+  --color-legenda-blue-80: #0b5581;
+  --color-legenda-blue-90: #0f476b;
+  --color-legenda-blue-100: #0a2e47;
+}
+
 @import "./assets/styles/app.css";
 @import "./assets/styles/print.css";

@@ -1,14 +1,14 @@
 /* stylelint-disable custom-property-pattern */
 .foundation {
-  --_foundation-color: var(--foundation-color, theme(colors.grey.700));
-  --_foundation-border-color: var(--foundation-color, theme(colors.grey.200));
+  --_foundation-color: var(--foundation-color, var(--color-grey-700));
+  --_foundation-border-color: var(--foundation-color, var(--color-grey-200));
 
   @apply relative grid place-content-center justify-items-center gap-3 overflow-hidden rounded border p-4;
 
   border-color: var(--_foundation-border-color);
 
   &:hover {
-    --foundation-border-color: theme(colors.green.500);
+    --foundation-border-color: var(--color-green-500);
   }
 
   &[class*="accent-color-"] {

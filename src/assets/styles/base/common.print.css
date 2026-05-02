@@ -1,6 +1,6 @@
 :where(.content) {
   > :not([hidden]) ~ :not([hidden]) {
-    margin-top: var(--flow-margin-top, theme(spacing.4));
+    margin-top: var(--flow-margin-top, 1rem);
   }
 
   h1,
@@ -45,7 +45,7 @@
   }
 
   h6 + * {
-    --flow-margin-top: theme(spacing.2);
+    --flow-margin-top: 0.5rem;
   }
 }
 
