@@ -87,6 +87,22 @@ const inquiryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
   return getCombinedInquiryDataByBuildingId(buildingId.value) || []
 })
 
+// "1 of N" disclosure: this chapter shows fields from inquiryData[0]?.sample,
+// which the store sorts most-recent-first. When more than one inquiry has a
+// sample for this building, surface the date of the one we're rendering and
+// tell the customer the rest live in the Rapportage chapter — otherwise a
+// silent pick of the first sample is misleading on multi-inquiry buildings.
+const samplesAvailableCount = computed(
+  () => inquiryData.value.filter((entry) => entry.sample !== undefined).length
+)
+const selectedReportDateLabel = computed(() => {
+  const raw = inquiryData.value[0]?.report?.documentDate
+  if (!raw) return null
+  const d = new Date(raw)
+  if (Number.isNaN(d.getTime())) return null
+  return d.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })
+})
+
 
 
 /**
@@ -238,6 +254,12 @@ const foundationTypeGraph = computed(() => {
 <template>
   <Chapter icon="file-foundation" title="Fundering">
     <section class="space-y-7">
+      <p v-if="samplesAvailableCount > 1" class="text-grey-700">
+        Voor dit pand zijn {{ samplesAvailableCount }} onderzoeksrapporten met monsters
+        beschikbaar. Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="selectedReportDateLabel">
+          ({{ selectedReportDateLabel }})</template>; het volledige overzicht vindt u in het
+        hoofdstuk Rapportage.
+      </p>
       <div class="grid grid-cols-12 gap-4">
         <figure v-if="foundationIconName"
           class="col-span-3 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-4">
