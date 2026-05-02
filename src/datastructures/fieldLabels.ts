@@ -48,7 +48,7 @@ export const analysisFieldLabels = <Record<string, string>>{
   dewateringDepthRisk: "Ontwateringsdiepte risico",
   dewateringDepth: "Ontwateringsdiepte",
   dewateringDepthReliability: "Betrouwbaarheid ontwateringsdiepte",
-  bioInfectionRisk: "Bacterieelaantatsing risico",
+  bioInfectionRisk: "Bacteriële aantasting risico",
   bioInfectionReliability: "Betrouwbaarheid bacteriële aantasting",
   negativeclingRisk: "Negatieve kleef risico",
   negativeclingReliability: "Betrouwbaarheid Negatieve kleef",
@@ -148,7 +148,7 @@ export const inquirySampleFieldLabels = <Record<string, string>>{
   constructionType: "Materiaal funderingsbalk",
   woodCapacityHorizontalQuality: "Horizontale draagkracht paal",
   constructionQuality: "Funderingsbalk",
-  foundationDepth: "Fundeirngsnsniveau",
+  foundationDepth: "Funderingsniveau",
   constructionLevel: "Niveau onderkant funderingsbalk",
   woodLevel: "Niveau bovenkant langshout",
   masonLevel: "Niveau onderkant metselwerk",
@@ -200,8 +200,8 @@ export const riskFieldLabels = <Record<string, string>>{
   dewateringDepthRisk: "Ontwateringsdiepte risico",
   dewateringDepth: "Ontwateringsdiepte",
   dewateringDepthReliability: "Betrouwbaarheid ontwateringsdiepte",
-  bioInfectionRisk: "Bacterieelaantatsing risico",
-  bioInfectionReliability: "Betrouwbaarheid Bacterieel aantasting", // TODO: Typo in F150
+  bioInfectionRisk: "Bacteriële aantasting risico",
+  bioInfectionReliability: "Betrouwbaarheid bacteriële aantasting",
   // TODO: Missing field names: E152 - 156
   unclassifiedRisk: "Vastgesteld"
 }
