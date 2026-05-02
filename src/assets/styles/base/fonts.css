@@ -9,7 +9,7 @@
   font-style: normal;
   font-weight: normal;
   src:
-    url("../fonts/greycliffcf-regular.woff") format("woff2"),
+    url("../fonts/greycliffcf-regular.woff2") format("woff2"),
     url("../fonts/greycliffcf-regular.woff") format("woff");
 }
 
