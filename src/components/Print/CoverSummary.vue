@@ -2,6 +2,8 @@
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
+import Chapter from '@/components/Print/Chapter.vue'
+
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useGeoLocationsStore } from '@/store/building/geolocations';
 import { useBuildingStore } from '@/store/buildings';
@@ -51,33 +53,34 @@ const generatedAt = computed(() =>
 </script>
 
 <template>
-  <article class="break-inside-avoid space-y-5">
-    <header class="space-y-1">
-      <p class="text-grey-700 text-sm uppercase tracking-wide">Pand</p>
-      <h2 class="text-grey-800 h-4">{{ fullAddress }}</h2>
-    </header>
+  <Chapter icon="home-info" title="Samenvatting">
+    <section class="space-y-7">
+      <dl role="list" class="list--definition">
+        <div class="item justify-between">
+          <dt>Adres</dt>
+          <dd>{{ fullAddress }}</dd>
+        </div>
+        <div class="item justify-between">
+          <dt>Bouwjaar</dt>
+          <dd>{{ constructionYear }}</dd>
+        </div>
+        <div class="item justify-between">
+          <dt>Funderingstype</dt>
+          <dd>{{ foundationTypeLabel }}</dd>
+        </div>
+        <div class="item justify-between">
+          <dt>Hoogste risicocategorie</dt>
+          <dd>{{ highestRiskLabel }}</dd>
+        </div>
+        <div class="item justify-between">
+          <dt>BAG ID</dt>
+          <dd>{{ externalBuildingId }}</dd>
+        </div>
+      </dl>
 
-    <dl role="list" class="list--definition grid grid-cols-2 gap-x-8 gap-y-3 border-t border-grey-200 pt-5">
-      <div class="item--grid">
-        <dt>Bouwjaar</dt>
-        <dd>{{ constructionYear }}</dd>
-      </div>
-      <div class="item--grid">
-        <dt>Funderingstype</dt>
-        <dd>{{ foundationTypeLabel }}</dd>
-      </div>
-      <div class="item--grid">
-        <dt>Hoogste risicocategorie</dt>
-        <dd>{{ highestRiskLabel }}</dd>
-      </div>
-      <div class="item--grid">
-        <dt>BAG ID</dt>
-        <dd>{{ externalBuildingId }}</dd>
-      </div>
-    </dl>
-
-    <p class="text-grey-700 border-t border-grey-200 pt-3 text-sm">
-      Gegenereerd op {{ generatedAt }}
-    </p>
-  </article>
+      <p class="text-grey-700 text-sm">
+        Gegenereerd op {{ generatedAt }}
+      </p>
+    </section>
+  </Chapter>
 </template>
