@@ -100,11 +100,22 @@ const getCombinedInquiryDataByBuildingId = function getCombinedInquiryDataByBuil
   // Match reports & samples for every entry
   const combinedData: ICombinedInquiryData[] = []
 
-  // Go over all inquires related to the building
+  // Sort by documentDate desc, with report.id desc as a tiebreaker, so
+  // consumers using `[0]` get a deterministic "most recent" sample
+  // across runs — a non-deterministic order produces a different paid
+  // PDF every render for buildings with multiple inquiries.
   getInquiryByBuildingId(buildingId)
+    .slice()
+    .sort((a, b) => {
+      const byDate = (b.documentDate || '').localeCompare(a.documentDate || '')
+      return byDate !== 0 ? byDate : b.id - a.id
+    })
     .forEach((report: IInquiryReport) => {
-      // Get all samples related to the inquiry & building combination
-      const samples = getInquirySamplesByInquiryId(report.id)
+      // Get all samples related to the inquiry & building combination.
+      // getInquirySamplesByInquiryId returns undefined for inquiries with
+      // no samples (the key is only populated when samples exist), so
+      // default to [] before filtering.
+      const samples = (getInquirySamplesByInquiryId(report.id) || [])
         .filter(sample => {
           return sampleIdsForBuilding.includes(sample.id)
         })
