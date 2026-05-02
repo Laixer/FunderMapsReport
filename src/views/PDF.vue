@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, watch, computed } from 'vue';
+import { onBeforeMount, onUnmounted, watch, computed, nextTick } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import api from '@/services/api';
@@ -146,6 +146,29 @@ onBeforeMount(() => {
   }
 
   setBuildingId(route.params.buildingId as string)
+})
+
+// Expose a deterministic ready-signal for PDF.co (and any other headless
+// renderer): wait until all building data has loaded *and* the chapters
+// have flushed to the DOM, then set [data-pdf-ready="true"] on <html>.
+// Configure the renderer to wait for that selector instead of the
+// network-idle heuristic, which can fire before this template's v-if
+// has actually mounted the chapter tree.
+watch(
+  () => hasAllBuildingInformation.value,
+  async (ready) => {
+    if (!ready) {
+      document.documentElement.removeAttribute('data-pdf-ready')
+      return
+    }
+    await nextTick()
+    document.documentElement.setAttribute('data-pdf-ready', 'true')
+  },
+  { immediate: true }
+)
+
+onUnmounted(() => {
+  document.documentElement.removeAttribute('data-pdf-ready')
 })
 
 </script>
