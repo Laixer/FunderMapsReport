@@ -67,6 +67,11 @@ const createChart = function createChart(
         ]
       },
       options: {
+        // animation:false in initial options so the very first paint is
+        // static — required for a deterministic PDF.co snapshot. Setting
+        // chart.options.animation after construction is too late: Chart.js
+        // has already started animating by then.
+        animation: false,
         indexAxis: horizontal ? 'y' : 'x',
         scales: {
           y: {
@@ -115,9 +120,6 @@ const createChart = function createChart(
       },
     }
   );
-
-  // Disable animation in the popup, it is too much
-  chart.options.animation = false; 
 }
 
 onMounted(() => {

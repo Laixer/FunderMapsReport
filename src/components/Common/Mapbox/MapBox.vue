@@ -66,7 +66,11 @@ const loadMapbox = function() {
 
   // provide('map', map)
 
-  map.on('load', () => {
+  // Wait for the first 'idle' event (everything painted, no in-flight tile
+  // requests, no animations) rather than 'load' (style + initial tile batch
+  // ready, but vector features may still be painting). 'idle' is strictly
+  // stronger and is what we want for a deterministic PDF.co snapshot.
+  map.once('idle', () => {
     loaded.value = true
     emit('load', { map, sdk: mapboxSDK } )
   })
