@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 
 import Chapter from '@/components/Print/Chapter.vue'
 import ClassificationIcon from '@/components/Common/Icons/ClassificationIcon.vue'
+import RiskNextSteps from '@/components/Print/RiskNextSteps.vue'
 import PieChart from '@/components/Charts/PieChart.vue'
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs, CompletedFieldData } from '@/utils/fieldData'
@@ -150,6 +151,7 @@ const graphData = computed(() => {
             </p>
           </div>
         </div>
+        <RiskNextSteps :level="fieldsWithDataAndIcons.drystandRisk?.icon" />
       </div>
 
       <!-- RISK: Ontwateringsdiepte (Optrekkend vocht & Verschilzakking) -->
@@ -191,6 +193,7 @@ const graphData = computed(() => {
             </p>
           </div>
         </div>
+        <RiskNextSteps :level="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" />
       </div>
       <div v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">
@@ -233,6 +236,7 @@ const graphData = computed(() => {
             </p>
           </div>
         </div>
+        <RiskNextSteps :level="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" />
       </div>
 
       <!-- RISK: Bacteriële aantasting -->
@@ -270,6 +274,7 @@ const graphData = computed(() => {
             </p>
           </div>
         </div>
+        <RiskNextSteps :level="fieldsWithDataAndIcons.bioInfectionRisk?.icon" />
       </div>
 
       <div class="grid grid-cols-2 gap-4">
