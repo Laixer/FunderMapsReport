@@ -50,8 +50,8 @@ import Chapter from '@/components/Print/Chapter.vue'
             omdat vergelijkbare constructies en omstandigheden gelden.
           </li>
           <li>
-            <strong>Modelmatig (indicatief):</strong> Er zijn geen gegevens van dit pand of de
-            omliggende panden. De uitkomst is een modelinschatting met een lagere betrouwbaarheid.
+            <strong>Indicatief:</strong> Er zijn geen gegevens van dit pand of de omliggende panden.
+            De uitkomst is een modelinschatting met een lagere betrouwbaarheid.
           </li>
         </ul>
       </div>

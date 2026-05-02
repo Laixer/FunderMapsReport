@@ -124,7 +124,7 @@ const graphData = computed(() => {
         </p>
         <p>
           Bij elk risico staat een categorie van A (laagste) tot E (hoogste) en een betrouwbaarheid
-          (Vastgesteld, Afgeleid of Modelmatig). Zie het hoofdstuk Hoe leest u dit rapport? voor de
+          (Vastgesteld, Afgeleid of Indicatief). Zie het hoofdstuk Hoe leest u dit rapport? voor de
           uitleg van beide. Onderaan dit hoofdstuk ziet u hoe uw pand zich verhoudt tot de panden in
           uw wijk.
         </p>
@@ -208,7 +208,13 @@ const graphData = computed(() => {
             </p>
           </div>
         </div>
-        <RiskNextSteps :level="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" />
+        <!--
+          Volgende stappen for the dewateringDepth topic is rendered once
+          at the end of the Verschilzakking sub-section below — it covers
+          both Optrekkend vocht and Verschilzakking since they share the
+          same risk source (dewateringDepthRisk) and would otherwise
+          render identical closer copy back-to-back.
+        -->
       </div>
       <div v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">

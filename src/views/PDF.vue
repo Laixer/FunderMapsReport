@@ -244,7 +244,7 @@ onUnmounted(() => {
           Dit funderingsrisicorapport is opgesteld op basis van beschikbare gegevens, metingen, modelanalyses en externe bronnen die op het moment van samenstelling beschikbaar waren. De gebruikte informatie is deels afkomstig van derden en/of berekend met behulp van algoritmen en risicomodellen. Waar mogelijk zijn deze gegevens aangevuld met locatiegerichte onderzoeksresultaten.
         </p>
         <p>
-          De in dit rapport opgenomen funderingstypen en risico-indicaties zijn bedoeld als risicosignalering. Wanneer de betrouwbaarheid als modelmatig (indicatief) is aangeduid, betreft het een globale inschatting op basis van generieke data. Deze gegevens geven geen garantie voor de daadwerkelijke staat van het pand en vormen geen vervanging van een technisch funderingsonderzoek op locatie.
+          De in dit rapport opgenomen funderingstypen en risico-indicaties zijn bedoeld als risicosignalering. Wanneer de betrouwbaarheid als indicatief is aangeduid, betreft het een globale modelinschatting op basis van generieke data. Deze gegevens geven geen garantie voor de daadwerkelijke staat van het pand en vormen geen vervanging van een technisch funderingsonderzoek op locatie.
         </p>
         <p>
           De betrouwbaarheid van het risicoprofiel verschilt per pand en is afhankelijk van de beschikbaarheid en kwaliteit van onderliggende data. Aanduidingen als vastgesteld, afgeleid of indicatief verwijzen naar deze mate van betrouwbaarheid.
