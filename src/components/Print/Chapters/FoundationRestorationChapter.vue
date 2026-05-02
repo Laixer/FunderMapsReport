@@ -72,10 +72,14 @@ const recoveryDate = computed(() => {
   <Chapter icon="wrench" title="Funderingsherstel">
 
     <section class="space-y-7">
-      <div class="text-gray-700">
+      <div class="text-grey-700 space-y-4">
         <p>
-          Vanuit het Nationaal Funderingsherstelregister is de volgende informatie beschikbaar over het herstel van het
-          pand:
+          Hieronder ziet u of er aan de fundering van dit pand al herstelwerk is uitgevoerd, en zo ja,
+          welk type en wanneer. Een eerder herstel kan duiden op eerdere problematiek; de huidige
+          risicobeoordelingen verderop in het rapport gelden onafhankelijk daarvan.
+        </p>
+        <p>
+          De gegevens hieronder zijn afkomstig uit het Nationaal Funderingsherstelregister.
         </p>
       </div>
       <dl role="list" class="list--definition">

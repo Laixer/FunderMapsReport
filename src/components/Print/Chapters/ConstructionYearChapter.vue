@@ -163,6 +163,14 @@ const legendItems = [
 <template>
   <Chapter icon="building" title="Bouwjaar">
     <section class="space-y-7">
+      <div class="text-grey-700">
+        <p>
+          Het bouwjaar bepaalt vaak het funderingstype en daarmee het risicoprofiel: panden van vóór
+          1960 staan in Nederland veelal op houten palen, die gevoelig zijn voor droogstand en
+          bacteriële aantasting. Hieronder ziet u in welke periode uw pand is gebouwd en hoe dat
+          zich verhoudt tot de panden in uw wijk.
+        </p>
+      </div>
       <div v-if="constructionGraph.data.length !== 0" class="chart | grid grid-cols-12 items-center gap-4">
         <BarChart class="w-full" title="Bouwjaren (wijk)" :data="constructionGraph.data"
           :labels="constructionGraph.labels" gradient />
