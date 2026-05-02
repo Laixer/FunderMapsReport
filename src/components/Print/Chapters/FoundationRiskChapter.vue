@@ -115,6 +115,21 @@ const graphData = computed(() => {
   <Chapter icon="alert" title="Funderingsrisico">
 
     <section class="space-y-7">
+      <div class="text-grey-700 space-y-4">
+        <p>
+          Hieronder vindt u per risicotype een beoordeling voor uw pand: droogstand, optrekkend
+          vocht, verschilzakking en bacteriële aantasting. Elk risico wordt afzonderlijk gewogen op
+          basis van de beschikbare gegevens en kan verschillende oorzaken hebben — een laag risico
+          op het ene type sluit een hoger risico op een ander niet uit.
+        </p>
+        <p>
+          Bij elk risico staat een categorie van A (laagste) tot E (hoogste) en een betrouwbaarheid
+          (Vastgesteld, Afgeleid of Modelmatig). Zie het hoofdstuk Hoe leest u dit rapport? voor de
+          uitleg van beide. Onderaan dit hoofdstuk ziet u hoe uw pand zich verhoudt tot de panden in
+          uw wijk.
+        </p>
+      </div>
+
       <!-- RISK: Droogstand -->
       <div v-if="fieldsWithDataAndIcons.drystandRisk?.icon" class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">
