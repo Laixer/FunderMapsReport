@@ -51,10 +51,10 @@ export const analysisFieldLabels = <Record<string, string>>{
   bioInfectionRisk: "Bacteriële aantasting risico",
   bioInfectionReliability: "Betrouwbaarheid bacteriële aantasting",
   negativeclingRisk: "Negatieve kleef risico",
-  negativeclingReliability: "Betrouwbaarheid Negatieve kleef",
+  negativeclingReliability: "Betrouwbaarheid negatieve kleef",
   differentialsettlementRisk: "Verschilzakking risico",
-  differentialsettlementReliability: "Betrouwbaarheid Verschilzakking",
-  unclassifiedRisk: "Vastgesteld",
+  differentialsettlementReliability: "Betrouwbaarheid verschilzakking",
+  unclassifiedRisk: "Algemeen risico",
   facadescanRisk: "Risico GevelScan"
 }
 
@@ -203,7 +203,7 @@ export const riskFieldLabels = <Record<string, string>>{
   bioInfectionRisk: "Bacteriële aantasting risico",
   bioInfectionReliability: "Betrouwbaarheid bacteriële aantasting",
   // TODO: Missing field names: E152 - 156
-  unclassifiedRisk: "Vastgesteld"
+  unclassifiedRisk: "Algemeen risico"
 }
 
 export const indicentFieldLabels = <Record<string, string>>{
