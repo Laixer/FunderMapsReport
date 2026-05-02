@@ -14,6 +14,7 @@ import { useStatisticsStore } from '@/store/building/statistics'
 import { useSubsidenceStore } from '@/store/building/subsidence';
 
 import PageBreak from '@/components/Print/PageBreak.vue'
+import CoverSummary from '@/components/Print/CoverSummary.vue'
 import BuildingChapter from '@/components/Print/Chapters/BuildingChapter.vue'
 import LocationChapter from '@/components/Print/Chapters/LocationChapter.vue';
 import InquirySampleChapter from '@/components/Print/Chapters/InquirySampleChapter.vue'
@@ -184,6 +185,9 @@ onUnmounted(() => {
         <h1>Funderingsrisicorapport</h1>
       </div>
     </header>
+
+    <CoverSummary />
+    <PageBreak />
 
     <BuildingChapter />
     <LocationChapter />
