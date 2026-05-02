@@ -29,6 +29,15 @@ const loaded = ref(false)
 provide('loaded', readonly(loaded))
 
 /**
+ * Static PNG snapshot of the rendered canvas. We swap the live WebGL canvas
+ * out for an <img> as soon as the map has settled, because headless Chrome's
+ * print pipeline doesn't reliably capture WebGL canvases — the rendered PDF
+ * gets a blank rectangle where the map should be. A regular <img> always
+ * captures correctly.
+ */
+const snapshot = ref<string | null>(null)
+
+/**
  * Props
  */ 
 const { 
@@ -69,10 +78,32 @@ const loadMapbox = function() {
   // Wait for the first 'idle' event (everything painted, no in-flight tile
   // requests, no animations) rather than 'load' (style + initial tile batch
   // ready, but vector features may still be painting). 'idle' is strictly
-  // stronger and is what we want for a deterministic PDF.co snapshot.
+  // stronger.
   map.once('idle', () => {
+    // Map is rendered. Mount any slot children and let the consumer's @load
+    // handler attach markers / layers / heatmaps.
     loaded.value = true
     emit('load', { map, sdk: mapboxSDK } )
+
+    // Then wait for the *next* idle (after marker/layer draw settles) and
+    // capture the canvas to a PNG so the print pipeline can snapshot it.
+    // 500 ms timeout fallback in case nothing the consumer does triggers
+    // a redraw — we still need the wrapper to flip ready or the render
+    // pipeline waits forever.
+    let captured = false
+    const capture = () => {
+      if (captured) return
+      captured = true
+      requestAnimationFrame(() => {
+        try {
+          snapshot.value = map.getCanvas().toDataURL('image/png')
+        } catch (e) {
+          console.error('Map snapshot failed', e)
+        }
+      })
+    }
+    map.once('idle', capture)
+    setTimeout(capture, 500)
   })
 }
 
@@ -96,8 +127,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="MapBox">
-    <div ref="mapcontainer"></div>
+  <div class="MapBox" :data-mapbox-ready="snapshot ? 'true' : 'false'">
+    <div v-show="!snapshot" ref="mapcontainer"></div>
+    <img v-if="snapshot" :src="snapshot" alt="" class="MapBox__snapshot" />
     <slot v-if="loaded" />
   </div>
 </template>
@@ -105,10 +137,16 @@ onUnmounted(() => {
 <style>
 .MapBox {
   width: 100% !important;
-  height: 100% !important;  
+  height: 100% !important;
 }
 .mapboxgl-map {
   width: 100% !important;
   height: 100% !important;
+}
+.MapBox__snapshot {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 </style>
