@@ -19,7 +19,7 @@ const { getStatisticsDataByBuildingId } = useStatisticsStore()
 /**
  * Data inquiry sample source for panel
  */
-const inqueryData: ComputedRef<IInquiryReport[]> = computed(() => {
+const inquiryData: ComputedRef<IInquiryReport[]> = computed(() => {
   if (!buildingId.value) return []
   return getInquiryByBuildingId(buildingId.value) || []
 })
@@ -51,14 +51,14 @@ const reportGraph = computed(() => {
 </script>
 
 <template>
-  <Chapter v-if="inqueryData.length || reportGraph.data.length" icon="file-report" title="Rapportage">
+  <Chapter v-if="inquiryData.length || reportGraph.data.length" icon="file-report" title="Rapportage">
 
     <section class="break-before-avoid-page break-inside-avoid space-y-7">
-      <p v-if="inqueryData.length !== 0">
+      <p v-if="inquiryData.length !== 0">
         De volgende rapportage(s) zijn beschikbaar voor dit pand en zijn gebruikt voor het opstellen van het
         funderingsrisicorapport
       </p>
-      <table v-if="inqueryData.length !== 0" class="w-full">
+      <table v-if="inquiryData.length !== 0" class="w-full">
         <thead>
           <tr>
             <th>Nummer</th>
@@ -68,7 +68,7 @@ const reportGraph = computed(() => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="report in inqueryData" :key="report.id">
+          <tr v-for="report in inquiryData" :key="report.id">
             <td>{{ report.id }}</td>
             <td>{{ report.documentName }}</td>
             <td>{{ report.typeLabel }}</td>
@@ -82,5 +82,5 @@ const reportGraph = computed(() => {
     </section>
 
   </Chapter>
-  <PageBreak v-if="inqueryData.length || reportGraph.data.length" />
+  <PageBreak v-if="inquiryData.length || reportGraph.data.length" />
 </template>

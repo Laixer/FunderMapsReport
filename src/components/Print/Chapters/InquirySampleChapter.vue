@@ -82,7 +82,7 @@ const foundationIconName = computed(() => {
 /**
  * Data inquiry sample source for panel
  */
-const inqueryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
+const inquiryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
   if (!buildingId.value) return []
   return getCombinedInquiryDataByBuildingId(buildingId.value) || []
 })
@@ -94,7 +94,7 @@ const inqueryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
  */
 const fieldsWithFoundationData = computed(() => {
   const fieldsConfig = applyContextToFieldDataConfigs({
-    source: inqueryData.value?.[0]?.sample || undefined,
+    source: inquiryData.value?.[0]?.sample || undefined,
     labels: inquirySampleFieldLabels,
     configs: [
       new FieldDataConfig({ name: 'foundationTypeReliability', source: analysisData }),
@@ -126,7 +126,7 @@ const groupHasData: Record<string, boolean> = {
 const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = computed(() => {
 
   const sampleFieldsConfig = applyContextToFieldDataConfigs({
-    source: inqueryData.value?.[0]?.sample || undefined,
+    source: inquiryData.value?.[0]?.sample || undefined,
     labels: inquirySampleFieldLabels,
     configs: [
 

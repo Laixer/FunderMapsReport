@@ -15,10 +15,6 @@ export const applyContextToFieldDataConfigs = function (
     labels?: Record<string, string>
   }
 ) {
-
-  console.log('Apply context')
-  console.log(data.source)
-
   return (data.configs || []).map(
     (config: IFieldDataConfig) => {
       // If no specific source was set on the config, apply the source from the context
@@ -150,8 +146,6 @@ export const retrieveAndFormatFieldData = function retrieveAndFormatFieldData(co
 
   const dataObj = new CompletedFieldData(config.name, config.group)
 
-  console.log("format field", dataObj, config)
-
   /**
    * A data source is required, unless intentionally set to `null`, or if we _do_ have a label in the config
    */
@@ -220,9 +214,7 @@ export const retrieveAndFormatFieldData = function retrieveAndFormatFieldData(co
    * If the field is an enum, we translate the raw field value into an enum label
    */
   if (source?.isEnum(config.name)) {
-    console.log(`${config.name} is an enum`)
     dataObj.fieldValueLabel = source?.getEnumLabel(config.name)
-    console.log(`${config.name} enum value`, dataObj.fieldValueLabel)
   } else {
     // Otherwise use the value we found as field value label
     dataObj.fieldValueLabel = dataObj.fieldValue
@@ -257,9 +249,6 @@ export const retrieveAndFormatFieldData = function retrieveAndFormatFieldData(co
       }
     }
   }
-
-  // Report the end result
-  console.log(config.name, dataObj)
 
   return dataObj
 }

@@ -101,21 +101,14 @@ const getCombinedRecoveryDataByBuildingId = function getCombinedRecoveryDataByBu
   // Match reports & samples for every entry
   const combinedData: ICombinedRecoveryData[] = []
 
-  console.log("Get Combined recovery data")
-
   // Go over all inquires related to the building
   getRecoveryReportByBuildingId(buildingId)
     .forEach((report: IRecoveryReport) => {
-
-      console.log("report", report.id)
-
       // Get all samples related to the recovery & building combination
       const samples = getRecoverySamplesByRecoveryReportId(report.id)
         .filter(sample => {
           return sampleIdsForBuilding.includes(sample.id)
         })
-
-      console.log("samples", samples)
 
       // If there are none, add the report without sample
       if (samples.length === 0) {
@@ -135,8 +128,6 @@ const getCombinedRecoveryDataByBuildingId = function getCombinedRecoveryDataByBu
       }
     })
 
-  console.log(combinedData)
-
   return combinedData
 }
 
@@ -145,15 +136,12 @@ const getCombinedRecoveryDataByBuildingId = function getCombinedRecoveryDataByBu
  * Set the retrieved report data
  */
 const setRecoveryDataByBuildingId = function setRecoveryDataByBuildingId(buildingId: string, reports: IRecoveryReport[], samples: IRecoverySample[]) {
-
-  console.log(buildingId, reports, samples)
-
   reports.forEach((report: IRecoveryReport) => {
     recoveryReportsById.value[report.id] = new RecoveryReport(report)
   })
 
   // Connect the recoveryIds to the buildingId
-  recoveryReportIdsByBuildingId.value[buildingId] = reports.map((inquery: IRecoveryReport) => inquery.id)
+  recoveryReportIdsByBuildingId.value[buildingId] = reports.map((report: IRecoveryReport) => report.id)
 
   samples.forEach((sample: IRecoverySample) => {
     sample = new RecoverySample(sample)
@@ -213,7 +201,7 @@ const loadRecoveryReportDataByBuildingId = async function loadRecoveryReportData
     }
 
   } catch (e) {
-    console.log("Error loading recoveryReport data by building id", e)
+    console.error("Error loading recoveryReport data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?
   }

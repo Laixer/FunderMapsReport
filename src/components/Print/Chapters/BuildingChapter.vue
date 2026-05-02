@@ -34,7 +34,7 @@ const locationData = computed(() => {
 /**
  * Data inquiry sample source for panel
  */
-const inqueryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
+const inquiryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
   if (!buildingId.value) return []
   return getCombinedInquiryDataByBuildingId(buildingId.value) || []
 })
@@ -55,7 +55,7 @@ const fieldsWithData = computed(() => {
       new FieldDataConfig({
         label: 'Onderbouw',
         name: 'substructure',
-        source: inqueryData.value?.[0]?.sample,
+        source: inquiryData.value?.[0]?.sample,
       }),
       new FieldDataConfig({
         label: 'BAG ID',

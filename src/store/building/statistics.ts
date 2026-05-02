@@ -85,7 +85,7 @@ const loadStatisticsDataByBuildingId = async function loadStatisticsDataByBuildi
     statisticsDataByBuildingId.value[buildingId] = response || null
 
   } catch (e) {
-    console.log("Error loading statistics data by building id", e)
+    console.error("Error loading statistics data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?
     // TODO: Create structure for failures
