@@ -12,11 +12,11 @@ export const toMeters = function toMeters(value: string | number): string {
 }
 
 export const toSquareM = function toSquareM(value: string | number): string {
-  return `${parseFloat(value + '').toFixed(2)} m2`
+  return `${parseFloat(value + '').toFixed(2)} m²`
 }
 
 export const toCubicM = function toCubicM(value: string | number): string {
-  return `${parseFloat(value + '').toFixed(2)} m3`
+  return `${parseFloat(value + '').toFixed(2)} m³`
 }
 
 export const toNAP = function toNAP(value: string | number): string {

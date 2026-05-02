@@ -219,10 +219,10 @@ onUnmounted(() => {
         </p>
         <ul>
           <li>
-            <strong>Vastgesteld:</strong> Wanneer er geen directe onderzoeksgegevens beschikbaar zijn voor het pand zelf, maar wel voor naastgelegen panden binnen dezelfde bouw- of funderingseenheid, wordt het funderingstype en de risicobeoordeling beschouwd als afgeleid. Deze afleiding is doorgaans goed onderbouwd, omdat vergelijkbare constructies en omstandigheden gelden
+            <strong>Vastgesteld:</strong> Daar waar specifieke onderzoeksgegevens van het betreffende pand beschikbaar zijn, is de betrouwbaarheid van de uitgangspunten hoog. Het funderingstype en/of het funderingsrisico wordt dan als vastgesteld beschouwd.
           </li>
           <li>
-            <strong>Afgeleid:</strong> Daar waar specifieke onderzoeksgegevens van het betreffende pand beschikbaar zijn, is de betrouwbaarheid van de uitgangspunten hoog. Het funderingstype en/of het funderingsrisico wordt dan als vastgesteld beschouwd.
+            <strong>Afgeleid:</strong> Wanneer er geen directe onderzoeksgegevens beschikbaar zijn voor het pand zelf, maar wel voor naastgelegen panden binnen dezelfde bouw- of funderingseenheid, wordt het funderingstype en de risicobeoordeling beschouwd als afgeleid. Deze afleiding is doorgaans goed onderbouwd, omdat vergelijkbare constructies en omstandigheden gelden.
           </li>
           <li>
             <strong>Modelmatig (indicatief):</strong> Als er geen gegevens beschikbaar zijn van het pand zelf of van omliggende panden, wordt gebruikgemaakt van een modelanalyse. De uitkomsten daarvan zijn indicatief en hebben een lagere betrouwbaarheid.
