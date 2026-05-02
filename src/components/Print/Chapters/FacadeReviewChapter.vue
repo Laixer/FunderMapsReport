@@ -134,6 +134,14 @@ const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = 
   <Chapter v-if="hasSampleData" icon="scan" title="Gevelscan">
 
     <section class="space-y-7">
+      <div class="text-grey-700 space-y-4">
+        <p>
+          De gevelscan registreert zichtbare aanwijzingen van funderingsproblematiek aan de buitenkant
+          van het pand: scheurvorming, scheefstand en vervorming. Een lintvoegmeting registreert
+          horizontale vervorming, een loodmeting verticale scheefstand. Deze metingen vullen de
+          modelmatige risicobeoordelingen aan met directe waarnemingen op locatie.
+        </p>
+      </div>
       <div class="grid grid-cols-2 gap-4"
         v-if="(groupHasData['indoor'] || groupHasData['left'] || groupHasData['right'] || groupHasData['front'] || groupHasData['back'])">
         <div class="grid grid-cols-6 items-center gap-4">

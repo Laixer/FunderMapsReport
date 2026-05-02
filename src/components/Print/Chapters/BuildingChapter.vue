@@ -73,6 +73,13 @@ const fieldsWithData = computed(() => {
 <template>
   <Chapter icon="building" title="Pand">
     <section class="space-y-7">
+      <div class="text-grey-700">
+        <p>
+          Dit hoofdstuk toont de basisgegevens van uw pand uit het Basisregistratie Adressen en Gebouwen
+          (BAG): adres, oppervlakte, hoogte en het BAG-pandnummer. Deze gegevens vormen de basis voor
+          de risicobeoordelingen verderop in het rapport.
+        </p>
+      </div>
       <dl role="list" class="list--definition">
         <div v-for="field in fieldsWithData" :key="field.name" class="item justify-between">
           <dt>{{ field.label }}</dt>
