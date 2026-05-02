@@ -239,14 +239,6 @@ onUnmounted(() => {
         <p>
           Meer informatie vindt u op de website van het Kennis Centrum Aanpak Funderingsproblematiek (KCAF): <a href="https://www.kcaf.nl/quickscan-risicobeoordeling/" target="_blank">https://www.kcaf.nl/quickscan-risicobeoordeling/</a>
         </p>
-
-        <strong class="block">Wijzigen of reageren?</strong>
-        <p>
-          Bent u het niet eens met de beoordeling, wilt u gegevens wijzigen of heeft u behoefte aan aanvullende informatie over dit funderingsrisicorapport? Dan kunt u terecht op: <a href="https://feedback.fundermaps.com/" target="_blank">https://feedback.fundermaps.com/</a>.
-        </p>
-        <p>
-          Hier kunt u eenvoudig een wijzigingsverzoek indienen of contact opnemen met ons team.
-        </p>
       </section>
     </article>
 
