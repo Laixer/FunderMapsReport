@@ -74,7 +74,7 @@ const loadSubsidenceDataByBuildingId = async function loadSubsidenceDataByBuildi
     subsidenceDataByBuildingId.value[buildingId] = response || null
 
   } catch (e) {
-    console.log("Error loading subsidence data by building id", e)
+    console.error("Error loading subsidence data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?
     // TODO: Create structure for failures

@@ -53,7 +53,6 @@ const subsidenceData = computed(() => {
 })
 
 const graphData = computed(() => {
-  console.log("subsidenceData", subsidenceData.value)
   return {
     labels: [],
     data: subsidenceData.value?.map(item => {

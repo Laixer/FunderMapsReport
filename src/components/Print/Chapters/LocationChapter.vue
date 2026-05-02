@@ -62,7 +62,7 @@ const analysisData = computed(() => {
 /**
  * Data inquiry sample source for panel
  */
-const inqueryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
+const inquiryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
   if (!buildingId.value) return []
   return getCombinedInquiryDataByBuildingId(buildingId.value) || []
 })
@@ -88,7 +88,7 @@ const fieldsWithAnalysisData = computed(() => {
 
 const fieldsWithInquirySampleData = computed(() => {
   const fieldsConfig = applyContextToFieldDataConfigs({
-    source: inqueryData.value?.[0]?.sample || undefined,
+    source: inquiryData.value?.[0]?.sample || undefined,
     labels: inquirySampleFieldLabels,
     configs: [
       new FieldDataConfig({ name: 'cpt' }), // sondering

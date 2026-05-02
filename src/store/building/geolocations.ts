@@ -102,7 +102,7 @@ const loadLocationDataByBuildingId = async (buildingId: string, cache: boolean =
       : null
 
   } catch (e) {
-    console.log("Error loading location data by building id", e)
+    console.error("Error loading location data by building id", e)
 
     // TODO: Catch-em all... and maybe do something more with them?
     // TODO: Create structure for failures

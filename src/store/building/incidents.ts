@@ -85,7 +85,7 @@ const loadIncidentReportDataByBuildingId = async function loadIncidentReportData
     setIncidentDataByBuildingId(buildingId, response)
 
   } catch (e) {
-    console.log("Error loading incidentReport data by building id", e)
+    console.error("Error loading incidentReport data by building id", e)
 
     // TODO: Catch-em all... and maybe do something with them?
   }
