@@ -92,20 +92,26 @@ const buildingStatistics = computed(() => {
   return getStatisticsDataByBuildingId(buildingId.value)
 })
 
-const graphData = computed(() => {
-  const result = {
-    data: Object.values(buildingStatistics.value?.foundationRiskDistribution || {}),
-    labels: Object.keys(buildingStatistics.value?.foundationRiskDistribution || {}).map(key => key.replace('percentage', '')),
-    legend: Object.keys(buildingStatistics.value?.foundationRiskDistribution || {}).map((key, index) => {
-      const colors = ['#2E7D32', '#9E9D24', '#F9A825', '#EF6C00', '#C62828']
-      return {
-        label: key.replace('percentage', ''),
-        color: `--marker-color: ${colors[index]}`
-      }
-    }),
-  }
+// Risk-distribution colors map A→E onto a green→red gradient. Keep a single
+// source of truth for the chart slice, the PieChart legend and the marker
+// dots so they cannot drift apart again — see issue #14 for the analogous
+// foundation-type chart fix.
+const RISK_COLORS: string[] = ['#2E7D32', '#9E9D24', '#F9A825', '#EF6C00', '#C62828']
 
-  return result
+const graphData = computed(() => {
+  const distribution = buildingStatistics.value?.foundationRiskDistribution
+  const labels = distribution ? Object.keys(distribution).map((key) => key.replace('percentage', '')) : []
+  const data = distribution ? Object.values(distribution) : []
+
+  return {
+    data,
+    labels,
+    backgroundColors: RISK_COLORS,
+    legend: labels.map((label, index) => ({
+      label,
+      color: `--marker-color: ${RISK_COLORS[index]}`,
+    })),
+  }
 })
 
 </script>
@@ -332,8 +338,8 @@ const graphData = computed(() => {
 
         <div class="chart | grid grid-cols-12 items-center gap-4">
           <div class="col-span-5">
-            <PieChart title="Type fundering (wijk)" :data="graphData.data" :labels="graphData.labels"
-              :backgroundColors="['#2E7D32', '#9E9D24', '#F9A825', '#EF6C00', '#C62828']" />
+            <PieChart title="Verdeling van funderingsrisico in de wijk" :data="graphData.data"
+              :labels="graphData.labels" :backgroundColors="graphData.backgroundColors" />
           </div>
           <div class="col-span-7">
             <div class="legenda space-y-3">
