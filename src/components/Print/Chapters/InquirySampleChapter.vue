@@ -199,21 +199,40 @@ const buildingStatistics = computed(() => {
   return getStatisticsDataByBuildingId(buildingId.value)
 })
 
+// Single source of truth for the foundation-type pie chart: label, color and
+// the bucket index share an order so the chart slice, the PieChart legend and
+// the marker dots can never drift apart again (issue #14).
+const FOUNDATION_TYPE_BUCKETS = [
+  { label: 'Ondiepe fundering',             color: '#CE0015' },
+  { label: 'Betonpaal',                     color: '#6A6C70' },
+  { label: 'Houten paal met betonoplanger', color: '#8F7A2E' },
+  { label: 'Houten paal',                   color: '#8C3A28' },
+] as const
 
 const foundationTypeGraph = computed(() => {
   return {
-    labels: ['Betonnen', 'Houten paal met betonoplanger', 'Houten palen', 'Niet onderheid'],
+    labels: FOUNDATION_TYPE_BUCKETS.map((b) => b.label),
+    backgroundColors: FOUNDATION_TYPE_BUCKETS.map((b) => b.color),
     data: buildingStatistics.value?.foundationTypeDistribution.foundationTypes.reduce((acc: number[], pair: IFoundationTypePair) => {
       switch (pair.foundationType) {
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+          acc[0] = acc[0] + pair.percentage
+          return acc
+
         case 3:
         case 11:
         case 12:
         case 13:
-          acc[0] = acc[0] + pair.percentage
+          acc[1] = acc[1] + pair.percentage
           return acc
 
         case 10:
-          acc[1] = acc[1] + pair.percentage
+          acc[2] = acc[2] + pair.percentage
           return acc
 
         case 0:
@@ -222,15 +241,6 @@ const foundationTypeGraph = computed(() => {
         case 15:
         case 16:
         case 17:
-          acc[2] = acc[2] + pair.percentage
-          return acc
-
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
           acc[3] = acc[3] + pair.percentage
           return acc
 
@@ -239,13 +249,10 @@ const foundationTypeGraph = computed(() => {
           return acc
       }
     }, [0, 0, 0, 0, 0]) || [],
-    legend: ['Betonnen', 'Houten paal met betonoplanger', 'Houten palen', 'Niet onderheid'].map((label, index) => {
-      const colors = ['#CE0015', '#6A6C70', '#8F7A2E', '#8C3A28']
-      return {
-        label,
-        color: `--marker-color: ${colors[index]}`
-      }
-    })
+    legend: FOUNDATION_TYPE_BUCKETS.map(({ label, color }) => ({
+      label,
+      color: `--marker-color: ${color}`,
+    })),
   }
 })
 
@@ -380,7 +387,7 @@ const foundationTypeGraph = computed(() => {
       <div v-if="foundationTypeGraph.data.length !== 0" class="chart | grid grid-cols-12 items-center gap-4">
         <div class="col-span-5">
           <PieChart title="Type fundering (wijk)" :data="foundationTypeGraph.data" :labels="foundationTypeGraph.labels"
-            :backgroundColors="['#CE0015', '#6A6C70', '#8F7A2E', '#8C3A28']" />
+            :backgroundColors="foundationTypeGraph.backgroundColors" />
         </div>
         <div class="col-span-7">
           <div class="legenda space-y-3">
