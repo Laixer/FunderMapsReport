@@ -4,8 +4,8 @@ import { trimLeadingChar, trimTrailingChar } from "@/utils/string"
 // Report is opaque: only ever rendered by pdf.co for PDF generation.
 // There is no user session and no login UI. Auth is a single static
 // API key baked in at build time via VITE_AUTH_KEY, sent as
-// `Authorization: AuthKey fmsk.xxx` (the format the TS API's
-// authMiddleware expects).
+// `Authorization: Bearer fmsk.xxx` — same shape as FunderMapsWebservice,
+// the only API-key delivery the TS API accepts.
 const apiKey: string | null = import.meta.env.VITE_AUTH_KEY || null
 
 export const hasAPIKey = (): boolean => apiKey !== null && apiKey.length !== 0
@@ -29,7 +29,7 @@ const makeCall = async ({ endpoint, method = 'GET', body }: CallOptions): Promis
       method,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `AuthKey ${apiKey}`,
+        'Authorization': `Bearer ${apiKey}`,
       },
       ...(body !== undefined && { body: JSON.stringify(body) }),
     }
