@@ -21,9 +21,9 @@ interface ImportMetaEnv {
   // Fundermaps base mapbox style
   readonly VITE_FUNDERMAPS_BASE_STYLE: string
 
-  // Static API key baked into the bundle. Required at build time —
-  // pdf.co can't authenticate as a user, so this is the only auth path.
-  // Sent as `Authorization: AuthKey ${VITE_AUTH_KEY}`.
+  // Static API key baked into the bundle. Required at build time — the
+  // headless renderer (Gotenberg) has no user session, so this is the only
+  // auth path. Sent as `Authorization: Bearer ${VITE_AUTH_KEY}` (fmsk. key).
   readonly VITE_AUTH_KEY: string
 }
 

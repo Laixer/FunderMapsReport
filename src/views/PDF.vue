@@ -150,7 +150,7 @@ onBeforeMount(() => {
   setBuildingId(route.params.buildingId as string)
 })
 
-// Expose a deterministic ready-signal for PDF.co (and any other headless
+// Expose a deterministic ready-signal for Gotenberg (and any other headless
 // renderer): wait until all building data has loaded *and* the chapters
 // have flushed to the DOM, then set [data-pdf-ready="true"] on <html>.
 // Configure the renderer to wait for that selector instead of the

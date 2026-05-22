@@ -1,7 +1,7 @@
 import { apiBasePath } from "@/config"
 import { trimLeadingChar, trimTrailingChar } from "@/utils/string"
 
-// Report is opaque: only ever rendered by pdf.co for PDF generation.
+// Report is opaque: only ever rendered by Gotenberg (headless Chrome) for PDF generation.
 // There is no user session and no login UI. Auth is a single static
 // API key baked in at build time via VITE_AUTH_KEY, sent as
 // `Authorization: Bearer fmsk.xxx` — same shape as FunderMapsWebservice,
