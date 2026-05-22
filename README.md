@@ -1,18 +1,34 @@
-# Vue 3 + TypeScript + Vite
+# FunderMapsReport
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Renders the FunderMaps foundation **report** as a web page that a headless
+renderer (**Gotenberg** / headless Chrome) turns into the downloadable PDF. It
+has no login UI — it authenticates with a single static API key baked in at
+build time (`VITE_AUTH_KEY`, sent as `Authorization: Bearer fmsk.…`).
 
-## Recommended Setup
+**Stack:** Vue 3 (`<script setup>`), TypeScript, Vite, Chart.js, Mapbox GL.
+Package manager: **pnpm**.
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+## Setup
 
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+```sh
+pnpm install
+pnpm dev      # dev server
+pnpm build    # type-check + production build
+pnpm preview  # preview the production build
+```
 
+## Configuration
 
-## Design Links
+See `env.d.ts` for the full `VITE_` env surface. The essentials:
 
-- https://fundermaps.lemone.design/
-- https://maps-fundermaps-0815e42252619b01eb5ad6094e9d956ecc31cd7dac1e1f0.lemone.cloud/index.html
-- https://www.figma.com/proto/pj0EJjVD4KXzZGE7o8f2Rs/%F0%9F%8E%A8-FunderMaps---UI?page-id=253%3A1907&type=design&node-id=357-264&viewport=844%2C-3214%2C0.19&t=evEj68y3QY7VhTJT-1&scaling=min-zoom&starting-point-node-id=361%3A1118
+- `VITE_FUNDERMAPS_URL` — FunderMaps API base URL.
+- `VITE_AUTH_KEY` — static `fmsk.` API key (sent as a Bearer token).
+- `VITE_MAPBOX_TOKEN`, `VITE_MAPBOX_STYLE` — Mapbox rendering.
 
+## How the PDF is produced
 
+`PDF.vue` loads the building data, renders the chapters, and once everything has
+flushed to the DOM sets `[data-pdf-ready="true"]` on `<html>`. The renderer is
+configured to wait for that selector before snapshotting, which is more reliable
+than a network-idle heuristic. Charts disable animation on first paint so the
+snapshot is deterministic.

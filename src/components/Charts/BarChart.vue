@@ -100,7 +100,7 @@ const createChart = function createChart(
       },
       options: {
         // animation:false in initial options so the very first paint is
-        // static — required for a deterministic PDF.co snapshot. Setting
+        // static — required for a deterministic headless-render snapshot. Setting
         // chart.options.animation after construction is too late: Chart.js
         // has already started animating by then.
         animation: false,
