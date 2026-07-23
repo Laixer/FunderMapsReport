@@ -84,16 +84,18 @@ const mapOptions = computed(() => {
 const onLoad = async function onLoad({ map }: { map: Map }) {
   // Construction-year attributes come from the Martin tileserver's dynamic
   // 'buildings' source (the static analysis_building tileset is retired).
-  const sourcePath = (import.meta.env.VITE_FUNDERMAPS_TILESERVER_URL + '' || '')
+  // Added via its TileJSON endpoint: tile URLs, zoom range and bounds come
+  // from the server. The env var may hold either a bare base template or
+  // the tile-URL form with a /{z}/{x}/{y} suffix.
+  const tileJsonPath = (import.meta.env.VITE_FUNDERMAPS_TILESERVER_URL + '' || '')
+    .replace('/{z}/{x}/{y}', '')
     .replace('{SOURCE}', 'buildings')
 
   map.addSource(
     "buildings",
     {
       type: 'vector',
-      tiles: [sourcePath],
-      minzoom: 12,
-      maxzoom: 16
+      url: tileJsonPath
     }
   )
 
