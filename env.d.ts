@@ -15,8 +15,11 @@ interface ImportMetaEnv {
   readonly VITE_DEFAULT_MAPSET_ID: string
   readonly VITE_DEFAULT_LAYERS: string
 
-  // Fundermaps Tile server 
+  // Fundermaps static tileset bucket (tippecanoe builds on Spaces)
   readonly VITE_FUNDERMAPS_TILES_URL: string
+
+  // Fundermaps dynamic tileserver (Martin) — serves the 'buildings' source
+  readonly VITE_FUNDERMAPS_TILESERVER_URL: string
 
   // Fundermaps base mapbox style
   readonly VITE_FUNDERMAPS_BASE_STYLE: string

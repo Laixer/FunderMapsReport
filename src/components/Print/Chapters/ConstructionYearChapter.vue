@@ -82,16 +82,17 @@ const mapOptions = computed(() => {
 })
 
 const onLoad = async function onLoad({ map }: { map: Map }) {
-  // Add incident source
-  const sourcePath = (import.meta.env.VITE_FUNDERMAPS_TILES_URL + '' || '')
-    .replace('{SOURCE}', 'analysis_building')
+  // Construction-year attributes come from the Martin tileserver's dynamic
+  // 'buildings' source (the static analysis_building tileset is retired).
+  const sourcePath = (import.meta.env.VITE_FUNDERMAPS_TILESERVER_URL + '' || '')
+    .replace('{SOURCE}', 'buildings')
 
   map.addSource(
-    "analysis_building",
+    "buildings",
     {
       type: 'vector',
       tiles: [sourcePath],
-      // minzoom: 10,
+      minzoom: 12,
       maxzoom: 16
     }
   )

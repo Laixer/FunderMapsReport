@@ -1,8 +1,8 @@
 {
   "id": "construction-year",
   "type": "fill-extrusion",
-  "source": "analysis_building",
-  "source-layer": "analysis_building",
+  "source": "buildings",
+  "source-layer": "buildings",
   "filter": ["has", "construction_year"],
   "layout": {"visibility": "none"},
   "paint": {
