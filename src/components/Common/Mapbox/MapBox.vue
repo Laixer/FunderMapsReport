@@ -12,6 +12,8 @@ import mapboxgl, { type Map } from 'mapbox-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import { trackPending } from '@/lib/pdfReadiness'
+
 /**
  * The Mapbox instance
  */
@@ -36,6 +38,10 @@ provide('loaded', readonly(loaded))
  * captures correctly.
  */
 const snapshot = ref<string | null>(null)
+
+// Hold the PDF ready-flag until this map has been snapshotted (or given up).
+let resolveSettled: () => void = () => {}
+trackPending(new Promise<void>((resolve) => { resolveSettled = resolve }))
 
 /**
  * Props
@@ -87,9 +93,11 @@ const loadMapbox = function() {
 
     // Then wait for the *next* idle (after marker/layer draw settles) and
     // capture the canvas to a PNG so the print pipeline can snapshot it.
-    // 500 ms timeout fallback in case nothing the consumer does triggers
-    // a redraw — we still need the wrapper to flip ready or the render
-    // pipeline waits forever.
+    // The fallback poll covers consumers that trigger no redraw at all,
+    // but only fires once style + tiles report loaded — a bare timeout
+    // used to race the consumer's async layer (TileJSON fetch + tile
+    // paint on software WebGL) and snapshot a half-painted map. Hard cap
+    // so a broken source delays the PDF instead of hanging it.
     let captured = false
     const capture = () => {
       if (captured) return
@@ -100,10 +108,21 @@ const loadMapbox = function() {
         } catch (e) {
           console.error('Map snapshot failed', e)
         }
+        resolveSettled()
       })
     }
     map.once('idle', capture)
-    setTimeout(capture, 500)
+
+    const pollStart = Date.now()
+    const poll = () => {
+      if (captured) return
+      if ((map.isStyleLoaded() && map.areTilesLoaded()) || Date.now() - pollStart > 15_000) {
+        capture()
+        return
+      }
+      setTimeout(poll, 500)
+    }
+    setTimeout(poll, 500)
   })
 }
 
@@ -120,6 +139,8 @@ onMounted(() => {
  *  https://docs.mapbox.com/mapbox-gl-js/api/map/#map#remove
  */ 
 onUnmounted(() => {
+  // Never leave the PDF pipeline waiting on a map that no longer exists.
+  resolveSettled()
   nextTick(() => {
     map.remove()
   })
