@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue';
 import { storeToRefs } from 'pinia';
-import { type LngLatLike, type Map, LngLat, Marker } from 'mapbox-gl'
+import { type LngLatLike, type Map, LngLat } from 'mapbox-gl'
 
 import { ICombinedInquiryData } from '@/datastructures/interfaces/index.ts';
 
@@ -118,12 +118,34 @@ const addMarker = function addMarker({ map }: { map: Map }) {
     return false
   }
 
-  new Marker({
-    draggable: false
-  }).setLngLat(new LngLat(
-    buildingData.residence?.longitude,
-    buildingData.residence?.latitude
-  )).addTo(map);
+  // Draw the marker as a circle layer INSIDE the WebGL canvas. A mapbox-gl
+  // Marker is a DOM overlay on top of the canvas, so the MapBox wrapper's
+  // canvas→PNG snapshot (the PDF path) would never capture it.
+  map.addSource('residence-marker', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'Point',
+        coordinates: [
+          buildingData.residence?.longitude,
+          buildingData.residence?.latitude
+        ]
+      }
+    }
+  })
+  map.addLayer({
+    id: 'residence-marker',
+    type: 'circle',
+    source: 'residence-marker',
+    paint: {
+      'circle-radius': 9,
+      'circle-color': '#191e3c',
+      'circle-stroke-width': 3,
+      'circle-stroke-color': '#ffffff'
+    }
+  })
 }
 
 </script>
