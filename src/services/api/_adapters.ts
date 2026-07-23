@@ -267,7 +267,21 @@ export const adaptGeoLocationData = (raw: unknown): IGeoLocationData => {
       city,
       fullAddress: `${street} ${number}, ${postal} ${city}`.trim(),
     },
-    residence: null,
+    // The TS API serves coordinates flat (residence_lat/residence_lon);
+    // map chapters center and place markers on residence.latitude/longitude.
+    // This used to be a hardcoded null, which silently sent every report map
+    // to the Amsterdam fallback center (invisible while the maps themselves
+    // failed to render at all — FunderMaps#969).
+    residence:
+      typeof r.residence_lat === 'number' && typeof r.residence_lon === 'number'
+        ? {
+            id: '',
+            addressId: (r.address_id as string) ?? '',
+            buildingId: (r.building_id as string) ?? '',
+            latitude: r.residence_lat,
+            longitude: r.residence_lon,
+          }
+        : null,
     neighborhood: opt('neighborhood_id', () => ({
       id: r.neighborhood_id as string,
       externalId: r.neighborhood_external_id as string,
