@@ -27,6 +27,7 @@ import DisplacementDataChapter from '@/components/Print/Chapters/DisplacementDat
 import IncidentsChapter from '@/components/Print/Chapters/IncidentsChapter.vue'
 import { useRoute, useRouter } from 'vue-router';
 import ConstructionYearChapter from '@/components/Print/Chapters/ConstructionYearChapter.vue';
+import { whenAllSettled } from '@/lib/pdfReadiness';
 
 
 /**
@@ -151,11 +152,14 @@ onBeforeMount(() => {
 })
 
 // Expose a deterministic ready-signal for Gotenberg (and any other headless
-// renderer): wait until all building data has loaded *and* the chapters
-// have flushed to the DOM, then set [data-pdf-ready="true"] on <html>.
-// Configure the renderer to wait for that selector instead of the
-// network-idle heuristic, which can fire before this template's v-if
-// has actually mounted the chapter tree.
+// renderer): wait until all building data has loaded, the chapters have
+// flushed to the DOM, every tracked late renderer (Mapbox snapshots on
+// software WebGL, async icon chunks — see lib/pdfReadiness) has settled,
+// and all images have decoded. Only then set [data-pdf-ready="true"] on
+// <html>. Configure the renderer to wait for that selector instead of the
+// network-idle heuristic, which fires long before any of the above.
+// Data-ready alone used to flip the flag, which is exactly why PDFs came
+// out with blank maps and missing icons (FunderMaps#969).
 watch(
   () => hasAllBuildingInformation.value,
   async (ready) => {
@@ -164,6 +168,12 @@ watch(
       return
     }
     await nextTick()
+    await whenAllSettled(60_000)
+    await Promise.allSettled(
+      Array.from(document.images).map((img) =>
+        img.complete ? Promise.resolve() : img.decode().catch(() => {})
+      )
+    )
     document.documentElement.setAttribute('data-pdf-ready', 'true')
   },
   { immediate: true }
