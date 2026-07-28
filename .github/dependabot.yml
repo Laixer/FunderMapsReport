@@ -1,0 +1,22 @@
+# Dependabot version updates.
+# Security updates are enabled repo-wide and are not controlled by this file.
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# No github-actions block: this repo has no workflows.
+
+version: 2
+updates:
+  - package-ecosystem: "npm" # also covers pnpm
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    # Group routine bumps so this is one PR a week, not five.
+    # Majors stay ungrouped — they get their own PR and a real review.
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+      prod-dependencies:
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
