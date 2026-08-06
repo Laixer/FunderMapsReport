@@ -44,17 +44,20 @@ const mapOptions = computed(() => {
 })
 
 const onLoad = async function onLoad({ map }: { map: Map }) {
-  // Add incident source
-  const sourcePath = (import.meta.env.VITE_FUNDERMAPS_TILES_URL + '' || '')
+  // Incident counts per district come from the Martin tileserver's dynamic
+  // 'incident_district' source (the static tippecanoe tileset is retired).
+  // Added via its TileJSON endpoint: tile URLs, zoom range and bounds come
+  // from the server. The env var may hold either a bare base template or
+  // the tile-URL form with a /{z}/{x}/{y} suffix.
+  const tileJsonPath = (import.meta.env.VITE_FUNDERMAPS_TILESERVER_URL + '' || '')
+    .replace('/{z}/{x}/{y}', '')
     .replace('{SOURCE}', 'incident_district')
 
   map.addSource(
     "incident_district",
     {
       type: 'vector',
-      tiles: [sourcePath],
-      // minzoom: 10,
-      maxzoom: 16
+      url: tileJsonPath
     }
   )
 
