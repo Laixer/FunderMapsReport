@@ -16,14 +16,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@vue/devtools-api": "^8.1.5",
+    "@vue/devtools-api": "^8.2.1",
     "chart.js": "^4.5.1",
     "chartjs-plugin-gradient": "^0.6.1",
-    "chartjs-plugin-trendline": "^3.2.4",
-    "mapbox-gl": "^3.25.0",
+    "chartjs-plugin-trendline": "^3.2.9",
+    "mapbox-gl": "^3.28.1",
     "pinia": "^4.0.2",
-    "vue": "^3.5.39",
-    "vue-router": "^5.1.0"
+    "vue": "^3.5.41",
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
