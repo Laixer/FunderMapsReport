@@ -22,8 +22,8 @@
     "chartjs-plugin-trendline": "^3.2.12",
     "mapbox-gl": "^3.29.0",
     "pinia": "^4.0.3",
-    "vue": "^3.5.41",
-    "vue-router": "^5.2.0"
+    "vue": "^3.5.42",
+    "vue-router": "^5.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
