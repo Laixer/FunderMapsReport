@@ -18,11 +18,11 @@
   "dependencies": {
     "@vue/devtools-api": "^8.2.1",
     "chart.js": "^4.5.1",
-    "chartjs-plugin-gradient": "^0.6.5",
-    "chartjs-plugin-trendline": "^3.2.12",
-    "mapbox-gl": "^3.30.0",
+    "chartjs-plugin-gradient": "^0.8.0",
+    "chartjs-plugin-trendline": "^3.2.13",
+    "mapbox-gl": "^3.31.0",
     "pinia": "^4.0.3",
-    "vue": "^3.5.42",
+    "vue": "^3.5.43",
     "vue-router": "^5.3.1"
   },
   "devDependencies": {
