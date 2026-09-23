@@ -1,12 +1,25 @@
 import { apiBasePath } from "@/config"
 import { trimLeadingChar, trimTrailingChar } from "@/utils/string"
 
-// Report is opaque: only ever rendered by Gotenberg (headless Chrome) for PDF generation.
-// There is no user session and no login UI. Auth is a single static
-// API key baked in at build time via VITE_AUTH_KEY, sent as
-// `Authorization: Bearer fmsk.xxx` — same shape as FunderMapsWebservice,
-// the only API-key delivery the TS API accepts.
-const apiKey: string | null = import.meta.env.VITE_AUTH_KEY || null
+// Report is opaque: only ever rendered by Gotenberg (headless Chrome) for PDF
+// generation. There is no user session and no login UI. The API's
+// POST /api/pdf/:id mints a render token for each PDF (5 minutes, this pand
+// only, read-only) and puts it in the URL fragment: `/<pand>#t=fmrt.…`. A
+// fragment is never sent to a server, so the token stays out of access logs.
+// We read it once and take it out of the address bar.
+//
+// This replaces the static key that used to be baked into the bundle
+// (VITE_AUTH_KEY): anyone could read it from the public JavaScript, and it
+// opened every organisation's data.
+const readRenderToken = (): string | null => {
+  if (typeof window === 'undefined') return null
+  const token = new URLSearchParams(window.location.hash.slice(1)).get('t')
+  if (!token?.startsWith('fmrt.')) return null
+  window.history.replaceState(null, '', window.location.pathname + window.location.search)
+  return token
+}
+
+const apiKey: string | null = readRenderToken()
 
 export const hasAPIKey = (): boolean => apiKey !== null && apiKey.length !== 0
 
@@ -23,7 +36,7 @@ const makeCall = async ({ endpoint, method = 'GET', body }: CallOptions): Promis
   let responseBody: unknown = null
 
   try {
-    if (!hasAPIKey()) throw new APITokenError('VITE_AUTH_KEY not configured')
+    if (!hasAPIKey()) throw new APITokenError('no render token in the URL')
 
     fetchOptions = {
       method,
