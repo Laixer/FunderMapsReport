@@ -2,8 +2,10 @@
 
 Renders the FunderMaps foundation **report** as a web page that a headless
 renderer (**Gotenberg** / headless Chrome) turns into the downloadable PDF. It
-has no login UI — it authenticates with a single static API key baked in at
-build time (`VITE_AUTH_KEY`, sent as `Authorization: Bearer fmsk.…`).
+has no login UI. The API's `POST /api/pdf/:id` mints a render token per PDF
+(5 minutes, that pand only, read-only) and passes it in the URL fragment
+(`/<pand>#t=fmrt.…`); the page sends it as `Authorization: Bearer fmrt.…`.
+There is no key in the bundle any more.
 
 **Stack:** Vue 3 (`<script setup>`), TypeScript, Vite, Chart.js, Mapbox GL.
 Package manager: **pnpm**.
@@ -22,7 +24,6 @@ pnpm preview  # preview the production build
 See `env.d.ts` for the full `VITE_` env surface. The essentials:
 
 - `VITE_FUNDERMAPS_URL` — FunderMaps API base URL.
-- `VITE_AUTH_KEY` — static `fmsk.` API key (sent as a Bearer token).
 - `VITE_MAPBOX_TOKEN`, `VITE_MAPBOX_STYLE` — Mapbox rendering.
 
 ## How the PDF is produced
