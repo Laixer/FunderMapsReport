@@ -24,7 +24,7 @@ const locationData = computed(() => {
   return getLocationDataByBuildingId(buildingId.value)
 })
 
-const fullAddress = computed(() => locationData.value?.address?.fullAddress || '—')
+const fullAddress = computed(() => locationData.value?.address?.fullAddress || 'Geen adres bekend')
 
 const constructionYear = computed(() => analysisData.value?.constructionYear ?? '—')
 

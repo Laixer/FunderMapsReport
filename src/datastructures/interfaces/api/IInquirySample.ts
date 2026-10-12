@@ -20,6 +20,9 @@ export interface IInquirySample extends IEnumMethods {
   recoveryAdvised?: boolean,
   damageCause?: EFoundationDamageCause,
   damageCharacteristics?: EFoundationDamageCharacteristics,
+  // Every cause / characteristic on record, main one first: the two fields above are that first one
+  damageCauseList?: EFoundationDamageCause[],
+  damageCharacteristicsList?: EFoundationDamageCharacteristics[],
   constructionPile?: EConstructionPile,
   woodType?: EWoodType,
   woodEncroachement?: EWoodEncroachement,

@@ -2,10 +2,11 @@
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
-import { type LngLatLike, type Map, LngLat, type LayerSpecification, Marker } from 'mapbox-gl'
+import { type LngLatLike, type Map, LngLat, type LayerSpecification } from 'mapbox-gl'
 
 import Chapter from '@/components/Print/Chapter.vue'
 import MapBox from '@/components/Common/Mapbox/MapBox.vue'
+import { addPandMarker } from '@/components/Common/Mapbox/pandMarker'
 
 import { useGeoLocationsStore } from '@/store/building/geolocations'
 import { useBuildingStore } from '@/store/buildings';
@@ -64,7 +65,10 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
   // Add incident layer
   // @ts-expect-error JSON layer config has wider shape than mapbox LayerSpecification typing
   const layerSpecification: LayerSpecification = (await import('../../../config/layers/incident-district.json')).default
-  map.addLayer(layerSpecification)
+  // Below the base map's labels: on top of them the fill leaves only
+  // fragments of the place names.
+  const firstLabelLayer = map.getStyle()?.layers?.find(layer => layer.type === 'symbol')
+  map.addLayer(layerSpecification, firstLabelLayer?.id)
   map.setLayoutProperty('incident-district', 'visibility', 'visible')
 
   if (!buildingId.value) {
@@ -76,12 +80,7 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
     return false
   }
 
-  new Marker({
-    draggable: false
-  }).setLngLat(new LngLat(
-    buildingData.residence?.longitude,
-    buildingData.residence?.latitude
-  )).addTo(map);
+  addPandMarker(map, buildingData.residence.longitude, buildingData.residence.latitude)
 }
 
 

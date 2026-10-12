@@ -95,6 +95,11 @@ const inquiryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
 const samplesAvailableCount = computed(
   () => inquiryData.value.filter((entry) => entry.sample !== undefined).length
 )
+// The number to print: reports, not sample rows. One report often holds several
+// samples of the same pand, and the text used to count those as reports.
+const reportsAvailableCount = computed(
+  () => new Set(inquiryData.value.map((entry) => entry.report.id)).size
+)
 const selectedReportDateLabel = computed(() => {
   const raw = inquiryData.value[0]?.report?.documentDate
   if (!raw) return null
@@ -129,11 +134,6 @@ const fieldsWithFoundationData = computed(() => {
 const fieldGroupHeaders: Record<string, string> = {
   pile: 'Palen & Hout',
   quality: 'Niveau & Kwaliteit',
-}
-
-const groupHasData: Record<string, boolean> = {
-  pile: false,
-  quality: false,
 }
 
 /**
@@ -179,15 +179,25 @@ const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = 
         if (group) {
           acc[group] = acc[group] || []
           acc[group].push(fieldData)
-
-          if (fieldData.formattedFieldValueLabel !== 'Geen data') {
-            groupHasData[group] = true
-          }
         }
 
         return acc
       }, {} as Record<string, CompletedFieldData[]>
     )
+})
+
+/**
+ * Per group: whether any of its fields has a value.
+ * Derived from the fields themselves. These flags used to be a plain object
+ * filled as a side effect of the computed above, which the template only
+ * touches inside the blocks the flags were meant to open: they never opened.
+ */
+const groupHasData: ComputedRef<Record<string, boolean>> = computed(() => {
+  return Object.fromEntries(
+    Object.entries(sampleFieldsWithData.value).map(
+      ([group, fields]) => [group, fields.some(field => field.formattedFieldValueLabel !== 'Geen data')]
+    )
+  )
 })
 
 /******************************************************************************
@@ -262,8 +272,9 @@ const foundationTypeGraph = computed(() => {
   <Chapter icon="file-foundation" title="Fundering">
     <section class="space-y-7">
       <p v-if="samplesAvailableCount > 1" class="text-grey-700">
-        Voor dit pand zijn {{ samplesAvailableCount }} onderzoeksrapporten met monsters
-        beschikbaar. Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="selectedReportDateLabel">
+        <template v-if="reportsAvailableCount === 1">Voor dit pand is 1 onderzoeksrapport beschikbaar.</template>
+        <template v-else>Voor dit pand zijn {{ reportsAvailableCount }} onderzoeksrapporten beschikbaar.</template>
+        Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="selectedReportDateLabel">
           ({{ selectedReportDateLabel }})</template>; het volledige overzicht vindt u in het
         hoofdstuk Rapportage.
       </p>
@@ -314,7 +325,7 @@ const foundationTypeGraph = computed(() => {
           </div>
         </div>
 
-        <div v-if="groupHasData['pile']" class="highlight">
+        <div v-if="groupHasData['quality']" class="highlight">
           <img src="@assets/images/highlight-bg.png" alt="" class="inset absolute -z-10 w-full" />
           <div class="highlight__content space-y-3">
             <h3>{{ fieldGroupHeaders['quality'] }}</h3>

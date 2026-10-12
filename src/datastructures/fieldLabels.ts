@@ -47,7 +47,7 @@ export const analysisFieldLabels = <Record<string, string>>{
   drystandReliability: "Betrouwbaarheid droogstandsrisico",
   dewateringDepthRisk: "Ontwateringsdiepte risico",
   dewateringDepth: "Ontwateringsdiepte",
-  dewateringDepthReliability: "Betrouwbaarheid ontwateringsdiepte",
+  dewateringDepthReliability: "Betrouwbaarheid",
   bioInfectionRisk: "Bacteriële aantasting risico",
   bioInfectionReliability: "Betrouwbaarheid bacteriële aantasting",
   negativeclingRisk: "Negatieve kleef risico",
@@ -199,7 +199,7 @@ export const riskFieldLabels = <Record<string, string>>{
   drystandReliability: "Betrouwbaarheid droogstandsrisico",
   dewateringDepthRisk: "Ontwateringsdiepte risico",
   dewateringDepth: "Ontwateringsdiepte",
-  dewateringDepthReliability: "Betrouwbaarheid ontwateringsdiepte",
+  dewateringDepthReliability: "Betrouwbaarheid",
   bioInfectionRisk: "Bacteriële aantasting risico",
   bioInfectionReliability: "Betrouwbaarheid bacteriële aantasting",
   // TODO: Missing field names: E152 - 156
@@ -236,6 +236,9 @@ export const indicentFieldLabels = <Record<string, string>>{
  *  NOTE: There is overlap! 
  */
 export const fieldLabels = Object.assign(
+  // A new object: assigning into analysisFieldLabels overwrote the model's own labels with later ones
+  // of the same name (its "Maaiveldniveau voor pand" became the sample's "Maaiveldniveau (volgens AHN)").
+  {},
   analysisFieldLabels,
   addressFieldLabels,
   buildingFieldLabels,

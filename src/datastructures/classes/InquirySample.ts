@@ -24,6 +24,8 @@ export class InquirySample extends EnumMethods implements IInquirySample {
   recoveryAdvised?: boolean;
   damageCause?: EFoundationDamageCause;
   damageCharacteristics?: EFoundationDamageCharacteristics;
+  damageCauseList?: EFoundationDamageCause[];
+  damageCharacteristicsList?: EFoundationDamageCharacteristics[];
   constructionPile?: EConstructionPile;
   woodType?: EWoodType;
   woodEncroachement?: EWoodEncroachement;
@@ -94,6 +96,8 @@ export class InquirySample extends EnumMethods implements IInquirySample {
     this.recoveryAdvised = data.recoveryAdvised;
     this.damageCause = data.damageCause;
     this.damageCharacteristics = data.damageCharacteristics;
+    this.damageCauseList = data.damageCauseList;
+    this.damageCharacteristicsList = data.damageCharacteristicsList;
     this.constructionPile = data.constructionPile;
     this.woodType = data.woodType;
     this.woodEncroachement = data.woodEncroachement;
@@ -182,11 +186,20 @@ export class InquirySample extends EnumMethods implements IInquirySample {
     return (this.enforcementTerm || this.enforcementTerm === 0) ? (EEnforcementTermLabels.get(this.enforcementTerm) || '') : '';
   }
   
+  // A sample can hold several causes / characteristics; the single field is the
+  // main one, the list has them all (main one first). With more than one on
+  // record the label names every one of them.
   get damageCauseLabel(): string {
+    if (this.damageCauseList && this.damageCauseList.length > 1) {
+      return this.damageCauseList.map(value => EFoundationDamageCauseLabels.get(value) || '').filter(Boolean).join(', ');
+    }
     return (this.damageCause || this.damageCause === 0) ? (EFoundationDamageCauseLabels.get(this.damageCause) || '') : '';
   }
   
   get damageCharacteristicsLabel(): string {
+    if (this.damageCharacteristicsList && this.damageCharacteristicsList.length > 1) {
+      return this.damageCharacteristicsList.map(value => EFoundationDamageCharacteristicsLabels.get(value) || '').filter(Boolean).join(', ');
+    }
     return (this.damageCharacteristics || this.damageCharacteristics === 0) ? (EFoundationDamageCharacteristicsLabels.get(this.damageCharacteristics) || '') : '';
   }
   

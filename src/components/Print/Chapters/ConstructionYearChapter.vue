@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
-import { type LngLatLike, type Map, LngLat, type LayerSpecification, Marker } from 'mapbox-gl'
+import { type LngLatLike, type Map, LngLat, type LayerSpecification } from 'mapbox-gl'
 
 import { IConstructionYearPair } from '@/datastructures/interfaces/api/IStatistics.ts';
 
@@ -10,6 +10,7 @@ import Chapter from '@/components/Print/Chapter.vue'
 import BarChart from '@/components/Charts/BarChart.vue';
 
 import MapBox from '@/components/Common/Mapbox/MapBox.vue'
+import { addPandMarker } from '@/components/Common/Mapbox/pandMarker'
 
 import { useStatisticsStore } from '@/store/building/statistics';
 import { useBuildingStore } from '@/store/buildings';
@@ -43,6 +44,10 @@ const constructionGraph = computed(() => {
       return decade.totalCount
     }),
     labels: buildingStatistics.value.constructionYearDistribution.decades.map((decade: IConstructionYearPair) => {
+      // A year around 1000 (mostly 1005) is the register's code for an
+      // unknown construction year, not a period: no "1000-1009" bar.
+      if (Number(decade.decade.yearFrom.substring(0, 4)) < 1100) return 'Onbekend'
+
       return `${decade.decade.yearFrom.substring(0, 4)}-${decade.decade.yearTo.substring(0, 4)}`
     })
   }
@@ -114,14 +119,13 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
     return false
   }
 
-  new Marker({
-    draggable: false
-  }).setLngLat(new LngLat(
-    buildingData.residence?.longitude,
-    buildingData.residence?.latitude
-  )).addTo(map);
+  addPandMarker(map, buildingData.residence.longitude, buildingData.residence.latitude)
 }
 
+// Each colour is the layer's colour for the first year of its range (see
+// config/layers/construction-year.json), so a range ends the year before the
+// next one starts: 1970 has the colour of "1970 t/m 1979", not of the range
+// before it.
 const legendItems = [
   {
     color: '#293575',
@@ -129,35 +133,35 @@ const legendItems = [
   },
   {
     color: '#293575',
-    label: '1960 t/m 1970'
+    label: '1960 t/m 1969'
   },
   {
     color: '#1261a3',
-    label: '1970 t/m 1980'
+    label: '1970 t/m 1979'
   },
   {
     color: '#69a8de',
-    label: '1980 t/m 1990'
+    label: '1980 t/m 1989'
   },
   {
     color: '#99c1e9',
-    label: '1990 t/m 2000'
+    label: '1990 t/m 1999'
   },
   {
     color: '#b378b1',
-    label: '2000 t/m 2010'
+    label: '2000 t/m 2009'
   },
   {
     color: '#bd6495',
-    label: '2010 t/m 2020'
+    label: '2010 t/m 2019'
   },
   {
     color: '#ba2351',
-    label: '2020 t/m 2022'
+    label: '2020 t/m 2021'
   },
   {
     color: '#d11313',
-    label: '> 2022'
+    label: 'vanaf 2022'
   }
 ]
 
