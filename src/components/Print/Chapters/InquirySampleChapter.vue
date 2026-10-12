@@ -136,6 +136,11 @@ const fieldGroupHeaders: Record<string, string> = {
   quality: 'Niveau & Kwaliteit',
 }
 
+const groupHasData: Record<string, boolean> = {
+  pile: false,
+  quality: false,
+}
+
 /**
  * Fields config
  */
@@ -179,25 +184,15 @@ const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = 
         if (group) {
           acc[group] = acc[group] || []
           acc[group].push(fieldData)
+
+          if (fieldData.formattedFieldValueLabel !== 'Geen data') {
+            groupHasData[group] = true
+          }
         }
 
         return acc
       }, {} as Record<string, CompletedFieldData[]>
     )
-})
-
-/**
- * Per group: whether any of its fields has a value.
- * Derived from the fields themselves. These flags used to be a plain object
- * filled as a side effect of the computed above, which the template only
- * touches inside the blocks the flags were meant to open: they never opened.
- */
-const groupHasData: ComputedRef<Record<string, boolean>> = computed(() => {
-  return Object.fromEntries(
-    Object.entries(sampleFieldsWithData.value).map(
-      ([group, fields]) => [group, fields.some(field => field.formattedFieldValueLabel !== 'Geen data')]
-    )
-  )
 })
 
 /******************************************************************************
@@ -325,7 +320,7 @@ const foundationTypeGraph = computed(() => {
           </div>
         </div>
 
-        <div v-if="groupHasData['quality']" class="highlight">
+        <div v-if="groupHasData['pile']" class="highlight">
           <img src="@assets/images/highlight-bg.png" alt="" class="inset absolute -z-10 w-full" />
           <div class="highlight__content space-y-3">
             <h3>{{ fieldGroupHeaders['quality'] }}</h3>

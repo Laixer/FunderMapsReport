@@ -36,7 +36,9 @@ export const analysisFieldLabels = <Record<string, string>>{
   volume: "Inhoud", // TODO: missing fieldName E15
   height: "Pandhoogte",
   groundWaterLevel: "Grondwaterstand volgens landelijk watermodel",
-  groundLevel: "Maaiveldniveau voor pand",
+  // The wording the report has shown for this row since 2025-05 ("update label",
+  // a3fb576). It was set on the sample's label below, which used to overwrite this one.
+  groundLevel: "Maaiveldniveau (volgens AHN)",
   soil: "Type ondergrond",
   foundationType: "Type fundering",
   foundationTypeReliability: "Betrouwbaarheid funderingstype",
@@ -124,7 +126,8 @@ export const inquirySampleFieldLabels = <Record<string, string>>{
   builtYear: "Bouwjaar volgens onderzoek",
   substructure: "Onderbouw",
   cpt: "Sondering",
-  groundLevel: "Maaiveldniveau (volgens AHN)",
+  // Measured in the report itself; the model's own row above says "(volgens AHN)".
+  groundLevel: "Maaiveldniveau (uit onderzoek)",
   groundwaterLevelNet: "Grondwaterstand (uit peilbuis)",
   monitoringWell: "Peilbuis",
   groundwaterLevelTemp: "Grondwaterniveau bij ontgraving",
@@ -237,7 +240,7 @@ export const indicentFieldLabels = <Record<string, string>>{
  */
 export const fieldLabels = Object.assign(
   // A new object: assigning into analysisFieldLabels overwrote the model's own labels with later ones
-  // of the same name (its "Maaiveldniveau voor pand" became the sample's "Maaiveldniveau (volgens AHN)").
+  // of the same name, so the model's and the sample's ground level carried one label.
   {},
   analysisFieldLabels,
   addressFieldLabels,

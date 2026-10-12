@@ -39,6 +39,25 @@ const selectedCaseItem: ComputedRef<ICombinedInquiryData | null> = computed(() =
 })
 
 
+const groupHasData: Record<string, boolean> = {
+  'skewed-left': false,
+  'skewed-right': false,
+  indoor: false,
+  front: false,
+  back: false,
+  left: false,
+  right: false
+}
+
+/**
+ * Whether there is sample data to be shown
+ */
+const hasSampleData = computed(() => {
+  return (!!(selectedCaseItem.value?.sample)) && !Object.values(groupHasData).every(value => value === false)
+})
+
+
+
 /**
  * Fields config
  */
@@ -97,32 +116,16 @@ const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = 
         if (group) {
           acc[group] = acc[group] || []
           acc[group].push(fieldData)
+
+
+          if (fieldData.formattedFieldValueLabel !== 'Geen data') {
+            groupHasData[group] = true
+          }
         }
 
         return acc
       }, {} as Record<string, CompletedFieldData[]>
     )
-})
-
-/**
- * Per group: whether any of its fields has a value.
- * Derived from the fields themselves. These flags used to be a plain object
- * filled as a side effect of the computed above, which the template only
- * touches inside the chapter the flags were meant to open: it never opened.
- */
-const groupHasData: ComputedRef<Record<string, boolean>> = computed(() => {
-  return Object.fromEntries(
-    Object.entries(sampleFieldsWithData.value).map(
-      ([group, fields]) => [group, fields.some(field => field.formattedFieldValueLabel !== 'Geen data')]
-    )
-  )
-})
-
-/**
- * Whether there is sample data to be shown
- */
-const hasSampleData = computed(() => {
-  return (!!(selectedCaseItem.value?.sample)) && Object.values(groupHasData.value).some(value => value === true)
 })
 
 </script>
