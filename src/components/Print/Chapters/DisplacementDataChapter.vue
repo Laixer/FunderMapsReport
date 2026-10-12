@@ -72,7 +72,7 @@ const graphData = computed(() => {
     <section class="space-y-10">
       <div class="space-y-4 text-grey-700">
         <p>
-          Voor een deel van de panden in Nederland zijn zakkingsgegevens beschikbaar. Deze zijn verkregen op basis van satellietmetingen en bepaald met een zogenaamde InSAR-analyse, waarbij de zakkingssnelheid per jaar wordt uitgedrukt in millimeters per jaar (mm/jaar).
+          Voor een deel van de panden in Nederland zijn zakkingsgegevens beschikbaar. Deze zijn verkregen op basis van satellietmetingen en bepaald met een zogenaamde InSAR-analyse, waarbij de zakkingssnelheid wordt uitgedrukt in millimeters per jaar (mm/jaar).
         </p>
         <p>
           De meting geeft de mate van zakking aan in een bepaalde periode, maar kan niet direct worden gebruikt om de absolute zakking te bepalen – oftewel hoeveel het pand in totaal is gezakt over de volledige levensduur.
@@ -99,7 +99,7 @@ const graphData = computed(() => {
         </div>
       </div>
 
-      <ScatterChart v-if="graphData.data?.length !== 0" title="Pandzakking mm" :labels="graphData.labels"
+      <ScatterChart v-if="graphData.data?.length !== 0" title="Pandzakking (mm)" :labels="graphData.labels"
         :data="graphData.data" :borderColors="['#191e3c']" :backgroundColors="['#191e3c']" />
 
     </section>

@@ -7,6 +7,7 @@ import { ICombinedInquiryData } from '@/datastructures/interfaces/index.ts';
 
 import Chapter from '@/components/Print/Chapter.vue'
 import MapBox from '@/components/Common/Mapbox/MapBox.vue'
+import { addPandMarker } from '@/components/Common/Mapbox/pandMarker'
 import ItemGrid from '@/components/ItemGrid.vue';
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs } from '@/utils/fieldData'
@@ -118,34 +119,7 @@ const addMarker = function addMarker({ map }: { map: Map }) {
     return false
   }
 
-  // Draw the marker as a circle layer INSIDE the WebGL canvas. A mapbox-gl
-  // Marker is a DOM overlay on top of the canvas, so the MapBox wrapper's
-  // canvas→PNG snapshot (the PDF path) would never capture it.
-  map.addSource('residence-marker', {
-    type: 'geojson',
-    data: {
-      type: 'Feature',
-      properties: {},
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          buildingData.residence?.longitude,
-          buildingData.residence?.latitude
-        ]
-      }
-    }
-  })
-  map.addLayer({
-    id: 'residence-marker',
-    type: 'circle',
-    source: 'residence-marker',
-    paint: {
-      'circle-radius': 9,
-      'circle-color': '#191e3c',
-      'circle-stroke-width': 3,
-      'circle-stroke-color': '#ffffff'
-    }
-  })
+  addPandMarker(map, buildingData.residence.longitude, buildingData.residence.latitude)
 }
 
 </script>

@@ -18,10 +18,17 @@ const { getStatisticsDataByBuildingId } = useStatisticsStore()
 
 /**
  * Data inquiry sample source for panel
+ * Newest document first, the same order the Fundering chapter picks its
+ * "most recent" report by (the API hands them over by date of last change).
  */
 const inquiryData: ComputedRef<IInquiryReport[]> = computed(() => {
   if (!buildingId.value) return []
-  return getInquiryByBuildingId(buildingId.value) || []
+  return (getInquiryByBuildingId(buildingId.value) || [])
+    .slice()
+    .sort((a, b) => {
+      const byDate = (b.documentDate || '').localeCompare(a.documentDate || '')
+      return byDate !== 0 ? byDate : b.id - a.id
+    })
 })
 
 /******************************************************************************
@@ -65,6 +72,9 @@ const reportGraph = computed(() => {
       <p v-if="inquiryData.length !== 0">
         De volgende rapportage(s) zijn beschikbaar voor dit pand en zijn gebruikt voor het opstellen
         van het funderingsrisicorapport.
+      </p>
+      <p v-else>
+        Voor dit pand zelf zijn geen onderzoeksrapportages bekend.
       </p>
       <table v-if="inquiryData.length !== 0" class="w-full">
         <thead>

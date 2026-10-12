@@ -304,14 +304,24 @@ const graphData = computed(() => {
         <RiskNextSteps :level="fieldsWithDataAndIcons.bioInfectionRisk?.icon" />
       </div>
 
+      <!-- A caption under each drawing: only two of the four name their subject in the picture itself. -->
       <div class="grid grid-cols-2 gap-4">
-        <img v-if="fieldsWithDataAndIcons.drystandRisk?.icon" src="@assets/images/schimmelaantasting_droogstand.webp"
-          alt="" />
-        <img v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon" src="@assets/images/bacteriele_aantasting.webp"
-          alt="" />
-        <img v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" src="@assets/images/optrekkend_vocht.webp"
-          alt="" />
-        <img v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" src="@assets/images/verschilzakking.webp" alt="" />
+        <figure v-if="fieldsWithDataAndIcons.drystandRisk?.icon" class="space-y-1">
+          <img src="@assets/images/schimmelaantasting_droogstand.webp" alt="" />
+          <figcaption class="text-center font-bold leading-4 text-grey-700">Droogstand</figcaption>
+        </figure>
+        <figure v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon" class="space-y-1">
+          <img src="@assets/images/bacteriele_aantasting.webp" alt="" />
+          <figcaption class="text-center font-bold leading-4 text-grey-700">Bacteriële aantasting</figcaption>
+        </figure>
+        <figure v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" class="space-y-1">
+          <img src="@assets/images/optrekkend_vocht.webp" alt="" />
+          <figcaption class="text-center font-bold leading-4 text-grey-700">Optrekkend vocht</figcaption>
+        </figure>
+        <figure v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon" class="space-y-1">
+          <img src="@assets/images/verschilzakking.webp" alt="" />
+          <figcaption class="text-center font-bold leading-4 text-grey-700">Verschilzakking</figcaption>
+        </figure>
       </div>
 
       <!-- RISK -->

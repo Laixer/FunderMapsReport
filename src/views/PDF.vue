@@ -40,7 +40,8 @@ const { buildingId } = storeToRefs(useBuildingStore())
  */
 const {
   loadLocationDataByBuildingId,
-  buildingLocationDataHasBeenRetrieved
+  buildingLocationDataHasBeenRetrieved,
+  getFullAddressByBuildingId
 } = useGeoLocationsStore()
 
 const {
@@ -135,6 +136,18 @@ watch(
     ])
   },
   { immediate: true }
+)
+
+// The title of the PDF (and of the tab): the report's name, with the pand's
+// address as soon as that is known. Set before the ready flag below, so the
+// renderer always picks it up.
+watch(
+  () => (buildingId.value ? getFullAddressByBuildingId(buildingId.value) : null),
+  (address) => {
+    document.title = address
+      ? `Funderingsrisicorapport ${address} – FunderMaps`
+      : 'Funderingsrisicorapport – FunderMaps'
+  }
 )
 
 onBeforeMount(() => {

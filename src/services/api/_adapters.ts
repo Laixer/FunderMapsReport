@@ -25,8 +25,11 @@ import type {
 import {
   EAccessPolicy,
   EAuditStatus,
+  EConstructionPile,
+  ECrackType,
   EEnforcementTerm,
   EEnvironmentDamageCharacteristics,
+  EFacade,
   EFoundationDamageCause,
   EFoundationDamageCharacteristics,
   EFoundationQuality,
@@ -34,9 +37,17 @@ import {
   EFoundationType,
   EIncidentQuestionType,
   EInquiryType,
+  EPileType,
+  EQuality,
   ERecoveryDocumentType,
+  ERecoveryStatus,
   ERecoveryType,
   EReliability,
+  ERotationType,
+  ESubstructure,
+  EWoodEncroachement,
+  EWoodQuality,
+  EWoodType,
 } from "@/datastructures/enums"
 
 // ---------------------------------------------------------------------------
@@ -111,6 +122,20 @@ const ENUM = {
   recoveryDocumentType: enumToWireKeys(ERecoveryDocumentType),
   foundationRisk: enumToWireKeys(EFoundationRisk),
   incidentQuestionType: enumToWireKeys(EIncidentQuestionType),
+  // Enums of the inquiry and recovery samples
+  substructure: enumToWireKeys(ESubstructure),
+  constructionPile: enumToWireKeys(EConstructionPile),
+  woodType: enumToWireKeys(EWoodType),
+  woodEncroachement: enumToWireKeys(EWoodEncroachement),
+  woodQuality: enumToWireKeys(EWoodQuality),
+  quality: enumToWireKeys(EQuality),
+  crackType: enumToWireKeys(ECrackType),
+  rotationType: enumToWireKeys(ERotationType),
+  recoveryStatus: enumToWireKeys(ERecoveryStatus),
+  // The enum member is misspelt (IntgernallyDriven), so its wire key cannot
+  // be derived from the name; the database says internally_driven.
+  pileType: enumToWireKeys(EPileType).map(key => key === 'intgernally_driven' ? 'internally_driven' : key),
+  facade: enumToWireKeys(EFacade),
 } as const
 
 type EnumName = keyof typeof ENUM
@@ -126,6 +151,14 @@ const toEnumIntArray = (name: EnumName, values: unknown): number[] => {
   return values
     .map(v => toEnumInt(name, v))
     .filter((i): i is number => i !== undefined)
+}
+
+// An enum[] column arrives as a real array or, where the driver has no parser
+// for the array type, as the literal "{front,rear}".
+const toStringArray = (value: unknown): string[] => {
+  if (Array.isArray(value)) return value.map(String)
+  if (typeof value !== 'string') return []
+  return value.replace(/^\{|\}$/g, '').split(',').map(v => v.replace(/^"|"$/g, '').trim()).filter(Boolean)
 }
 
 // Coerce a list of fields on a record to enum ints. Mutates in place.
@@ -251,6 +284,20 @@ export const adaptGeoLocationData = (raw: unknown): IGeoLocationData => {
   const opt = <T>(idField: string, build: () => T): T | null =>
     r[idField] ? build() : null
 
+  // Only the parts that exist: a pand without an address (a shed, a garage)
+  // used to come out as ",".
+  const fullAddress = [
+    [street, number].filter(Boolean).join(' '),
+    [postal, city].filter(Boolean).join(' '),
+  ].filter(Boolean).join(', ')
+
+  // The verblijfsobject point when there is one, else the centre of the
+  // pand's footprint: a pand without a verblijfsobject used to get no
+  // position at all, and with that maps of the fallback centre (Amsterdam).
+  const point = (lat: unknown, lon: unknown): { latitude: number, longitude: number } | null =>
+    typeof lat === 'number' && typeof lon === 'number' ? { latitude: lat, longitude: lon } : null
+  const position = point(r.residence_lat, r.residence_lon) ?? point(r.building_lat, r.building_lon)
+
   return {
     building: {
       id: (r.building_id as string) ?? '',
@@ -265,21 +312,21 @@ export const adaptGeoLocationData = (raw: unknown): IGeoLocationData => {
       postalCode: postal,
       street,
       city,
-      fullAddress: `${street} ${number}, ${postal} ${city}`.trim(),
+      fullAddress,
     },
-    // The TS API serves coordinates flat (residence_lat/residence_lon);
-    // map chapters center and place markers on residence.latitude/longitude.
-    // This used to be a hardcoded null, which silently sent every report map
-    // to the Amsterdam fallback center (invisible while the maps themselves
-    // failed to render at all — FunderMaps#969).
+    // The TS API serves coordinates flat (residence_lat/residence_lon,
+    // building_lat/building_lon); map chapters center and place markers on
+    // residence.latitude/longitude. This used to be a hardcoded null, which
+    // silently sent every report map to the Amsterdam fallback center
+    // (invisible while the maps themselves failed to render at all —
+    // FunderMaps#969).
     residence:
-      typeof r.residence_lat === 'number' && typeof r.residence_lon === 'number'
+      position
         ? {
             id: '',
             addressId: (r.address_id as string) ?? '',
             buildingId: (r.building_id as string) ?? '',
-            latitude: r.residence_lat,
-            longitude: r.residence_lon,
+            ...position,
           }
         : null,
     neighborhood: opt('neighborhood_id', () => ({
@@ -378,22 +425,80 @@ export const adaptRecovery = (raw: unknown): IRecoveryReport => {
 }
 
 // ---------------------------------------------------------------------------
-// Inquiry / Recovery samples — snake→camel + parent FK rename
+// Inquiry / Recovery samples — snake→camel + parent FK rename, then the same
+// enum / numeric coercion as the analysis. Without it every enum of a sample
+// printed as an empty value (the label maps are keyed on the integer).
 // ---------------------------------------------------------------------------
+
+const INQUIRY_SAMPLE_NUMERIC = ['groundwaterLevelTemp', 'groundLevel', 'groundwaterLevelNet',
+  'constructionLevel', 'woodLevel', 'pileDiameterTop', 'pileDiameterBottom', 'pileHeadLevel',
+  'pileTipLevel', 'foundationDepth', 'masonLevel', 'concreteChargerLength', 'pileDistanceLength',
+  'woodPenetrationDepth', 'crackIndoorSize', 'crackFacadeFrontSize', 'crackFacadeBackSize',
+  'crackFacadeLeftSize', 'crackFacadeRightSize', 'thresholdFrontLevel', 'thresholdBackLevel',
+  'skewedParallel', 'skewedPerpendicular', 'settlementSpeed'] as const
+
+const INQUIRY_SAMPLE_ENUMS: readonly [string, EnumName][] = [
+  ['substructure', 'substructure'],
+  ['foundationType', 'foundationType'],
+  ['enforcementTerm', 'enforcementTerm'],
+  ['damageCause', 'foundationDamageCause'],
+  ['damageCharacteristics', 'foundationDamageCharacteristics'],
+  ['constructionPile', 'constructionPile'],
+  ['woodType', 'woodType'],
+  ['woodEncroachement', 'woodEncroachement'],
+  ['overallQuality', 'foundationQuality'],
+  ['woodQuality', 'woodQuality'],
+  ['constructionQuality', 'quality'],
+  ['woodCapacityHorizontalQuality', 'quality'],
+  ['pileWoodCapacityVerticalQuality', 'quality'],
+  ['carryingCapacityQuality', 'quality'],
+  ['masonQuality', 'quality'],
+  ['crackIndoorType', 'crackType'],
+  ['crackFacadeFrontType', 'crackType'],
+  ['crackFacadeBackType', 'crackType'],
+  ['crackFacadeLeftType', 'crackType'],
+  ['crackFacadeRightType', 'crackType'],
+  ['skewedParallelFacade', 'rotationType'],
+  ['skewedPerpendicularFacade', 'rotationType'],
+]
 
 export const adaptInquirySample = (raw: unknown): IInquirySample => {
   const o = snakeToCamel(raw) as Record<string, unknown>
   // Frontend type names the parent FK `inquiry`, not `inquiryId`.
   if ('inquiryId' in o) { o.inquiry = o.inquiryId; delete o.inquiryId }
   if ('buildingId' in o) { o.building = o.buildingId; delete o.buildingId }
+  // Two columns are spelt differently from the frontend type: `groundlevel`
+  // has no underscore to camel-case on, and the type says woodEncroachement.
+  if ('groundlevel' in o) { o.groundLevel = o.groundlevel; delete o.groundlevel }
+  if ('woodEncroachment' in o) { o.woodEncroachement = o.woodEncroachment; delete o.woodEncroachment }
+
+  coerceNumeric(o, INQUIRY_SAMPLE_NUMERIC)
+  coerceEnums(o, INQUIRY_SAMPLE_ENUMS)
+  // Every cause / characteristic of the sample, main one first (damageCause
+  // and damageCharacteristics are that first one).
+  o.damageCauseList = toEnumIntArray('foundationDamageCause', toStringArray(o.damageCauseList))
+  o.damageCharacteristicsList = toEnumIntArray('foundationDamageCharacteristics',
+    toStringArray(o.damageCharacteristicsList))
   return o as unknown as IInquirySample
 }
+
+const RECOVERY_SAMPLE_ENUMS: readonly [string, EnumName][] = [
+  ['status', 'recoveryStatus'],
+  ['type', 'recoveryType'],
+  ['pileType', 'pileType'],
+]
 
 export const adaptRecoverySample = (raw: unknown): IRecoverySample => {
   const o = snakeToCamel(raw) as Record<string, unknown>
   if ('recoveryId' in o) { o.recovery = o.recoveryId; delete o.recoveryId }
   if ('buildingId' in o) { o.building = o.buildingId; delete o.buildingId }
   if ('contractorId' in o) { o.contractor = o.contractorId; delete o.contractorId }
+
+  coerceEnums(o, RECOVERY_SAMPLE_ENUMS)
+  // No facades stays "no value", so the report says "Geen data" instead of
+  // printing an empty list.
+  const facade = toEnumIntArray('facade', toStringArray(o.facade))
+  o.facade = facade.length !== 0 ? facade : undefined
   return o as unknown as IRecoverySample
 }
 

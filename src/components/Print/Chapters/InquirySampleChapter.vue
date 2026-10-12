@@ -95,6 +95,11 @@ const inquiryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
 const samplesAvailableCount = computed(
   () => inquiryData.value.filter((entry) => entry.sample !== undefined).length
 )
+// The number to print: reports, not sample rows. One report often holds several
+// samples of the same pand, and the text used to count those as reports.
+const reportsAvailableCount = computed(
+  () => new Set(inquiryData.value.map((entry) => entry.report.id)).size
+)
 const selectedReportDateLabel = computed(() => {
   const raw = inquiryData.value[0]?.report?.documentDate
   if (!raw) return null
@@ -262,8 +267,9 @@ const foundationTypeGraph = computed(() => {
   <Chapter icon="file-foundation" title="Fundering">
     <section class="space-y-7">
       <p v-if="samplesAvailableCount > 1" class="text-grey-700">
-        Voor dit pand zijn {{ samplesAvailableCount }} onderzoeksrapporten met monsters
-        beschikbaar. Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="selectedReportDateLabel">
+        <template v-if="reportsAvailableCount === 1">Voor dit pand is 1 onderzoeksrapport beschikbaar.</template>
+        <template v-else>Voor dit pand zijn {{ reportsAvailableCount }} onderzoeksrapporten beschikbaar.</template>
+        Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="selectedReportDateLabel">
           ({{ selectedReportDateLabel }})</template>; het volledige overzicht vindt u in het
         hoofdstuk Rapportage.
       </p>
