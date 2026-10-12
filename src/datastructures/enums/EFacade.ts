@@ -24,8 +24,8 @@ export enum EFacade {
 
 export const EFacadeLabels: Map<EFacade, string> = new Map([
   [EFacade.Front, "Voorgevel"],
-  [EFacade.SidewallLeft, "Linker gevel"],
-  [EFacade.SidewallRight, "Rechter gevel"],
-  [EFacade.Rear, "Achter gevel"]
+  [EFacade.SidewallLeft, "Linkergevel"],
+  [EFacade.SidewallRight, "Rechtergevel"],
+  [EFacade.Rear, "Achtergevel"]
 ]);
 

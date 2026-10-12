@@ -192,7 +192,7 @@ onUnmounted(() => {
       <img src="@assets/images/header-bg.png" alt="" class="inset absolute -z-10 w-full" />
       <img src="@assets/images/header-artifact.print.png" alt="" class="justify-self-start" />
       <div class="grid justify-items-center gap-2 text-white">
-        <img src="@assets/svg/fundermaps-inverted.svg?url" alt="Logo Fundermaps" class="h-8" />
+        <img src="@assets/svg/fundermaps-inverted.svg?url" alt="Logo FunderMaps" class="h-8" />
         <h1>Funderingsrisicorapport</h1>
       </div>
     </header>

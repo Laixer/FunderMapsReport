@@ -176,7 +176,7 @@ const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = 
           <figure class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2">
             <FacadeIcon name="links" class="aspect-square w-full flex-1" aria-hidden="true" />
             <figcaption class="flex-initial text-center font-bold leading-4 text-grey-700">
-              Linker zijgevel
+              Linkerzijgevel
             </figcaption>
           </figure>
           <dl role="list" class="list--definition col-span-4">
@@ -190,7 +190,7 @@ const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = 
           <figure class="col-span-2 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-2">
             <FacadeIcon name="rechts" class="aspect-square w-full flex-1" aria-hidden="true" />
             <figcaption class="flex-initial text-center font-bold leading-4 text-grey-700">
-              Rechter zijgevel
+              Rechterzijgevel
             </figcaption>
           </figure>
           <dl role="list" class="list--definition col-span-4">

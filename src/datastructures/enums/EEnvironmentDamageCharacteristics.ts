@@ -62,7 +62,7 @@ export const EEnvironmentDamageCharacteristicsLabels: Map<EEnvironmentDamageChar
   [EEnvironmentDamageCharacteristics.SaggingSewerConnection, "Verzakkend riool"],
   [EEnvironmentDamageCharacteristics.SaggingCablesPipes, "Verzakkende kabels/leidingen"],
   [EEnvironmentDamageCharacteristics.Flooding, "Wateroverlast"],
-  [EEnvironmentDamageCharacteristics.FoundationDamageNearby, "Funderingschade in wijk"],
+  [EEnvironmentDamageCharacteristics.FoundationDamageNearby, "Funderingsschade in wijk"],
   [EEnvironmentDamageCharacteristics.Elevation, "Recent opgehoogd"],
   [EEnvironmentDamageCharacteristics.IncreasingTraffic, "Verkeerstoename"],
   [EEnvironmentDamageCharacteristics.ConstructionNearby, "Werkzaamheden in wijk"],

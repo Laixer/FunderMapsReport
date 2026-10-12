@@ -168,7 +168,7 @@ const graphData = computed(() => {
               boven de grondwaterspiegel te liggen. Hierdoor kan zuurstof toetreden, wat leidt tot houtrot. Na
               jarenlange droogstand kan het draagvermogen van de fundering zijn aangetast, met als gevolg dat het pand
               vervormt. In een vergevorderd stadium uit zich dit in scheurvorming in de gevel, klemmende ramen en
-              deuren, en zichtbare verzakkingen in het gevelaanzich.
+              deuren, en zichtbare verzakkingen in het gevelaanzicht.
             </p>
           </div>
         </div>
@@ -321,7 +321,7 @@ const graphData = computed(() => {
             <div class="grid grid-cols-12 gap-4">
               <div class="col-span-12">
                 <div class="item">
-                  <dt>Risicoverdeling van de Wijk op Basis van Risicomodellen</dt>
+                  <dt>Risicoverdeling van de wijk op basis van risicomodellen</dt>
                   <dd></dd>
                 </div>
               </div>
@@ -330,7 +330,7 @@ const graphData = computed(() => {
           <div class="text-grey-700">
             <p>
               In deze grafiek is per pand het hoogste risico bepaald uit de verschillende risicomodellen. Deze maximale
-              risico-waarden zijn vervolgens gebruikt om de risicoverdeling in de hele wijk in kaart te brengen, waarbij
+              risicowaarden zijn vervolgens gebruikt om de risicoverdeling in de hele wijk in kaart te brengen, waarbij
               de verhoudingen zijn weergegeven in de bijgaande grafiek.
             </p>
           </div>

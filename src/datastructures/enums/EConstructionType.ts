@@ -18,6 +18,6 @@ export enum EConstructionType {
 
 export const EConstructionTypeLabels: Map<EConstructionType, string> = new Map([
   [EConstructionType.Brick, "Metselwerk"],
-  [EConstructionType.Concrete, "Betonnenbalk"]
+  [EConstructionType.Concrete, "Betonnen balk"]
 ]);
 
