@@ -101,11 +101,11 @@ export const EFoundationDamageCauseLabels: Map<EFoundationDamageCause, string> =
   [EFoundationDamageCause.ConstructionFlaw, "Constructiefouten"],
   [EFoundationDamageCause.Drystand, "Droogstand houten paalkop"],
   [EFoundationDamageCause.Overcharge, "Overbelasting"],
-  [EFoundationDamageCause.OverchargeNegativeCling, "Overbelastingen / of negatievekleef"],
-  [EFoundationDamageCause.NegativeCling, "Negatievekleef"],
-  [EFoundationDamageCause.BioInfection, "Bacterieleaantasting (palenpest)"],
+  [EFoundationDamageCause.OverchargeNegativeCling, "Overbelasting en/of negatieve kleef"],
+  [EFoundationDamageCause.NegativeCling, "Negatieve kleef"],
+  [EFoundationDamageCause.BioInfection, "Bacteriële aantasting (palenpest)"],
   [EFoundationDamageCause.FungusInfection, "Schimmelaantasting (paalrot)"],
-  [EFoundationDamageCause.BioFungusInfection, "Bacterieleen / of schimmelaantasting"],
+  [EFoundationDamageCause.BioFungusInfection, "Bacteriële en/of schimmelaantasting"],
   [EFoundationDamageCause.FoundationFlaw, "Funderingsfouten"],
   [EFoundationDamageCause.ConstructionHeave, "Opdrukking pand"],
   [EFoundationDamageCause.Subsidence, "Verzakking"],
@@ -113,6 +113,6 @@ export const EFoundationDamageCauseLabels: Map<EFoundationDamageCause, string> =
   [EFoundationDamageCause.Gas, "Gaswinning"],
   [EFoundationDamageCause.Vibrations, "Trillingen"],
   [EFoundationDamageCause.PartialFoundationRecovery, "Partieel funderingsherstel"],
-  [EFoundationDamageCause.JapaneseKnotweed, "Beschadiging fundering door japanse duizendknoop"],
+  [EFoundationDamageCause.JapaneseKnotweed, "Beschadiging fundering door Japanse duizendknoop"],
   [EFoundationDamageCause.GroundwaterLevelReduction, "Verlaging van grondwaterniveau"]
 ]);

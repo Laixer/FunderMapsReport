@@ -96,10 +96,10 @@ export enum EFoundationType {
  * Labels for user friendly presentation
  */
 export const EFoundationTypeLabels: Map<EFoundationType, string> = new Map([
-  [EFoundationType.Wood, "Houtenpaal fundering"],
-  [EFoundationType.WoodAmsterdam, "Houtenpaal (Amsterdamse) fundering"],
-  [EFoundationType.WoodRotterdam, "Houtenpaal (Rotterdamse) fundering"],
-  [EFoundationType.Concrete, "Betonpaal fundering"],
+  [EFoundationType.Wood, "Houten paalfundering"],
+  [EFoundationType.WoodAmsterdam, "Houten (Amsterdamse) paalfundering"],
+  [EFoundationType.WoodRotterdam, "Houten (Rotterdamse) paalfundering"],
+  [EFoundationType.Concrete, "Betonpaalfundering"],
   [EFoundationType.NoPile, "Ondiepe fundering"],
   [EFoundationType.NoPileMasonry, "Ondiepe fundering, gemetseld"],
   [EFoundationType.NoPileStrips, "Ondiepe fundering, stroken"],
@@ -107,9 +107,9 @@ export const EFoundationTypeLabels: Map<EFoundationType, string> = new Map([
   [EFoundationType.NoPileConcreteFloor, "Ondiepe fundering, betonvloer"],
   [EFoundationType.NoPileSlit, "Ondiepe fundering, slieten"],
   [EFoundationType.WoodCharger, "Houten paal met betonoplanger"],
-  [EFoundationType.WeightedPile, "Verzwaardepuntpaal"],
+  [EFoundationType.WeightedPile, "Verzwaarde puntpaal"],
   [EFoundationType.Combined, "Gecombineerde fundering"],
-  [EFoundationType.SteelPile, "Stalenbuispaal"],
+  [EFoundationType.SteelPile, "Stalen buispaal"],
   [EFoundationType.Other, "Overig"],
   [EFoundationType.WoodRotterdamAmsterdam, "Houten (Rotterdamse/Amsterdamse) paalfundering"],
   [EFoundationType.WoodRotterdamArch, "Houten (Rotterdamse) paalfundering met spaarboog"],
