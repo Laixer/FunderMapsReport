@@ -37,4 +37,22 @@
       @apply hidden;
     }
   }
+
+  /*
+    The renderer prints without "background graphics": every background is
+    left out and light text is darkened. For the running text that is fine,
+    but a legend without its colours cannot be read, and the title is white
+    by design. These print exactly as drawn.
+
+    Only on the coloured mark itself and on the title, never on a container:
+    the property is inherited, so on a container it would also undo the
+    darkening of the text inside. Not on .header--print either: its red is a
+    fallback behind the header image and has to stay out of the PDF.
+  */
+  .list--legenda li::before,
+  .maplegend--item::before,
+  .header--print h1 {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }

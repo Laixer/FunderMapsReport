@@ -7,6 +7,7 @@ import { ICombinedInquiryData } from '@/datastructures/interfaces/index.ts';
 import Chapter from '@/components/Print/Chapter.vue'
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs } from '@/utils/fieldData'
+import { pickFoundationEntry } from '@/utils/foundationSample'
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useGeoLocationsStore } from '@/store/building/geolocations'
@@ -52,10 +53,12 @@ const fieldsWithData = computed(() => {
       new FieldDataConfig({ name: 'surfaceArea' }),
       new FieldDataConfig({ name: 'height' }),
       // TODO: 2 unknown fields (Gebruik & Bestemming)
+      // From the report the Fundering chapter shows: that chapter prints the
+      // same value, and the two must not contradict each other.
       new FieldDataConfig({
         label: 'Onderbouw',
         name: 'substructure',
-        source: inquiryData.value?.[0]?.sample,
+        source: pickFoundationEntry(inquiryData.value)?.sample,
       }),
       new FieldDataConfig({
         label: 'BAG ID',

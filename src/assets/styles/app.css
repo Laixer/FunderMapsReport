@@ -11,7 +11,8 @@
 .maplegend--item:before {
   content: '';
   position: absolute;
-  background-color: var(--color);
+  /* `background`, not `background-color`: a legend may hand over a gradient */
+  background: var(--color);
   width: 1.125rem;
   height: 1.125rem;
   top: 0;

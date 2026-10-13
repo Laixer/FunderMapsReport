@@ -136,12 +136,20 @@ const graphData = computed(() => {
         </p>
       </div>
 
+      <!--
+        Each risk row names its class in words next to the icon: the icon is
+        4 mm in print and a grey shield without colour. The row is split in
+        two halves because of it: the longest name with the longest class
+        ("Bacteriële aantasting", "E (Aanzienlijk hoog risico)") takes 274 of
+        the 307 px a half has at the printed width; five twelfths were too few.
+      -->
+
       <!-- RISK: Droogstand -->
       <div v-if="fieldsWithDataAndIcons.drystandRisk?.icon" class="risk break-inside-avoid space-y-5">
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 items-start gap-4">
-              <div class="col-span-5">
+              <div class="col-span-6">
                 <div class="item">
                   <dd v-if="fieldsWithDataAndIcons.drystandRisk?.icon">
                     <ClassificationIcon :name="fieldsWithDataAndIcons.drystandRisk?.icon + ''" class="aspect-square w-4"
@@ -151,9 +159,10 @@ const graphData = computed(() => {
                     -
                   </dd>
                   <dt>Droogstand</dt>
+                  <dd>{{ fieldsWithDataAndIcons.drystandRisk?.value }}</dd>
                 </div>
               </div>
-              <div class="col-span-7">
+              <div class="col-span-6">
                 <div class="item">
                   <dt>{{ fieldsWithDataAndIcons.drystandReliability?.label }}</dt>
                   <dd>{{ fieldsWithDataAndIcons.drystandReliability?.value }}</dd>
@@ -180,7 +189,7 @@ const graphData = computed(() => {
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
-              <div class="col-span-5">
+              <div class="col-span-6">
                 <div class="item">
                   <dd v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon">
                     <ClassificationIcon :name="fieldsWithDataAndIcons.dewateringDepthRisk?.icon + ''"
@@ -190,9 +199,10 @@ const graphData = computed(() => {
                     -
                   </dd>
                   <dt>Optrekkend vocht</dt>
+                  <dd>{{ fieldsWithDataAndIcons.dewateringDepthRisk?.value }}</dd>
                 </div>
               </div>
-              <div class="col-span-7">
+              <div class="col-span-6">
                 <div class="item">
                   <dt>{{ fieldsWithDataAndIcons.dewateringDepthReliability?.label }}</dt>
                   <dd>{{ fieldsWithDataAndIcons.dewateringDepthReliability?.value }}</dd>
@@ -226,7 +236,7 @@ const graphData = computed(() => {
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
-              <div class="col-span-5">
+              <div class="col-span-6">
                 <div class="item">
                   <dd v-if="fieldsWithDataAndIcons.dewateringDepthRisk?.icon">
                     <ClassificationIcon :name="fieldsWithDataAndIcons.dewateringDepthRisk?.icon + ''"
@@ -236,9 +246,10 @@ const graphData = computed(() => {
                     -
                   </dd>
                   <dt>Verschilzakking</dt>
+                  <dd>{{ fieldsWithDataAndIcons.dewateringDepthRisk?.value }}</dd>
                 </div>
               </div>
-              <div class="col-span-7">
+              <div class="col-span-6">
                 <div class="item">
                   <dt>{{ fieldsWithDataAndIcons.dewateringDepthReliability?.label }}</dt>
                   <dd>{{ fieldsWithDataAndIcons.dewateringDepthReliability?.value }}</dd>
@@ -271,7 +282,7 @@ const graphData = computed(() => {
         <div class="space-y-2">
           <dl role="list" class="list--definition">
             <div class="grid grid-cols-12 gap-4">
-              <div class="col-span-5">
+              <div class="col-span-6">
                 <div class="item">
                   <dd v-if="fieldsWithDataAndIcons.bioInfectionRisk?.icon">
                     <ClassificationIcon :name="fieldsWithDataAndIcons.bioInfectionRisk?.icon + ''"
@@ -281,9 +292,10 @@ const graphData = computed(() => {
                     -
                   </dd>
                   <dt>Bacteriële aantasting</dt>
+                  <dd>{{ fieldsWithDataAndIcons.bioInfectionRisk?.value }}</dd>
                 </div>
               </div>
-              <div class="col-span-7">
+              <div class="col-span-6">
                 <div class="item">
                   <dt>{{ fieldsWithDataAndIcons.bioInfectionReliability?.label }}</dt>
                   <dd>{{ fieldsWithDataAndIcons.bioInfectionReliability?.value }}</dd>

@@ -80,7 +80,6 @@ const reportGraph = computed(() => {
         <thead>
           <tr>
             <th>Nummer</th>
-            <th>Naam</th>
             <th>Type</th>
             <th>Datum</th>
           </tr>
@@ -88,7 +87,6 @@ const reportGraph = computed(() => {
         <tbody>
           <tr v-for="report in inquiryData" :key="report.id">
             <td>{{ report.id }}</td>
-            <td>{{ report.documentName }}</td>
             <td>{{ report.typeLabel }}</td>
             <td>{{ report.documentDate?.split('T')?.[0].split('-').reverse().join('-') }}</td>
           </tr>
