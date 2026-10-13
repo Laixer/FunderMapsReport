@@ -74,7 +74,7 @@ const recoveryDate = computed(() => {
     <section class="space-y-7">
       <div class="text-grey-700 space-y-4">
         <p>
-          Hieronder ziet u of er aan de fundering van dit pand al herstelwerk is uitgevoerd, en zo ja,
+          Hieronder ziet u of er voor dit pand herstel van de fundering is geregistreerd, en zo ja,
           welk type en wanneer. Een eerder herstel kan duiden op eerdere problematiek; de huidige
           risicobeoordelingen verderop in het rapport gelden onafhankelijk daarvan.
         </p>
@@ -87,8 +87,12 @@ const recoveryDate = computed(() => {
           <div>
             <div class="item--grid">
               <dt>Funderingsherstel</dt>
-              <dd v-if="type.value === null">Ja/<strong class="text-black">Nee</strong></dd>
-              <dd v-else><strong class="text-black">Ja</strong>/Nee</dd>
+              <!--
+                Without a registration there is no "Nee" to give: all that is
+                known is that the register has no herstel for this pand.
+              -->
+              <dd v-if="type.value === null"><strong class="text-black">Geen herstel geregistreerd</strong></dd>
+              <dd v-else><strong class="text-black">Ja</strong></dd>
             </div>
             <div class="item--grid">
               <dt>Locatieherstel</dt>
