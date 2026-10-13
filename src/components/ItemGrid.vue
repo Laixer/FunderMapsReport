@@ -20,9 +20,13 @@ const formattedFields = props.fields.map(field => {
 <template>
   <div v-for="field in formattedFields" :key="field.name" class="item--grid">
     <dt v-if="!field.break">{{ field.label }}</dt>
+    <!--
+      The source in brackets stays on the label's line where it fits and is
+      kept in one piece where it does not: on a line of its own it read as a
+      row without a value.
+    -->
     <dt v-else>
-      <div>{{ field.label.split('(')[0] }}</div>
-      <div class="italic">{{ `(${field.label.split('(')[1]}` }}</div>
+      {{ field.label.split('(')[0] }}<span class="whitespace-nowrap italic">{{ `(${field.label.split('(')[1]}` }}</span>
     </dt>
     <dd>{{ field.value }}</dd>
   </div>

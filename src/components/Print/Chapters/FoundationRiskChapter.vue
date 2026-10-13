@@ -10,8 +10,7 @@ import PieChart from '@/components/Charts/PieChart.vue'
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs, CompletedFieldData } from '@/utils/fieldData'
 import { riskFieldLabels } from '@/datastructures/fieldLabels'
 
-import { EFoundationRiskIconNames } from '@/datastructures/enums/EFoundationRisk'
-import { type EFoundationRisk } from '@/datastructures/enums';
+import { EFoundationRisk, EFoundationRiskIconNames, EFoundationRiskLabels } from '@/datastructures/enums/EFoundationRisk'
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useBuildingStore } from '@/store/buildings';
@@ -108,7 +107,8 @@ const graphData = computed(() => {
     labels,
     backgroundColors: RISK_COLORS,
     legend: labels.map((label, index) => ({
-      label,
+      // The class in words, as the risk rows above name it: "A (Geen risico)"
+      label: EFoundationRiskLabels.get(EFoundationRisk[label as keyof typeof EFoundationRisk]) ?? label,
       color: `--marker-color: ${RISK_COLORS[index]}`,
     })),
   }
@@ -122,15 +122,16 @@ const graphData = computed(() => {
 
     <section class="space-y-7">
       <div class="text-grey-700 space-y-4">
+        <!-- No list of risk types here: which ones follow depends on the pand's foundation type. -->
         <p>
-          Hieronder vindt u per risicotype een beoordeling voor uw pand: droogstand, optrekkend
-          vocht, verschilzakking en bacteriële aantasting. Elk risico wordt afzonderlijk gewogen op
-          basis van de beschikbare gegevens en kan verschillende oorzaken hebben — een laag risico
-          op het ene type sluit een hoger risico op een ander niet uit.
+          Hieronder vindt u een beoordeling per risicotype dat voor het funderingstype van uw pand
+          van toepassing is. Elk risico wordt afzonderlijk gewogen op basis van de beschikbare
+          gegevens en kan verschillende oorzaken hebben – een laag risico op het ene type sluit een
+          hoger risico op een ander niet uit.
         </p>
         <p>
           Bij elk risico staat een categorie van A (laagste) tot E (hoogste) en een betrouwbaarheid
-          (Vastgesteld, Afgeleid of Indicatief). Zie het hoofdstuk Hoe leest u dit rapport? voor de
+          (Vastgesteld, Afgeleid of Indicatief). Zie het hoofdstuk ‘Hoe leest u dit rapport?’ voor de
           uitleg van beide. Onderaan dit hoofdstuk ziet u hoe uw pand zich verhoudt tot de panden in
           uw wijk.
         </p>
@@ -213,7 +214,7 @@ const graphData = computed(() => {
           <div class="space-y-4 text-grey-700">
             <p>
               Wanneer de grondwaterstand langdurig hoog is en zich dicht bij de fundering bevindt, ontstaat het risico
-              op optrekkend vocht. Via poreuze bouwmaterialen - zoals bakstenen en metselmortel - wordt vocht opgenomen
+              op optrekkend vocht. Via poreuze bouwmaterialen – zoals bakstenen en metselmortel – wordt vocht opgenomen
               en trekt het omhoog in de constructie. Dit kan leiden tot schimmelvorming op muren en vloeren. Naast
               mogelijke gezondheidsklachten kan langdurige vochtbelasting ook leiden tot aantasting van bouwmaterialen,
               wat de constructieve staat van het pand verzwakt.
@@ -259,7 +260,7 @@ const graphData = computed(() => {
           </dl>
           <div class="space-y-4 text-grey-700">
             <p>
-              Wanneer het grondwaterpeil sterk fluctueert - bijvoorbeeld door natte winters en droge zomers - ontstaan
+              Wanneer het grondwaterpeil sterk fluctueert – bijvoorbeeld door natte winters en droge zomers – ontstaan
               grotere verschillen in de grondwaterstand gedurende het jaar. Door klimaatverandering worden deze extremen
               steeds sterker: de winters worden natter, de zomers droger. Dit vergroot de dynamiek van het
               grondwaterpeil.
@@ -336,40 +337,30 @@ const graphData = computed(() => {
         </figure>
       </div>
 
-      <!-- RISK -->
-      <div class="risk break-inside-avoid space-y-5">
-        <div class="space-y-2">
-          <dl role="list" class="list--definition">
-            <div class="grid grid-cols-12 gap-4">
-              <div class="col-span-12">
-                <div class="item">
-                  <dt>Risicoverdeling van de wijk op basis van risicomodellen</dt>
-                  <dd></dd>
-                </div>
-              </div>
-            </div>
-          </dl>
-          <div class="text-grey-700">
-            <p>
-              In deze grafiek is per pand het hoogste risico bepaald uit de verschillende risicomodellen. Deze maximale
-              risicowaarden zijn vervolgens gebruikt om de risicoverdeling in de hele wijk in kaart te brengen, waarbij
-              de verhoudingen zijn weergegeven in de bijgaande grafiek.
-            </p>
-          </div>
+      <!--
+        The distribution in the neighbourhood. Text, pie and legend share one
+        row: with the text above a large pie the block was too high to stay
+        under the drawings, and ended up alone on a page of its own.
+      -->
+      <div class="chart | grid break-inside-avoid grid-cols-12 items-start gap-4">
+        <div class="col-span-5 space-y-2 text-grey-700">
+          <strong class="block text-grey-800">Risicoverdeling van de wijk op basis van risicomodellen</strong>
+          <p>
+            In deze grafiek is per pand het hoogste risico bepaald uit de verschillende risicomodellen. Deze maximale
+            risicowaarden zijn vervolgens gebruikt om de risicoverdeling in de hele wijk in kaart te brengen, waarbij
+            de verhoudingen zijn weergegeven in de bijgaande grafiek.
+          </p>
         </div>
-
-        <div class="chart | grid grid-cols-12 items-center gap-4">
-          <div class="col-span-5">
-            <PieChart title="Verdeling van funderingsrisico in de wijk" :data="graphData.data"
-              :labels="graphData.labels" :backgroundColors="graphData.backgroundColors" />
-          </div>
-          <div class="col-span-7">
-            <div class="legenda space-y-3">
-              <h3>Verdeling van funderingsrisico in de wijk</h3>
-              <ol class="list--legenda">
-                <li v-for="item in graphData.legend" :key="item.label" :style="item.color">{{ item.label }}</li>
-              </ol>
-            </div>
+        <div class="col-span-3">
+          <PieChart title="Verdeling van funderingsrisico in de wijk" :data="graphData.data"
+            :labels="graphData.labels" :backgroundColors="graphData.backgroundColors" />
+        </div>
+        <div class="col-span-4 self-center">
+          <div class="legenda space-y-3">
+            <h3>Verdeling van funderingsrisico in de wijk</h3>
+            <ol class="list--legenda">
+              <li v-for="item in graphData.legend" :key="item.label" :style="item.color">{{ item.label }}</li>
+            </ol>
           </div>
         </div>
       </div>

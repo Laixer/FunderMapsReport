@@ -94,12 +94,13 @@ const recoveryDate = computed(() => {
               <dd v-if="type.value === null"><strong class="text-black">Geen herstel geregistreerd</strong></dd>
               <dd v-else><strong class="text-black">Ja</strong></dd>
             </div>
-            <div class="item--grid">
-              <dt>Locatieherstel</dt>
+            <!-- The details only with a registration: without one they were three rows of "Geen data". -->
+            <div v-if="type.value !== null" class="item--grid">
+              <dt>Locatie herstel</dt>
               <dd>{{ facade.value === null ? 'Geen data' : facade.value }}</dd>
             </div>
           </div>
-          <div>
+          <div v-if="type.value !== null">
             <div class="item--grid">
               <dt>Type herstel</dt>
               <dd>{{ type.value === null ? 'Geen data' : type.value }}</dd>

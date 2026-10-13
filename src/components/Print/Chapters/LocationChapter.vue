@@ -130,9 +130,8 @@ const addMarker = function addMarker({ map }: { map: Map }) {
       <div class="text-grey-700">
         <p>
           De ondergrond bepaalt grotendeels het funderingsrisico van een pand. Hieronder ziet u welk
-          type bodem onder uw pand zit, hoe diep het grondwater staat, en hoe uw pand binnen de
-          bouweenheid en wijk ligt. Een hoge grondwaterstand vergroot bijvoorbeeld het risico op
-          houtrot bij houten paalfunderingen.
+          type bodem onder uw pand zit en hoe diep het grondwater staat. Een lage grondwaterstand
+          vergroot bijvoorbeeld het risico op houtrot bij houten paalfunderingen.
         </p>
       </div>
       <div class="aspect-map w-full overflow-clip">

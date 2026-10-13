@@ -20,10 +20,31 @@
     @apply m-0 bg-transparent p-0;
   }
 
+  /*
+    The report is laid out 7.63in wide and the renderer scales that down to
+    the paper (6.89in between the margins), to about 90%: it shrinks a page
+    that is wider than the paper until it fits.
+
+    That is the size the report has always been printed at, but it came about
+    by accident. A chart keeps the width in pixels it was drawn at on screen
+    (a canvas is not laid out again for paper), which is the column of the
+    screen page: 7.46in. With the section's margin of 0.17in before it, that
+    was the widest thing on the page and so set the width of the whole
+    layout, and the chart stuck out of its column on the right by the margin
+    it did not leave free. A report without a bar chart printed 10% larger.
+
+    The width is now set here, and a chart is no wider than its column.
+  */
   .a4 {
     @apply m-0 bg-white shadow-none;
     padding: 0;
-    width: auto;
+    width: 7.63in;
+  }
+
+  canvas.chart {
+    max-width: 100%;
+    /* over the height in pixels Chart.js writes on the element */
+    height: auto !important;
   }
 
   header {

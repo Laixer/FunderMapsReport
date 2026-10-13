@@ -11,7 +11,7 @@ import PieChart from '@/components/Charts/PieChart.vue'
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs, CompletedFieldData } from '@/utils/fieldData'
 import { inquirySampleFieldLabels } from '@/datastructures/fieldLabels'
-import { foundationSampleFieldNames, pickFoundationEntry } from '@/utils/foundationSample'
+import { foundationSampleFieldNames, pickFoundationEntry, sampleHasFoundationData } from '@/utils/foundationSample'
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useInquiriesStore } from '@/store/building/inquiries.ts';
@@ -139,6 +139,14 @@ const fieldsWithFoundationData = computed(() => {
 
   return fieldsConfig.map(retrieveAndFormatFieldData)
 })
+
+// Without a report that has any of these values, the five rows of the sample
+// would each say "Geen data": one sentence says it instead. The first row
+// stays, it is the model's and not a report's.
+const sampleHasValues = computed(() => sampleHasFoundationData(selectedEntry.value?.sample))
+const foundationRows = computed(() => sampleHasValues.value
+  ? fieldsWithFoundationData.value
+  : fieldsWithFoundationData.value.filter(field => field.name === 'foundationTypeReliability'))
 
 
 const fieldGroupHeaders: Record<string, string> = {
@@ -279,10 +287,14 @@ const foundationTypeGraph = computed(() => {
       <p v-if="samplesAvailableCount > 1 || !selectedIsNewestReport" class="text-grey-700">
         <template v-if="reportsAvailableCount === 1">Voor dit pand is 1 onderzoeksrapport beschikbaar.</template>
         <template v-else>Voor dit pand zijn {{ reportsAvailableCount }} onderzoeksrapporten beschikbaar.</template>
-        Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="!selectedIsNewestReport">
-          waarin deze zijn vastgelegd</template><template v-if="selectedReportDateLabel">
-          ({{ selectedReportDateLabel }})</template>; het volledige overzicht vindt u in het
-        hoofdstuk Rapportage.
+        <!-- "De gegevens uit het meest recente rapport" only when a report has any to show. -->
+        <template v-if="sampleHasValues">
+          Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="!selectedIsNewestReport">
+            waarin deze zijn vastgelegd</template><template v-if="selectedReportDateLabel">
+            ({{ selectedReportDateLabel }})</template>; het volledige overzicht vindt u in het
+          hoofdstuk ‘Rapportage’.
+        </template>
+        <template v-else> Het volledige overzicht vindt u in het hoofdstuk ‘Rapportage’.</template>
       </p>
       <div class="grid grid-cols-12 gap-4">
         <figure v-if="foundationIconName"
@@ -293,12 +305,18 @@ const foundationTypeGraph = computed(() => {
           </figcaption>
         </figure>
 
-        <dl role="list" class="list--definition col-span-9">
-          <div v-for="field in fieldsWithFoundationData" :key="field.name" class="item justify-between">
-            <dt>{{ field.label }}</dt>
-            <dd>{{ field.value }}</dd>
-          </div>
-        </dl>
+        <div class="col-span-9">
+          <dl role="list" class="list--definition">
+            <div v-for="field in foundationRows" :key="field.name" class="item justify-between">
+              <dt>{{ field.label }}</dt>
+              <dd>{{ field.value }}</dd>
+            </div>
+          </dl>
+          <!-- The line height of the rows above, so it reads as the next row. -->
+          <p v-if="!sampleHasValues" class="leading-loose text-grey-700">
+            Voor dit pand is geen onderzoeksrapport met deze gegevens beschikbaar.
+          </p>
+        </div>
       </div>
 
       <div class="space-y-5">
@@ -381,15 +399,15 @@ const foundationTypeGraph = computed(() => {
         <p v-if="foundationIconName === 'houten-palen-oplanger'">
           Een fundering op houten palen met oplanger bestaat uit houten palen die zijn verlengd met een betonnen
           opzetstuk (de
-          oplanger). Deze oplanger zorgt ervoor dat de paalkop dieper onder het maaiveld - en idealiter onder de
-          grondwaterstand - komt te liggen. Het doel hiervan is om het hout te beschermen tegen zuurstof en daarmee
+          oplanger). Deze oplanger zorgt ervoor dat de paalkop dieper onder het maaiveld – en idealiter onder de
+          grondwaterstand – komt te liggen. Het doel hiervan is om het hout te beschermen tegen zuurstof en daarmee
           tegen
           aantasting, zoals rot. Deze methode werd vaak toegepast bij latere aanpassingen of bij hersteldelen in
           bestaande
           bebouwing.
         </p>
         <p v-if="foundationIconName === 'niet-onderheid'">
-          Een ondiepe fundering - vaak aangeduid als fundering op staal - is een funderingsvorm waarbij het pand direct
+          Een ondiepe fundering – vaak aangeduid als fundering op staal – is een funderingsvorm waarbij het pand direct
           op een
           draagkrachtige grondlaag rust, zoals zand of vaste klei. De belasting van het gebouw wordt via
           funderingsstroken of

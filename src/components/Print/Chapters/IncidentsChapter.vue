@@ -80,7 +80,12 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
     return false
   }
 
-  addPandMarker(map, buildingData.residence.longitude, buildingData.residence.latitude)
+  // A ring under the labels: at this zoom a filled dot on top of them sits
+  // right on the name of the town or village.
+  addPandMarker(map, buildingData.residence.longitude, buildingData.residence.latitude, {
+    ring: true,
+    below: firstLabelLayer?.id
+  })
 }
 
 

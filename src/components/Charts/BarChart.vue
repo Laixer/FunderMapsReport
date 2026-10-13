@@ -6,6 +6,9 @@ import { CHART_COLORS } from '@/config';
 import Chart from 'chart.js/auto';
 import gradientPlugin from 'chartjs-plugin-gradient';
 
+import { chartFontLoaded } from '@/lib/chartFont';
+import { trackPending } from '@/lib/pdfReadiness';
+
 Chart.register(gradientPlugin)
 
 const props = withDefaults(defineProps<{
@@ -67,6 +70,9 @@ const createChart = function createChart(
             backgroundColor: backgroundColors,
             borderColor: borderColors,
             borderWidth: 1,
+            // With one or two bars (a single year of reports) a bar would
+            // otherwise fill the chart as a slab.
+            maxBarThickness: 60,
 
             // @ts-expect-error gradient option provided by chartjs-plugin-gradient, not in Chart.js types
             gradient: props.gradient ? {
@@ -133,15 +139,17 @@ const createChart = function createChart(
   );
 }
 
+// Drawn once the report's font is there (see lib/chartFont), and the PDF
+// waits for that.
 onMounted(() => {
-  createChart(
+  trackPending(chartFontLoaded.then(() => createChart(
     props.title,
     props.labels,
     props.data,
     props.backgroundColors,
     props.borderColors,
     props.horizontal
-  )
+  )))
 })
 
 watch(

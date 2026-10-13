@@ -21,27 +21,31 @@ const tone = computed<'low' | 'medium' | 'high' | null>(() => {
   if (l === 'd' || l === 'e') return 'high'
   return null
 })
+
+// Class A is "Geen risico" in the row above: "Het risico is laag" right under
+// it reads as a different verdict. The advice that follows is the same as for B.
+const isClassA = computed(() => props.level?.toLowerCase() === 'a')
 </script>
 
 <template>
   <aside v-if="tone" class="text-grey-700 border-t border-grey-200 space-y-2 pt-3">
     <strong class="text-grey-800 block">Volgende stappen</strong>
     <p v-if="tone === 'low'">
-      Het risico is laag. Een aanvullend onderzoek is op dit moment meestal niet nodig. Houd het
-      pand wel in de gaten op zichtbare signalen — scheurvorming, klemmende ramen of deuren,
-      zichtbare verzakkingen — en raadpleeg dit rapport opnieuw als die zich voordoen of bij een
-      ingrijpende verbouwing.
+      {{ isClassA ? 'Er is geen verhoogd risico.' : 'Het risico is laag.' }} Een aanvullend
+      onderzoek is op dit moment meestal niet nodig. Houd het pand wel in de gaten op zichtbare
+      signalen – scheurvorming, klemmende ramen of deuren, zichtbare verzakkingen – en raadpleeg
+      dit rapport opnieuw als die zich voordoen of bij een ingrijpende verbouwing.
     </p>
     <p v-else-if="tone === 'medium'">
       Het risico is verhoogd. Acute maatregelen zijn nu meestal nog niet nodig, maar het is
       verstandig om alert te blijven op zichtbare signalen (scheurvorming, vocht, scheefstand). Bij
-      twijfel — of bij verkoop of verbouwing van het pand — is een KCAF QuickScan een goede
-      vervolgstap (zie hoofdstuk Aanvullend onderzoek).
+      twijfel – of bij verkoop of verbouwing van het pand – is een KCAF QuickScan een goede
+      vervolgstap (zie hoofdstuk ‘Aanvullend onderzoek’).
     </p>
     <p v-else>
-      Het risico is hoog. Wij adviseren een <strong>KCAF QuickScan</strong> als vervolgstap — een
+      Het risico is hoog. Wij adviseren een <strong>KCAF QuickScan</strong> als vervolgstap – een
       relatief snelle en betaalbare beoordeling die uitwijst of aanvullend funderingsonderzoek op
-      locatie nodig is (zie hoofdstuk Aanvullend onderzoek). Bij zichtbare schade aan de gevel of
+      locatie nodig is (zie hoofdstuk ‘Aanvullend onderzoek’). Bij zichtbare schade aan de gevel of
       constructie is een specialistisch funderingsonderzoek aangewezen.
     </p>
   </aside>

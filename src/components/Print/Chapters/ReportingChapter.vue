@@ -65,15 +65,19 @@ const reportGraph = computed(() => {
         <p>
           Onder de risicobeoordelingen in dit rapport liggen onderzoeksrapportages voor uw pand of
           voor panden in de directe omgeving. Hieronder vindt u welke rapportages zijn meegenomen, en
-          hoeveel onderzoeken er per jaar in uw wijk zijn uitgevoerd — meer onderzoeken in uw buurt
+          hoeveel onderzoeken er per jaar in uw wijk zijn uitgevoerd – meer onderzoeken in uw buurt
           geven over het algemeen een betrouwbaardere modelinschatting.
         </p>
       </div>
-      <p v-if="inquiryData.length !== 0">
-        De volgende rapportage(s) zijn beschikbaar voor dit pand en zijn gebruikt voor het opstellen
+      <p v-if="inquiryData.length === 1" class="text-grey-700">
+        De volgende rapportage is beschikbaar voor dit pand en is gebruikt voor het opstellen van
+        het funderingsrisicorapport.
+      </p>
+      <p v-else-if="inquiryData.length !== 0" class="text-grey-700">
+        De volgende rapportages zijn beschikbaar voor dit pand en zijn gebruikt voor het opstellen
         van het funderingsrisicorapport.
       </p>
-      <p v-else>
+      <p v-else class="text-grey-700">
         Voor dit pand zelf zijn geen onderzoeksrapportages bekend.
       </p>
       <table v-if="inquiryData.length !== 0" class="w-full">
