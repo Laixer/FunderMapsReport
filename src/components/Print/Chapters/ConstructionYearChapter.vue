@@ -122,41 +122,46 @@ const onLoad = async function onLoad({ map }: { map: Map }) {
   addPandMarker(map, buildingData.residence.longitude, buildingData.residence.latitude)
 }
 
-// Each colour is the layer's colour for the first year of its range (see
-// config/layers/construction-year.json), so a range ends the year before the
-// next one starts: 1970 has the colour of "1970 t/m 1979", not of the range
-// before it.
+// The layer does not draw a range in one colour. It is one colour before 1960
+// and from 2022; in between it runs from each stop to the next (it
+// interpolates, see config/layers/construction-year.json). A square shows
+// that run: from the colour the first year of its range is drawn in, to the
+// colour the next range starts with. With one colour per range "< 1960" and
+// "1960 t/m 1969" had the same square (1960 is drawn like everything before
+// it), although most of the sixties are drawn bluer.
+const run = (from: string, to: string) => `linear-gradient(to right, ${from}, ${to})`
+
 const legendItems = [
   {
     color: '#293575',
     label: '< 1960'
   },
   {
-    color: '#293575',
+    color: run('#293575', '#1261a3'),
     label: '1960 t/m 1969'
   },
   {
-    color: '#1261a3',
+    color: run('#1261a3', '#69a8de'),
     label: '1970 t/m 1979'
   },
   {
-    color: '#69a8de',
+    color: run('#69a8de', '#99c1e9'),
     label: '1980 t/m 1989'
   },
   {
-    color: '#99c1e9',
+    color: run('#99c1e9', '#b378b1'),
     label: '1990 t/m 1999'
   },
   {
-    color: '#b378b1',
+    color: run('#b378b1', '#bd6495'),
     label: '2000 t/m 2009'
   },
   {
-    color: '#bd6495',
+    color: run('#bd6495', '#ba2351'),
     label: '2010 t/m 2019'
   },
   {
-    color: '#ba2351',
+    color: run('#ba2351', '#d11313'),
     label: '2020 t/m 2021'
   },
   {
