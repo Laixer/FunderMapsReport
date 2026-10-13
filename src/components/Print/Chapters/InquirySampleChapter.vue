@@ -11,6 +11,7 @@ import PieChart from '@/components/Charts/PieChart.vue'
 
 import { retrieveAndFormatFieldData, FieldDataConfig, applyContextToFieldDataConfigs, CompletedFieldData } from '@/utils/fieldData'
 import { inquirySampleFieldLabels } from '@/datastructures/fieldLabels'
+import { foundationSampleFieldNames, pickFoundationEntry } from '@/utils/foundationSample'
 
 import { useAnalysisStore } from '@/store/building/analysis';
 import { useInquiriesStore } from '@/store/building/inquiries.ts';
@@ -87,11 +88,23 @@ const inquiryData: ComputedRef<ICombinedInquiryData[]> = computed(() => {
   return getCombinedInquiryDataByBuildingId(buildingId.value) || []
 })
 
-// "1 of N" disclosure: this chapter shows fields from inquiryData[0]?.sample,
-// which the store sorts most-recent-first. When more than one inquiry has a
-// sample for this building, surface the date of the one we're rendering and
-// tell the customer the rest live in the Rapportage chapter — otherwise a
-// silent pick of the first sample is misleading on multi-inquiry buildings.
+// The report this chapter shows: the newest one that has a value for at least
+// one of the chapter's own fields, not simply the newest (the store sorts
+// most-recent-first; see utils/foundationSample for the fields and the why).
+const selectedEntry = computed(() => pickFoundationEntry(inquiryData.value))
+
+// Whether that is also the pand's newest report. The text above the values
+// names the report they come from, and "het meest recente rapport" alone is
+// only true when it is.
+const selectedIsNewestReport = computed(
+  () => selectedEntry.value?.report.id === inquiryData.value[0]?.report.id
+)
+
+// "1 of N" disclosure: this chapter shows fields from one sample. When more
+// than one inquiry has a sample for this building, surface the date of the
+// one we're rendering and tell the customer the rest live in the Rapportage
+// chapter — otherwise a silent pick of one sample is misleading on
+// multi-inquiry buildings.
 const samplesAvailableCount = computed(
   () => inquiryData.value.filter((entry) => entry.sample !== undefined).length
 )
@@ -101,7 +114,7 @@ const reportsAvailableCount = computed(
   () => new Set(inquiryData.value.map((entry) => entry.report.id)).size
 )
 const selectedReportDateLabel = computed(() => {
-  const raw = inquiryData.value[0]?.report?.documentDate
+  const raw = selectedEntry.value?.report?.documentDate
   if (!raw) return null
   const d = new Date(raw)
   if (Number.isNaN(d.getTime())) return null
@@ -115,15 +128,12 @@ const selectedReportDateLabel = computed(() => {
  */
 const fieldsWithFoundationData = computed(() => {
   const fieldsConfig = applyContextToFieldDataConfigs({
-    source: inquiryData.value?.[0]?.sample || undefined,
+    source: selectedEntry.value?.sample || undefined,
     labels: inquirySampleFieldLabels,
     configs: [
       new FieldDataConfig({ name: 'foundationTypeReliability', source: analysisData }),
-      new FieldDataConfig({ name: 'enforcementTerm' }),
-      new FieldDataConfig({ name: 'damageCharacteristics' }),
-      new FieldDataConfig({ name: 'overallQuality' }),
-      new FieldDataConfig({ name: 'damageCause' }),
-      new FieldDataConfig({ name: 'substructure' }),
+      // The same list the report above is picked by, so the two cannot drift apart
+      ...foundationSampleFieldNames.map(name => new FieldDataConfig({ name })),
     ]
   })
 
@@ -147,7 +157,7 @@ const groupHasData: Record<string, boolean> = {
 const sampleFieldsWithData: ComputedRef<Record<string, CompletedFieldData[]>> = computed(() => {
 
   const sampleFieldsConfig = applyContextToFieldDataConfigs({
-    source: inquiryData.value?.[0]?.sample || undefined,
+    source: selectedEntry.value?.sample || undefined,
     labels: inquirySampleFieldLabels,
     configs: [
 
@@ -266,10 +276,11 @@ const foundationTypeGraph = computed(() => {
 <template>
   <Chapter icon="file-foundation" title="Fundering">
     <section class="space-y-7">
-      <p v-if="samplesAvailableCount > 1" class="text-grey-700">
+      <p v-if="samplesAvailableCount > 1 || !selectedIsNewestReport" class="text-grey-700">
         <template v-if="reportsAvailableCount === 1">Voor dit pand is 1 onderzoeksrapport beschikbaar.</template>
         <template v-else>Voor dit pand zijn {{ reportsAvailableCount }} onderzoeksrapporten beschikbaar.</template>
-        Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="selectedReportDateLabel">
+        Hieronder ziet u de gegevens uit het meest recente rapport<template v-if="!selectedIsNewestReport">
+          waarin deze zijn vastgelegd</template><template v-if="selectedReportDateLabel">
           ({{ selectedReportDateLabel }})</template>; het volledige overzicht vindt u in het
         hoofdstuk Rapportage.
       </p>
