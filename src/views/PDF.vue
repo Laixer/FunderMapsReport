@@ -256,8 +256,7 @@ onUnmounted(() => {
       </section>
     </article>
 
-    <PageBreak />
-
+    <!-- No page break here: the two closing chapters fit on one page together. -->
     <article class="space-y-5">
       <header class="flex break-after-avoid items-center gap-2.5">
         <h2 class="h-4">Disclaimer</h2>

@@ -82,7 +82,7 @@ export const EInquiryTypeLabels: Map<EInquiryType, string> = new Map([
   [EInquiryType.AdditionalResearch, "Aanvullend onderzoek"],
   [EInquiryType.Monitoring, "Monitoring"],
   [EInquiryType.Note, "Notitie"],
-  [EInquiryType.Quickscan, "Quickscan"],
+  [EInquiryType.Quickscan, "QuickScan"],
   [EInquiryType.Unknown, "Onbekend"],
   [EInquiryType.DemolitionResearch, "Sloopgrensonderzoek"],
   [EInquiryType.SecondOpinion, "Second opinion"],

@@ -24,6 +24,16 @@
       @apply items-center;
     }
 
+    /*
+      A row is as high as with the loose line height of the other lists, but
+      here the lines are 1.5 apart and the rest is padding: a label or value
+      that wraps stays visibly one row instead of looking like two.
+    */
+    dt,
+    dd {
+      @apply py-[0.1875rem] leading-normal;
+    }
+
     dd {
       @apply text-start;
     }

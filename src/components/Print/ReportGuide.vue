@@ -20,16 +20,17 @@ import Chapter from '@/components/Print/Chapter.vue'
 
       <div class="space-y-3">
         <strong class="text-grey-800 block">Risicocategorieën</strong>
+        <!-- The letters get one width: they differ by a pixel or two, and the dashes after them did not line up. -->
         <ol class="list--legenda">
-          <li style="--marker-color: #2e7d32"><strong>A</strong> — Geen risico</li>
-          <li style="--marker-color: #9e9d24"><strong>B</strong> — Laag risico</li>
-          <li style="--marker-color: #f9a825"><strong>C</strong> — Verhoogd risico</li>
-          <li style="--marker-color: #ef6c00"><strong>D</strong> — Hoog risico</li>
-          <li style="--marker-color: #c62828"><strong>E</strong> — Aanzienlijk hoog risico</li>
+          <li style="--marker-color: #2e7d32"><strong class="w-3">A</strong> – Geen risico</li>
+          <li style="--marker-color: #9e9d24"><strong class="w-3">B</strong> – Laag risico</li>
+          <li style="--marker-color: #f9a825"><strong class="w-3">C</strong> – Verhoogd risico</li>
+          <li style="--marker-color: #ef6c00"><strong class="w-3">D</strong> – Hoog risico</li>
+          <li style="--marker-color: #c62828"><strong class="w-3">E</strong> – Aanzienlijk hoog risico</li>
         </ol>
         <p class="text-grey-700">
           De categorieën lopen van A (laagste) tot E (hoogste). Een hogere categorie betekent een
-          grotere kans op funderingsproblematiek — niet automatisch dat er nu al schade is.
+          grotere kans op funderingsproblematiek – niet automatisch dat er nu al schade is.
         </p>
       </div>
 

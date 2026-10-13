@@ -8,6 +8,9 @@ import Chart from 'chart.js/auto';
 import chartTrendline from 'chartjs-plugin-trendline';
 Chart.register(chartTrendline)
 
+import { chartFontLoaded } from '@/lib/chartFont';
+import { trackPending } from '@/lib/pdfReadiness';
+
 type point = {
   x: number
   y: number
@@ -122,15 +125,17 @@ const createChart = function createChart(
   );
 }
 
+// Drawn once the report's font is there (see lib/chartFont), and the PDF
+// waits for that.
 onMounted(() => {
-  createChart(
+  trackPending(chartFontLoaded.then(() => createChart(
     props.title,
     props.labels,
     props.data,
     props.backgroundColors,
     props.borderColors,
     props.horizontal
-  )
+  )))
 })
 
 watch(

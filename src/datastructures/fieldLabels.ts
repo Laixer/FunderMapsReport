@@ -199,12 +199,13 @@ Aantal onderzoeken in buurt naar jaar
 export const riskFieldLabels = <Record<string, string>>{
   drystandRisk: "Droogstandrisico",
   drystand: "Droogstand",
-  drystandReliability: "Betrouwbaarheid droogstandsrisico",
+  // One word for the same thing in every risk row: the row itself names the risk.
+  drystandReliability: "Betrouwbaarheid",
   dewateringDepthRisk: "Ontwateringsdiepte risico",
   dewateringDepth: "Ontwateringsdiepte",
   dewateringDepthReliability: "Betrouwbaarheid",
   bioInfectionRisk: "Bacteriële aantasting risico",
-  bioInfectionReliability: "Betrouwbaarheid bacteriële aantasting",
+  bioInfectionReliability: "Betrouwbaarheid",
   // TODO: Missing field names: E152 - 156
   unclassifiedRisk: "Algemeen risico"
 }

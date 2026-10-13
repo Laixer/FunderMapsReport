@@ -42,6 +42,9 @@ const createChart = function createChart(
             label: title,
             data,
             backgroundColor: backgroundColors,
+            // The white line between slices: with a single slice there is
+            // nothing to separate, and it showed as a seam at 12 o'clock.
+            borderWidth: data.filter(value => Number(value) > 0).length > 1 ? 2 : 0,
             hoverOffset: 4
           },
         ]

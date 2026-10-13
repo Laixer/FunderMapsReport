@@ -278,7 +278,8 @@ export const adaptGeoLocationData = (raw: unknown): IGeoLocationData => {
   const r = (raw ?? {}) as Record<string, unknown>
   const street = (r.street as string) ?? ''
   const number = (r.building_number as string) ?? ''
-  const postal = (r.postal_code as string) ?? ''
+  // Written the Dutch way, "1017 RM": the register hands it over without the space.
+  const postal = ((r.postal_code as string) ?? '').replace(/^(\d{4})\s?([A-Za-z]{2})$/, '$1 $2')
   const city = (r.city as string) ?? ''
 
   const opt = <T>(idField: string, build: () => T): T | null =>

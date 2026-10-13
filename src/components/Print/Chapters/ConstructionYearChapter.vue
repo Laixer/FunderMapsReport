@@ -48,7 +48,8 @@ const constructionGraph = computed(() => {
       // unknown construction year, not a period: no "1000-1009" bar.
       if (Number(decade.decade.yearFrom.substring(0, 4)) < 1100) return 'Onbekend'
 
-      return `${decade.decade.yearFrom.substring(0, 4)}-${decade.decade.yearTo.substring(0, 4)}`
+      // Written as the legend under the map writes a range
+      return `${decade.decade.yearFrom.substring(0, 4)} t/m ${decade.decade.yearTo.substring(0, 4)}`
     })
   }
 })
@@ -184,7 +185,7 @@ const legendItems = [
         </p>
       </div>
       <div v-if="constructionGraph.data.length !== 0" class="chart | grid grid-cols-12 items-center gap-4">
-        <BarChart class="w-full" title="Bouwjaren (wijk)" :data="constructionGraph.data"
+        <BarChart class="col-span-12 w-full" title="Bouwjaren (wijk)" :data="constructionGraph.data"
           :labels="constructionGraph.labels" gradient />
       </div>
 
