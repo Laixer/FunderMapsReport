@@ -300,7 +300,7 @@ const foundationTypeGraph = computed(() => {
         <figure v-if="foundationIconName"
           class="col-span-3 flex aspect-square flex-col items-center gap-1 rounded border border-grey-400 p-4">
           <FoundationIcon :name="foundationIconName" class="aspect-square w-2/3 flex-1" aria-hidden="true" />
-          <figcaption class="is-12 leadding-none flex-initial text-center font-bold text-grey-700">
+          <figcaption class="is-12 leading-4 flex-initial text-center font-bold text-grey-700">
             {{ foundationType.value }}
           </figcaption>
         </figure>

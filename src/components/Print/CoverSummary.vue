@@ -78,7 +78,7 @@ const generatedAt = computed(() =>
         </div>
       </dl>
 
-      <p class="text-grey-700 text-sm">
+      <p class="text-grey-700">
         Gegenereerd op {{ generatedAt }}
       </p>
     </section>

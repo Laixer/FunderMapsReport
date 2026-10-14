@@ -5,6 +5,12 @@ import { onMounted, watch, ref } from 'vue';
 import { CHART_COLORS } from '@/config';
 import Chart from 'chart.js/auto';
 
+// The white line between slices, and how wide a slice has to be at the rim
+// (in px) to get one. On a narrower slice the lines on its two edges leave
+// less colour than white: a class of well under 1% showed as a white sliver.
+const SLICE_LINE = 2
+const NARROWEST_SLICE_WITH_LINE = 7
+
 const props = withDefaults(defineProps<{
   title?: string,
   labels?: string[],
@@ -31,6 +37,12 @@ const createChart = function createChart(
   } 
 
    
+  const values = data.map(value => Number(value))
+  const total = values.reduce((sum, value) => sum + value, 0)
+  // With a single slice there is nothing to separate, and the line showed as
+  // a seam at 12 o'clock.
+  const severalSlices = values.filter(value => value > 0).length > 1
+
   chart = new Chart(
     canvas.value.getContext("2d") as CanvasRenderingContext2D, 
     {
@@ -42,9 +54,11 @@ const createChart = function createChart(
             label: title,
             data,
             backgroundColor: backgroundColors,
-            // The white line between slices: with a single slice there is
-            // nothing to separate, and it showed as a seam at 12 o'clock.
-            borderWidth: data.filter(value => Number(value) > 0).length > 1 ? 2 : 0,
+            borderWidth: (context) => {
+              if (!severalSlices) return 0
+              const rim = (values[context.dataIndex] / total) * Math.PI * Math.min(context.chart.width, context.chart.height)
+              return rim < NARROWEST_SLICE_WITH_LINE ? 0 : SLICE_LINE
+            },
             hoverOffset: 4
           },
         ]

@@ -69,7 +69,8 @@ const graphData = computed(() => {
 
 <template>
   <Chapter v-if="hasVelocityData || graphData.data?.length" icon="graph" title="Pandzakking">
-    <section class="space-y-10">
+    <!-- In one piece: the chapter may start halfway down a page, under the one before. -->
+    <section class="break-inside-avoid space-y-10">
       <div class="space-y-4 text-grey-700">
         <p>
           Voor een deel van de panden in Nederland zijn zakkingsgegevens beschikbaar. Deze zijn verkregen op basis van satellietmetingen en bepaald met een zogenaamde InSAR-analyse, waarbij de zakkingssnelheid wordt uitgedrukt in millimeters per jaar (mm/jaar).

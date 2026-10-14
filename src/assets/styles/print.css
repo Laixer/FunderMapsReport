@@ -51,11 +51,17 @@
     @apply break-inside-avoid break-after-avoid;
   }
 
+  /*
+    The forced break goes before the element after the marker, not after the
+    marker itself: when the chapter before it ended at the foot of a page, the
+    marker (with the gap under that chapter) moved on to the next page, and
+    the break after it left that page blank.
+  */
   .page-break {
-    @apply bg-transparent;
+    display: none;
 
-    &:before {
-      @apply hidden;
+    & + * {
+      break-before: page;
     }
   }
 

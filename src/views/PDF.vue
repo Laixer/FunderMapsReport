@@ -228,8 +228,13 @@ onUnmounted(() => {
     <PageBreak />
     
     <FoundationRiskChapter />
-    <PageBreak />
 
+    <!--
+      No page break from here to the end of Incidenten (only after Pandzakking,
+      when a pand has it): each of these chapters stays in one piece, so it
+      follows the one before on the same page when it fits and starts the next
+      page when it does not.
+    -->
     <ReportingChapter />
 
     <FacadeReviewChapter />
