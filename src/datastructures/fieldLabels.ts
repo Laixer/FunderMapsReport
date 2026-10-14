@@ -108,7 +108,7 @@ export const inquiryFieldLabels = <Record<string, string>>{
   creator: "Verwerkt door",
   reviewer: "Gecontroleerd door",
   auditStatus: "Controlestatus",
-  standardF3o: "Conform KCAF/F3o uitgevoerd?",
+  standardF3o: "Conform KCAF/F3O uitgevoerd?",
   inspection: "Inspectieput gemaakt?",
   jointMeasurement: "Lintvoegmeting uitgevoerd?",
   floorMeasurement: "Vloerveldwaterpassing uitgevoerd?",

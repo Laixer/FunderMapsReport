@@ -66,6 +66,28 @@ const {
   onLoad?: (event: { map: Map, sdk?: object }) => unknown
 }>()
 
+/**
+ * The base-map style labels roads, water and places with their English name
+ * where one exists ("Meuse" for the Maas). This report is Dutch: read the
+ * local name instead, in every expression of a label layer.
+ */
+const localName = (expression: unknown): unknown => {
+  if (!Array.isArray(expression)) return expression
+  if (expression.length === 2 && expression[0] === 'get' && expression[1] === 'name_en') return ['get', 'name']
+  return expression.map(localName)
+}
+
+const setLocalNames = function() {
+  for (const layer of map.getStyle()?.layers ?? []) {
+    if (layer.type !== 'symbol') continue
+    const textField = map.getLayoutProperty(layer.id, 'text-field')
+    const local = localName(textField)
+    if (JSON.stringify(local) !== JSON.stringify(textField)) {
+      map.setLayoutProperty(layer.id, 'text-field', local as typeof textField)
+    }
+  }
+}
+
 const capture = function() {
   if (captured) return
   captured = true
@@ -100,6 +122,8 @@ const loadMapbox = function() {
   )
 
   // provide('map', map)
+
+  map.once('style.load', setLocalNames)
 
   // Wait for the first 'idle' event (everything painted, no in-flight tile
   // requests, no animations) rather than 'load' (style + initial tile batch
