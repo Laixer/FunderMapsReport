@@ -1,5 +1,5 @@
 <template>
-  <header class="header--print | relative isolate overflow-hidden rounded-md">
+  <header class="header--print | relative isolate overflow-hidden rounded-md p-2">
     <h1>Pand niet gevonden</h1>
   </header>
 

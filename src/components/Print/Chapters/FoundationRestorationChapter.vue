@@ -79,7 +79,7 @@ const recoveryDate = computed(() => {
           risicobeoordelingen verderop in het rapport gelden onafhankelijk daarvan.
         </p>
         <p>
-          De gegevens hieronder zijn afkomstig uit het Nationaal Funderingsherstelregister.
+          De gegevens hieronder zijn afkomstig uit het Nationaal Herstel Register.
         </p>
       </div>
       <dl role="list" class="list--definition">

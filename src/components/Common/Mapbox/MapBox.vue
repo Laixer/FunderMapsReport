@@ -39,9 +39,15 @@ provide('loaded', readonly(loaded))
  */
 const snapshot = ref<string | null>(null)
 
-// Hold the PDF ready-flag until this map has been snapshotted (or given up).
+// Hold the PDF ready-flag until this map has been snapshotted. When PDF.vue's
+// wait for all maps runs out first, the map is snapshotted as it is then.
 let resolveSettled: () => void = () => {}
-trackPending(new Promise<void>((resolve) => { resolveSettled = resolve }))
+trackPending(new Promise<void>((resolve) => { resolveSettled = resolve }), () => {
+  console.warn('Map snapshot taken at the time limit; the map may be incomplete')
+  capture()
+})
+
+let captured = false
 
 /**
  * Props
@@ -49,16 +55,27 @@ trackPending(new Promise<void>((resolve) => { resolveSettled = resolve }))
 const { 
   accessToken = import.meta.env.VITE_MAPBOX_TOKEN, 
   mapStyle = import.meta.env.VITE_MAPBOX_STYLE, 
-  options = {}
+  options = {},
+  onLoad
 } = defineProps<{
   accessToken?: string,
   mapStyle?: string,
-  options?: object
+  options?: object,
+  // The @load handler, declared as a prop so the snapshot can wait for the
+  // promise of an async handler (one that adds its layer after an import).
+  onLoad?: (event: { map: Map, sdk?: object }) => unknown
 }>()
 
-const emit = defineEmits<{
-  load: [{ map: Map, sdk?: object }]
-}>()
+const capture = function() {
+  if (captured) return
+  captured = true
+  try {
+    snapshot.value = map.getCanvas().toDataURL('image/png')
+  } catch (e) {
+    console.error('Map snapshot failed', e)
+  }
+  resolveSettled()
+}
 
 /**
  * 
@@ -73,7 +90,10 @@ const loadMapbox = function() {
   map = new mapboxSDK.Map(
     Object.assign({}, options, {
       container: mapcontainer.value,
-      preserveDrawingBuffer: true // Enables export to png
+      preserveDrawingBuffer: true, // Enables export to png
+      // Labels appear at once. A fade-in only adds frames before the 'idle'
+      // the snapshot waits for, and on a busy renderer a frame takes seconds.
+      fadeDuration: 0
     },
     // Do not override style from options with an empty string
     mapStyle && mapStyle !== '' ? { style: mapStyle } : {})
@@ -85,44 +105,26 @@ const loadMapbox = function() {
   // requests, no animations) rather than 'load' (style + initial tile batch
   // ready, but vector features may still be painting). 'idle' is strictly
   // stronger.
-  map.once('idle', () => {
+  map.once('idle', async () => {
     // Map is rendered. Mount any slot children and let the consumer's @load
     // handler attach markers / layers / heatmaps.
     loaded.value = true
-    emit('load', { map, sdk: mapboxSDK } )
-
-    // Then wait for the *next* idle (after marker/layer draw settles) and
-    // capture the canvas to a PNG so the print pipeline can snapshot it.
-    // The fallback poll covers consumers that trigger no redraw at all,
-    // but only fires once style + tiles report loaded — a bare timeout
-    // used to race the consumer's async layer (TileJSON fetch + tile
-    // paint on software WebGL) and snapshot a half-painted map. Hard cap
-    // so a broken source delays the PDF instead of hanging it.
-    let captured = false
-    const capture = () => {
-      if (captured) return
-      captured = true
-      requestAnimationFrame(() => {
-        try {
-          snapshot.value = map.getCanvas().toDataURL('image/png')
-        } catch (e) {
-          console.error('Map snapshot failed', e)
-        }
-        resolveSettled()
-      })
+    try {
+      await onLoad?.({ map, sdk: mapboxSDK })
+    } catch (e) {
+      console.error('Map layers failed', e)
     }
+
+    // Snapshot on the first 'idle' after the handler's last addSource /
+    // addLayer: it only fires once every source and tile in use has loaded
+    // and been painted. A check of isStyleLoaded() + areTilesLoaded() is not
+    // enough: both are true in the moment between a new source's metadata
+    // arriving and its first tile being requested, and the PDF then missed
+    // the pand marker or the Incidenten colours. The repaint makes sure an
+    // 'idle' follows even when the handler changed nothing.
+    if (captured) return
     map.once('idle', capture)
-
-    const pollStart = Date.now()
-    const poll = () => {
-      if (captured) return
-      if ((map.isStyleLoaded() && map.areTilesLoaded()) || Date.now() - pollStart > 15_000) {
-        capture()
-        return
-      }
-      setTimeout(poll, 500)
-    }
-    setTimeout(poll, 500)
+    map.triggerRepaint()
   })
 }
 
@@ -140,6 +142,7 @@ onMounted(() => {
  */ 
 onUnmounted(() => {
   // Never leave the PDF pipeline waiting on a map that no longer exists.
+  captured = true
   resolveSettled()
   nextTick(() => {
     map.remove()

@@ -57,11 +57,11 @@ export const EEnforcementTermLabels: Map<EEnforcementTerm, string> = new Map([
   [EEnforcementTerm.Term05, "0 tot 5 jaar"],
   [EEnforcementTerm.Term510, "5 tot 10 jaar"],
   [EEnforcementTerm.Term1020, "10 tot 20 jaar"],
-  [EEnforcementTerm.Term5, "tot 5 jaar (F3o)"],
-  [EEnforcementTerm.Term10, "tot 10 jaar (F3o)"],
-  [EEnforcementTerm.Term15, "tot 15 jaar (F3o)"],
-  [EEnforcementTerm.Term20, "tot 20 jaar (F3o)"],
-  [EEnforcementTerm.Term25, "tot 25 jaar (F3o)"],
-  [EEnforcementTerm.Term30, "tot 30 jaar (F3o)"],
-  [EEnforcementTerm.Term40, "tot 40 jaar (F3o)"]
+  [EEnforcementTerm.Term5, "tot 5 jaar (F3O)"],
+  [EEnforcementTerm.Term10, "tot 10 jaar (F3O)"],
+  [EEnforcementTerm.Term15, "tot 15 jaar (F3O)"],
+  [EEnforcementTerm.Term20, "tot 20 jaar (F3O)"],
+  [EEnforcementTerm.Term25, "tot 25 jaar (F3O)"],
+  [EEnforcementTerm.Term30, "tot 30 jaar (F3O)"],
+  [EEnforcementTerm.Term40, "tot 40 jaar (F3O)"]
 ]);
