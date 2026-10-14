@@ -67,9 +67,11 @@ const {
 }>()
 
 /**
- * The base-map style labels roads, water and places with their English name
- * where one exists ("Meuse" for the Maas). This report is Dutch: read the
- * local name instead, in every expression of a label layer.
+ * The base-map style labels water with its English name where one exists
+ * ("Meuse" for the Maas). This report is Dutch: the water labels read the
+ * local name instead. All other labels keep the style's choice: the local
+ * name of a place in Friesland can be the Frisian one ("Aldemardum"), not the
+ * official name its addresses use ("Oudemirdum").
  */
 const localName = (expression: unknown): unknown => {
   if (!Array.isArray(expression)) return expression
@@ -79,7 +81,7 @@ const localName = (expression: unknown): unknown => {
 
 const setLocalNames = function() {
   for (const layer of map.getStyle()?.layers ?? []) {
-    if (layer.type !== 'symbol') continue
+    if (layer.type !== 'symbol' || !layer.id.startsWith('water')) continue
     const textField = map.getLayoutProperty(layer.id, 'text-field')
     const local = localName(textField)
     if (JSON.stringify(local) !== JSON.stringify(textField)) {
