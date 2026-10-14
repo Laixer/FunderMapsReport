@@ -4,7 +4,6 @@ import { storeToRefs } from 'pinia';
 
 import { IInquiryReport } from '@/datastructures/interfaces/index.ts';
 
-import PageBreak from '@/components/Print/PageBreak.vue'
 import Chapter from '@/components/Print/Chapter.vue'
 import BarChart from '@/components/Charts/BarChart.vue';
 
@@ -102,5 +101,4 @@ const reportGraph = computed(() => {
     </section>
 
   </Chapter>
-  <PageBreak v-if="inquiryData.length || reportGraph.data.length" />
 </template>

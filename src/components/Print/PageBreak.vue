@@ -1,3 +1,3 @@
 <template>
-  <div class="page-break break-after-page"></div>
+  <div class="page-break"></div>
 </template>

@@ -122,7 +122,8 @@ const legendItems = [
 <template>
   <Chapter icon="alert" title="Incidenten">
 
-    <section class="space-y-10">
+    <!-- In one piece: the chapter may start halfway down a page, under the one before. -->
+    <section class="break-inside-avoid space-y-10">
       
       <div class="text-grey-700">
         <p>
@@ -135,7 +136,7 @@ const legendItems = [
       </div>
 
       <div>
-        <MapLegend :items="legendItems" :cols="4" />
+        <MapLegend :items="legendItems" :cols="5" />
       </div>
 
       <div class="space-y-4 text-grey-700">

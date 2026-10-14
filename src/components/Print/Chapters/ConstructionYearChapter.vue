@@ -48,8 +48,15 @@ const constructionGraph = computed(() => {
       // unknown construction year, not a period: no "1000-1009" bar.
       if (Number(decade.decade.yearFrom.substring(0, 4)) < 1100) return 'Onbekend'
 
+      const yearFrom = decade.decade.yearFrom.substring(0, 4)
+      const yearTo = decade.decade.yearTo.substring(0, 4)
+
+      // A decade that has not ended has no last year yet: "2020 t/m 2029"
+      // stood beside a legend that ends in "vanaf 2022".
+      if (Number(yearTo) >= new Date().getFullYear()) return `vanaf ${yearFrom}`
+
       // Written as the legend under the map writes a range
-      return `${decade.decade.yearFrom.substring(0, 4)} t/m ${decade.decade.yearTo.substring(0, 4)}`
+      return `${yearFrom} t/m ${yearTo}`
     })
   }
 })
