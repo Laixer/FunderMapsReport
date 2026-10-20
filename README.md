@@ -1,5 +1,9 @@
 # FunderMapsReport
 
+> **Retired 2026-10-20.** The API makes the PDF itself now, with Typst (FunderMapsApi `src/lib/report-pdf/` + `pdf/`).
+> The report site (`fundermaps-report-prod`), Gotenberg and the `fmrt.` render token are deleted. This repository is
+> archived and kept for reference only; the text below describes how it worked.
+
 Renders the FunderMaps foundation **report** as a web page that a headless
 renderer (**Gotenberg** / headless Chrome) turns into the downloadable PDF. It
 has no login UI. The API's `POST /api/pdf/:id` mints a render token per PDF
